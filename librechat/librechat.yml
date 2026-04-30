@@ -1,0 +1,30 @@
+version: 1.3.9
+
+cache: true
+
+webSearch:
+  searchProvider: "serper"
+  scraperProvider: "serper"
+  serperApiKey: "${SERPER_API_KEY}"
+  safeSearch: 1
+  scraperTimeout: 7500
+
+endpoints:
+  custom:
+    - name: "Flint Local"
+      apiKey: "not-needed"
+      baseURL: "http://vllm:8000/v1"
+
+      models:
+        default:
+          - "qwen14b-awq"
+        fetch: false
+
+      titleConvo: true
+      titleModel: "qwen14b-awq"
+
+      modelDisplayLabel: "Flint (Local vLLM)"
+
+      # optional but safe
+      dropParams:
+        - "stop"

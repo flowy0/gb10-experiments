@@ -1,0 +1,116 @@
+logLevel: debug
+healthCheckTimeout: 300
+
+groups:
+  test-models:
+    swap: true
+    exclusive: true
+
+models:
+  qwen25-coder-14b:
+    name: "Qwen2.5 Coder 14B Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-qwen25-coder-14b
+    cmd: |
+      docker run --rm \
+      --name ls-qwen25-coder-14b \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 4096 \
+      -ngl 99
+
+  gemma4-e4b-q4:
+    name: "Gemma 4 E4B IT Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-gemma4-e4b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-gemma4-e4b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/google_gemma-4-E4B-it-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 8192 \
+      -ngl 99
+
+  gemma4-e4b-q5:
+    name: "Gemma 4 E4B IT Q5_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-gemma4-e4b-q5
+    cmd: |
+      docker run --rm \
+      --name ls-gemma4-e4b-q5 \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/google_gemma-4-E4B-it-Q5_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 8192 \
+      -ngl 99
+
+  qwen35-9b-q4:
+    name: "Qwen3.5 9B Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-qwen35-9b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-qwen35-9b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/qwen3.5-9b-gguf/Qwen_Qwen3.5-9B-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 8192 \
+      -ngl 99
+
+  qwen36-27b-q4:
+    name: "Qwen3.6 27B Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-qwen36-27b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-qwen36-27b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 8192 \
+      -ngl 99
+
+  carnice-v2-27b-q2:
+    name: "Carnice v2 27B Q2_K via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-carnice-v2-27b-q2
+    cmd: |
+      docker run --rm \
+      --name ls-carnice-v2-27b-q2 \
+      --runtime=nvidia \
+      --network container:llama-swap-test \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/carnice-v2-27b-gguf/carnice-v2-27b-Q2_K.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 8192 \
+      -ngl 99
