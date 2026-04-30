@@ -1,0 +1,17 @@
+services:
+  llama-swap-test:
+    image: llama-swap:arm64
+    container_name: llama-swap-test
+    ports:
+      - "8088:8080"
+    volumes:
+      - /opt/atom/llama-swap/config.yaml:/app/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/atom/models:/models
+      - /home/g/.cache/huggingface:/root/.cache/huggingface
+    command:
+      - "--config"
+      - "/app/config.yaml"
+      - "--listen"
+      - "0.0.0.0:8080"
+    restart: unless-stoppes
