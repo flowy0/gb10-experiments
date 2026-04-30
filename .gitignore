@@ -1,0 +1,8 @@
+.env
+data
+.db
+
+models
+searxng
+open-webui
+secrets
