@@ -180,6 +180,9 @@ models:
       --host 0.0.0.0 \
       --port ${PORT} \
       -c 32768 \
+      --temp 0.15 \
+      --min-p 0.01 \
+      --repeat-penalty 1.05 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
       --jinja \
@@ -189,10 +192,10 @@ models:
     name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
     group: test-models
     ttl: 300
-    cmdStop: docker stop ls-devstral-small2-24b-q4
+    cmdStop: docker stop ls-devstral-small2-24b-q4-64k
     cmd: |
       docker run --rm \
-      --name ls-devstral-small2-24b-q4 \
+      --name ls-devstral-small2-24b-q4-64k \
       --runtime=nvidia \
       --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
@@ -201,6 +204,9 @@ models:
       --host 0.0.0.0 \
       --port ${PORT} \
       -c 65536 \
+      --temp 0.15 \
+      --min-p 0.01 \
+      --repeat-penalty 1.05 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
       --jinja \
@@ -223,6 +229,9 @@ models:
       --host 0.0.0.0 \
       --port ${PORT} \
       -c 32768 \
+      --temp 0.15 \
+      --top-p 0.95 \
+      --repeat-penalty 1.1 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
       -ngl 99
@@ -264,6 +273,9 @@ models:
       --host 0.0.0.0 \
       --port ${PORT} \
       -c 32768 \
+      --temp 0.1 \
+      --top-p 0.95 \
+      --repeat-penalty 1.1 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
       -ngl 99
@@ -371,10 +383,10 @@ models:
     name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
     group: code
     ttl: 900
-    cmdStop: docker stop ls-qwen35-27b-q4-32k
+    cmdStop: docker stop ls-qwen35-27b-q4-64k
     cmd: |
       docker run --rm \
-      --name ls-qwen35-27b-q4-32k \
+      --name ls-qwen35-27b-q4-64k \
       --runtime=nvidia \
       --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
