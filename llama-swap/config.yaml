@@ -191,7 +191,7 @@ models:
   devstral-small2-24b-q4-64k:
     name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
     group: test-models
-    ttl: 300
+    ttl: 900
     cmdStop: docker stop ls-devstral-small2-24b-q4-64k
     cmd: |
       docker run --rm \
@@ -356,7 +356,7 @@ models:
   unsloth-qwen35-27b-q4-32k:
     name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
     group: test-models
-    ttl: 300
+    ttl: 900
     cmdStop: docker stop ls-qwen35-27b-q4-32k
     cmd: |
       docker run --rm \
@@ -484,7 +484,7 @@ models:
   unsloth-gemma3-12b-q4-64k:
     name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
     group: test-models
-    ttl: 300
+    ttl: 900
     cmdStop: docker stop ls-unsloth-gemma3-12b-q4-64k
     cmd: |
       docker run --rm \
