@@ -2,6 +2,12 @@
 
 # llama-swap.Dockerfile
 
+
+# g@flint:/opt/atom/llama-swap$ docker run --rm ghcr.io/ggml-org/llama.cpp:server-cuda --version
+# load_backend: loaded CPU backend from /app/libggml-cpu-armv8.6_[2.so](http://2.so)
+# version: 8967 (fc2b0053f)
+# built with GNU 14.2.0 for Linux aarch64
+
 FROM ubuntu:22.04
 
 # Install dependencies AND docker.io so llama-swap can manage containers
