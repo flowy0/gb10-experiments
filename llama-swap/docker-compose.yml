@@ -1,7 +1,7 @@
 services:
   llama-swap-test:
     image: llama-swap:arm64
-    container_name: llama-swap-test
+    container_name: llama-swap
     ports:
       - "8088:8080"
     volumes:
@@ -14,4 +14,4 @@ services:
       - "/app/config.yaml"
       - "--listen"
       - "0.0.0.0:8080"
-    restart: unless-stoppes
+    restart: unless-stopped
