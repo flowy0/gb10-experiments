@@ -16,7 +16,7 @@ models:
       docker run --rm \
       --name ls-qwen25-coder-14b \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf \
@@ -25,8 +25,29 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       -ngl 99
+
+  # qwen25-coder-14b-fa:
+  #   name: "Qwen2.5 Coder 14B Q4_K_M-fa via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-qwen25-coder-14b-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-qwen25-coder-14b-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     -ngl 99
+
 
   gemma4-e4b-q4:
     name: "Gemma 4 E4B IT Q4_K_M via llama.cpp"
@@ -37,7 +58,7 @@ models:
       docker run --rm \
       --name ls-gemma4-e4b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/google_gemma-4-E4B-it-Q4_K_M.gguf \
@@ -59,7 +80,7 @@ models:
       docker run --rm \
       --name ls-qwen35-9b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/qwen3.5-9b-gguf/Qwen_Qwen3.5-9B-Q4_K_M.gguf \
@@ -81,7 +102,7 @@ models:
       docker run --rm \
       --name ls-qwen36-27b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
@@ -90,7 +111,6 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       --jinja \
       -ngl 99
 
@@ -103,7 +123,7 @@ models:
       docker run --rm \
       --name ls-gemma3-4b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/google_gemma-3-4b-it-Q4_K_M.gguf \
@@ -112,8 +132,34 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
+      --jinja \
       -ngl 99
+
+  # gemma3-4b-q4-fa:
+  #   name: "Gemma 3 4B IT Q4_K_M via llama.cpp with Flash Attention"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-gemma3-4b-q4-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-gemma3-4b-q4-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/google_gemma-3-4b-it-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --temp 1.0 \
+  #     --top-p 0.95 \
+  #     --top-k 64 \
+  #     --min-p 0.00 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     --jinja \
+  #     -ngl 99
 
   qwen25-coder-7b-q4:
     name: "Qwen2.5 Coder 7B Q4_K_M via llama.cpp"
@@ -124,7 +170,7 @@ models:
       docker run --rm \
       --name ls-qwen25-coder-7b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/qwen2.5-coder-7b-gguf/Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf \
@@ -133,7 +179,6 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       -ngl 99
 
   devstral-small2-24b-q4:
@@ -145,7 +190,7 @@ models:
       docker run --rm \
       --name ls-devstral-small2-24b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/devstral-small-2-24b-2512-gguf/mistralai_Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf \
@@ -154,7 +199,6 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       -ngl 99
 
   ministral3-3b-instruct-q6:
@@ -166,7 +210,7 @@ models:
       docker run --rm \
       --name ls-ministral3-3b-instruct-q6 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/ministral3-3b-instruct-2512-gguf/mistralai_Ministral-3-3B-Instruct-2512-Q6_K.gguf \
@@ -175,8 +219,28 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       -ngl 99
+
+  # ministral3-3b-instruct-q6-fa:
+  #   name: "Ministral 3 3B Instruct 2512 Q6_K-FA via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-ministral3-3b-instruct-q6-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-ministral3-3b-instruct-q6-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/ministral3-3b-instruct-2512-gguf/mistralai_Ministral-3-3B-Instruct-2512-Q6_K.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     -ngl 99
 
   ministral3-8b-instruct-q5:
     name: "Ministral 3 8B Instruct 2512 Q5_K_M via llama.cpp"
@@ -187,7 +251,7 @@ models:
       docker run --rm \
       --name ls-ministral3-8b-instruct-q5 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/ministral3-8b-instruct-2512-gguf/mistralai_Ministral-3-8B-Instruct-2512-Q5_K_M.gguf \
@@ -196,7 +260,6 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       -ngl 99
 
   qwen3-coder-30b-a3b-q4:
@@ -208,7 +271,7 @@ models:
       docker run --rm \
       --name ls-qwen3-coder-30b-a3b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
       -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
@@ -217,12 +280,34 @@ models:
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       --jinja \
       -ngl 99
 
+  # qwen3-coder-30b-a3b-q4-fa:
+  #   name: "Qwen3 Coder 30B-A3B Instruct Q4_K_M-FA via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-qwen3-coder-30b-a3b-q4-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-qwen3-coder-30b-a3b-q4-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     --jinja \
+  #     -ngl 99
+
+
   qwen35-27b-q4:
-    name: "Qwen3.5 27B Q4_K_M via llama.cpp"
+    name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
     group: test-models
     ttl: 300
     cmdStop: docker stop ls-qwen35-27b-q4
@@ -230,15 +315,186 @@ models:
       docker run --rm \
       --name ls-qwen35-27b-q4 \
       --runtime=nvidia \
-      --network container:llama-swap-test \
+      --network container:llama-swap \
       -v /opt/atom/models:/models:ro \
       ghcr.io/ggml-org/llama.cpp:server-cuda \
-      -m /models/qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
+      -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 16384 \
+      --temp 0.7 \
+      --top-p 0.8 \
+      --top-k 20 \
+      --min-p 0.00 \
+      --chat-template-kwargs '{"enable_thinking":false}' \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+  unsloth-gemma4-e4b-q4:
+    name: "Unsloth Gemma 4 E4B IT Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-unsloth-gemma4-e4b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-gemma4-e4b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 32768 \
+      --temp 1.0 \
+      --top-p 0.95 \
+      --top-k 64 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+  unsloth-gemma4-26b-a4b-q4:
+    name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-gemma4-26b-a4b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 16384 \
+      --temp 1.0 \
+      --top-p 0.95 \
+      --top-k 64 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+  # unsloth-gemma4-e4b-q4-fa:
+  #   name: "Unsloth Gemma 4 E4B IT Q4_K_M-FA via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-unsloth-gemma4-e4b-q4-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-unsloth-gemma4-e4b-q4-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --temp 1.0 \
+  #     --top-p 0.95 \
+  #     --top-k 64 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     --jinja \
+  #     -ngl 99
+
+  unsloth-gemma3-12b-q4:
+    name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-unsloth-gemma3-12b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-gemma3-12b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
       --host 0.0.0.0 \
       --port ${PORT} \
       -c 32768 \
       --cache-type-k q8_0 \
       --cache-type-v q8_0 \
-      --flash-attn on \
       --jinja \
       -ngl 99
+
+
+unsloth-gemma4-26b-a4b-q4:
+    name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-gemma4-26b-a4b-q4 \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 16384 \
+      --temp 1.0 \
+      --top-p 0.95 \
+      --top-k 64 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+
+  # unsloth-gemma4-26b-a4b-q4-fa:
+  #   name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M-FA via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-fa
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-unsloth-gemma4-26b-a4b-q4-fa \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 16384 \
+  #     --temp 1.0 \
+  #     --top-p 0.95 \
+  #     --top-k 64 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     -fa \
+  #     --jinja \
+  #     -ngl 99
+
+  # qwen35-27b-q4:
+  #   name: "Qwen3.5 27B Q4_K_M via llama.cpp"
+  #   group: test-models
+  #   ttl: 300
+  #   cmdStop: docker stop ls-qwen35-27b-q4
+  #   cmd: |
+  #     docker run --rm \
+  #     --name ls-qwen35-27b-q4 \
+  #     --runtime=nvidia \
+  #     --network container:llama-swap \
+  #     -v /opt/atom/models:/models:ro \
+  #     ghcr.io/ggml-org/llama.cpp:server-cuda \
+  #     -m /models/qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
+  #     --host 0.0.0.0 \
+  #     --port ${PORT} \
+  #     -c 32768 \
+  #     --cache-type-k q8_0 \
+  #     --cache-type-v q8_0 \
+  #     --flash-attn on \
+  #     --jinja \
+  #     -ngl 99
