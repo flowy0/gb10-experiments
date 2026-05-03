@@ -455,6 +455,31 @@ models:
       --jinja \
       -ngl 99
 
+  unsloth-gemma4-26b-a4b-q4-64k:
+    name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
+    group: test-models
+    ttl: 300
+    cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-gemma4-26b-a4b-q4-64k \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 65536 \
+      --temp 1.0 \
+      --top-p 0.95 \
+      --top-k 64 \
+      --chat-template-kwargs '{"enable_thinking":false}' \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
   unsloth-gemma3-12b-q4:
     name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
     group: test-models
@@ -480,6 +505,7 @@ models:
       --cache-type-v q8_0 \
       --jinja \
       -ngl 99
+
 
   unsloth-gemma3-12b-q4-64k:
     name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
@@ -528,6 +554,103 @@ models:
       --cache-type-v q8_0 \
       -ngl 99
 
+  unsloth-granite-4.1-8b-q5-64k:
+    name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp"
+    group: test-models
+    ttl: 900
+    cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-64k
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-granite-4.1-8b-q5-64k \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 65536 \
+      --temp 0.0 \
+      --top-k 0 \
+      --top-p 1.0 \
+      --repeat-penalty 1.05 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+  unsloth-granite-4.1-8b-q4-64k:
+    name: "Unsloth Granite 4.1 8B Q4_K_M via llama.cpp"
+    group: test-models
+    ttl: 900
+    cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-64k
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-granite-4.1-8b-q4-64k \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 65536 \
+      --top-k 0 \
+      --top-p 1.0 \
+      --repeat-penalty 1.05 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+  unsloth-granite-4.1-8b-q4-128k:
+    name: "Unsloth Granite 4.1 8B Q4_K_M 128K via llama.cpp"
+    group: test-models
+    ttl: 900
+    cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-128k
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-granite-4.1-8b-q4-128k \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q4_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 131072 \
+      --top-k 0 \
+      --top-p 1.0 \
+      --repeat-penalty 1.05 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
+
+
+  unsloth-granite-4.1-8b-q5-128k:
+    name: "Unsloth Granite 4.1 8B Q5_K_M 128K via llama.cpp"
+    group: test-models
+    ttl: 900
+    cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-128k
+    cmd: |
+      docker run --rm \
+      --name ls-unsloth-granite-4.1-8b-q5-128k \
+      --runtime=nvidia \
+      --network container:llama-swap \
+      -v /opt/atom/models:/models:ro \
+      ghcr.io/ggml-org/llama.cpp:server-cuda \
+      -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
+      --host 0.0.0.0 \
+      --port ${PORT} \
+      -c 131072 \
+      --top-k 0 \
+      --top-p 1.0 \
+      --repeat-penalty 1.05 \
+      --cache-type-k q8_0 \
+      --cache-type-v q8_0 \
+      --jinja \
+      -ngl 99
 
   # deepseek-coder-v2-lite-q4:
   #   name: "DeepSeek Coder V2 Lite Instruct Q4_K_M via llama.cpp"
