@@ -283,8 +283,8 @@ models:
 
     unsloth-qwen3-coder-30b-a3b-q4-64k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
-        group: test-models
-        ttl: 900
+        group: code
+        ttl: 14000
         cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-64k
         cmd: |
             docker run --rm \
