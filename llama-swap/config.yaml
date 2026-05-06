@@ -908,6 +908,147 @@ models:
             --cache-type-v q8_0 \
             --jinja \
             -ngl 99
+
+    unsloth-qwen35-35b-a3b-q4-64k:
+        name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking via llama.cpp"
+        group: test-models
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k
+        cmd: |
+            docker run --rm \
+              --name ls-unsloth-qwen35-35b-a3b-q4-64k \
+              --runtime=nvidia \
+              --network container:llama-swap \
+              -v /opt/atom/models:/models:ro \
+              ghcr.io/ggml-org/llama.cpp:server-cuda \
+              -m /models/qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
+              --host 0.0.0.0 \
+              --port ${PORT} \
+              -c 65536 \
+              --temp 0.7 \
+              --top-p 0.8 \
+              --top-k 20 \
+              --min-p 0.00 \
+              --presence-penalty 1.5 \
+              --repeat-penalty 1.0 \
+              --chat-template-kwargs '{"enable_thinking":false}' \
+              --cache-type-k q8_0 \
+              --cache-type-v q8_0 \
+              --jinja \
+              -ngl 99
+
+    unsloth-qwen35-35b-a3b-q4-64k-thinking:
+        name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking via llama.cpp"
+        group: test-models
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking
+        cmd: |
+            docker run --rm \
+              --name ls-unsloth-qwen35-35b-a3b-q4-64k-thinking \
+              --runtime=nvidia \
+              --network container:llama-swap \
+              -v /opt/atom/models:/models:ro \
+              ghcr.io/ggml-org/llama.cpp:server-cuda \
+              -m /models/qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
+              --host 0.0.0.0 \
+              --port ${PORT} \
+              -c 65536 \
+              --temp 1.0 \
+              --top-p 0.95 \
+              --top-k 20 \
+              --min-p 0.00 \
+              --presence-penalty 1.5 \
+              --repeat-penalty 1.0 \
+              --cache-type-k q8_0 \
+              --cache-type-v q8_0 \
+              --jinja \
+              -ngl 99
+
+    unsloth-qwen35-35b-a3b-q4-64k-thinking-code:
+        name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking-code via llama.cpp"
+        group: test-models
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code
+        cmd: |
+            docker run --rm \
+              --name ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code \
+              --runtime=nvidia \
+              --network container:llama-swap \
+              -v /opt/atom/models:/models:ro \
+              ghcr.io/ggml-org/llama.cpp:server-cuda \
+              -m /models/qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
+              --host 0.0.0.0 \
+              --port ${PORT} \
+              -c 65536 \
+              --temp 0.6 \
+              --top-p 0.95 \
+              --top-k 20 \
+              --min-p 0.00 \
+              --presence-penalty 0.0 \
+              --repeat-penalty 1.0 \
+              --cache-type-k q8_0 \
+              --cache-type-v q8_0 \
+              --jinja \
+              -ngl 99
+
+    unsloth-qwen35-35b-a3b-q4-64k-fa:
+        name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
+        group: test-models
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-fa
+        cmd: |
+            docker run --rm \
+              --name ls-unsloth-qwen35-35b-a3b-q4-64k-fa \
+              --runtime=nvidia \
+              --network container:llama-swap \
+              -v /opt/atom/models:/models:ro \
+              ghcr.io/ggml-org/llama.cpp:server-cuda \
+              -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
+              --host 0.0.0.0 \
+              --port ${PORT} \
+              -c 65536 \
+              --temp 0.7 \
+              --top-p 0.8 \
+              --top-k 20 \
+              --min-p 0.00 \
+              --presence-penalty 1.5 \
+              --repeat-penalty 1.0 \
+              --chat-template-kwargs '{"enable_thinking":false}' \
+              --cache-type-k q8_0 \
+              --cache-type-v q8_0 \
+              --flash-attn \
+              --jinja \
+              -ngl 99
+
+    unsloth-qwen35-35b-a3b-q4-128k-fa:
+        name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
+        group: test-models
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-128k-fa
+        cmd: |
+            docker run --rm \
+              --name ls-unsloth-qwen35-35b-a3b-q4-128k-fa \
+              --runtime=nvidia \
+              --network container:llama-swap \
+              -v /opt/atom/models:/models:ro \
+              ghcr.io/ggml-org/llama.cpp:server-cuda \
+              -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
+              --host 0.0.0.0 \
+              --port ${PORT} \
+              -c 131072 \
+              --temp 0.7 \
+              --top-p 0.8 \
+              --top-k 20 \
+              --min-p 0.00 \
+              --presence-penalty 1.5 \
+              --repeat-penalty 1.0 \
+              --chat-template-kwargs '{"enable_thinking":false}' \
+              --cache-type-k q8_0 \
+              --cache-type-v q8_0 \
+              --flash-attn \
+              --jinja \
+              -ngl 99
+
     # unsloth-qwen3-coder-30b-a3b-q4-128k-q5cache:
     #     name: "Unsloth Qwen3 Coder 30B-A3B Q5_1 KV cache"
     #     group: code
