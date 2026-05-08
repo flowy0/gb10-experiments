@@ -568,6 +568,7 @@ models:
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
+            --no-warmup \
             -ngl 99
 
     unsloth-gemma4-26b-a4b-q4-128k-fa:
@@ -593,6 +594,7 @@ models:
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
+            --no-warmup \
             -ngl 99
 
     unsloth-gemma4-26b-a4b-q4-128k-fa-think:
@@ -617,6 +619,7 @@ models:
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
+            --no-warmup \
             -ngl 99
 
     unsloth-gemma3-12b-q4:
