@@ -1,31 +1,9 @@
 logLevel: debug
 healthCheckTimeout: 300
 
-groups:
-    test-models:
-        swap: true
-        exclusive: true
-
-    code:
-        swap: true
-        exclusive: true
-
-    research:
-        swap: true
-        exclusive: true
-
-    stable:
-        swap: true
-        exclusive: true
-
-    summary:
-        swap: true
-        exclusive: true
-
 models:
     qwen25-coder-14b:
         name: "Qwen2.5 Coder 14B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen25-coder-14b
         cmd: |
@@ -45,7 +23,6 @@ models:
 
     gemma4-e4b-q4:
         name: "Gemma 4 E4B IT Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-gemma4-e4b-q4
         cmd: |
@@ -66,7 +43,6 @@ models:
 
     qwen35-9b-q4:
         name: "Qwen3.5 9B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen35-9b-q4
         cmd: |
@@ -88,7 +64,6 @@ models:
 
     qwen35-9b-q4-64k:
         name: "Qwen3.5 9B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen35-9b-q4
         cmd: |
@@ -110,7 +85,6 @@ models:
 
     qwen36-27b-q4:
         name: "Qwen3.6 27B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen36-27b-q4
         cmd: |
@@ -131,7 +105,6 @@ models:
 
     gemma3-4b-q4:
         name: "Gemma 3 4B IT Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-gemma3-4b-q4
         cmd: |
@@ -152,7 +125,6 @@ models:
 
     qwen25-coder-7b-q4:
         name: "Qwen2.5 Coder 7B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen25-coder-7b-q4
         cmd: |
@@ -172,7 +144,6 @@ models:
 
     devstral-small2-24b-q4:
         name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
-        group: code
         ttl: 300
         cmdStop: docker stop ls-devstral-small2-24b-q4
         cmd: |
@@ -196,7 +167,6 @@ models:
 
     devstral-small2-24b-q4-64k:
         name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-devstral-small2-24b-q4-64k
         cmd: |
@@ -220,7 +190,6 @@ models:
 
     ministral3-3b-instruct-q6:
         name: "Ministral 3 3B Instruct 2512 Q6_K via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-ministral3-3b-instruct-q6
         cmd: |
@@ -243,7 +212,6 @@ models:
 
     ministral3-8b-instruct-q5:
         name: "Ministral 3 8B Instruct 2512 Q5_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-ministral3-8b-instruct-q5
         cmd: |
@@ -266,7 +234,6 @@ models:
 
     qwen3-coder-30b-a3b-q4:
         name: "Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen3-coder-30b-a3b-q4
         cmd: |
@@ -287,7 +254,6 @@ models:
 
     unsloth-qwen3-coder-30b-a3b-q4-64k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
-        group: code
         ttl: 14000
         cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-64k
         cmd: |
@@ -312,7 +278,6 @@ models:
 
     unsloth-qwen3-coder-30b-a3b-q4-128k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
-        group: code
         ttl: 14000
         cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-128k
         cmd: |
@@ -337,7 +302,6 @@ models:
 
     unsloth-qwen3-coder-30b-a3b-q4-128k-fa:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
-        group: code
         ttl: 14000
         cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-128k-fa
         cmd: |
@@ -355,7 +319,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --repeat-penalty 1.05 \
-            --flash-attn on
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -363,7 +327,6 @@ models:
 
     qwen35-27b-q4:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-qwen35-27b-q4
         cmd: |
@@ -389,7 +352,6 @@ models:
 
     unsloth-qwen35-27b-q4-32k:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
-        group: test-models
         ttl: 900
         cmdStop: docker stop ls-qwen35-27b-q4-32k
         cmd: |
@@ -415,7 +377,6 @@ models:
 
     unsloth-qwen35-27b-q4-64k:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
-        group: code
         ttl: 900
         cmdStop: docker stop ls-qwen35-27b-q4-64k
         cmd: |
@@ -441,7 +402,6 @@ models:
 
     unsloth-gemma4-e4b-q4:
         name: "Unsloth Gemma 4 E4B IT Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-e4b-q4
         cmd: |
@@ -466,7 +426,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4
         cmd: |
@@ -491,7 +450,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-fa
         cmd: |
@@ -509,7 +467,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --chat-template-kwargs '{"enable_thinking":false}' \
-            --flash-attn on
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -517,7 +475,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-64k:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k
         cmd: |
@@ -542,7 +499,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-64k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash attention"
-        group: stable
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k-fa
         cmd: |
@@ -560,6 +516,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --chat-template-kwargs '{"enable_thinking":false}' \
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -567,7 +524,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-64k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash attention"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k-fa-think
         cmd: |
@@ -584,6 +540,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -591,7 +548,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-128k:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
-        group: stable
         ttl: 86400
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k
         cmd: |
@@ -616,7 +572,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-128k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
-        group: stable
         ttl: 86400
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k-fa
         cmd: |
@@ -634,7 +589,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --chat-template-kwargs '{"enable_thinking":false}' \
-            --flash-attn on
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -642,7 +597,6 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-128k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
-        group: stable
         ttl: 86400
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k-fa-think
         cmd: |
@@ -659,7 +613,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --flash-attn on
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -667,7 +621,6 @@ models:
 
     unsloth-gemma3-12b-q4:
         name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma3-12b-q4
         cmd: |
@@ -693,7 +646,6 @@ models:
 
     unsloth-gemma3-12b-q4-64k:
         name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma3-12b-q4-64k
         cmd: |
@@ -719,7 +671,6 @@ models:
 
     codestral-22b-q4:
         name: "Codestral 22B v0.1 Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker rm -f ls-codestral-22b-q4
         cmd: |
@@ -740,7 +691,6 @@ models:
 
     unsloth-granite-4.1-8b-q5:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5
         cmd: |
@@ -765,7 +715,6 @@ models:
 
     unsloth-granite-4.1-8b-q5-fa:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp, flash attention"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-fa
         cmd: |
@@ -783,7 +732,7 @@ models:
             --top-k 0 \
             --top-p 1.0 \
             --repeat-penalty 1.05 \
-            --flash-attn on
+            --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -791,7 +740,6 @@ models:
 
     unsloth-granite-4.1-8b-q5-64k:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-64k
         cmd: |
@@ -816,7 +764,6 @@ models:
 
     unsloth-granite-4.1-8b-q4-64k:
         name: "Unsloth Granite 4.1 8B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-64k
         cmd: |
@@ -840,7 +787,6 @@ models:
 
     unsloth-granite-4.1-8b-q4-128k:
         name: "Unsloth Granite 4.1 8B Q4_K_M 128K via llama.cpp"
-        group: summary
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-128k
         cmd: |
@@ -864,7 +810,6 @@ models:
 
     unsloth-granite-4.1-8b-q5-128k:
         name: "Unsloth Granite 4.1 8B Q5_K_M 128K via llama.cpp"
-        group: test-models
         ttl: 120
         cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-128k
         cmd: |
@@ -888,7 +833,6 @@ models:
 
     unsloth-granite-4.1-30b-q4-32k:
         name: "Unsloth Granite 4.1 30B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-32k
         cmd: |
@@ -912,7 +856,6 @@ models:
 
     unsloth-granite-4.1-30b-q4-64k:
         name: "Unsloth Granite 4.1 30B Q4_K_M via llama.cpp"
-        group: test-models
         ttl: 300
         cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-64k
         cmd: |
@@ -936,7 +879,6 @@ models:
 
     unsloth-granite-4.1-30b-q4-128k:
         name: "Unsloth Granite 4.1 30B Q4_K_M 128K via llama.cpp"
-        group: test-models
         ttl: 120
         cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-128k
         cmd: |
@@ -960,7 +902,6 @@ models:
 
     unsloth-qwen35-35b-a3b-q4-64k:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking via llama.cpp"
-        group: test-models
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k
         cmd: |
@@ -988,7 +929,6 @@ models:
 
     unsloth-qwen35-35b-a3b-q4-64k-thinking:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking via llama.cpp"
-        group: test-models
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking
         cmd: |
@@ -1015,7 +955,6 @@ models:
 
     unsloth-qwen35-35b-a3b-q4-64k-thinking-code:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking-code via llama.cpp"
-        group: test-models
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code
         cmd: |
@@ -1042,7 +981,6 @@ models:
 
     unsloth-qwen35-35b-a3b-q4-64k-fa:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
-        group: test-models
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-fa
         cmd: |
@@ -1065,13 +1003,12 @@ models:
               --chat-template-kwargs '{"enable_thinking":false}' \
               --cache-type-k q8_0 \
               --cache-type-v q8_0 \
-              --flash-attn \
+              --flash-attn on \
               --jinja \
               -ngl 99
 
     unsloth-qwen35-35b-a3b-q4-128k-fa:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
-        group: hermes
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-128k-fa
         cmd: |
@@ -1094,7 +1031,7 @@ models:
               --chat-template-kwargs '{"enable_thinking":false}' \
               --cache-type-k q8_0 \
               --cache-type-v q8_0 \
-              --flash-attn \
+              --flash-attn on \
               --jinja \
               -ngl 99
 
@@ -1147,3 +1084,73 @@ models:
     #         --cache-type-v q5_1 \
     #         --jinja \
     #         -ngl 99
+
+groups:
+    test-models:
+        swap: true
+        exclusive: false
+        members:
+            - qwen25-coder-14b
+            - gemma4-e4b-q4
+            - qwen35-9b-q4
+            - qwen35-9b-q4-64k
+            - qwen36-27b-q4
+            - gemma3-4b-q4
+            - qwen25-coder-7b-q4
+            - devstral-small2-24b-q4-64k
+            - ministral3-3b-instruct-q6
+            - ministral3-8b-instruct-q5
+            - qwen3-coder-30b-a3b-q4
+            - qwen35-27b-q4
+            - unsloth-qwen35-27b-q4-32k
+            - unsloth-gemma4-e4b-q4
+            - unsloth-gemma4-26b-a4b-q4
+            - unsloth-gemma4-26b-a4b-q4-fa
+            - unsloth-gemma4-26b-a4b-q4-64k
+            - unsloth-gemma4-26b-a4b-q4-64k-fa-think
+            - unsloth-gemma3-12b-q4
+            - unsloth-gemma3-12b-q4-64k
+            - codestral-22b-q4
+            - unsloth-granite-4.1-8b-q5
+            - unsloth-granite-4.1-8b-q5-fa
+            - unsloth-granite-4.1-8b-q5-64k
+            - unsloth-granite-4.1-8b-q4-64k
+            - unsloth-granite-4.1-8b-q5-128k
+            - unsloth-granite-4.1-30b-q4-32k
+            - unsloth-granite-4.1-30b-q4-64k
+            - unsloth-granite-4.1-30b-q4-128k
+            - unsloth-qwen35-35b-a3b-q4-64k
+            - unsloth-qwen35-35b-a3b-q4-64k-thinking
+            - unsloth-qwen35-35b-a3b-q4-64k-thinking-code
+            - unsloth-qwen35-35b-a3b-q4-64k-fa
+    code:
+        swap: true
+        exclusive: false
+        members:
+            - devstral-small2-24b-q4
+            - unsloth-qwen3-coder-30b-a3b-q4-64k
+            - unsloth-qwen3-coder-30b-a3b-q4-128k
+            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
+            - unsloth-qwen35-27b-q4-64k
+    research:
+        swap: true
+        exclusive: false
+        members: []
+    stable:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-gemma4-26b-a4b-q4-64k-fa
+            - unsloth-gemma4-26b-a4b-q4-128k
+            - unsloth-gemma4-26b-a4b-q4-128k-fa
+            - unsloth-gemma4-26b-a4b-q4-128k-fa-think
+    summary:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-granite-4.1-8b-q4-128k
+    hermes:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-qwen35-35b-a3b-q4-128k-fa
