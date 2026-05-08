@@ -542,7 +542,7 @@ models:
 
     unsloth-gemma4-26b-a4b-q4-64k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash attention"
-        group: test-models
+        group: stable
         ttl: 300
         cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k-fa
         cmd: |
@@ -1071,7 +1071,7 @@ models:
 
     unsloth-qwen35-35b-a3b-q4-128k-fa:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
-        group: test-models
+        group: hermes
         ttl: 900
         cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-128k-fa
         cmd: |
