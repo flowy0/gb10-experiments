@@ -483,6 +483,318 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-35b-a3b-q2:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
+        ttl: 300
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2 \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 32768 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 300
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 32768 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-128k:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-128k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-128k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-128k-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-128k-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-128k-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-256k:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
+        ttl: 3600
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-256k-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 3600
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-256k-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-256k-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
+        ttl: 300
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2 \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 32768 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 300
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 32768 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-128k:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-128k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-128k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 900
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-256k:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
+        ttl: 3600
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
+        ttl: 3600
+        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     gemma3-4b-q4:
         name: "Gemma 3 4B IT Q4_K_M via llama.cpp"
         ttl: 300
@@ -1492,6 +1804,18 @@ groups:
             - unsloth-qwen36-27b-mtp-q4-256k
             - unsloth-qwen36-27b-mtp-q4-256k-thinking
             - unsloth-qwen36-27b-mtp-q4-256k-thinking-code
+            - unsloth-qwen36-35b-a3b-q2
+            - unsloth-qwen36-35b-a3b-q2-thinking
+            - unsloth-qwen36-35b-a3b-q2-128k
+            - unsloth-qwen36-35b-a3b-q2-128k-thinking
+            - unsloth-qwen36-35b-a3b-q2-256k
+            - unsloth-qwen36-35b-a3b-q2-256k-thinking
+            - unsloth-qwen36-35b-a3b-mtp-q2
+            - unsloth-qwen36-35b-a3b-mtp-q2-thinking
+            - unsloth-qwen36-35b-a3b-mtp-q2-128k
+            - unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking
+            - unsloth-qwen36-35b-a3b-mtp-q2-256k
+            - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking
             - gemma3-4b-q4
             - qwen25-coder-7b-q4
             - devstral-small2-24b-q4-64k
