@@ -5,7 +5,7 @@ models:
     qwen25-coder-14b:
         name: "Qwen2.5 Coder 14B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen25-coder-14b
+        cmdStop: docker rm -f ls-qwen25-coder-14b
         cmd: |
             docker run --rm \
             --name ls-qwen25-coder-14b \
@@ -19,13 +19,12 @@ models:
             -c 32768 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
             -ngl 99
 
     gemma4-e4b-q4:
         name: "Gemma 4 E4B IT Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-gemma4-e4b-q4
+        cmdStop: docker rm -f ls-gemma4-e4b-q4
         cmd: |
             docker run --rm \
             --name ls-gemma4-e4b-q4 \
@@ -45,7 +44,7 @@ models:
     qwen35-9b-q4:
         name: "Qwen3.5 9B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen35-9b-q4
+        cmdStop: docker rm -f ls-qwen35-9b-q4
         cmd: |
             docker run --rm \
             --name ls-qwen35-9b-q4 \
@@ -66,7 +65,7 @@ models:
     qwen35-9b-q4-64k:
         name: "Qwen3.5 9B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen35-9b-q4-64k
+        cmdStop: docker rm -f ls-qwen35-9b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-qwen35-9b-q4-64k \
@@ -87,7 +86,7 @@ models:
     unsloth-qwen36-27b-q4:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4 \
@@ -113,7 +112,7 @@ models:
     unsloth-qwen36-27b-q4-64k:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4-64k \
@@ -139,7 +138,7 @@ models:
     unsloth-qwen36-27b-q4-128k:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4-128k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4-128k \
@@ -166,7 +165,7 @@ models:
     unsloth-qwen36-27b-q4-256k:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4-256k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-256k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4-256k \
@@ -193,7 +192,7 @@ models:
     unsloth-qwen36-27b-q4-thinking:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp - thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4-thinking \
@@ -218,7 +217,7 @@ models:
     unsloth-qwen36-27b-q4-thinking-code:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp - thinking code"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-q4-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-thinking-code
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-q4-thinking-code \
@@ -243,7 +242,7 @@ models:
     unsloth-qwen36-27b-mtp-q4:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4 \
@@ -270,7 +269,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-thinking:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-thinking \
@@ -297,7 +296,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-thinking-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking code"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-thinking-code
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-thinking-code \
@@ -324,7 +323,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-64k:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-64k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-64k \
@@ -351,7 +350,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-64k-thinking:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-64k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-64k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-64k-thinking \
@@ -378,7 +377,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-64k-thinking-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking code"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-64k-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-64k-thinking-code
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-64k-thinking-code \
@@ -405,7 +404,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-128k:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-128k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-128k \
@@ -433,7 +432,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-128k-thinking:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-128k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-128k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-128k-thinking \
@@ -461,7 +460,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-128k-thinking-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking code"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-128k-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-128k-thinking-code
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-128k-thinking-code \
@@ -489,7 +488,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-256k:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-256k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-256k \
@@ -517,7 +516,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-256k-thinking:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-256k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-256k-thinking \
@@ -545,7 +544,7 @@ models:
     unsloth-qwen36-27b-mtp-q4-256k-thinking-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking code"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-256k-thinking-code
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-27b-mtp-q4-256k-thinking-code \
@@ -573,7 +572,7 @@ models:
     unsloth-qwen36-35b-a3b-q2:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2 \
@@ -599,7 +598,7 @@ models:
     unsloth-qwen36-35b-a3b-q2-thinking:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2-thinking \
@@ -624,7 +623,7 @@ models:
     unsloth-qwen36-35b-a3b-q2-128k:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-128k
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2-128k \
@@ -651,7 +650,7 @@ models:
     unsloth-qwen36-35b-a3b-q2-128k-thinking:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-128k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-128k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2-128k-thinking \
@@ -677,7 +676,7 @@ models:
     unsloth-qwen36-35b-a3b-q2-256k:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-256k
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2-256k \
@@ -704,7 +703,7 @@ models:
     unsloth-qwen36-35b-a3b-q2-256k-thinking:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-q2-256k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-q2-256k-thinking \
@@ -730,7 +729,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2 \
@@ -757,7 +756,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2-thinking:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2-thinking \
@@ -774,7 +773,6 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --spec-type draft-mtp --spec-draft-n-max 2 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -783,7 +781,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2-128k:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-128k
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2-128k \
@@ -811,7 +809,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2-128k-thinking \
@@ -828,7 +826,6 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --spec-type draft-mtp --spec-draft-n-max 2 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -838,7 +835,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2-256k:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-256k
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-256k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2-256k \
@@ -866,7 +863,7 @@ models:
     unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking:
         name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking \
@@ -883,7 +880,6 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --spec-type draft-mtp --spec-draft-n-max 2 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -893,7 +889,7 @@ models:
     gemma3-4b-q4:
         name: "Gemma 3 4B IT Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-gemma3-4b-q4
+        cmdStop: docker rm -f ls-gemma3-4b-q4
         cmd: |
             docker run --rm \
             --name ls-gemma3-4b-q4 \
@@ -913,7 +909,7 @@ models:
     qwen25-coder-7b-q4:
         name: "Qwen2.5 Coder 7B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen25-coder-7b-q4
+        cmdStop: docker rm -f ls-qwen25-coder-7b-q4
         cmd: |
             docker run --rm \
             --name ls-qwen25-coder-7b-q4 \
@@ -927,13 +923,12 @@ models:
             -c 32768 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
             -ngl 99
 
     devstral-small2-24b-q4:
         name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-devstral-small2-24b-q4
+        cmdStop: docker rm -f ls-devstral-small2-24b-q4
         cmd: |
             docker run --rm \
             --name ls-devstral-small2-24b-q4 \
@@ -956,7 +951,7 @@ models:
     devstral-small2-24b-q4-64k:
         name: "Devstral Small 2 24B Instruct 2512 Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-devstral-small2-24b-q4-64k
+        cmdStop: docker rm -f ls-devstral-small2-24b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-devstral-small2-24b-q4-64k \
@@ -979,7 +974,7 @@ models:
     ministral3-3b-instruct-q6:
         name: "Ministral 3 3B Instruct 2512 Q6_K via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-ministral3-3b-instruct-q6
+        cmdStop: docker rm -f ls-ministral3-3b-instruct-q6
         cmd: |
             docker run --rm \
             --name ls-ministral3-3b-instruct-q6 \
@@ -1002,7 +997,7 @@ models:
     ministral3-8b-instruct-q5:
         name: "Ministral 3 8B Instruct 2512 Q5_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-ministral3-8b-instruct-q5
+        cmdStop: docker rm -f ls-ministral3-8b-instruct-q5
         cmd: |
             docker run --rm \
             --name ls-ministral3-8b-instruct-q5 \
@@ -1025,7 +1020,7 @@ models:
     qwen3-coder-30b-a3b-q4:
         name: "Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen3-coder-30b-a3b-q4
+        cmdStop: docker rm -f ls-qwen3-coder-30b-a3b-q4
         cmd: |
             docker run --rm \
             --name ls-qwen3-coder-30b-a3b-q4 \
@@ -1045,7 +1040,7 @@ models:
     unsloth-qwen3-coder-30b-a3b-q4-64k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 14000
-        cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-qwen3-coder-30b-a3b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen3-coder-30b-a3b-q4-64k \
@@ -1069,7 +1064,7 @@ models:
     unsloth-qwen3-coder-30b-a3b-q4-128k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 14000
-        cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-128k
+        cmdStop: docker rm -f ls-unsloth-qwen3-coder-30b-a3b-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen3-coder-30b-a3b-q4-128k \
@@ -1093,7 +1088,7 @@ models:
     unsloth-qwen3-coder-30b-a3b-q4-128k-fa:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 14000
-        cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-128k-fa
+        cmdStop: docker rm -f ls-unsloth-qwen3-coder-30b-a3b-q4-128k-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-qwen3-coder-30b-a3b-q4-128k-fa \
@@ -1118,7 +1113,7 @@ models:
     qwen35-27b-q4:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
         ttl: 300
-        cmdStop: docker stop ls-qwen35-27b-q4
+        cmdStop: docker rm -f ls-qwen35-27b-q4
         cmd: |
             docker run --rm \
             --name ls-qwen35-27b-q4 \
@@ -1143,7 +1138,7 @@ models:
     unsloth-qwen35-27b-q4-32k:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
         ttl: 900
-        cmdStop: docker stop ls-qwen35-27b-q4-32k
+        cmdStop: docker rm -f ls-qwen35-27b-q4-32k
         cmd: |
             docker run --rm \
             --name ls-qwen35-27b-q4-32k \
@@ -1168,7 +1163,7 @@ models:
     unsloth-qwen35-27b-q4-64k:
         name: "Unsloth Qwen3.5 27B Q4_K_M via llama.cpp - non-thinking"
         ttl: 900
-        cmdStop: docker stop ls-qwen35-27b-q4-64k
+        cmdStop: docker rm -f ls-qwen35-27b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-qwen35-27b-q4-64k \
@@ -1193,7 +1188,7 @@ models:
     unsloth-gemma4-e4b-q4:
         name: "Unsloth Gemma 4 E4B IT Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-e4b-q4
+        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-q4
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-e4b-q4 \
@@ -1217,7 +1212,7 @@ models:
     unsloth-gemma4-26b-a4b-q4:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4 \
@@ -1241,7 +1236,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-fa
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-fa \
@@ -1266,7 +1261,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-64k:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-64k \
@@ -1290,7 +1285,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-64k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash attention"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k-fa
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-64k-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-64k-fa \
@@ -1315,7 +1310,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-64k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash attention"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-64k-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-64k-fa-think
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-64k-fa-think \
@@ -1339,7 +1334,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-128k:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
         ttl: 86400
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-128k \
@@ -1364,7 +1359,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-128k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
         ttl: 86400
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k-fa
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-128k-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-128k-fa \
@@ -1390,7 +1385,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-128k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
         ttl: 86400
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-128k-fa-think
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-128k-fa-think \
@@ -1415,7 +1410,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-256k:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-256k
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-256k
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-256k \
@@ -1440,7 +1435,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-256k-fa:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-thinking, flash-attention"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-256k-fa
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-256k-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-256k-fa \
@@ -1466,7 +1461,7 @@ models:
     unsloth-gemma4-26b-a4b-q4-256k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - flash-attention, thinking"
         ttl: 3600
-        cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-256k-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-256k-fa-think
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-q4-256k-fa-think \
@@ -1491,7 +1486,7 @@ models:
     unsloth-gemma3-12b-q4:
         name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma3-12b-q4
+        cmdStop: docker rm -f ls-unsloth-gemma3-12b-q4
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma3-12b-q4 \
@@ -1516,7 +1511,7 @@ models:
     unsloth-gemma3-12b-q4-64k:
         name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-gemma3-12b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-gemma3-12b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma3-12b-q4-64k \
@@ -1561,7 +1556,7 @@ models:
     unsloth-granite-4.1-8b-q5:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q5
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q5 \
@@ -1585,7 +1580,7 @@ models:
     unsloth-granite-4.1-8b-q5-fa:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp, flash attention"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-fa
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q5-fa
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q5-fa \
@@ -1610,7 +1605,7 @@ models:
     unsloth-granite-4.1-8b-q5-64k:
         name: "Unsloth Granite 4.1 8B Q5_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-64k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q5-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q5-64k \
@@ -1634,7 +1629,7 @@ models:
     unsloth-granite-4.1-8b-q4-64k:
         name: "Unsloth Granite 4.1 8B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q4-64k \
@@ -1657,7 +1652,7 @@ models:
     unsloth-granite-4.1-8b-q4-128k:
         name: "Unsloth Granite 4.1 8B Q4_K_M 128K via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q4-128k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q4-128k \
@@ -1680,7 +1675,7 @@ models:
     unsloth-granite-4.1-8b-q5-128k:
         name: "Unsloth Granite 4.1 8B Q5_K_M 128K via llama.cpp"
         ttl: 120
-        cmdStop: docker stop ls-unsloth-granite-4.1-8b-q5-128k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-8b-q5-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-8b-q5-128k \
@@ -1703,7 +1698,7 @@ models:
     unsloth-granite-4.1-30b-q4-32k:
         name: "Unsloth Granite 4.1 30B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-32k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-30b-q4-32k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-30b-q4-32k \
@@ -1726,7 +1721,7 @@ models:
     unsloth-granite-4.1-30b-q4-64k:
         name: "Unsloth Granite 4.1 30B Q4_K_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-30b-q4-64k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-30b-q4-64k \
@@ -1749,7 +1744,7 @@ models:
     unsloth-granite-4.1-30b-q4-128k:
         name: "Unsloth Granite 4.1 30B Q4_K_M 128K via llama.cpp"
         ttl: 120
-        cmdStop: docker stop ls-unsloth-granite-4.1-30b-q4-128k
+        cmdStop: docker rm -f ls-unsloth-granite-4.1-30b-q4-128k
         cmd: |
             docker run --rm \
             --name ls-unsloth-granite-4.1-30b-q4-128k \
@@ -1772,7 +1767,7 @@ models:
     unsloth-qwen35-35b-a3b-q4-64k:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k
+        cmdStop: docker rm -f ls-unsloth-qwen35-35b-a3b-q4-64k
         cmd: |
             docker run --rm \
               --name ls-unsloth-qwen35-35b-a3b-q4-64k \
@@ -1799,7 +1794,7 @@ models:
     unsloth-qwen35-35b-a3b-q4-64k-thinking:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking
+        cmdStop: docker rm -f ls-unsloth-qwen35-35b-a3b-q4-64k-thinking
         cmd: |
             docker run --rm \
               --name ls-unsloth-qwen35-35b-a3b-q4-64k-thinking \
@@ -1825,7 +1820,7 @@ models:
     unsloth-qwen35-35b-a3b-q4-64k-thinking-code:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K thinking-code via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code
+        cmdStop: docker rm -f ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code
         cmd: |
             docker run --rm \
               --name ls-unsloth-qwen35-35b-a3b-q4-64k-thinking-code \
@@ -1851,7 +1846,7 @@ models:
     unsloth-qwen35-35b-a3b-q4-64k-fa:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-64k-fa
+        cmdStop: docker rm -f ls-unsloth-qwen35-35b-a3b-q4-64k-fa
         cmd: |
             docker run --rm \
               --name ls-unsloth-qwen35-35b-a3b-q4-64k-fa \
@@ -1879,7 +1874,7 @@ models:
     unsloth-qwen35-35b-a3b-q4-128k-fa:
         name: "Unsloth Qwen3.5 35B-A3B Q4_K_M 64K non-thinking FA via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-unsloth-qwen35-35b-a3b-q4-128k-fa
+        cmdStop: docker rm -f ls-unsloth-qwen35-35b-a3b-q4-128k-fa
         cmd: |
             docker run --rm \
               --name ls-unsloth-qwen35-35b-a3b-q4-128k-fa \
@@ -1909,7 +1904,7 @@ models:
     #     name: "Unsloth Qwen3 Coder 30B-A3B Q5_1 KV cache"
     #     group: code
     #     ttl: 900
-    #     cmdStop: docker stop ls-unsloth-qwen3-coder-30b-a3b-q4-128k-q5cache
+    #     cmdStop: docker rm -f ls-unsloth-qwen3-coder-30b-a3b-q4-128k-q5cache
     #     cmd: |
     #         docker run --rm \
     #         --name ls-unsloth-qwen3-coder-30b-a3b-q4-128k-q5cache \
@@ -1934,7 +1929,7 @@ models:
     #     name: "Unsloth Gemma 4 26B-A4B Q5_1 KV cache"
     #     group: stable
     #     ttl: 300
-    #     cmdStop: docker stop ls-unsloth-gemma4-26b-a4b-q4-128k-q5cache
+    #     cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q4-128k-q5cache
     #     cmd: |
     #         docker run --rm \
     #         --name ls-unsloth-gemma4-26b-a4b-q4-128k-q5cache \
@@ -1958,7 +1953,7 @@ models:
     qwen3-coder-next:
         name: "Qwen3-Coder-Next 80B-A3B UD-IQ2_M via llama.cpp"
         ttl: 300
-        cmdStop: docker stop ls-qwen3-coder-next
+        cmdStop: docker rm -f ls-qwen3-coder-next
         cmd: |
             docker run --rm \
             --name ls-qwen3-coder-next \
@@ -1982,7 +1977,7 @@ models:
     qwen3-coder-next-128k:
         name: "Qwen3-Coder-Next 80B-A3B UD-IQ2_M via llama.cpp"
         ttl: 900
-        cmdStop: docker stop ls-qwen3-coder-next-128k
+        cmdStop: docker rm -f ls-qwen3-coder-next-128k
         cmd: |
             docker run --rm \
             --name ls-qwen3-coder-next-128k \
@@ -2007,7 +2002,7 @@ models:
     qwen3-coder-next-256k:
         name: "Qwen3-Coder-Next 80B-A3B UD-IQ2_M via llama.cpp"
         ttl: 3600
-        cmdStop: docker stop ls-qwen3-coder-next-256k
+        cmdStop: docker rm -f ls-qwen3-coder-next-256k
         cmd: |
             docker run --rm \
             --name ls-qwen3-coder-next-256k \
