@@ -165,7 +165,7 @@ models:
 
     unsloth-qwen36-27b-q4-256k:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp"
-        ttl: 86400
+        ttl: 3600
         cmdStop: docker stop ls-unsloth-qwen36-27b-q4-256k
         cmd: |
             docker run --rm \
@@ -488,7 +488,7 @@ models:
 
     unsloth-qwen36-27b-mtp-q4-256k:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
-        ttl: 86400
+        ttl: 3600
         cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k
         cmd: |
             docker run --rm \
@@ -516,7 +516,7 @@ models:
 
     unsloth-qwen36-27b-mtp-q4-256k-thinking:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking"
-        ttl: 86400
+        ttl: 3600
         cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k-thinking
         cmd: |
             docker run --rm \
@@ -544,7 +544,7 @@ models:
 
     unsloth-qwen36-27b-mtp-q4-256k-thinking-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp - thinking code"
-        ttl: 86400
+        ttl: 3600
         cmdStop: docker stop ls-unsloth-qwen36-27b-mtp-q4-256k-thinking-code
         cmd: |
             docker run --rm \
