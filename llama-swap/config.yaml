@@ -620,6 +620,31 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-35b-a3b-q2-thinking-code:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking code"
+        ttl: 300
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-thinking-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-thinking-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 32768 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-qwen36-35b-a3b-q2-128k:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
         ttl: 900
@@ -673,6 +698,32 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-35b-a3b-q2-128k-thinking-code:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking code"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-128k-thinking-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-128k-thinking-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --no-warmup \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-qwen36-35b-a3b-q2-256k:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp"
         ttl: 3600
@@ -720,6 +771,32 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
+            --no-warmup \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-256k-thinking-code:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - thinking code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k-thinking-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-256k-thinking-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -2050,7 +2127,6 @@ models:
             --no-warmup \
             -ngl 99
 
-
 groups:
     test-models:
         swap: true
@@ -2080,10 +2156,13 @@ groups:
             - unsloth-qwen36-27b-mtp-q4-256k-thinking-code
             - unsloth-qwen36-35b-a3b-q2
             - unsloth-qwen36-35b-a3b-q2-thinking
+            - unsloth-qwen36-35b-a3b-q2-thinking-code
             - unsloth-qwen36-35b-a3b-q2-128k
             - unsloth-qwen36-35b-a3b-q2-128k-thinking
+            - unsloth-qwen36-35b-a3b-q2-128k-thinking-code
             - unsloth-qwen36-35b-a3b-q2-256k
             - unsloth-qwen36-35b-a3b-q2-256k-thinking
+            - unsloth-qwen36-35b-a3b-q2-256k-thinking-code
             - unsloth-qwen36-35b-a3b-mtp-q2
             - unsloth-qwen36-35b-a3b-mtp-q2-thinking
             - unsloth-qwen36-35b-a3b-mtp-q2-256k
@@ -2137,6 +2216,8 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen36-35b-a3b-mtp-q2-128k
+            - unsloth-qwen36-35b-a3b-q2-128k-thinking
+            - unsloth-qwen36-35b-a3b-q2-256k
     stable:
         swap: true
         exclusive: false
@@ -2145,6 +2226,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
+            - unsloth-gemma4-26b-a4b-q4-256k-fa
     summary:
         swap: true
         exclusive: false
