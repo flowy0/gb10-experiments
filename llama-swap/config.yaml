@@ -1599,6 +1599,30 @@ models:
             --no-warmup \
             -ngl 99
 
+    unsloth-gemma4-31b-q2-128k-fa:
+        name: "Unsloth Gemma 4 31B UD-Q2_K_XL via llama.cpp"
+        ttl: 300
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-128k-fa
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-31b-q2-128k-fa \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --flash-attn on \
+            --cache-type-k q5_1 \
+            --cache-type-v q5_1 \
+            --jinja \
+            -ngl 99
+
     unsloth-gemma3-12b-q4:
         name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
         ttl: 300
@@ -2197,6 +2221,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q5-256k-fa
             - unsloth-gemma4-26b-a4b-q4-256k
             - unsloth-gemma4-26b-a4b-q4-256k-fa-think
+            - unsloth-gemma4-31b-q2-128k-fa
             - unsloth-gemma3-12b-q4
             - unsloth-gemma3-12b-q4-64k
             - codestral-22b-q4
