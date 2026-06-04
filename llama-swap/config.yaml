@@ -719,7 +719,8 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 0.0 \
-            --reasoning-budget 4096 \
+            --reasoning-budget 16384 \
+            --repeat-penalty 1.02 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -800,7 +801,8 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 0.0 \
-            --reasoning-budget 4096 \
+            --reasoning-budget 16384 \
+            --repeat-penalty 1.02 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -2270,14 +2272,11 @@ groups:
             - unsloth-qwen36-27b-mtp-q4-128k-thinking-code
             - unsloth-qwen36-27b-mtp-q4-256k
             - unsloth-qwen36-27b-mtp-q4-256k-thinking
-            - unsloth-qwen36-27b-mtp-q4-256k-thinking-code
             - unsloth-qwen36-35b-a3b-q2
             - unsloth-qwen36-35b-a3b-q2-thinking
             - unsloth-qwen36-35b-a3b-q2-thinking-code
             - unsloth-qwen36-35b-a3b-q2-128k
-            - unsloth-qwen36-35b-a3b-q2-128k-thinking
             - unsloth-qwen36-35b-a3b-q2-256k-thinking
-            - unsloth-qwen36-35b-a3b-q2-256k-thinking-code
             - unsloth-qwen36-35b-a3b-mtp-q2
             - unsloth-qwen36-35b-a3b-mtp-q2-thinking
             - unsloth-qwen36-35b-a3b-mtp-q2-256k
@@ -2330,21 +2329,23 @@ groups:
             - qwen3-coder-next-128k
             - qwen3-coder-next-256k
             - unsloth-qwen36-35b-a3b-q2-128k-thinking-code
+            - unsloth-qwen36-35b-a3b-q2-256k-thinking-code
+            - unsloth-qwen36-35b-a3b-q2-256k
+            - unsloth-qwen36-27b-mtp-q4-256k-thinking-code
+            - unsloth-gemma4-26b-a4b-q4-256k-fa
     research:
         swap: true
         exclusive: false
         members:
             - unsloth-qwen36-35b-a3b-mtp-q2-128k
-            - unsloth-qwen36-35b-a3b-q2-256k
+            - unsloth-gemma4-26b-a4b-q4-128k-fa
     stable:
         swap: true
         exclusive: false
         members:
             - unsloth-gemma4-26b-a4b-q4-64k-fa
             - unsloth-gemma4-26b-a4b-q4-128k
-            - unsloth-gemma4-26b-a4b-q4-128k-fa
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
-            - unsloth-gemma4-26b-a4b-q4-256k-fa
     summary:
         swap: true
         exclusive: false
@@ -2355,3 +2356,4 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen35-35b-a3b-q4-128k-fa
+            - unsloth-qwen36-35b-a3b-q2-128k-thinking
