@@ -1713,13 +1713,13 @@ models:
             --no-warmup \
             -ngl 99
 
-    unsloth-gemma4-31b-q2-128k-fa:
+    unsloth-gemma4-31b-q2-128k:
         name: "Unsloth Gemma 4 31B UD-Q2_K_XL via llama.cpp"
         ttl: 300
-        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-128k-fa
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-128k
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-31b-q2-128k-fa \
+            --name ls-unsloth-gemma4-31b-q2-128k \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -1732,19 +1732,19 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --chat-template-kwargs '{"enable_thinking":false}' \
-            --flash-attn on \
-            --cache-type-k q5_1 \
-            --cache-type-v q5_1 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
             --jinja \
+            --no-warmup \
             -ngl 99
 
-    unsloth-gemma4-31b-q2-128k-fa-think:
+    unsloth-gemma4-31b-q2-128k-think:
         name: "Unsloth Gemma 4 31B UD-Q2_K_XL via llama.cpp - thinking"
         ttl: 300
-        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-128k-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-128k-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-31b-q2-128k-fa-think \
+            --name ls-unsloth-gemma4-31b-q2-128k-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -1756,10 +1756,37 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
+            --reasoning-budget 16384 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-31b-q2-256k-think:
+        name: "Unsloth Gemma 4 31B UD-Q2_K_XL via llama.cpp - YaRN 256k, thinking"
+        ttl: 86400
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q2-256k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-31b-q2-256k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning-budget 16384 \
             --flash-attn on \
             --cache-type-k q5_1 \
             --cache-type-v q5_1 \
             --jinja \
+            --no-warmup \
             -ngl 99
 
     unsloth-gemma4-12b-q4-128k:
@@ -2455,8 +2482,9 @@ groups:
             - unsloth-gemma4-26b-a4b-q5-256k-fa
             - unsloth-gemma4-26b-a4b-q4-256k
             - unsloth-gemma4-26b-a4b-q4-256k-fa-think
-            - unsloth-gemma4-31b-q2-128k-fa
-            - unsloth-gemma4-31b-q2-128k-fa-think
+            - unsloth-gemma4-31b-q2-128k
+            - unsloth-gemma4-31b-q2-128k-think
+            - unsloth-gemma4-31b-q2-256k-think
             - unsloth-gemma4-12b-q4-128k
             - unsloth-gemma4-12b-q4-128k-think
             - unsloth-gemma4-12b-q5-256k
