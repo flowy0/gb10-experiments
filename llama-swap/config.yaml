@@ -1663,13 +1663,13 @@ models:
             --no-warmup \
             -ngl 99
 
-    unsloth-gemma4-26b-a4b-q5-256k-fa-think:
+    unsloth-gemma4-26b-a4b-q5-256k-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - thinking"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-26b-a4b-q5-256k-fa-think \
+            --name ls-unsloth-gemma4-26b-a4b-q5-256k-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2508,7 +2508,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-64k-fa
             - unsloth-gemma4-26b-a4b-q4-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
-            - unsloth-gemma4-26b-a4b-q5-256k-fa-think
+            - unsloth-gemma4-26b-a4b-q5-256k-think
     summary:
         swap: true
         exclusive: false
