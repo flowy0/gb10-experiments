@@ -964,6 +964,36 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --no-warmup \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-Q2_K_XL via llama.cpp - thinking code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --reasoning-budget 16384 \
+            --repeat-penalty 1.02 \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -2328,6 +2358,7 @@ groups:
             - unsloth-qwen36-35b-a3b-mtp-q2
             - unsloth-qwen36-35b-a3b-mtp-q2-thinking
             - unsloth-qwen36-35b-a3b-mtp-q2-256k
+            - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code
             - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking
             - gemma3-4b-q4
             - qwen25-coder-7b-q4
@@ -2407,3 +2438,4 @@ groups:
         members:
             - unsloth-qwen35-35b-a3b-q4-128k-fa
             - unsloth-qwen36-35b-a3b-q2-128k-thinking
+            - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code
