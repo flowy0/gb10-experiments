@@ -985,6 +985,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
+            --parallel 3 \
             -c 262144 \
             --temp 0.6 \
             --top-p 0.95 \
@@ -994,9 +995,10 @@ models:
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning-budget 16384 \
             --repeat-penalty 1.02 \
+            --flash-attn on \
             --no-warmup \
-            --cache-type-k q8_0 \
-            --cache-type-v q8_0 \
+            --cache-type-k q5_1 \
+            --cache-type-v q5_1 \
             --jinja \
             -ngl 99
 
@@ -1662,7 +1664,7 @@ models:
             -ngl 99
 
     unsloth-gemma4-26b-a4b-q5-256k-fa-think:
-        name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - flash-attention, thinking"
+        name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - thinking"
         ttl: 3600
         cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-fa-think
         cmd: |
@@ -1679,9 +1681,9 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --flash-attn on \
-            --cache-type-k q5_1 \
-            --cache-type-v q5_1 \
+            --reasoning-budget 16384 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
             --jinja \
             --no-warmup \
             -ngl 99
@@ -1851,9 +1853,9 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --flash-attn on \
-            --cache-type-k q5_1 \
-            --cache-type-v q5_1 \
+            --reasoning-budget 16384 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
             --jinja \
             --no-warmup \
             -ngl 99
@@ -2451,7 +2453,6 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-64k
             - unsloth-gemma4-26b-a4b-q4-64k-fa-think
             - unsloth-gemma4-26b-a4b-q5-256k-fa
-            - unsloth-gemma4-26b-a4b-q5-256k-fa-think
             - unsloth-gemma4-26b-a4b-q4-256k
             - unsloth-gemma4-26b-a4b-q4-256k-fa-think
             - unsloth-gemma4-31b-q2-128k-fa
@@ -2459,7 +2460,6 @@ groups:
             - unsloth-gemma4-12b-q4-128k
             - unsloth-gemma4-12b-q4-128k-think
             - unsloth-gemma4-12b-q5-256k
-            - unsloth-gemma4-12b-q5-256k-think
             - unsloth-gemma3-12b-q4
             - unsloth-gemma3-12b-q4-64k
             - codestral-22b-q4
@@ -2500,6 +2500,7 @@ groups:
         members:
             - unsloth-qwen36-35b-a3b-mtp-q2-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa
+            - unsloth-gemma4-12b-q5-256k-think
     stable:
         swap: true
         exclusive: false
@@ -2507,6 +2508,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-64k-fa
             - unsloth-gemma4-26b-a4b-q4-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
+            - unsloth-gemma4-26b-a4b-q5-256k-fa-think
     summary:
         swap: true
         exclusive: false
