@@ -1,0 +1,78 @@
+**Entry Points**
+
+- **Adapters / Parsers**  
+  - `payment_gateway/adapters.py` – `parse_transaction` (used by payment gateway).  
+  - `billing_service/handlers.py` – `parse_transaction_response` (used by billing service).  
+  - `audit_logger/extract.py` – `extract_transaction` (used by audit logger).  
+  - `reconciler/core.py` – `parse_txn` (used by reconciler).
+
+- **Client / HTTP Interaction**  
+  - `client.py` – `post_payment(requests, endpoint, payload)` – the primary API call wrapper.
+
+- **Retry / Scheduler Logic**  
+  - `worker.py` – `run_with_retry(fn)` – generic retry decorator.  
+  - `scheduler.py` – `schedule_job(queue)` – job scheduling utility.
+
+- **Configuration**  
+  - `config.py` – central configuration constants (`TIMEOUT_SECONDS`, `MAX_RETRIES`, `JOB_INTERVAL_SECONDS`).  
+
+**Data Flow**
+
+1. **Configuration Ingestion** – All modules import `config.py` to obtain timing and retry settings, establishing a shared state across the system.
+2. **Transaction Parsing** –  
+   - `payment_gateway/adapters.py` parses raw transaction strings into dictionaries.  
+   - `billing_service/handlers.py` and `audit_logger/extract.py` reuse the same parsing logic (identical to `reconciler/core.py`). This creates a **tight coupling** among these modules via duplicated code.
+3. **HTTP Request Execution** – `client.py`’s `post_payment` uses the parsed transaction data, sends it over HTTP with a timeout from `config.py`, and returns the response.
+4. **Retry Mechanism** – The response (or any callable) can be wrapped with `worker.py`’s `run_with_retry` to handle transient failures using `MAX_RETRIES`.
+5. **Scheduling** – `scheduler.py` builds a job schedule using `JOB_INTERVAL_SECONDS`, which may invoke the above components periodically.
+6. **Normalization & Caching** – Each `service_*.module_*` class (`Service000` through `Service499`) receives a configuration object, normalizes incoming entities (via `normalize_entity_###`), and maintains an in‑memory cache (`self.cache`). The normalization logic is identical across services, leading to **high duplication**.
+
+**Key Modules**
+
+- **Transaction Parsers** (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `audit_logger/extract.py`, `reconciler/core.py`) – central data‑ingestion point.  
+- **Client Layer** (`client.py`) – external HTTP communication hub.  
+- **Retry & Scheduler Utilities** (`worker.py`, `scheduler.py`) – cross‑cutting concerns.  
+- **Configuration Store** (`config.py`) – single source of truth for timing and retry parameters.  
+- **Service Suite** (`service_*.module_*` for 000‑499) – a large family of similarly structured services that each:
+  - Accepts `config`.
+  - Provides `normalize_entity_###` (identical across services).
+  - Exposes `invalidate(key)` for cache eviction.
+
+**External Dependencies**
+
+- **Standard Library / Third‑Party Libraries**  
+  - `requests` (imported in `client.py`) – HTTP client.  
+  - No other external packages are referenced; all logic resides within the repo.
+
+**Hidden Coupling**
+
+- **Duplicate Parsing Logic** – Four distinct modules (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `audit_logger/extract.py`, `reconciler/core.py`) contain **identical** `parse_transaction` implementations. This creates hidden dependencies: a change in parsing behavior must be propagated to all four files, and unit tests must cover each separately.
+- **Shared Configuration** – All modules import `config.py`. Any modification (e.g., changing `TIMEOUT_SECONDS`) affects the entire codebase, but this is explicit rather than hidden. However, it does imply a tight contract that every component must honor.
+- **Cache Invalidation Pattern** – Each service class defines an `invalidate` method that simply pops from `self.cache`. While isolated per service, the pattern is repeated across 500 services, indicating a design smell (possible candidate for a mixin or base class).
+
+**Risky Files / Areas**
+
+1. **Transaction Parser Duplication**  
+   - Files: `payment_gateway/adapters.py`, `billing_service/handlers.py`, `audit_logger/extract.py`, `reconciler/core.py`.  
+   - Risk: Maintenance overhead, potential bugs if logic diverges unintentionally.
+
+2. **Service Bloat (500+ Services)**  
+   - Files: `service_*.module_*` from 000 to 499.  
+   - Risk: Code sprawl, difficulty in understanding ownership, higher chance of copy‑paste errors, and larger test surface.
+
+3. **Retry Logic (`worker.py`)**  
+   - While simple, it wraps any callable. If the wrapped function raises an unexpected exception not anticipated by `run_with_retry`, retries could cause resource exhaustion or infinite loops.
+
+4. **Scheduler Job Scheduling**  
+   - `scheduler.py` assumes a single `JOB_INTERVAL_SECONDS`. If multiple schedulers are used concurrently with different intervals, they may step on each other’s timers.
+
+**Suggested Refactor Areas**
+
+1. **Consolidate Transaction Parsing**  
+   - Extract the parsing logic into a **single utility module**, e.g., `transaction_parser.py`, and import it wherever needed.  
+   - Example:  
+     ```python
+     # transaction_parser.py
+     def parse_transaction(raw: str) -> dict:
+         parts = raw.split('|')
+         if len(parts) != 4:

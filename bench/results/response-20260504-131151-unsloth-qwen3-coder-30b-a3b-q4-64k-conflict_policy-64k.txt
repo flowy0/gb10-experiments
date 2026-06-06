@@ -1,0 +1,14 @@
+{
+  "current_production_model": "unsloth-qwen3-coder-30b-a3b-q4-64k",
+  "obsolete_models": [
+    "qwen25-coder-14b",
+    "devstral-small2-24b-q4"
+  ],
+  "evidence_trail": [
+    "CONFLICT0-00000",
+    "CONFLICT1-00000",
+    "CONFLICT2-00000",
+    "CONFLICT3-00000"
+  ],
+  "final_date": "2026-05"
+}

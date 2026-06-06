@@ -1,0 +1,131 @@
+**Refactor Plan – Consolidating Duplicate Transaction‑Parsing Logic**
+
+---
+
+### 1. Canonical Implementation  
+
+Create a single, reusable function that encapsulates the duplicated parsing logic:
+
+```python
+# File: payment_gateway/transaction_parser.py
+def parse_transaction(raw: str) -> dict:
+    """
+    Parse a raw transaction string into a normalized dictionary.
+
+    Expected format: ``PREFIX|txn_id|currency|amount``
+
+    Raises:
+        ValueError: If the raw string does not contain exactly 4 parts,
+                     or if the prefix is not 'TXN' or 'PAY'.
+    """
+    parts = raw.split('|')
+    if len(parts) != 4:
+        raise ValueError('bad transaction')
+
+    prefix, txn_id, currency, amount = parts
+    if prefix not in ('TXN', 'PAY'):
+        raise ValueError('bad prefix')
+
+    return {
+        'id': txn_id.strip(),
+        'currency': currency.upper(),
+        'amount': float(amount)
+    }
+```
+
+* **Why this is canonical**  
+  * Handles the same validation and normalization steps used in every duplicated implementation.  
+  * Centralizes error handling, making future changes (e.g., adding more prefixes) a single‑point update.  
+
+---
+
+### 2. Files to Change  
+
+| Module / File | Reason for Change |
+|---------------|-------------------|
+| `payment_gateway/adapters.py` | Replace `parse_transaction` with an import from the new parser. |
+| `billing_service/handlers.py` | Replace `parse_transaction_response` with the same import. |
+| `reconciler/core.py` | Replace `parse_txn` with the canonical function. |
+| `audit_logger/extract.py` | Replace `extract_transaction` with the canonical function. |
+
+*All other modules (`service_*.py`) are unrelated to transaction parsing and remain untouched.*
+
+---
+
+### 3. Tests  
+
+1. **Existing Unit Tests**  
+   * Run the current test suite (e.g., `tests/test_scheduler.py`) to ensure no regressions.  
+   * Verify that each of the four duplicated parsers passes its existing assertions.
+
+2. **New/Updated Test Suite**  
+   * Add a dedicated test file `tests/test_transaction_parser.py` containing tests for edge cases:  
+     - Incorrect number of parts (`'TXN|123|USD'`).  
+     - Invalid prefix (`'XYZ|...|...'`).  
+     - Whitespace handling around `txn_id`.  
+     - Currency case‑insensitivity.  
+     - Floating‑point conversion errors (e.g., non‑numeric amount).  
+
+3. **Integration / End‑to‑End Checks**  
+   * Ensure that any higher‑level components that call the parsers still behave as expected after the import change.
+
+---
+
+### 4. Backwards Compatibility  
+
+* **Public API** – The function signatures (`parse_transaction(raw: str) -> dict`) remain unchanged, so callers continue to receive the same return type and raise the same exceptions.  
+* **Import Path** – Keep the original module names as thin wrappers (if desired) for a gradual rollout, e.g.:  
+
+  ```python
+  # payment_gateway/adapters.py (temporary wrapper)
+  from .transaction_parser import parse_transaction as _parse_transaction
+
+  def parse_transaction(raw: str) -> dict:
+      return _parse_transaction(raw)
+  ```
+
+  This allows existing code to compile unchanged while the real implementation lives in `transaction_parser.py`.  
+
+* **Documentation** – Update any inline comments or README sections that mention the old duplicated functions to point to the new canonical parser.
+
+---
+
+### 5. Phase‑Based Rollout Plan  
+
+#### **Phase 1 – Preparation (Week 1)**  
+1. Add `payment_gateway/transaction_parser.py` with the canonical implementation.  
+2. Create thin wrapper functions in each of the four affected modules that import the new parser.  
+3. Update documentation and add a note about the upcoming consolidation.  
+
+#### **Phase 2 – Testing (Week 2)**  
+1. Run the full test suite; fix any failures caused by the wrapper changes.  
+2. Add the new `tests/test_transaction_parser.py` and run it against both old and new implementations.  
+3. Perform a code‑review focusing on correctness and backward compatibility.  
+
+#### **Phase 3 – Deployment (Week 3)**  
+1. Deploy the updated code to a staging environment; verify functional behavior with real transaction data.  
+2. Gradually roll out to production behind feature flags or blue‑green deployment, monitoring for errors.  
+
+#### **Phase 4 – Cleanup (Week 4)**  
+1. Remove the thin wrapper functions and replace them directly with the canonical parser import in each module.  
+2. Delete any duplicate parsing logic from `adapters.py`, `handlers.py`, `core.py`, and `extract.py`.  
+3. Update CI pipelines to enforce that no new duplicated parsing code can be introduced (e.g., lint rule).  
+
+---
+
+### 6. Rollback Plan  
+
+*If any critical issue is detected after Phase 3:*  
+1. Switch the feature flag or revert the deployment to the previous version (still containing the wrappers).  
+2. Keep the wrapper functions in place for a short grace period while investigating the problem.  
+3. Once resolved, proceed with Phase 4 cleanup.
+
+---
+
+### 7. Summary  
+
+* **Canonical function** – `payment_gateway/transaction_parser.py:parse_transaction`.  
+* **Affected files** – `adapters.py`, `handlers.py`, `core.py`, `extract.py`.  
+* **Testing** – Existing tests + new dedicated parser tests.  
+* **Backward compatibility** – Wrapper functions ensure no breaking changes for callers.  
+* **Rollout** – Four‑phase plan with staging, monitoring

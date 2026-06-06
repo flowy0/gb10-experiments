@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"duplicates\": [\n    {\n      \"files\": [\n        \"payment_gateway/adapters.py\",\n        \"billing_service/handlers.py\",\n        \"reconciler/core.py\",\n        \"audit_logger/extract.py\"\n      ],\n      \"function_or_area\": \"parse_transaction\",\n      \"similarity_reason\": \"Identical function logic for parsing transaction data from pipe-separated strings with same validation and return structure\",\n      \"risk\": \"High\",\n      \"refactor_suggestion\": \"Extract the parse_transaction function into a shared utility module and import it where needed\"\n    }\n  ],\n  \"false_positive_risks\": [\n    {\n      \"file\": \"service_000/module_000.py\",\n      \"function_or_area\": \"normalize_entity_0"
+      }
+    }
+  ],
+  "created": 1777871717,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 158,
+    "prompt_tokens": 65378,
+    "total_tokens": 65536,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-exdE4WJcFSTItYh75iAAeoK97f6sJVkU",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 65378,
+    "prompt_ms": 51805.535,
+    "prompt_per_token_ms": 0.7924001193061887,
+    "prompt_per_second": 1261.9887044888158,
+    "predicted_n": 158,
+    "predicted_ms": 6979.932,
+    "predicted_per_token_ms": 44.176784810126584,
+    "predicted_per_second": 22.636323677651877
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "**Refactor Plan \u2013 Consolidating Duplicate Transaction\u2011Parsing Logic**\n\n---\n\n### 1. Canonical Implementation  \n\nCreate a single, reusable function that encapsulates the transaction\u2011parsing behavior used across all modules. This function will be placed in a shared utility package (e.g., `payment_gateway/utils.py`) so that every caller can import it without duplicating code.\n\n```python\n# payment_gateway/utils.py\ndef parse_transaction(raw: str) -> dict:\n    \"\"\"\n    Parse a raw transaction string into a normalized dictionary.\n    \n    Expected format:  PREFIX|txn_id|currency|amount\n    \n    Raises:\n        ValueError: If the raw string does not contain exactly four parts,\n                    or if the prefix is not 'TXN' or 'PAY'.\n    \"\"\"\n    parts = raw.split('|')\n    if len(parts) != 4:\n        raise ValueError('bad transaction')\n    \n    prefix, txn_id, currency, amount = parts\n    if prefix not in ('TXN', 'PAY'):\n        raise ValueError('bad prefix')\n    \n    return {\n        'id': txn_id.strip(),\n        'currency': currency.upper(),\n        'amount': float(amount)\n    }\n```\n\n* **Why this is canonical:**  \n  * Identical validation and transformation steps are captured once.  \n  * The function signature (`raw: str \u2192 dict`) matches the existing usage in all modules.  \n  * Error handling mirrors the original behavior, preserving caller expectations.\n\n---\n\n### 2. Files to Change  \n\n| File (original) | Replacement Action |\n|-----------------|--------------------|\n| `payment_gateway/adapters.py` | Import `parse_transaction` from `payment_gateway/utils.py` and replace the existing implementation with a call to it. |\n| `billing_service/handlers.py` | Same import & replacement as above. |\n| `reconciler/core.py` | Same import & replacement. |\n| `audit_logger/extract.py` | Same import & replacement. |\n\n*All other files in the repository (the many `service_*.module_*` classes) are **not** affected by this refactor because they do not contain transaction\u2011parsing logic; they only use the canonical function where needed.*\n\n---\n\n### 3. Tests  \n\n#### Existing Unit Tests  \n- **`tests/test_scheduler.py`** already contains a test that verifies `TIMEOUT_SECONDS > TIMEOUT_SECONDS`. This test is unrelated to parsing and will remain unchanged.  \n- No additional unit tests are required for the new utility function because its behavior is identical to the duplicated implementations; however, we will add a **new integration test** in a dedicated test suite (`tests/test_transaction_parsing.py`) to ensure the canonical parser works across all entry points.\n\n#### New Test Suite (`tests/test_transaction_parsing.py`)  \n\n```python\nimport unittest\nfrom payment_gateway.utils import parse_transaction\n\nclass TestTransactionParsing(unittest.TestCase):\n    def test_valid_transaction(self):\n        raw = \"TXN|12345|USD|100.00\"\n        expected = {'id': '12345', 'currency': 'USD', 'amount': 100.0}\n        self.assertEqual(parse_transaction(raw), expected)\n\n    def test_pay_prefix(self):\n        raw = \"PAY|abc|EUR|250.5\"\n        expected = {'id': 'abc', 'currency': 'EUR', 'amount': 250.5}\n        self.assertEqual(parse_transaction(raw), expected)\n\n    def test_missing_parts(self):\n        raw = \"TXN|123|USD\"          # too few parts\n        with self.assertRaises(ValueError):\n            parse_transaction(raw)\n\n    def test_invalid_prefix(self):\n        raw = \"XYZ|123|USD|100\"\n        with self.assertRaises(ValueError):\n            parse_transaction(raw)\n\n    # Verify that each consumer module uses the same parser (optional integration check)\n    def test_consumers_use_same_parser(self):\n        # This can be a simple import check or a monkey\u2011patch test.\n        # Here we just ensure no stray implementations exist in the codebase.\n        from payment_gateway.adapters import parse_transaction as adapters_parse\n        from billing_service.handlers import parse_transaction as handlers_parse\n        from reconciler.core import parse_txn as core_parse\n        from audit_logger.extract import extract_transaction as extract_parse\n\n        self.assertIs(adapters_parse, handlers_parse)\n        self.assertIs(adapters_parse, core_parse)\n        self.assertIs(adapters_parse, extract_parse)\n\nif __name__ == '__main__':\n    unittest.main()\n```\n\n*Running `pytest` (or the project\u2019s test runner) should now pass all existing tests plus the new ones.*\n\n---\n\n### 4. Backwards Compatibility  \n\n- **Public API:** No change to any public function signatures (`parse_transaction`, `parse_txn`, etc.) because each module will still expose the same name and return type.  \n- **Import Paths:** All modules continue to import from their original locations; the refactor only moves the implementation behind a common alias, preserving existing import statements after the update.  \n- **Error Messages:** Identical `ValueError` messages are raised, so callers that catch these exceptions will experience no behavioral shift.\n\n---\n\n### 5. Phase\u2011Based Rollout Plan  \n\n#### **Phase\u202f1 \u2013 Preparation & Local Validation**  \n1. **Create `payment_gateway/utils.py`** with the canonical parser.  \n2. **Update each affected module** (`adapters.py`, `handlers.py`, `core.py`, `extract.py`) to import and use the new function.  \n3. **Run the full test suite locally**; ensure all tests pass and no new failures appear.  \n4. **Static analysis / linting** (e.g., `flake8`, `mypy`) to confirm no type mismatches.\n\n#### **Phase\u202f2 \u2013 Staging Deployment**  \n1. **Push changes to a feature branch** (`feature/consolidate-transaction-parser`).  \n2. **"
+      }
+    }
+  ],
+  "created": 1777872322,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 1200,
+    "prompt_tokens": 60636,
+    "total_tokens": 61836,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-xBgpnf9ez20m3DhFR3rJ7ojOupH2auUu",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 60636,
+    "prompt_ms": 50204.056,
+    "prompt_per_token_ms": 0.8279579127910811,
+    "prompt_per_second": 1207.7908605631387,
+    "predicted_n": 1200,
+    "predicted_ms": 74950.088,
+    "predicted_per_token_ms": 62.45840666666667,
+    "predicted_per_second": 16.010654984154254
+  }
+}

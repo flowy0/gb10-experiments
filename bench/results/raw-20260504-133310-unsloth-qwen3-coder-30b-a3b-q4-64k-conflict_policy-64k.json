@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"current_production_model\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n  \"obsolete_models\": [\n    \"qwen25-coder-14b\",\n    \"devstral-small2-24b-q4\"\n  ],\n  \"evidence_trail\": [\n    \"CONFLICT3-00000\",\n    \"CONFLICT3-00001\",\n    \"CONFLICT3-00002\",\n    \"CONFLICT3-00003\",\n    \"CONFLICT3-00004\",\n    \"CONFLICT3-00005\",\n    \"CONFLICT3-00006\",\n    \"CONFLICT3-00007\",\n    \"CONFLICT3-00008\",\n    \"CONFLICT3-00009\",\n    \"CONFLICT3-00010\",\n    \"CONFLICT3-00011\",\n    \"CONFLICT3-00012\",\n    \"CONFLICT3-00013\",\n    \"CONFLICT3-00014\",\n    \"CONFLICT3-00015\",\n    \"CONFLICT3-00016\",\n    \"CONFLICT3-00017\",\n    \"CONFLICT3-00018\",\n    \"CONFLICT3-00019\",\n    \"CONFLICT3-00020\",\n    \"CONFLICT3-00021\",\n    \"CONFLICT3-00022\",\n    \"CONFLICT3-00023\",\n    \"CONFLICT3-00024\",\n    \"CONFLICT3-00025\",\n    \"CONFLICT3-00026\",\n    \"CONFLICT3-00027\",\n    \"CONFLICT3-00028\",\n    \"CONFLICT3-00029\",\n    \"CONFLICT3-00030\",\n    \"CONFLICT3-00031\",\n    \"CONFLICT3-00032\",\n    \"CONFLICT3-00033\",\n    \"CONFLICT3-00034\",\n    \"CONFLICT3-00035\",\n    \"CONFLICT3-00036\",\n    \"CONFLICT3-00037\",\n    \"CONFLICT3-00038\",\n    \"CONFLICT3-00039\",\n    \"CONFLICT3-00040\",\n    \"CONFLICT3-00041\",\n    \"CONFLICT3-00042\",\n    \"CONFLICT3-00043\",\n    \"CONFLICT3-00044\",\n    \"CONFLICT3-00045\",\n    \"CONFLICT3-00046\",\n    \"CONFLICT3-00047\",\n    \"CONFLICT3-00048\",\n    \"CONFLICT3-00049\",\n    \"CONFLICT3-00050\",\n    \"CONFLICT3-00051\",\n    \"CONFLICT3"
+      }
+    }
+  ],
+  "created": 1777872940,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 700,
+    "prompt_tokens": 48203,
+    "total_tokens": 48903,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-tPsmS0DAJahUmliqXMl9omIt73wo32KS",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 48203,
+    "prompt_ms": 32870.924,
+    "prompt_per_token_ms": 0.6819269340082568,
+    "prompt_per_second": 1466.4327659301578,
+    "predicted_n": 700,
+    "predicted_ms": 24993.993,
+    "predicted_per_token_ms": 35.70570428571428,
+    "predicted_per_second": 28.00672945695392
+  }
+}

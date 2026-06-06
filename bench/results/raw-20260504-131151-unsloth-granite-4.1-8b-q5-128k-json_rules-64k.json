@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "**Routing JSON**\n\n```json\n{\n  \"routing\": {\n    \"models\": [\n      {\n        \"name\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n        \"recommended_for\": \"code generation and reasoning tasks requiring high context length\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"devstral-small2-24b-q4\",\n        \"recommended_for\": \"lightweight code assistance and inference tasks\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"unsloth-granite-4.1-8b-q5\",\n        \"recommended_for\": \"general-purpose reasoning with moderate context\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"codestral-22b-q4\",\n        \"recommended_for\": \"advanced code generation and complex programming tasks\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": true,\n        \"not_for_code\": false\n      }\n    ]\n  }\n}\n```"
+      }
+    }
+  ],
+  "created": 1777872527,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 271,
+    "prompt_tokens": 49130,
+    "total_tokens": 49401,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-jQeoslvBEfpiGsFOmX7Rb2LJ5Ht7LKcZ",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 49130,
+    "prompt_ms": 37229.264,
+    "prompt_per_token_ms": 0.7577704864644821,
+    "prompt_per_second": 1319.6607915751435,
+    "predicted_n": 271,
+    "predicted_ms": 15114.79,
+    "predicted_per_token_ms": 55.77413284132842,
+    "predicted_per_second": 17.9294584972732
+  }
+}

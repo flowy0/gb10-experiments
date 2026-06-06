@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "# Refactor Plan: Consolidate Transaction Parsing Behavior\n\n## Goal\nConsolidate duplicated transaction parsing behavior across multiple files without caller-visible changes.\n\n## Canonical Implementation\n\nCreate a new module `payment_gateway/transaction_parser.py` with the canonical transaction parsing logic:\n\n```python\n# payment_gateway/transaction_parser.py\ndef parse_transaction(raw: str) -> dict:\n    \"\"\"\n    Parse transaction string into structured data.\n    \n    Args:\n        raw (str): Transaction string in format \"PREFIX|TXN_ID|CURRENCY|AMOUNT\"\n        \n    Returns:\n        dict: Parsed transaction with keys 'id', 'currency', 'amount'\n        \n    Raises:\n        ValueError: If transaction format is invalid\n    \"\"\"\n    parts = raw.split('|')\n    if len(parts) != 4:\n        raise ValueError('bad transaction')\n    prefix, txn_id, currency, amount = parts\n    if prefix not in ('TXN', 'PAY'):\n        raise ValueError('bad prefix')\n    return {'id': txn_id.strip(), 'currency': currency.upper(), 'amount': float(amount)}\n```\n\n## Files to Change\n\n### 1. New File: `payment_gateway/transaction_parser.py`\n- Create the canonical transaction parser implementation\n\n### 2. Updated Files:\n- **`payment_gateway/adapters.py`**: Import and use canonical function\n- **`billing_service/handlers.py`**: Import and use canonical function  \n- **`reconciler/core.py`**: Import and use canonical function\n- **`audit_logger/extract.py`**: Import and use canonical function\n\n### 3. Updated Test Files:\n- **`tests/test_scheduler.py`**: Update imports to reference new module (if needed)\n\n## Backwards Compatibility\n\n\u2705 **Fully backwards compatible** - No API changes, same function signatures, same return types, same error messages.\n\n## Phase 1/2/3 Rollout\n\n### Phase 1: Implementation and Testing\n- Create `payment_gateway/transaction_parser.py`\n- Update all 4 files that contain duplicated logic to import from new module\n- Run existing tests to ensure no regressions\n- Add unit tests for the canonical parser if missing\n\n### Phase 2: Deployment\n- Deploy Phase 1 changes to staging environment\n- Run comprehensive integration tests\n- Monitor for any issues in transaction parsing behavior\n\n### Phase 3: Production Rollout\n- Deploy to production with canary release\n- Monitor transaction processing metrics\n- Validate that all services continue to work identically\n\n## Rollback Plan\n\nIf issues arise during deployment:\n\n1. **Immediate Rollback**: Revert all changes to restore original duplicated implementations\n2. **Verification**: Confirm all services function as before\n3. **Root Cause Analysis**: Investigate why consolidation failed\n4. **Alternative Approach**: Consider keeping separate implementations if consolidation proves problematic\n\n**Rollback Duration**: 30 minutes maximum (assuming deployment system allows quick rollback)"
+      }
+    }
+  ],
+  "created": 1777873274,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 599,
+    "prompt_tokens": 59398,
+    "total_tokens": 59997,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-6qz3J1pqXVy4HjIWT9Z5uHCjPloqD5am",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 59398,
+    "prompt_ms": 45943.832,
+    "prompt_per_token_ms": 0.7734912286608977,
+    "prompt_per_second": 1292.839482784109,
+    "predicted_n": 599,
+    "predicted_ms": 24740.302,
+    "predicted_per_token_ms": 41.30267445742905,
+    "predicted_per_second": 24.21150719987169
+  }
+}

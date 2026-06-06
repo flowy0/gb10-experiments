@@ -6,3 +6,19 @@ models
 searxng
 open-webui
 secrets
+
+# Large model caches
+hf-cache/
+
+# Model config files (large)
+llama-swap/config.yaml.*
+llama-swap/config.yaml.bak
+
+# Backups
+backups/
+
+# Logs
+logs/
+
+# Test generated prompts
+bench/prompts/generated/

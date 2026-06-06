@@ -1,0 +1,128 @@
+**Refactor Plan – Consolidating Duplicate Transaction‑Parsing Logic**
+
+---
+
+### 1. Canonical Implementation  
+
+Create a single, reusable function that encapsulates the transaction‑parsing behavior used across all modules. This function will be placed in a shared utility package (e.g., `payment_gateway/utils.py`) so that every caller can import it without duplicating code.
+
+```python
+# payment_gateway/utils.py
+def parse_transaction(raw: str) -> dict:
+    """
+    Parse a raw transaction string into a normalized dictionary.
+    
+    Expected format:  PREFIX|txn_id|currency|amount
+    
+    Raises:
+        ValueError: If the raw string does not contain exactly four parts,
+                    or if the prefix is not 'TXN' or 'PAY'.
+    """
+    parts = raw.split('|')
+    if len(parts) != 4:
+        raise ValueError('bad transaction')
+    
+    prefix, txn_id, currency, amount = parts
+    if prefix not in ('TXN', 'PAY'):
+        raise ValueError('bad prefix')
+    
+    return {
+        'id': txn_id.strip(),
+        'currency': currency.upper(),
+        'amount': float(amount)
+    }
+```
+
+* **Why this is canonical:**  
+  * Identical validation and transformation steps are captured once.  
+  * The function signature (`raw: str → dict`) matches the existing usage in all modules.  
+  * Error handling mirrors the original behavior, preserving caller expectations.
+
+---
+
+### 2. Files to Change  
+
+| File (original) | Replacement Action |
+|-----------------|--------------------|
+| `payment_gateway/adapters.py` | Import `parse_transaction` from `payment_gateway/utils.py` and replace the existing implementation with a call to it. |
+| `billing_service/handlers.py` | Same import & replacement as above. |
+| `reconciler/core.py` | Same import & replacement. |
+| `audit_logger/extract.py` | Same import & replacement. |
+
+*All other files in the repository (the many `service_*.module_*` classes) are **not** affected by this refactor because they do not contain transaction‑parsing logic; they only use the canonical function where needed.*
+
+---
+
+### 3. Tests  
+
+#### Existing Unit Tests  
+- **`tests/test_scheduler.py`** already contains a test that verifies `TIMEOUT_SECONDS > TIMEOUT_SECONDS`. This test is unrelated to parsing and will remain unchanged.  
+- No additional unit tests are required for the new utility function because its behavior is identical to the duplicated implementations; however, we will add a **new integration test** in a dedicated test suite (`tests/test_transaction_parsing.py`) to ensure the canonical parser works across all entry points.
+
+#### New Test Suite (`tests/test_transaction_parsing.py`)  
+
+```python
+import unittest
+from payment_gateway.utils import parse_transaction
+
+class TestTransactionParsing(unittest.TestCase):
+    def test_valid_transaction(self):
+        raw = "TXN|12345|USD|100.00"
+        expected = {'id': '12345', 'currency': 'USD', 'amount': 100.0}
+        self.assertEqual(parse_transaction(raw), expected)
+
+    def test_pay_prefix(self):
+        raw = "PAY|abc|EUR|250.5"
+        expected = {'id': 'abc', 'currency': 'EUR', 'amount': 250.5}
+        self.assertEqual(parse_transaction(raw), expected)
+
+    def test_missing_parts(self):
+        raw = "TXN|123|USD"          # too few parts
+        with self.assertRaises(ValueError):
+            parse_transaction(raw)
+
+    def test_invalid_prefix(self):
+        raw = "XYZ|123|USD|100"
+        with self.assertRaises(ValueError):
+            parse_transaction(raw)
+
+    # Verify that each consumer module uses the same parser (optional integration check)
+    def test_consumers_use_same_parser(self):
+        # This can be a simple import check or a monkey‑patch test.
+        # Here we just ensure no stray implementations exist in the codebase.
+        from payment_gateway.adapters import parse_transaction as adapters_parse
+        from billing_service.handlers import parse_transaction as handlers_parse
+        from reconciler.core import parse_txn as core_parse
+        from audit_logger.extract import extract_transaction as extract_parse
+
+        self.assertIs(adapters_parse, handlers_parse)
+        self.assertIs(adapters_parse, core_parse)
+        self.assertIs(adapters_parse, extract_parse)
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+*Running `pytest` (or the project’s test runner) should now pass all existing tests plus the new ones.*
+
+---
+
+### 4. Backwards Compatibility  
+
+- **Public API:** No change to any public function signatures (`parse_transaction`, `parse_txn`, etc.) because each module will still expose the same name and return type.  
+- **Import Paths:** All modules continue to import from their original locations; the refactor only moves the implementation behind a common alias, preserving existing import statements after the update.  
+- **Error Messages:** Identical `ValueError` messages are raised, so callers that catch these exceptions will experience no behavioral shift.
+
+---
+
+### 5. Phase‑Based Rollout Plan  
+
+#### **Phase 1 – Preparation & Local Validation**  
+1. **Create `payment_gateway/utils.py`** with the canonical parser.  
+2. **Update each affected module** (`adapters.py`, `handlers.py`, `core.py`, `extract.py`) to import and use the new function.  
+3. **Run the full test suite locally**; ensure all tests pass and no new failures appear.  
+4. **Static analysis / linting** (e.g., `flake8`, `mypy`) to confirm no type mismatches.
+
+#### **Phase 2 – Staging Deployment**  
+1. **Push changes to a feature branch** (`feature/consolidate-transaction-parser`).  
+2. **

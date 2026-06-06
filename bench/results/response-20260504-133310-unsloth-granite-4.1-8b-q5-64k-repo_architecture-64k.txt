@@ -1,0 +1,72 @@
+**Entry Points**
+
+- **payment_gateway/adapters.py** – `parse_transaction(raw: str) -> dict`  
+  Entry point for parsing raw transaction strings into a normalized dictionary.
+
+- **billing_service/handlers.py** – `parse_transaction_response(raw: str) -> dict`  
+  Entry point for parsing raw transaction‑response strings.
+
+- **reconciler/core.py** – `parse_txn(raw: str) -> dict`  
+  Core parsing routine used by the reconciler.
+
+- **audit_logger/extract.py** – `extract_transaction(raw: str) -> dict`  
+  Extraction routine for audit logging.
+
+- **client.py** – `post_payment(requests, endpoint, payload)`  
+  High‑level HTTP POST helper that uses a `requests` object with a configurable timeout.
+
+- **worker.py** – `run_with_retry(fn)`  
+  Utility that retries a callable up to `MAX_RETRIES` times (importing `MAX_RETRIES` from *config*).
+
+- **scheduler.py** – `schedule_job(queue)`  
+  Returns a job specification containing an interval derived from `JOB_INTERVAL_SECONDS`.
+
+- **tests/test_scheduler.py** – `test_job_completes_before_next_interval()`  
+  Unit test verifying that the scheduled interval is larger than the timeout.
+
+**Data Flow**
+
+1. **Raw Input → Parsing**  
+   - Raw strings (e.g., transaction data) are fed into one of the parsing functions (`parse_transaction`, `parse_transaction_response`, `parse_txn`, `extract_transaction`).  
+   - Each parser splits the input on `'|'`, validates the prefix (`'TXN'` or `'PAY'`), and returns a normalized dictionary with keys: `id`, `currency`, `amount`.
+
+2. **Normalization → Service Layer**  
+   - The normalized dictionaries are handed to service modules (`service_*.module_*`).  
+   - Each service receives the config (imported from *config*) and a cache dict, then calls its `normalize_entity_X` method, which strips whitespace from `entity_id`, reads `status`, and adds a `source` field indicating the service name.
+
+3. **Cache Management**  
+   - Services maintain an internal `cache` dictionary; the `invalidate(key)` method clears a specific entry, providing a simple in‑memory cache layer.
+
+4. **External Interaction**  
+   - `client.py`’s `post_payment` uses the parsed payload and a configured timeout (`TIMEOUT_SECONDS`) to send HTTP requests via the supplied `requests` object.  
+   - `worker.py`’s retry wrapper (`run_with_retry`) can wrap any of the above calls, ensuring resilience against transient failures.
+
+5. **Scheduling & Testing**  
+   - `scheduler.py` produces a job spec with an interval derived from `JOB_INTERVAL_SECONDS`.  
+   - The test suite checks that this interval exceeds the timeout defined in *config*, confirming proper scheduling logic.
+
+**Key Modules**
+
+- **Configuration (`config.py`)** – Centralizes constants: `TIMEOUT_SECONDS`, `MAX_RETRIES`, `JOB_INTERVAL_SECONDS`. All other modules import these values, making them easy to adjust globally.
+- **Parsing Utilities (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py`)** – Shared parsing logic; however, they are duplicated across packages.  
+- **Service Layer (`service_*.module_*`)** – 451 identical service classes (Service000 … Service450) each providing a `normalize_entity_X` method and an `invalidate` helper. This uniformity suggests a code‑generation pattern or template that could be refactored into a single factory class.
+- **Retry & Scheduling Helpers (`worker.py`, `scheduler.py`)** – Provide cross‑cutting concerns (retry, scheduling) used by the main application flow.
+
+**External Dependencies**
+
+- **Standard Library:** `typing`, basic data structures (`dict`, `str`, `list`).  
+- **Third‑Party:** `requests` (imported in `client.py` for HTTP calls). No other external packages are referenced.  
+
+**Hidden Coupling / Risky Areas**
+
+1. **Duplicate Parsing Logic** – The same transaction‑parsing implementation appears in four separate modules (`adapters`, `handlers`, `core`, `extract`). This creates maintenance overhead and potential divergence if one version changes.  
+2. **Massive Service Duplication** – 451 nearly identical service classes (`Service000` … `Service450`) tightly couple each class to a specific module name pattern. Refactoring into a configurable factory or registry would reduce boilerplate and improve testability.  
+3. **Implicit Config Imports** – All modules import constants from *config.py* directly, making the configuration a global single point of change. While simple, it can hide dependencies and make static analysis harder.  
+4. **Lack of Error Propagation Strategy** – Parsing functions raise `ValueError` for malformed input but do not log or aggregate errors, which could lead to silent failures in production pipelines.  
+5. **Potential Cache Invalidation Leakage** – Each service’s `invalidate(key)` method operates on its own private cache; if a key is shared across services, invalidation may be missed, leading to stale data.
+
+**Suggested Refactor Areas**
+
+- **Consolidate Parsing** – Create a single `transaction_parser.py` module with a `parse_transaction(raw: str) -> dict` function and import it wherever needed.  
+- **Service Factory** – Implement a `ServiceFactory` class that maps a service identifier (e.g., `'service_123'`) to an instance of the appropriate subclass, eliminating the need for 450+ explicit classes.  
+- **Centralized Configuration** – Expose configuration through a context manager or dependency‑injection container so that modules can

@@ -1,0 +1,52 @@
+version: "3.9"
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat:latest
+    container_name: librechat
+    restart: unless-stopped
+    ports:
+      - "3080:3080"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3080
+    env_file:
+      - .env
+    volumes:
+      - librechat-data:/app/data
+    depends_on:
+      mongo:
+        condition: service_started
+      ollama:
+        condition: service_started
+    networks:
+      - llm-net
+
+  mongo:
+    image: mongo:7
+    container_name: librechat-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - llm-net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - llm-net
+
+volumes:
+  librechat-data:
+  mongo-data:
+  ollama-data:
+
+networks:
+  llm-net:
+    driver: bridge

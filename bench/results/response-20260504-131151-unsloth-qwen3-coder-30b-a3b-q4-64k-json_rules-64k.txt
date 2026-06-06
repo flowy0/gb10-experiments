@@ -1,0 +1,32 @@
+{
+  "models": [
+    {
+      "name": "unsloth-qwen3-coder-30b-a3b-q4-64k",
+      "recommended_for": "code generation and reasoning tasks with long context",
+      "cache_type": "q8_0",
+      "deprecated": false,
+      "not_for_code": false
+    },
+    {
+      "name": "devstral-small2-24b-q4",
+      "recommended_for": "general purpose coding and analysis",
+      "cache_type": "q8_0",
+      "deprecated": false,
+      "not_for_code": false
+    },
+    {
+      "name": "unsloth-granite-4.1-8b-q5",
+      "recommended_for": "lightweight code analysis and generation",
+      "cache_type": "q8_0",
+      "deprecated": false,
+      "not_for_code": false
+    },
+    {
+      "name": "codestral-22b-q4",
+      "recommended_for": "code completion and generation tasks",
+      "cache_type": "q8_0",
+      "deprecated": true,
+      "not_for_code": true
+    }
+  ]
+}

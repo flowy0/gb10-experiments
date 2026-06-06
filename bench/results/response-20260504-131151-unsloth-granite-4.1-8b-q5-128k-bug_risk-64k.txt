@@ -1,0 +1,24 @@
+**Cross‑file operational bugs identified**
+
+| Rank | Severity (High / Medium / Low) | Bug description | Evidence across files |
+|------|--------------------------------|-----------------|-----------------------|
+| 1    | **High**                      | **Duplicate transaction‑parser implementations** – the same parsing logic appears in multiple modules (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py`). This creates maintenance risk and potential divergence if one copy is updated but not the others. | Files: `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py` |
+| 2    | **Medium**                    | **Configuration‑timing mismatch** – the test suite (`tests/test_scheduler.py`) asserts that `JOB_INTERVAL_SECONDS` must be greater than `TIMEOUT_SECONDS` (`assert JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS`). However, the configuration file (`config.py`) defines `TIMEOUT_SECONDS = 30` and `JOB_INTERVAL_SECONDS = 20`, which violates the assertion. This inconsistency can cause scheduler failures in production. | Files: `config.py`, `tests/test_scheduler.py` |
+| 3    | **Low**                       | **Redundant retry logic** – the `run_with_retry` decorator (`worker.py`) imports `MAX_RETRIES` from `config.py` and retries up to that many times on `TimeoutError`. While functional, it duplicates similar retry patterns in other services (e.g., `service_*` modules) and could be abstracted into a shared utility. | Files: `worker.py`, multiple `service_*/*.py` modules |
+
+**Ranking rationale**
+
+1. **High severity** – Duplicate code across core transaction‑parsing paths directly threatens data consistency and correctness; fixing it eliminates a source of future bugs.  
+2. **Medium severity** – The configuration assertion is a clear test‑failure that will surface as an error in CI or runtime, indicating a mis‑aligned design decision that must be corrected to keep the scheduler reliable.  
+3. **Low severity** – Redundant retry decorators are stylistic/maintenance concerns; they do not currently cause failures but should be refactored for consistency.
+
+**Evidence filenames cited**
+
+- `payment_gateway/adapters.py`  
+- `billing_service/handlers.py`  
+- `reconciler/core.py`  
+- `audit_logger/extract.py` (duplicate parser)  
+- `config.py` (TIMEOUT_SECONDS, JOB_INTERVAL_SECONDS)  
+- `tests/test_scheduler.py` (assertion on interval vs timeout)  
+
+These bugs require cross‑file attention: updating the shared parsing logic, revising configuration values to satisfy the scheduler test, and consolidating retry utilities.

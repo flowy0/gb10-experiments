@@ -1,0 +1,115 @@
+**Analysis**
+
+The codebase contains many modules that implement a very similar function – `normalize_entity_*` – which strips whitespace from an `entity_id`, converts the `status` field to uppercase (or leaves it as `'unknown'`), and returns a dictionary with three keys: `entity_id`, `status`, and `source`.  
+
+All of these functions share the exact same logic:
+
+```python
+def normalize_entity_<n>(self, item):
+    entity_id = str(item.get('entity_id', '')).strip()
+    status = item.get('status', 'unknown')
+    return {'entity_id': entity_id, 'status': status.upper(), 'source': f'service_{<n>}'
+```
+
+Because the implementation is identical across **every** `Service0X` class (from `Service000` through `Service449`), this constitutes duplicated logic.  
+
+In addition, there are several other utility functions that are also duplicated:
+
+| Area | Files (representative) | Functionality |
+|------|------------------------|---------------|
+| Transaction parsing / normalization | `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py` | Parses a pipe‑delimited string into a dict with fields `id`, `currency`, `amount`. |
+| Configuration constants | `config.py` | Defines `TIMEOUT_SECONDS`, `MAX_RETRIES`, `JOB_INTERVAL_SECONDS`. |
+| Retry wrapper | `worker.py` | Implements `run_with_retry`. |
+| Scheduler job creation | `scheduler.py` | Returns a dict with `interval_seconds` and `queue`. |
+| Test assertion | `tests/test_scheduler.py` | Checks that `JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS`. |
+
+These duplicated blocks increase maintenance overhead, risk inconsistencies when changes are required, and can be refactored into shared utilities.
+
+**False‑positive risks**
+
+- **Different context**: The transaction‑parsing functions appear in different domains (payment gateway, billing service, reconciler, audit logger). While they are identical now, they might evolve differently later. However, for the current analysis we treat them as duplicates because the code is exactly the same.
+- **Configuration constants**: `config.py` is a single source of truth; its duplication across files would be a mistake, but here it is only defined once, so no false positive there.
+- **Retry and scheduler logic**: These are also duplicated, but they serve the same purpose in each module, so they are genuine duplicates.
+
+**Refactor suggestions**
+
+1. **Create a shared utility module** (e.g., `utils.py`) containing:
+   - `parse_transaction(raw: str) -> dict` – consolidates the transaction‑parsing logic.
+   - `normalize_entity(item: dict, source: str) -> dict` – generalizes the entity‑normalization logic, allowing any service to call it with its own `source`.
+2. **Replace all duplicated functions** in the respective modules with imports from `utils.py`.
+3. **Consolidate configuration constants** into a single place (already done in `config.py`; ensure no stray copies exist).
+4. **Standardize naming**: Use consistent naming (`normalize_entity`) across services, possibly removing the numeric suffixes.
+5. **Add documentation/comments** to clarify why these functions are shared and how they should be used.
+
+**JSON Report**
+
+```json
+{
+  "duplicates": [
+    {
+      "files": [
+        "payment_gateway/adapters.py",
+        "billing_service/handlers.py",
+        "reconciler/core.py",
+        "audit_logger/extract.py"
+      ],
+      "function_or_area": "transaction parsing (parse_transaction)",
+      "similarity_reason": "identical split‑by‑'|', validation, and return structure",
+      "risk": "maintenance overhead, potential divergence if logic changes",
+      "refactor_suggestion": "move to a shared utils.parse_transaction function"
+    },
+    {
+      "files": [
+        "service_000/module_000.py",
+        "service_001/module_001.py",
+        "...",
+        "service_449/module_449.py"
+      ],
+      "function_or_area": "normalize_entity (all Service0X classes)",
+      "similarity_reason": "exact same implementation across all services",
+      "risk": "code duplication, higher chance of bugs if logic changes in one place",
+      "refactor_suggestion": "create utils.normalize_entity(item, source) and import it"
+    },
+    {
+      "files": [
+        "config.py"
+      ],
+      "function_or_area": "configuration constants (TIMEOUT_SECONDS, MAX_RETRIES, JOB_INTERVAL_SECONDS)",
+      "similarity_reason": "single source of truth defined once",
+      "risk": null,
+      "refactor_suggestion": null
+    },
+    {
+      "files": [
+        "worker.py"
+      ],
+      "function_or_area": "run_with_retry wrapper",
+      "similarity_reason": "identical retry logic",
+      "risk": "potential divergence if retry semantics change",
+      "refactor_suggestion": "centralize in utils.retry"
+    },
+    {
+      "files": [
+        "scheduler.py"
+      ],
+      "function_or_area": "schedule_job (returns dict with interval and queue)",
+      "similarity_reason": "identical structure",
+      "risk": null,
+      "refactor_suggestion": null
+    },
+    {
+      "files": [
+        "tests/test_scheduler.py"
+      ],
+      "function_or_area": "test assertion JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS",
+      "similarity_reason": "simple comparison test",
+      "risk": null,
+      "refactor_suggestion": null
+    }
+  ],
+  "false_positive_risks": [
+    "Transaction parsing functions are identical now but may evolve differently in distinct domains; treat as duplicate for current analysis.",
+    "Configuration constants are already centralized, so no false positive here."
+  ]
+}
+```

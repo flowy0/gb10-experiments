@@ -1,0 +1,23 @@
+**Cross‑file operational bugs identified**
+
+| Rank | Severity (High → Low) | Description of the bug | Evidence across files |
+|------|-----------------------|------------------------|-----------------------|
+| 1    | **Critical**          | **Duplicate transaction‑parsing logic** – the same `parse_transaction` implementation appears in **payment_gateway/adapters.py**, **billing_service/handlers.py**, **reconciler/core.py**, and **audit_logger/extract.py**. This creates a single point of failure: any change to the parsing rules must be made in four places, leading to inconsistencies and hard‑to‑track bugs. | • `payment_gateway/adapters.py` defines `parse_transaction`. <br>• `billing_service/handlers.py` re‑defines an identical function. <br>• `reconciler/core.py` re‑defines the same function. <br>• `audit_logger/extract.py` re‑defines the same function. |
+| 2    | **High**             | **Configuration‑timing mismatch** – the test suite (`tests/test_scheduler.py`) asserts that the job interval must be longer than the timeout (`assert JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS`). However, the configuration constants in `config.py` set `TIMEOUT_SECONDS = 30` and `JOB_INTERVAL_SECONDS = 20`, violating the assertion. This inconsistency can cause scheduler jobs to fail or time out unexpectedly. | • `config.py`: `TIMEOUT_SECONDS = 30`, `JOB_INTERVAL_SECONDS = 20`. <br>• `tests/test_scheduler.py`: `assert JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS`. |
+| 3    | **Medium**           | **Redundant retry wrapper** – the `run_with_retry` function in `worker.py` imports `MAX_RETRIES` from `config.py` and retries a callable up to `MAX_RETRIES` times. While functional, it is duplicated logic that could be abstracted into a utility module, increasing maintenance overhead. | • `worker.py` defines `run_with_retry`. <br>• No shared utility for retry logic elsewhere. |
+| 4    | **Low**              | **Cache‑invalidation pattern duplication** – each service in the `service_*` suite (`service_000/module_000.py` through `service_450/module_450.py`) implements its own `normalize_entity_XYZ` and `invalidate` methods that follow identical patterns. This repetition does not affect correctness but adds boilerplate and potential divergence if one implementation is updated independently. | • All service modules contain `normalize_entity_*` and `invalidate` with the same structure. |
+
+**Why these are cross‑file operational bugs**
+
+- **Duplicate parsing logic** spans multiple logical components (payment, billing, reconciliation, audit logging). A bug in the parsing routine would manifest inconsistently across services unless all copies are synchronized.
+- **Configuration mismatch** ties together runtime behavior (`scheduler` timing) with static configuration values, a relationship that must hold true for correct operation but is currently violated.
+- **Redundant retry wrapper** and **service‑level cache patterns** illustrate code duplication that, while not immediately fatal, increase the surface area for future errors and make maintenance harder.
+
+**Recommendations**
+
+1. **Consolidate transaction parsing** into a single module (e.g., `common/transaction_parser.py`) and import it wherever needed. Update all four files to use this shared implementation.
+2. **Fix configuration ordering** in `config.py` so that `JOB_INTERVAL_SECONDS` exceeds `TIMEOUT_SECONDS`, or adjust the test assertion accordingly.
+3. **Extract retry logic** into a reusable utility (e.g., `utils/retry.py`) and replace the duplicated `run_with_retry` with an import.
+4. **Consider abstracting service cache patterns** if they are truly identical, perhaps by creating a base `Service` class that provides `normalize_entity` and `invalidate` methods.
+
+These actions will reduce duplication, enforce consistency across the codebase, and lower the risk of operational failures.

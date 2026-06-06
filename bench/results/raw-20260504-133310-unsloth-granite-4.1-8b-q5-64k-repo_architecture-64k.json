@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "**Entry Points**\n\n- **payment_gateway/adapters.py** \u2013 `parse_transaction(raw: str) -> dict`  \n  Entry point for parsing raw transaction strings into a normalized dictionary.\n\n- **billing_service/handlers.py** \u2013 `parse_transaction_response(raw: str) -> dict`  \n  Entry point for parsing raw transaction\u2011response strings.\n\n- **reconciler/core.py** \u2013 `parse_txn(raw: str) -> dict`  \n  Core parsing routine used by the reconciler.\n\n- **audit_logger/extract.py** \u2013 `extract_transaction(raw: str) -> dict`  \n  Extraction routine for audit logging.\n\n- **client.py** \u2013 `post_payment(requests, endpoint, payload)`  \n  High\u2011level HTTP POST helper that uses a `requests` object with a configurable timeout.\n\n- **worker.py** \u2013 `run_with_retry(fn)`  \n  Utility that retries a callable up to `MAX_RETRIES` times (importing `MAX_RETRIES` from *config*).\n\n- **scheduler.py** \u2013 `schedule_job(queue)`  \n  Returns a job specification containing an interval derived from `JOB_INTERVAL_SECONDS`.\n\n- **tests/test_scheduler.py** \u2013 `test_job_completes_before_next_interval()`  \n  Unit test verifying that the scheduled interval is larger than the timeout.\n\n**Data Flow**\n\n1. **Raw Input \u2192 Parsing**  \n   - Raw strings (e.g., transaction data) are fed into one of the parsing functions (`parse_transaction`, `parse_transaction_response`, `parse_txn`, `extract_transaction`).  \n   - Each parser splits the input on `'|'`, validates the prefix (`'TXN'` or `'PAY'`), and returns a normalized dictionary with keys: `id`, `currency`, `amount`.\n\n2. **Normalization \u2192 Service Layer**  \n   - The normalized dictionaries are handed to service modules (`service_*.module_*`).  \n   - Each service receives the config (imported from *config*) and a cache dict, then calls its `normalize_entity_X` method, which strips whitespace from `entity_id`, reads `status`, and adds a `source` field indicating the service name.\n\n3. **Cache Management**  \n   - Services maintain an internal `cache` dictionary; the `invalidate(key)` method clears a specific entry, providing a simple in\u2011memory cache layer.\n\n4. **External Interaction**  \n   - `client.py`\u2019s `post_payment` uses the parsed payload and a configured timeout (`TIMEOUT_SECONDS`) to send HTTP requests via the supplied `requests` object.  \n   - `worker.py`\u2019s retry wrapper (`run_with_retry`) can wrap any of the above calls, ensuring resilience against transient failures.\n\n5. **Scheduling & Testing**  \n   - `scheduler.py` produces a job spec with an interval derived from `JOB_INTERVAL_SECONDS`.  \n   - The test suite checks that this interval exceeds the timeout defined in *config*, confirming proper scheduling logic.\n\n**Key Modules**\n\n- **Configuration (`config.py`)** \u2013 Centralizes constants: `TIMEOUT_SECONDS`, `MAX_RETRIES`, `JOB_INTERVAL_SECONDS`. All other modules import these values, making them easy to adjust globally.\n- **Parsing Utilities (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py`)** \u2013 Shared parsing logic; however, they are duplicated across packages.  \n- **Service Layer (`service_*.module_*`)** \u2013 451 identical service classes (Service000 \u2026 Service450) each providing a `normalize_entity_X` method and an `invalidate` helper. This uniformity suggests a code\u2011generation pattern or template that could be refactored into a single factory class.\n- **Retry & Scheduling Helpers (`worker.py`, `scheduler.py`)** \u2013 Provide cross\u2011cutting concerns (retry, scheduling) used by the main application flow.\n\n**External Dependencies**\n\n- **Standard Library:** `typing`, basic data structures (`dict`, `str`, `list`).  \n- **Third\u2011Party:** `requests` (imported in `client.py` for HTTP calls). No other external packages are referenced.  \n\n**Hidden Coupling / Risky Areas**\n\n1. **Duplicate Parsing Logic** \u2013 The same transaction\u2011parsing implementation appears in four separate modules (`adapters`, `handlers`, `core`, `extract`). This creates maintenance overhead and potential divergence if one version changes.  \n2. **Massive Service Duplication** \u2013 451 nearly identical service classes (`Service000` \u2026 `Service450`) tightly couple each class to a specific module name pattern. Refactoring into a configurable factory or registry would reduce boilerplate and improve testability.  \n3. **Implicit Config Imports** \u2013 All modules import constants from *config.py* directly, making the configuration a global single point of change. While simple, it can hide dependencies and make static analysis harder.  \n4. **Lack of Error Propagation Strategy** \u2013 Parsing functions raise `ValueError` for malformed input but do not log or aggregate errors, which could lead to silent failures in production pipelines.  \n5. **Potential Cache Invalidation Leakage** \u2013 Each service\u2019s `invalidate(key)` method operates on its own private cache; if a key is shared across services, invalidation may be missed, leading to stale data.\n\n**Suggested Refactor Areas**\n\n- **Consolidate Parsing** \u2013 Create a single `transaction_parser.py` module with a `parse_transaction(raw: str) -> dict` function and import it wherever needed.  \n- **Service Factory** \u2013 Implement a `ServiceFactory` class that maps a service identifier (e.g., `'service_123'`) to an instance of the appropriate subclass, eliminating the need for 450+ explicit classes.  \n- **Centralized Configuration** \u2013 Expose configuration through a context manager or dependency\u2011injection container so that modules can"
+      }
+    }
+  ],
+  "created": 1777873645,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 1200,
+    "prompt_tokens": 54871,
+    "total_tokens": 56071,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-PldmyR2BR33BISS2P4B6zBHYhTi9d7aq",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 54871,
+    "prompt_ms": 42770.59,
+    "prompt_per_token_ms": 0.7794753148293269,
+    "prompt_per_second": 1282.9142642175384,
+    "predicted_n": 1200,
+    "predicted_ms": 71063.693,
+    "predicted_per_token_ms": 59.219744166666665,
+    "predicted_per_second": 16.886260048432888
+  }
+}

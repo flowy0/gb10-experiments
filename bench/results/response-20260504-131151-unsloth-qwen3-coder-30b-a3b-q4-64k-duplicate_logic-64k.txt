@@ -1,0 +1,19 @@
+{
+  "duplicates": [
+    {
+      "files": [
+        "payment_gateway/adapters.py",
+        "billing_service/handlers.py",
+        "reconciler/core.py",
+        "audit_logger/extract.py"
+      ],
+      "function_or_area": "parse_transaction",
+      "similarity_reason": "Identical function logic for parsing transaction data from pipe-separated strings with same validation and return structure",
+      "risk": "High",
+      "refactor_suggestion": "Extract the parse_transaction function into a shared utility module and import it where needed"
+    }
+  ],
+  "false_positive_risks": [
+    {
+      "file": "service_000/module_000.py",
+      "function_or_area": "normalize_entity_0

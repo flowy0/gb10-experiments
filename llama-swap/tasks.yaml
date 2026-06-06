@@ -1,0 +1,195 @@
+# Generated long-context task matrix.
+# Run ./run_generate_prompts.sh before running benchmarks.
+tasks:
+  - name: needle_position-32k
+    benchmark: longctx-retrieval
+    tier: 32k
+    max_tokens: 800
+    temperature: 0.0
+    timeout: 900
+    prompt_file: prompts/generated/needle_position-32k.txt
+
+  - name: conflict_policy-32k
+    benchmark: longctx-conflict
+    tier: 32k
+    max_tokens: 700
+    temperature: 0.0
+    timeout: 900
+    prompt_file: prompts/generated/conflict_policy-32k.txt
+
+  - name: repo_architecture-32k
+    benchmark: longctx-code
+    tier: 32k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 900
+    prompt_file: prompts/generated/repo_architecture-32k.txt
+
+  - name: duplicate_logic-32k
+    benchmark: longctx-code
+    tier: 32k
+    max_tokens: 1400
+    temperature: 0.0
+    timeout: 900
+    prompt_file: prompts/generated/duplicate_logic-32k.txt
+
+  - name: bug_risk-32k
+    benchmark: longctx-code
+    tier: 32k
+    max_tokens: 900
+    temperature: 0.1
+    timeout: 900
+    prompt_file: prompts/generated/bug_risk-32k.txt
+
+  - name: refactor_plan-32k
+    benchmark: longctx-code
+    tier: 32k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 900
+    prompt_file: prompts/generated/refactor_plan-32k.txt
+
+  - name: finance_memo-32k
+    benchmark: longctx-finance
+    tier: 32k
+    max_tokens: 1800
+    temperature: 0.2
+    timeout: 900
+    prompt_file: prompts/generated/finance_memo-32k.txt
+
+  - name: json_rules-32k
+    benchmark: longctx-instructions
+    tier: 32k
+    max_tokens: 900
+    temperature: 0.0
+    timeout: 900
+    prompt_file: prompts/generated/json_rules-32k.txt
+
+  - name: needle_position-64k
+    benchmark: longctx-retrieval
+    tier: 64k
+    max_tokens: 800
+    temperature: 0.0
+    timeout: 1200
+    prompt_file: prompts/generated/needle_position-64k.txt
+
+  - name: conflict_policy-64k
+    benchmark: longctx-conflict
+    tier: 64k
+    max_tokens: 700
+    temperature: 0.0
+    timeout: 1200
+    prompt_file: prompts/generated/conflict_policy-64k.txt
+
+  - name: repo_architecture-64k
+    benchmark: longctx-code
+    tier: 64k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 1200
+    prompt_file: prompts/generated/repo_architecture-64k.txt
+
+  - name: duplicate_logic-64k
+    benchmark: longctx-code
+    tier: 64k
+    max_tokens: 1400
+    temperature: 0.0
+    timeout: 1200
+    prompt_file: prompts/generated/duplicate_logic-64k.txt
+
+  - name: bug_risk-64k
+    benchmark: longctx-code
+    tier: 64k
+    max_tokens: 900
+    temperature: 0.1
+    timeout: 1200
+    prompt_file: prompts/generated/bug_risk-64k.txt
+
+  - name: refactor_plan-64k
+    benchmark: longctx-code
+    tier: 64k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 1200
+    prompt_file: prompts/generated/refactor_plan-64k.txt
+
+  - name: finance_memo-64k
+    benchmark: longctx-finance
+    tier: 64k
+    max_tokens: 1800
+    temperature: 0.2
+    timeout: 1200
+    prompt_file: prompts/generated/finance_memo-64k.txt
+
+  - name: json_rules-64k
+    benchmark: longctx-instructions
+    tier: 64k
+    max_tokens: 900
+    temperature: 0.0
+    timeout: 1200
+    prompt_file: prompts/generated/json_rules-64k.txt
+
+  - name: needle_position-128k
+    benchmark: longctx-retrieval
+    tier: 128k
+    max_tokens: 800
+    temperature: 0.0
+    timeout: 1800
+    prompt_file: prompts/generated/needle_position-128k.txt
+
+  - name: conflict_policy-128k
+    benchmark: longctx-conflict
+    tier: 128k
+    max_tokens: 700
+    temperature: 0.0
+    timeout: 1800
+    prompt_file: prompts/generated/conflict_policy-128k.txt
+
+  - name: repo_architecture-128k
+    benchmark: longctx-code
+    tier: 128k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 1800
+    prompt_file: prompts/generated/repo_architecture-128k.txt
+
+  - name: duplicate_logic-128k
+    benchmark: longctx-code
+    tier: 128k
+    max_tokens: 1400
+    temperature: 0.0
+    timeout: 1800
+    prompt_file: prompts/generated/duplicate_logic-128k.txt
+
+  - name: bug_risk-128k
+    benchmark: longctx-code
+    tier: 128k
+    max_tokens: 900
+    temperature: 0.1
+    timeout: 1800
+    prompt_file: prompts/generated/bug_risk-128k.txt
+
+  - name: refactor_plan-128k
+    benchmark: longctx-code
+    tier: 128k
+    max_tokens: 1200
+    temperature: 0.1
+    timeout: 1800
+    prompt_file: prompts/generated/refactor_plan-128k.txt
+
+  - name: finance_memo-128k
+    benchmark: longctx-finance
+    tier: 128k
+    max_tokens: 1800
+    temperature: 0.2
+    timeout: 1800
+    prompt_file: prompts/generated/finance_memo-128k.txt
+
+  - name: json_rules-128k
+    benchmark: longctx-instructions
+    tier: 128k
+    max_tokens: 900
+    temperature: 0.0
+    timeout: 1800
+    prompt_file: prompts/generated/json_rules-128k.txt
+

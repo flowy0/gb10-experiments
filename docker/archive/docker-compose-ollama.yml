@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+
+  # ======================================================
+  # Ollama (GB10 GPU inference)
+  # ======================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    runtime: nvidia
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+      - /opt/atom/models:/models   # optional (safe mount)
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    restart: unless-stopped
+    networks:
+      - atom-net
+
+  # ======================================================
+  # OpenWebUI (frontend only)
+  # ======================================================
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:v0.9.2
+    container_name: openwebui
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-data:/app/backend/data
+    environment:
+      # DIRECT OLLAMA MODE (no LiteLLM)
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - TAVILY_MAX_RESULTS=6
+      - TAVILY_SEARCH_DEPTH=advanced
+      - TAVILY_INCLUDE_ANSWER=true
+      - TAVILY_INCLUDE_RAW_CONTENT=false
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    networks:
+      - atom-net
+
+  # searxng:
+  #   image: searxng/searxng:latest
+  #   container_name: searxng
+  #   ports:
+  #     - "8081:8080"
+  #   volumes:
+  #     - ./searxng/settings.yml:/etc/searxng/settings.yml  
+  #   environment:
+  #     - BASE_URL=http://localhost:8081
+  #   restart: unless-stopped
+  #   networks:
+  #     - atom-net
+
+volumes:
+  ollama-data:
+  openwebui-data:
+
+networks:
+  atom-net:
+    driver: bridge

@@ -1,0 +1,20 @@
+You are planning a safe refactor.
+
+Task:
+Create a refactor plan for the provided codebase.
+
+Return:
+1. Current architecture summary
+2. Files likely to change
+3. Refactor phases
+4. Tests to add or update
+5. Risks
+6. Rollback plan
+
+Rules:
+- Do not write code yet.
+- Do not invent files.
+- Prefer small, staged changes.
+- Separate observed facts from recommendations.
+
+CODEBASE CONTENT WILL BE INSERTED HERE LATER.

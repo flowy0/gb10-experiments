@@ -1,0 +1,38 @@
+**Routing JSON**
+
+```json
+{
+  "routing": {
+    "models": [
+      {
+        "name": "unsloth-qwen3-coder-30b-a3b-q4-64k",
+        "recommended_for": "code generation and reasoning tasks requiring high context length",
+        "cache_type": "q8_0",
+        "deprecated": false,
+        "not_for_code": false
+      },
+      {
+        "name": "devstral-small2-24b-q4",
+        "recommended_for": "lightweight code assistance and inference tasks",
+        "cache_type": "q8_0",
+        "deprecated": false,
+        "not_for_code": false
+      },
+      {
+        "name": "unsloth-granite-4.1-8b-q5",
+        "recommended_for": "general-purpose reasoning with moderate context",
+        "cache_type": "q8_0",
+        "deprecated": false,
+        "not_for_code": false
+      },
+      {
+        "name": "codestral-22b-q4",
+        "recommended_for": "advanced code generation and complex programming tasks",
+        "cache_type": "q8_0",
+        "deprecated": true,
+        "not_for_code": false
+      }
+    ]
+  }
+}
+```

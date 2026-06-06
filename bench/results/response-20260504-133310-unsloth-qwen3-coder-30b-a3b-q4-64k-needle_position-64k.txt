@@ -1,0 +1,29 @@
+{
+  "rollback_branch": "rollback/flint-2026-05",
+  "invoice_tolerance": "SGD 12.50",
+  "litellm_endpoint": "http://flint.home.lan:4000/v1",
+  "deprecated_model": "codestral-22b-q4",
+  "kv_cache_type": "q8_0",
+  "evidence_positions": [
+    {
+      "fact": "Emergency rollback branch = rollback/flint-2026-05",
+      "position": "[FACT-BEGIN]"
+    },
+    {
+      "fact": "Invoice reconciliation tolerance = SGD 12.50",
+      "position": "[FACT-Q25]"
+    },
+    {
+      "fact": "Correct LiteLLM endpoint = http://flint.home.lan:4000/v1",
+      "position": "[FACT-MID]"
+    },
+    {
+      "fact": "Deprecated model = codestral-22b-q4",
+      "position": "[FACT-Q75]"
+    },
+    {
+      "fact": "Production KV cache type for both K and V = q8_0",
+      "position": "[FACT-END]"
+    }
+  ]
+}
