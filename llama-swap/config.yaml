@@ -1674,6 +1674,56 @@ models:
             --no-warmup \
             -ngl 99
 
+    unsloth-gemma4-26b-a4b-qat-128k-think:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp - thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-128k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-qat-128k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning-budget 16384 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-26b-a4b-qat-256k-think:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp - thinking, YaRN 256k"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-256k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-qat-256k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning-budget 16384 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
     unsloth-gemma4-26b-a4b-q4-256k-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - flash-attention, thinking"
         ttl: 3600
@@ -2482,10 +2532,10 @@ groups:
             - unsloth-granite-4.1-30b-q4-32k
             - unsloth-granite-4.1-30b-q4-64k
             - unsloth-granite-4.1-30b-q4-128k
-            - unsloth-qwen35-35b-a3b-q4-64k
-            - unsloth-qwen35-35b-a3b-q4-64k-thinking
-            - unsloth-qwen35-35b-a3b-q4-64k-thinking-code
-            - unsloth-qwen35-35b-a3b-q4-64k-fa
+#            - unsloth-qwen35-35b-a3b-q4-64k
+#            - unsloth-qwen35-35b-a3b-q4-64k-thinking
+#            - unsloth-qwen35-35b-a3b-q4-64k-thinking-code
+#            - unsloth-qwen35-35b-a3b-q4-64k-fa
     code:
         swap: true
         exclusive: false
@@ -2520,6 +2570,8 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
             - unsloth-gemma4-26b-a4b-q5-256k-think
+            - unsloth-gemma4-26b-a4b-qat-128k-think
+            - unsloth-gemma4-26b-a4b-qat-256k-think
     summary:
         swap: true
         exclusive: false
@@ -2529,6 +2581,6 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen35-35b-a3b-q4-128k-fa
+#            - unsloth-qwen35-35b-a3b-q4-128k-fa
             - unsloth-qwen36-35b-a3b-q2-128k-thinking
             - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code
