@@ -712,7 +712,6 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 131072 \
             --temp 0.6 \
             --top-p 0.95 \
@@ -741,7 +740,6 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 262144 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -875,7 +873,6 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 131072 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -985,7 +982,6 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 262144 \
             --temp 0.6 \
             --top-p 0.95 \
@@ -1108,7 +1104,6 @@ models:
             -m /models/devstral-small-2-24b-2512-gguf/mistralai_Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 32768 \
             --temp 0.15 \
             --min-p 0.01 \
@@ -1221,7 +1216,6 @@ models:
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -1246,7 +1240,6 @@ models:
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 131072 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -1271,7 +1264,6 @@ models:
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 131072 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -1347,7 +1339,6 @@ models:
             -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
@@ -1470,7 +1461,6 @@ models:
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
@@ -1520,7 +1510,6 @@ models:
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 131072 \
             --temp 1.0 \
             --top-p 0.95 \
@@ -1546,7 +1535,6 @@ models:
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 131072 \
             --temp 1.0 \
             --top-p 0.95 \
@@ -1573,7 +1561,6 @@ models:
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 131072 \
             --temp 1.0 \
             --top-p 0.95 \
@@ -1624,7 +1611,6 @@ models:
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 3 \
             -c 262144 \
             --temp 1.0 \
             --top-p 0.95 \
@@ -2368,7 +2354,6 @@ models:
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 32768 \
             --temp 0.6 \
             --top-p 0.95 \
@@ -2393,7 +2378,6 @@ models:
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 131072 \
             --temp 0.6 \
             --top-p 0.95 \
@@ -2419,7 +2403,6 @@ models:
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            --parallel 4 \
             -c 262144 \
             --temp 0.6 \
             --top-p 0.95 \
