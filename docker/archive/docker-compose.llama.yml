@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+
+  # ======================================================
+  # llama.cpp GPU inference (GB10)
+  # ======================================================
+  llama:
+    build:
+      context: docker
+      dockerfile: Dockerfile-llamacpp
+    container_name: llama_cpp
+    runtime: nvidia
+    ports:
+      - "8080:8080"
+    volumes:
+      - /models:/models
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - LD_LIBRARY_PATH=/usr/local/cuda/compat:/usr/local/lib
+    command: >
+      --host 0.0.0.0
+      --port 8080
+      --n-gpu-layers 999
+      --ctx-size 8192
+      -m /models/fast.gguf
+
+
+  # ======================================================
+  # LiteLLM (OpenAI-compatible API layer)
+  # ======================================================
+  litellm:
+    image: ghcr.io/berriai/litellm@sha256:bd4e99454c632f16e33d66c5c63f07bccb1ec3ca6202dfc3c37492aa1fe9a366
+    container_name: litellm
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm.yaml:/app/config.yaml
+    command: >
+      --config /app/config.yaml
+      --port 4000
+    depends_on:
+     - llama
+
+  # ======================================================
+  # OpenWebUI (frontend + agent UI)
+  # ======================================================
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:v0.9.2
+    container_name: openwebui
+    ports:
+      - "3000:8080"
+    volumes:
+      - openwebui-data:/app/backend/data
+    environment:
+      # Point OpenWebUI to LiteLLM (NOT directly to llama.cpp)
+      - OPENAI_API_BASE_URL=http://litellm:4000/v1
+      - OPENAI_API_KEY=sk-local
+    depends_on:
+      - litellm
+
+volumes:
+  openwebui-data:

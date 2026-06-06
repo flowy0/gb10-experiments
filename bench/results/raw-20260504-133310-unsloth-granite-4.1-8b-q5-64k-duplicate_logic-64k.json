@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "**Analysis**\n\nThe codebase contains many modules that implement a very similar function \u2013 `normalize_entity_*` \u2013 which strips whitespace from an `entity_id`, converts the `status` field to uppercase (or leaves it as `'unknown'`), and returns a dictionary with three keys: `entity_id`, `status`, and `source`.  \n\nAll of these functions share the exact same logic:\n\n```python\ndef normalize_entity_<n>(self, item):\n    entity_id = str(item.get('entity_id', '')).strip()\n    status = item.get('status', 'unknown')\n    return {'entity_id': entity_id, 'status': status.upper(), 'source': f'service_{<n>}'\n```\n\nBecause the implementation is identical across **every** `Service0X` class (from `Service000` through `Service449`), this constitutes duplicated logic.  \n\nIn addition, there are several other utility functions that are also duplicated:\n\n| Area | Files (representative) | Functionality |\n|------|------------------------|---------------|\n| Transaction parsing / normalization | `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py` | Parses a pipe\u2011delimited string into a dict with fields `id`, `currency`, `amount`. |\n| Configuration constants | `config.py` | Defines `TIMEOUT_SECONDS`, `MAX_RETRIES`, `JOB_INTERVAL_SECONDS`. |\n| Retry wrapper | `worker.py` | Implements `run_with_retry`. |\n| Scheduler job creation | `scheduler.py` | Returns a dict with `interval_seconds` and `queue`. |\n| Test assertion | `tests/test_scheduler.py` | Checks that `JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS`. |\n\nThese duplicated blocks increase maintenance overhead, risk inconsistencies when changes are required, and can be refactored into shared utilities.\n\n**False\u2011positive risks**\n\n- **Different context**: The transaction\u2011parsing functions appear in different domains (payment gateway, billing service, reconciler, audit logger). While they are identical now, they might evolve differently later. However, for the current analysis we treat them as duplicates because the code is exactly the same.\n- **Configuration constants**: `config.py` is a single source of truth; its duplication across files would be a mistake, but here it is only defined once, so no false positive there.\n- **Retry and scheduler logic**: These are also duplicated, but they serve the same purpose in each module, so they are genuine duplicates.\n\n**Refactor suggestions**\n\n1. **Create a shared utility module** (e.g., `utils.py`) containing:\n   - `parse_transaction(raw: str) -> dict` \u2013 consolidates the transaction\u2011parsing logic.\n   - `normalize_entity(item: dict, source: str) -> dict` \u2013 generalizes the entity\u2011normalization logic, allowing any service to call it with its own `source`.\n2. **Replace all duplicated functions** in the respective modules with imports from `utils.py`.\n3. **Consolidate configuration constants** into a single place (already done in `config.py`; ensure no stray copies exist).\n4. **Standardize naming**: Use consistent naming (`normalize_entity`) across services, possibly removing the numeric suffixes.\n5. **Add documentation/comments** to clarify why these functions are shared and how they should be used.\n\n**JSON Report**\n\n```json\n{\n  \"duplicates\": [\n    {\n      \"files\": [\n        \"payment_gateway/adapters.py\",\n        \"billing_service/handlers.py\",\n        \"reconciler/core.py\",\n        \"audit_logger/extract.py\"\n      ],\n      \"function_or_area\": \"transaction parsing (parse_transaction)\",\n      \"similarity_reason\": \"identical split\u2011by\u2011'|', validation, and return structure\",\n      \"risk\": \"maintenance overhead, potential divergence if logic changes\",\n      \"refactor_suggestion\": \"move to a shared utils.parse_transaction function\"\n    },\n    {\n      \"files\": [\n        \"service_000/module_000.py\",\n        \"service_001/module_001.py\",\n        \"...\",\n        \"service_449/module_449.py\"\n      ],\n      \"function_or_area\": \"normalize_entity (all Service0X classes)\",\n      \"similarity_reason\": \"exact same implementation across all services\",\n      \"risk\": \"code duplication, higher chance of bugs if logic changes in one place\",\n      \"refactor_suggestion\": \"create utils.normalize_entity(item, source) and import it\"\n    },\n    {\n      \"files\": [\n        \"config.py\"\n      ],\n      \"function_or_area\": \"configuration constants (TIMEOUT_SECONDS, MAX_RETRIES, JOB_INTERVAL_SECONDS)\",\n      \"similarity_reason\": \"single source of truth defined once\",\n      \"risk\": null,\n      \"refactor_suggestion\": null\n    },\n    {\n      \"files\": [\n        \"worker.py\"\n      ],\n      \"function_or_area\": \"run_with_retry wrapper\",\n      \"similarity_reason\": \"identical retry logic\",\n      \"risk\": \"potential divergence if retry semantics change\",\n      \"refactor_suggestion\": \"centralize in utils.retry\"\n    },\n    {\n      \"files\": [\n        \"scheduler.py\"\n      ],\n      \"function_or_area\": \"schedule_job (returns dict with interval and queue)\",\n      \"similarity_reason\": \"identical structure\",\n      \"risk\": null,\n      \"refactor_suggestion\": null\n    },\n    {\n      \"files\": [\n        \"tests/test_scheduler.py\"\n      ],\n      \"function_or_area\": \"test assertion JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS\",\n      \"similarity_reason\": \"simple comparison test\",\n      \"risk\": null,\n      \"refactor_suggestion\": null\n    }\n  ],\n  \"false_positive_risks\": [\n    \"Transaction parsing functions are identical now but may evolve differently in distinct domains; treat as duplicate for current analysis.\",\n    \"Configuration constants are already centralized, so no false positive here.\"\n  ]\n}\n```"
+      }
+    }
+  ],
+  "created": 1777873763,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 1229,
+    "prompt_tokens": 54636,
+    "total_tokens": 55865,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-Eoiae50tr8XpgdYYMiv7ifSrtZbGSlju",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 54636,
+    "prompt_ms": 43213.897,
+    "prompt_per_token_ms": 0.7909418149205651,
+    "prompt_per_second": 1264.3155048016151,
+    "predicted_n": 1229,
+    "predicted_ms": 72616.312,
+    "predicted_per_token_ms": 59.08568917819366,
+    "predicted_per_second": 16.92457198872892
+  }
+}

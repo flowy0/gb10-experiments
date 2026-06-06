@@ -1,0 +1,15 @@
+```json
+{
+  "current_production_model": "unsloth-qwen3-coder-30b-a3b-q4-64k",
+  "obsolete_models": [
+    "qwen25-coder-14b",
+    "devstral-small2-24b-q4"
+  ],
+  "evidence_trail": [
+    "2026-01 earlier policy specifies production model qwen25-coder-14b and is superseded by later policy.",
+    "2026-03 middle policy specifies production model devstral-small2-24b-q4 and is superseded by later policy.",
+    "2026-05 final approved policy specifies production model unsloth-qwen3-coder-30b-a3b-q4-64k as the current approved production model."
+  ],
+  "final_date": "2026-05"
+}
+```

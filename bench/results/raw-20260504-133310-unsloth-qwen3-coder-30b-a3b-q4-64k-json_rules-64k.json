@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"models\": [\n    {\n      \"name\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n      \"recommended_for\": \"general-purpose coding tasks with long context\",\n      \"cache_type\": \"q8_0\",\n      \"deprecated\": false,\n      \"not_for_code\": false\n    },\n    {\n      \"name\": \"devstral-small2-24b-q4\",\n      \"recommended_for\": \"lightweight coding and reasoning tasks\",\n      \"cache_type\": \"q8_0\",\n      \"deprecated\": false,\n      \"not_for_code\": false\n    },\n    {\n      \"name\": \"unsloth-granite-4.1-8b-q5\",\n      \"recommended_for\": \"resource-constrained environments with moderate complexity\",\n      \"cache_type\": \"q8_0\",\n      \"deprecated\": false,\n      \"not_for_code\": true\n    },\n    {\n      \"name\": \"codestral-22b-q4\",\n      \"recommended_for\": \"code generation and analysis tasks\",\n      \"cache_type\": \"q8_0\",\n      \"deprecated\": true,\n      \"not_for_code\": false\n    }\n  ]\n}"
+      }
+    }
+  ],
+  "created": 1777873409,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 256,
+    "prompt_tokens": 48679,
+    "total_tokens": 48935,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-veFqijAQaHbdUCqWuOX3HyKHFJbXz96d",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 48679,
+    "prompt_ms": 33356.811,
+    "prompt_per_token_ms": 0.6852402678773188,
+    "prompt_per_second": 1459.3421415494424,
+    "predicted_n": 256,
+    "predicted_ms": 9186.646,
+    "predicted_per_token_ms": 35.8853359375,
+    "predicted_per_second": 27.866535839086428
+  }
+}

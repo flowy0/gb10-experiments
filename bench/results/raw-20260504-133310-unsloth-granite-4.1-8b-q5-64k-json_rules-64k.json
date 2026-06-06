@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```json\n{\n  \"routing\": {\n    \"models\": [\n      {\n        \"name\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n        \"recommended_for\": \"code generation tasks requiring high context length and advanced reasoning\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"devstral-small2-24b-q4\",\n        \"recommended_for\": \"general-purpose text generation with moderate context\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"unsloth-granite-4.1-8b-q5\",\n        \"recommended_for\": \"lightweight inference with good accuracy for smaller workloads\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      },\n      {\n        \"name\": \"codestral-22b-q4\",\n        \"recommended_for\": \"code generation and reasoning with strong performance\",\n        \"cache_type\": \"q8_0\",\n        \"deprecated\": false,\n        \"not_for_code\": false\n      }\n    ]\n  }\n}\n```"
+      }
+    }
+  ],
+  "created": 1777874158,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 272,
+    "prompt_tokens": 44427,
+    "total_tokens": 44699,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-VJCi5vg27JW0RnhKpMc5YfCbmK3r2pEf",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 44427,
+    "prompt_ms": 31830.395,
+    "prompt_per_token_ms": 0.7164651000517703,
+    "prompt_per_second": 1395.7413974912972,
+    "predicted_n": 272,
+    "predicted_ms": 14429.472,
+    "predicted_per_token_ms": 53.0495294117647,
+    "predicted_per_second": 18.850308590640047
+  }
+}

@@ -1,0 +1,58 @@
+# Focused model set for 1-2 active model routing decisions.
+# Model names must match llama-swap model keys.
+models:
+    - name: unsloth-qwen3-coder-30b-a3b-q4-64k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-qwen3-coder-30b-a3b-q4-64k
+      sample_interval: 2
+      role: hermes_code_daily
+      max_context: 65536
+      safe_prompt_tokens: 58000
+
+    - name: unsloth-qwen3-coder-30b-a3b-q4-128k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-qwen3-coder-30b-a3b-q4-128k
+      sample_interval: 1
+      role: longctx_code
+      max_context: 131072
+      safe_prompt_tokens: 115000
+
+    - name: unsloth-granite-4.1-8b-q5-64k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-granite-4.1-8b-q5-64k
+      sample_interval: 2
+      role: research_64k
+      max_context: 65536
+      safe_prompt_tokens: 58000
+
+    - name: unsloth-granite-4.1-8b-q5-128k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-granite-4.1-8b-q5-128k
+      sample_interval: 1
+      role: longctx_research
+      max_context: 131072
+      safe_prompt_tokens: 115000
+
+    - name: unsloth-granite-4.1-8b-q4-128k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-granite-4.1-8b-q4-128k
+      sample_interval: 1
+      role: budget_longctx_research
+      max_context: 131072
+      safe_prompt_tokens: 115000
+
+    - name: unsloth-gemma4-26b-a4b-q4
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-gemma4-26b-a4b-q4
+      sample_interval: 2
+      role: agent_quality
+      max_context: 32768
+      safe_prompt_tokens: 28000
+
+    - name: unsloth-gemma4-26b-a4b-q4-128k
+      endpoint: http://localhost:8088/v1/chat/completions
+      container: ls-unsloth-gemma4-26b-a4b-q4-128k
+      sample_interval: 1
+      role: longctx_agent
+      max_context: 131072
+      safe_prompt_tokens: 115000

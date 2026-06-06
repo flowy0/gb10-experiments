@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"rollback_branch\": \"rollback/flint-2026-05\",\n  \"invoice_tolerance\": \"SGD 12.50\",\n  \"litellm_endpoint\": \"http://flint.home.lan:4000/v1\",\n  \"deprecated_model\": \"codestral-22b-q4\",\n  \"kv_cache_type\": \"q8_0\",\n  \"evidence_positions\": [\n    {\n      \"fact\": \"Emergency rollback branch = rollback/flint-2026-05\",\n      \"position\": \"[FACT-BEGIN]\"\n    },\n    {\n      \"fact\": \"Invoice reconciliation tolerance = SGD 12.50\",\n      \"position\": \"[FACT-Q25]\"\n    },\n    {\n      \"fact\": \"Correct LiteLLM endpoint = http://flint.home.lan:4000/v1\",\n      \"position\": \"[FACT-MID]\"\n    },\n    {\n      \"fact\": \"Deprecated model = codestral-22b-q4\",\n      \"position\": \"[FACT-Q75]\"\n    },\n    {\n      \"fact\": \"Production KV cache type for both K and V = q8_0\",\n      \"position\": \"[FACT-END]\"\n    }\n  ]\n}"
+      }
+    }
+  ],
+  "created": 1777872881,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 263,
+    "prompt_tokens": 51768,
+    "total_tokens": 52031,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-GClskPpcyId1JOtQCsC7iHarbiM3BFVA",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 51768,
+    "prompt_ms": 36524.978,
+    "prompt_per_token_ms": 0.7055512671920878,
+    "prompt_per_second": 1417.3314491797914,
+    "predicted_n": 263,
+    "predicted_ms": 9832.677,
+    "predicted_per_token_ms": 37.38660456273764,
+    "predicted_per_second": 26.74754799735616
+  }
+}

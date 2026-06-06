@@ -1,0 +1,31 @@
+healthCheckTimeout: 120
+unloadAfter: 300
+
+models:
+  "qwen2.5-coder-14b":
+    cmd: >
+      llama-server
+      --model /models/qwen2.5-coder-14b-instruct-q4_k_m.gguf
+      --host 127.0.0.1
+      --port ${PORT}
+      -ngl 99
+      -c 8192
+      -b 4096
+      -ub 4096
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+    proxy: "http://127.0.0.1:${PORT}"
+
+  "carnice-v2-27b":
+    cmd: >
+      llama-server
+      --model /models/carnice-v2-27b-gguf/carnice-v2-27b-Q2_K.gguf
+      --host 127.0.0.1
+      --port ${PORT}
+      -ngl 99
+      -c 8192
+      -b 4096
+      -ub 4096
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+    proxy: "http://127.0.0.1:${PORT}"

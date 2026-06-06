@@ -1,0 +1,73 @@
+Looking at the codebase, I can identify several cross-file operational bugs that require combining evidence across files. Here are the most critical ones ranked by severity:
+
+## 1. **Critical - Configuration Inconsistency (Severity: ⚠️⚠️⚠️)**
+**Files:** `config.py`, `client.py`, `worker.py`, `scheduler.py`, `tests/test_scheduler.py`
+
+The test in `tests/test_scheduler.py` has a critical logic error:
+```python
+def test_job_completes_before_next_interval():
+    assert JOB_INTERVAL_SECONDS > TIMEOUT_SECONDS
+```
+
+This assertion is backwards - it should be `JOB_INTERVAL_SECONDS >= TIMEOUT_SECONDS` to ensure jobs don't timeout before completion. The configuration values are:
+- `TIMEOUT_SECONDS = 30`
+- `JOB_INTERVAL_SECONDS = 20` 
+
+This creates a logical contradiction where the job interval (20s) is less than timeout (30s), meaning jobs will always timeout.
+
+## 2. **High - Transaction Parser Code Duplication (Severity: ⚠️⚠️)**
+**Files:** `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py`
+
+All four files contain identical transaction parsing functions with the same logic:
+```python
+def parse_transaction(raw: str) -> dict:
+    parts = raw.split('|')
+    if len(parts) != 4:
+        raise ValueError('bad transaction')
+    prefix, txn_id, currency, amount = parts
+    if prefix not in ('TXN', 'PAY'):
+        raise ValueError('bad prefix')
+    return {'id': txn_id.strip(), 'currency': currency.upper(), 'amount': float(amount)}
+```
+
+This duplication violates DRY principle and creates maintenance nightmares. Any bug fix needs to be applied to all 4 files.
+
+## 3. **Medium - Service Class Duplication (Severity: ⚠️⚠️)**
+**Files:** `service_000/module_000.py` through `service_451/module_451.py`
+
+All 452 service modules contain nearly identical code patterns:
+```python
+class ServiceXXX:
+    def __init__(self, config):
+        self.config = config
+        self.cache = {}
+
+    def normalize_entity_XXX(self, item):
+        entity_id = str(item.get('entity_id', '')).strip()
+        status = item.get('status', 'unknown')
+        return {'entity_id': entity_id, 'status': status, 'source': 'service_XXX'}
+
+    def invalidate(self, key):
+        self.cache.pop(key, None)
+```
+
+This represents a massive code duplication issue that should be refactored into a single base class or factory pattern.
+
+## 4. **Low - Inconsistent Naming Convention (Severity: ⚠️)**
+**Files:** `service_000/module_000.py` through `service_451/module_451.py`
+
+The naming convention is inconsistent:
+- Files named as `module_XXX.py` 
+- Classes named as `ServiceXXX`
+- Methods named as `normalize_entity_XXX`
+
+This creates confusion and makes the codebase harder to navigate.
+
+## Summary of Severity Ranking:
+
+1. **Critical** - Configuration inconsistency that will cause runtime failures
+2. **High** - Code duplication that will cause maintenance issues and potential bugs
+3. **Medium** - Massive code duplication that should be refactored
+4. **Low** - Naming convention inconsistencies
+
+The most urgent fix is the configuration test assertion in `tests/test_scheduler.py` which would cause jobs to timeout incorrectly, followed by the transaction parser duplication that needs to be consolidated into a shared module.

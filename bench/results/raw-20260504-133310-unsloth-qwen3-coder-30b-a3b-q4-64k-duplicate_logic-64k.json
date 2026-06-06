@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"duplicates\": [\n    {\n      \"files\": [\n        \"payment_gateway/adapters.py\",\n        \"billing_service/handlers.py\",\n        \"reconciler/core.py\",\n        \"audit_logger/extract.py\"\n      ],\n      \"function_or_area\": \"parse_transaction\",\n      \"similarity_reason\": \"Identical function logic for parsing transaction data from pipe-separated strings with same validation and return structure\",\n      \"risk\": \"High\",\n      \"refactor_suggestion\": \"Extract the parse_transaction function into a shared utility module and import it where needed\"\n    }\n  ],\n  \"false_positive_risks\": [\n    {\n      \"file\": \"service_000/module_000.py\",\n      \"function_or_area\": \"normalize_entity_000\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_001/module_001.py\",\n      \"function_or_area\": \"normalize_entity_001\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_002/module_002.py\",\n      \"function_or_area\": \"normalize_entity_002\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_003/module_003.py\",\n      \"function_or_area\": \"normalize_entity_003\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_004/module_004.py\",\n      \"function_or_area\": \"normalize_entity_004\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_005/module_005.py\",\n      \"function_or_area\": \"normalize_entity_005\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_006/module_006.py\",\n      \"function_or_area\": \"normalize_entity_006\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_007/module_007.py\",\n      \"function_or_area\": \"normalize_entity_007\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_008/module_008.py\",\n      \"function_or_area\": \"normalize_entity_008\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_009/module_009.py\",\n      \"function_or_area\": \"normalize_entity_009\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_010/module_010.py\",\n      \"function_or_area\": \"normalize_entity_010\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_011/module_011.py\",\n      \"function_or_area\": \"normalize_entity_011\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_012/module_012.py\",\n      \"function_or_area\": \"normalize_entity_012\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_013/module_013.py\",\n      \"function_or_area\": \"normalize_entity_013\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_014/module_014.py\",\n      \"function_or_area\": \"normalize_entity_014\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_015/module_015.py\",\n      \"function_or_area\": \"normalize_entity_015\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_016/module_016.py\",\n      \"function_or_area\": \"normalize_entity_016\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_017/module_017.py\",\n      \"function_or_area\": \"normalize_entity_017\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_018/module_018.py\",\n      \"function_or_area\": \"normalize_entity_018\",\n      \"risk\": \"Low\",\n      \"reason\": \"Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions\"\n    },\n    {\n      \"file\": \"service_019/module_019.py\",\n      \"function_or_area\": \"normalize_entity_019\",\n      \"risk\":"
+      }
+    }
+  ],
+  "created": 1777873124,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 1400,
+    "prompt_tokens": 59138,
+    "total_tokens": 60538,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-pcei4rABG2HVYv8T0eJsMhEpU6ZcPMyB",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 59138,
+    "prompt_ms": 44585.755,
+    "prompt_per_token_ms": 0.7539273394433359,
+    "prompt_per_second": 1326.3877666757019,
+    "predicted_n": 1400,
+    "predicted_ms": 58050.125,
+    "predicted_per_token_ms": 41.464375,
+    "predicted_per_second": 24.117088464495122
+  }
+}

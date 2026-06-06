@@ -1,0 +1,50 @@
+FROM nvidia/cuda:13.2.0-devel-ubuntu24.04 AS build
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# ======================================================
+# System deps
+# ======================================================
+RUN apt-get update && apt-get install -y \
+    git \
+    cmake \
+    build-essential \
+    curl \
+    libcurl4-openssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# ======================================================
+# Get llama.cpp source (THIS WAS MISSING)
+# ======================================================
+WORKDIR /app
+
+RUN git clone https://github.com/ggerganov/llama.cpp .
+
+# ======================================================
+# Build
+# ======================================================
+ARG CUDA_DOCKER_ARCH=default
+
+RUN if [ "${CUDA_DOCKER_ARCH}" != "default" ]; then \
+        export CMAKE_ARGS="-DCMAKE_CUDA_ARCHITECTURES=${CUDA_DOCKER_ARCH}"; \
+    fi && \
+    cmake -B build -S . \
+        -DGGML_NATIVE=ON \
+        -DGGML_CUDA=ON \
+        -DGGML_CURL=ON \
+        -DGGML_CUDA_GRAPH=ON \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCMAKE_C_FLAGS="-march=native -O3 -fomit-frame-pointer -pipe" \
+        -DCMAKE_CXX_FLAGS="-march=native -O3 -fomit-frame-pointer -pipe" \
+        -DGGML_BACKEND_DL=ON \
+        -DLLAMA_BUILD_TESTS=OFF \
+        ${CMAKE_ARGS} \
+        -DCMAKE_EXE_LINKER_FLAGS=-Wl,--allow-shlib-undefined && \
+    cmake --build build --config Release -j$(nproc)
+
+# ======================================================
+# Runtime
+# ======================================================
+WORKDIR /app/build/bin
+
+CMD ["bash"]

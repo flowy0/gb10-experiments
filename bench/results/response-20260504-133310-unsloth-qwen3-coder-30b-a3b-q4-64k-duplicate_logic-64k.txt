@@ -1,0 +1,134 @@
+{
+  "duplicates": [
+    {
+      "files": [
+        "payment_gateway/adapters.py",
+        "billing_service/handlers.py",
+        "reconciler/core.py",
+        "audit_logger/extract.py"
+      ],
+      "function_or_area": "parse_transaction",
+      "similarity_reason": "Identical function logic for parsing transaction data from pipe-separated strings with same validation and return structure",
+      "risk": "High",
+      "refactor_suggestion": "Extract the parse_transaction function into a shared utility module and import it where needed"
+    }
+  ],
+  "false_positive_risks": [
+    {
+      "file": "service_000/module_000.py",
+      "function_or_area": "normalize_entity_000",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_001/module_001.py",
+      "function_or_area": "normalize_entity_001",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_002/module_002.py",
+      "function_or_area": "normalize_entity_002",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_003/module_003.py",
+      "function_or_area": "normalize_entity_003",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_004/module_004.py",
+      "function_or_area": "normalize_entity_004",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_005/module_005.py",
+      "function_or_area": "normalize_entity_005",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_006/module_006.py",
+      "function_or_area": "normalize_entity_006",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_007/module_007.py",
+      "function_or_area": "normalize_entity_007",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_008/module_008.py",
+      "function_or_area": "normalize_entity_008",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_009/module_009.py",
+      "function_or_area": "normalize_entity_009",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_010/module_010.py",
+      "function_or_area": "normalize_entity_010",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_011/module_011.py",
+      "function_or_area": "normalize_entity_011",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_012/module_012.py",
+      "function_or_area": "normalize_entity_012",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_013/module_013.py",
+      "function_or_area": "normalize_entity_013",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_014/module_014.py",
+      "function_or_area": "normalize_entity_014",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_015/module_015.py",
+      "function_or_area": "normalize_entity_015",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_016/module_016.py",
+      "function_or_area": "normalize_entity_016",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_017/module_017.py",
+      "function_or_area": "normalize_entity_017",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_018/module_018.py",
+      "function_or_area": "normalize_entity_018",
+      "risk": "Low",
+      "reason": "Function has similar structure but different purpose - it normalizes entity data rather than parsing transactions"
+    },
+    {
+      "file": "service_019/module_019.py",
+      "function_or_area": "normalize_entity_019",
+      "risk":

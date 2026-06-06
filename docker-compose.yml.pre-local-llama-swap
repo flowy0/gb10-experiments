@@ -1,0 +1,229 @@
+services:
+    # =========================
+    # vLLM - CODER MODEL
+    # =========================
+
+    # vllm-coder:
+    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
+    #   container_name: vllm-coder
+    #   runtime: nvidia
+    #   shm_size: "4g"
+    #   ports:
+    #     - "8000:8000"
+    #   volumes:
+    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
+    #     - /opt/atom/models:/models
+    #   entrypoint: ["vllm"]
+    #   command:
+    #     - serve
+    #     - /models/qwen2.5-coder-14b-awq
+    #     - --served-model-name
+    #     - research
+    #     - --host
+    #     - 0.0.0.0
+    #     - --port
+    #     - "8000"
+    #     - --gpu-memory-utilization
+    #     - "0.20"
+    #     - --max-model-len
+    #     - "4096"
+    #     - --enforce-eager
+    #     - --max-num-seqs
+    #     - "8"
+    #     - --dtype
+    #     - auto
+    #   environment:
+    #     - HF_HOME=/root/.cache/huggingface
+    #     - VLLM_USE_FLASHINFER_MOE_FP4=0
+    #     - VLLM_NVFP4_GEMM_BACKEND=marlin
+    #     - VLLM_TEST_FORCE_FP8_MARLIN=1
+    #   restart: unless-stopped
+
+    # =========================
+    # vLLM - RESEARCH MODEL
+    # =========================
+
+    # vllm-research:
+    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
+    #   container_name: vllm-research
+    #   runtime: nvidia
+    #   shm_size: "4g"
+    #   ports:
+    #     - "8001:8000"
+    #   volumes:
+    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
+    #     - /opt/atom/models:/models
+    #   entrypoint: ["vllm"]
+    #   command:
+    #     - serve
+    #     - /models/qwen2.5-14b-instruct-awq
+    #     - --served-model-name
+    #     - research
+    #     - --host
+    #     - 0.0.0.0
+    #     - --port
+    #     - "8000"
+    #     - --gpu-memory-utilization
+    #     - "0.22"
+    #     - --max-model-len
+    #     - "8192"
+    #     - --enforce-eager
+    #     - --max-num-seqs
+    #     - "4"
+    #     - --dtype
+    #     - auto
+    #     - --enable-auto-tool-choice
+    #     - --tool-call-parser
+    #     - hermes
+    #   environment:
+    #     - HF_HOME=/root/.cache/huggingface
+    #     - VLLM_USE_FLASHINFER_MOE_FP4=0
+    #     - VLLM_NVFP4_GEMM_BACKEND=marlin
+    #     - VLLM_TEST_FORCE_FP8_MARLIN=1
+    #   restart: unless-stopped
+    # vllm:
+    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
+    #   container_name: vllm
+    #   privileged: true
+    #   runtime: nvidia
+    #   shm_size: "4g"
+    #   ports:
+    #     - "8000:8000"
+    #   volumes:
+    #     # Use your existing Hugging Face CLI login/cache
+    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
+    #     - /opt/atom/models:/models
+    #   env_file:
+    #     - /opt/atom/.env
+    #   environment:
+    #     HF_HOME: /root/.cache/huggingface
+    #     HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+    #     # GB10 / Blackwell safety settings
+    #     VLLM_USE_FLASHINFER_MOE_FP4: "0"
+    #     VLLM_NVFP4_GEMM_BACKEND: "marlin"
+    #     VLLM_TEST_FORCE_FP8_MARLIN: "1"
+    #   entrypoint: ["vllm", "serve"]
+    #   command:
+    #     - "${VLLM_MODEL}"
+    #     - "--served-model-name"
+    #     - "${VLLM_MODEL_ALIAS}"
+    #     - "--host"
+    #     - "0.0.0.0"
+    #     - "--port"
+    #     - "8000"
+    #     - "--gpu-memory-utilization"
+    #     - "${VLLM_GPU_MEM_UTIL}"
+    #     - "--max-model-len"
+    #     - "${VLLM_MAX_LEN}"
+    #     - "--enforce-eager"
+    #     - "--max-num-seqs"
+    #     - "8"
+    #     - "--dtype"
+    #     - "auto"
+    #   restart: unless-stopped
+
+    llama-swap:
+        image: llama-swap:arm64
+        container_name: llama-swap
+        ports:
+            - "8088:8080"
+        volumes:
+            - /opt/atom/llama-swap/config.yaml:/app/config.yaml:ro
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /opt/atom/models:/models
+            - /home/g/.cache/huggingface:/root/.cache/huggingface
+        command:
+            - "--config"
+            - "/app/config.yaml"
+            - "--listen"
+            - "0.0.0.0:8080"
+        restart: unless-stopped
+
+    # =========================
+
+    # LiteLLM Router
+
+    # =========================
+
+    # litellm:
+    #     image: ghcr.io/berriai/litellm:main-latest
+    #     container_name: litellm
+    #     depends_on:
+    #         - llama-swap
+    #     ports:
+    #         - "4000:4000"
+    #     volumes:
+    #         - ./litellm/config.yaml:/app/config.yaml
+    #     command:
+    #         - "--config"
+    #         - "/app/config.yaml"
+    #         - "--port"
+    #         - "4000"
+    #         - "--host"
+    #         - "0.0.0.0"
+    #     restart: unless-stopped
+
+    open-webui:
+        image: ghcr.io/open-webui/open-webui:main
+        container_name: open-webui
+        depends_on:
+            - llama-swap
+        ports:
+            - "3000:8080"
+        volumes:
+            - open-webui-data:/app/backend/data
+        environment:
+            OPENAI_API_BASE_URL: http://llama-swap:8080/v1
+            OPENAI_API_KEY: not-needed
+            ENABLE_OLLAMA_API: "false"
+        restart: unless-stopped
+
+    mongodb:
+        image: mongo:7
+        container_name: librechat-mongodb
+        env_file:
+            - /opt/atom/.env
+        volumes:
+            - mongo-data:/data/db
+        restart: unless-stopped
+
+    librechat:
+        image: ghcr.io/danny-avila/librechat:latest
+        container_name: librechat
+        env_file:
+            - /opt/atom/.env
+        depends_on:
+            - mongodb
+            - llama-swap
+        ports:
+            - "3080:3080"
+        volumes:
+            - ./librechat/librechat.yml:/app/librechat.yaml
+            - /opt/atom/librechat/data/auth.json:/app/api/data/auth.json
+            - librechat-images:/app/client/public/images
+            - librechat-uploads:/app/uploads
+            - librechat-logs:/app/api/logs
+        environment:
+            MONGO_URI: ${MONGO_URI}
+            CONFIG_PATH: /app/librechat.yaml
+            CREDS_KEY: ${CREDS_KEY}
+            CREDS_IV: ${CREDS_IV}
+            JWT_SECRET: ${JWT_SECRET}
+            JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+            HOST: 0.0.0.0
+            PORT: 3080
+            ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
+            ALLOW_EMAIL_LOGIN: ${ALLOW_EMAIL_LOGIN:-true}
+            ALLOW_SOCIAL_LOGIN: ${ALLOW_SOCIAL_LOGIN:-false}
+            ALLOW_SOCIAL_REGISTRATION: ${ALLOW_SOCIAL_REGISTRATION:-false}
+            SERPER_API_KEY: ${SERPER_API_KEY}
+            ENDPOINTS: ${ENDPOINTS}
+            JINA_API_KEY: ${JINA_API_KEY}
+        restart: unless-stopped
+
+volumes:
+    mongo-data:
+    librechat-images:
+    librechat-uploads:
+    librechat-logs:
+    open-webui-data:

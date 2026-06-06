@@ -1,0 +1,32 @@
+You are testing long-context retrieval.
+
+Task:
+Find all hidden NEEDLE facts in the provided long context and return them exactly.
+
+Return JSON only:
+{
+  "needles": {
+    "NEEDLE_A": "",
+    "NEEDLE_B": "",
+    "NEEDLE_C": "",
+    "NEEDLE_D": "",
+    "NEEDLE_E": ""
+  },
+  "obsolete_or_conflicting_statements": [],
+  "missing_needles": []
+}
+
+Rules:
+- Do not invent facts.
+- If a needle is absent, return an empty string and list it in missing_needles.
+- Prefer final approved decisions over earlier obsolete statements.
+
+PLACEHOLDER CONTEXT:
+Insert long text here.
+
+Example hidden facts to bury at different positions:
+NEEDLE_A: The emergency rollback branch is rollback/flint-2026-05.
+NEEDLE_B: The invoice reconciliation tolerance is SGD 12.50.
+NEEDLE_C: The correct LiteLLM endpoint is http://flint.home.lan:4000/v1.
+NEEDLE_D: The deprecated model is codestral-22b-q4.
+NEEDLE_E: The production KV cache type is q8_0 for both K and V.

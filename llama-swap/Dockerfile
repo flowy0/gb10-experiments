@@ -1,6 +1,6 @@
 ##From https://github.com/mARTin-B78/dgx-spark_lite-llm_llama-swap_vllm_llama-cpp_ollama/tree/main/llama-cpp
 
-# llama-swap.Dockerfile
+# lama-swap.Dockerfile
 
 
 # g@flint:/opt/atom/llama-swap$ docker run --rm ghcr.io/ggml-org/llama.cpp:server-cuda --version
@@ -10,6 +10,8 @@
 
 FROM ubuntu:22.04
 
+ARG LLAMA_SWAP_VERSION=v217
+
 # Install dependencies AND docker.io so llama-swap can manage containers
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ca-certificates \
@@ -18,15 +20,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     docker.io \
     && rm -rf /var/lib/apt/lists/*
 
-# Download the latest ARM64 release of llama-swap
+# Download the latest tagged release of llama-swap
 RUN mkdir -p /tmp/llama-swap-build && \
     cd /tmp/llama-swap-build && \
-    curl -sL https://api.github.com/repos/mostlygeek/llama-swap/releases/latest | \
-    grep "browser_download_url.*linux_arm64.tar.gz" | \
-    head -1 | \
-    cut -d'"' -f4 | \
-    xargs wget -q && \
-    tar -xzf llama-swap_*linux_arm64.tar.gz && \
+    wget -q https://github.com/mostlygeek/llama-swap/releases/download/${LLAMA_SWAP_VERSION}/llama-swap_${LLAMA_SWAP_VERSION#v}_linux_arm64.tar.gz && \
+    tar -xzf llama-swap_${LLAMA_SWAP_VERSION#v}_linux_arm64.tar.gz && \
     mv llama-swap /usr/bin/llama-swap && \
     chmod +x /usr/bin/llama-swap && \
     cd / && \

@@ -1,0 +1,49 @@
+services:
+  vllm:
+    image: nvcr.io/nvidia/vllm:26.04-py3
+    runtime: nvidia
+    restart: unless-stopped
+    ipc: host
+    mem_limit: 48g
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      - /opt/atom/models:/models:ro
+    command: >
+      vllm serve
+      --host 0.0.0.0
+      --model /models/qwen2.5-coder-14b-awq
+      --served-model-name qwen2.5-coder-14b
+      --quantization awq
+      --max-model-len 4096
+      --gpu-memory-utilization 0.2
+    ports:
+      - "127.0.0.1:8000:8000"
+    networks:
+      - atom-net
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_BASE_URL=http://vllm:8000/v1
+      - OPENAI_API_KEY=sk-no-key-required
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY}
+      - WEBUI_AUTH=False
+    env_file:
+      - .env
+    volumes:
+      - /opt/atom/open-webui:/app/backend/data
+    ports:
+      - "8080:8080"
+    depends_on:
+      - vllm
+    networks:
+      - atom-net
+
+networks:
+  atom-net:
+    driver: bridge

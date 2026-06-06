@@ -1,0 +1,24 @@
+use_default_settings: true
+
+general:
+  debug: false
+
+search:
+  safe_search: 0
+  formats:
+   - html
+   - json
+
+server:
+  bind_address: 0.0.0.0
+  port: 8080
+  secret_key: "change_me_please"
+  limiter: false
+  public_instance: true
+
+engines:
+  - name: duckduckgo
+    disabled: false
+
+  - name: google
+    disabled: false

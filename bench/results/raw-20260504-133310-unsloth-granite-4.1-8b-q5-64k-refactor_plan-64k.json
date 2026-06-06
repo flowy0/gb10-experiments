@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "length",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "**Refactor Plan \u2013 Consolidating Duplicate Transaction\u2011Parsing Logic**\n\n---\n\n### 1. Canonical Implementation  \n\nCreate a single, reusable function that encapsulates the duplicated parsing logic:\n\n```python\n# File: payment_gateway/transaction_parser.py\ndef parse_transaction(raw: str) -> dict:\n    \"\"\"\n    Parse a raw transaction string into a normalized dictionary.\n\n    Expected format: ``PREFIX|txn_id|currency|amount``\n\n    Raises:\n        ValueError: If the raw string does not contain exactly 4 parts,\n                     or if the prefix is not 'TXN' or 'PAY'.\n    \"\"\"\n    parts = raw.split('|')\n    if len(parts) != 4:\n        raise ValueError('bad transaction')\n\n    prefix, txn_id, currency, amount = parts\n    if prefix not in ('TXN', 'PAY'):\n        raise ValueError('bad prefix')\n\n    return {\n        'id': txn_id.strip(),\n        'currency': currency.upper(),\n        'amount': float(amount)\n    }\n```\n\n* **Why this is canonical**  \n  * Handles the same validation and normalization steps used in every duplicated implementation.  \n  * Centralizes error handling, making future changes (e.g., adding more prefixes) a single\u2011point update.  \n\n---\n\n### 2. Files to Change  \n\n| Module / File | Reason for Change |\n|---------------|-------------------|\n| `payment_gateway/adapters.py` | Replace `parse_transaction` with an import from the new parser. |\n| `billing_service/handlers.py` | Replace `parse_transaction_response` with the same import. |\n| `reconciler/core.py` | Replace `parse_txn` with the canonical function. |\n| `audit_logger/extract.py` | Replace `extract_transaction` with the canonical function. |\n\n*All other modules (`service_*.py`) are unrelated to transaction parsing and remain untouched.*\n\n---\n\n### 3. Tests  \n\n1. **Existing Unit Tests**  \n   * Run the current test suite (e.g., `tests/test_scheduler.py`) to ensure no regressions.  \n   * Verify that each of the four duplicated parsers passes its existing assertions.\n\n2. **New/Updated Test Suite**  \n   * Add a dedicated test file `tests/test_transaction_parser.py` containing tests for edge cases:  \n     - Incorrect number of parts (`'TXN|123|USD'`).  \n     - Invalid prefix (`'XYZ|...|...'`).  \n     - Whitespace handling around `txn_id`.  \n     - Currency case\u2011insensitivity.  \n     - Floating\u2011point conversion errors (e.g., non\u2011numeric amount).  \n\n3. **Integration / End\u2011to\u2011End Checks**  \n   * Ensure that any higher\u2011level components that call the parsers still behave as expected after the import change.\n\n---\n\n### 4. Backwards Compatibility  \n\n* **Public API** \u2013 The function signatures (`parse_transaction(raw: str) -> dict`) remain unchanged, so callers continue to receive the same return type and raise the same exceptions.  \n* **Import Path** \u2013 Keep the original module names as thin wrappers (if desired) for a gradual rollout, e.g.:  \n\n  ```python\n  # payment_gateway/adapters.py (temporary wrapper)\n  from .transaction_parser import parse_transaction as _parse_transaction\n\n  def parse_transaction(raw: str) -> dict:\n      return _parse_transaction(raw)\n  ```\n\n  This allows existing code to compile unchanged while the real implementation lives in `transaction_parser.py`.  \n\n* **Documentation** \u2013 Update any inline comments or README sections that mention the old duplicated functions to point to the new canonical parser.\n\n---\n\n### 5. Phase\u2011Based Rollout Plan  \n\n#### **Phase\u202f1 \u2013 Preparation (Week\u202f1)**  \n1. Add `payment_gateway/transaction_parser.py` with the canonical implementation.  \n2. Create thin wrapper functions in each of the four affected modules that import the new parser.  \n3. Update documentation and add a note about the upcoming consolidation.  \n\n#### **Phase\u202f2 \u2013 Testing (Week\u202f2)**  \n1. Run the full test suite; fix any failures caused by the wrapper changes.  \n2. Add the new `tests/test_transaction_parser.py` and run it against both old and new implementations.  \n3. Perform a code\u2011review focusing on correctness and backward compatibility.  \n\n#### **Phase\u202f3 \u2013 Deployment (Week\u202f3)**  \n1. Deploy the updated code to a staging environment; verify functional behavior with real transaction data.  \n2. Gradually roll out to production behind feature flags or blue\u2011green deployment, monitoring for errors.  \n\n#### **Phase\u202f4 \u2013 Cleanup (Week\u202f4)**  \n1. Remove the thin wrapper functions and replace them directly with the canonical parser import in each module.  \n2. Delete any duplicate parsing logic from `adapters.py`, `handlers.py`, `core.py`, and `extract.py`.  \n3. Update CI pipelines to enforce that no new duplicated parsing code can be introduced (e.g., lint rule).  \n\n---\n\n### 6. Rollback Plan  \n\n*If any critical issue is detected after Phase\u202f3:*  \n1. Switch the feature flag or revert the deployment to the previous version (still containing the wrappers).  \n2. Keep the wrapper functions in place for a short grace period while investigating the problem.  \n3. Once resolved, proceed with Phase\u202f4 cleanup.\n\n---\n\n### 7. Summary  \n\n* **Canonical function** \u2013 `payment_gateway/transaction_parser.py:parse_transaction`.  \n* **Affected files** \u2013 `adapters.py`, `handlers.py`, `core.py`, `extract.py`.  \n* **Testing** \u2013 Existing tests + new dedicated parser tests.  \n* **Backward compatibility** \u2013 Wrapper functions ensure no breaking changes for callers.  \n* **Rollout** \u2013 Four\u2011phase plan with staging, monitoring"
+      }
+    }
+  ],
+  "created": 1777873973,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 1200,
+    "prompt_tokens": 54876,
+    "total_tokens": 56076,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-g4t5wHkrWVOkBe1z2HzAj4MT2Px4HA7J",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 54876,
+    "prompt_ms": 42853.746,
+    "prompt_per_token_ms": 0.7809196369997813,
+    "prompt_per_second": 1280.5414957189507,
+    "predicted_n": 1200,
+    "predicted_ms": 71826.076,
+    "predicted_per_token_ms": 59.855063333333334,
+    "predicted_per_second": 16.70702434029669
+  }
+}

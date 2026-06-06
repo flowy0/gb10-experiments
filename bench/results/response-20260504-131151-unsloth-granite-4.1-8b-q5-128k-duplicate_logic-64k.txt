@@ -1,0 +1,19 @@
+```json
+{
+  "duplicates": [
+    {
+      "files": [
+        "payment_gateway/adapters.py",
+        "billing_service/handlers.py",
+        "reconciler/core.py",
+        "audit_logger/extract.py"
+      ],
+      "function_or_area": "transaction parsing logic",
+      "similarity_reason": "All four functions perform the same steps: split a raw string by '|', validate that exactly 4 parts are present, check the prefix against ('TXN', 'PAY'), and return a normalized dictionary with stripped fields and uppercased currency.",
+      "risk": "High",
+      "refactor_suggestion": "Extract the parsing logic into a single utility function (e.g., `parse_transaction`) in a shared module (e.g., `common/transaction_utils.py`). Update each file to import and use this function, eliminating duplicated code and reducing maintenance overhead."
+    }
+  ],
+  "false_positive_risks": []
+}
+```

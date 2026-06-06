@@ -1,0 +1,12 @@
+**JSON response**
+
+```json
+{
+  "rollback_branch": "rollback/flint-2026-05",
+  "invoice_tolerance": 12.5,
+  "litellm_endpoint": "http://flint.home.lan:4000/v1",
+  "deprecated_model": "codestral-22b-q4",
+  "kv_cache_type": "q8_0",
+  "evidence_positions": []
+}
+```

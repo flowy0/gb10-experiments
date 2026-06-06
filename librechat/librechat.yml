@@ -2,29 +2,43 @@ version: 1.3.9
 
 cache: true
 
+interface:
+    webSearch: true
+    agents: true
+
 webSearch:
-  searchProvider: "serper"
-  scraperProvider: "serper"
-  serperApiKey: "${SERPER_API_KEY}"
-  safeSearch: 1
-  scraperTimeout: 7500
+    searchProvider: "serper"
+    scraperProvider: "serper"
+    rerankerType: "jina"
+    serperApiKey: "${SERPER_API_KEY}"
+    jinaApiKey: "${JINA_API_KEY}"
+    safeSearch: 1
+    scraperTimeout: 7500
 
 endpoints:
-  custom:
-    - name: "Flint Local"
-      apiKey: "not-needed"
-      baseURL: "http://vllm:8000/v1"
+    custom:
+        - name: "Flint Local"
+          apiKey: "not-needed"
+          baseURL: "http://llama-swap:8080/v1"
 
-      models:
-        default:
-          - "qwen14b-awq"
-        fetch: false
+          models:
+              default:
+                  - "unsloth-gemma4-12b-q4-128k"
+              fetch: false
 
-      titleConvo: true
-      titleModel: "qwen14b-awq"
+          titleConvo: true
+          titleModel: "unsloth-gemma4-12b-q4-128k"
 
-      modelDisplayLabel: "Flint (Local vLLM)"
+          modelDisplayLabel: "Flint (Llama-Swap)"
 
-      # optional but safe
-      dropParams:
-        - "stop"
+          # optional but safe
+          dropParams:
+              - "stop"
+
+    agents:
+        disableBuilder: false
+        capabilities:
+            - "web_search"
+            - "tools"
+            - "file_search"
+            - "context"

@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```json\n{\n  \"duplicates\": [\n    {\n      \"files\": [\n        \"payment_gateway/adapters.py\",\n        \"billing_service/handlers.py\",\n        \"reconciler/core.py\",\n        \"audit_logger/extract.py\"\n      ],\n      \"function_or_area\": \"transaction parsing logic\",\n      \"similarity_reason\": \"All four functions perform the same steps: split a raw string by '|', validate that exactly 4 parts are present, check the prefix against ('TXN', 'PAY'), and return a normalized dictionary with stripped fields and uppercased currency.\",\n      \"risk\": \"High\",\n      \"refactor_suggestion\": \"Extract the parsing logic into a single utility function (e.g., `parse_transaction`) in a shared module (e.g., `common/transaction_utils.py`). Update each file to import and use this function, eliminating duplicated code and reducing maintenance overhead.\"\n    }\n  ],\n  \"false_positive_risks\": []\n}\n```"
+      }
+    }
+  ],
+  "created": 1777872108,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 198,
+    "prompt_tokens": 60396,
+    "total_tokens": 60594,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-5zM99z2qGuEwGKYpDzlyCZuZFVtbKs7B",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 60396,
+    "prompt_ms": 50826.147,
+    "prompt_per_token_ms": 0.8415482316709716,
+    "prompt_per_second": 1188.2860213661288,
+    "predicted_n": 198,
+    "predicted_ms": 12263.523,
+    "predicted_per_token_ms": 61.93698484848485,
+    "predicted_per_second": 16.1454420560878
+  }
+}

@@ -2495,11 +2495,11 @@ groups:
             - unsloth-qwen3-coder-30b-a3b-q4-128k
             - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
             - unsloth-qwen35-27b-q4-64k
+            - unsloth-qwen36-35b-a3b-q2-256k-thinking-code
             - qwen3-coder-next
             - qwen3-coder-next-128k
             - qwen3-coder-next-256k
             - unsloth-qwen36-35b-a3b-q2-128k-thinking-code
-            - unsloth-qwen36-35b-a3b-q2-256k-thinking-code
             - unsloth-qwen36-35b-a3b-q2-256k
             - unsloth-qwen36-35b-a3b-q2-512k
             - unsloth-qwen36-35b-a3b-q2-512k-thinking

@@ -1,0 +1,26 @@
+You are reviewing a codebase for duplicated logic.
+
+Task:
+Find duplicated or near-duplicated logic across the provided codebase.
+
+Return JSON only:
+{
+  "duplicates": [
+    {
+      "files": [],
+      "function_or_area": "",
+      "similarity_reason": "",
+      "risk": "",
+      "refactor_suggestion": ""
+    }
+  ],
+  "false_positive_risks": []
+}
+
+Rules:
+- Do not invent files.
+- Do not write code.
+- Explain only based on the provided content.
+- Prefer precise file/function references.
+
+CODEBASE CONTENT WILL BE INSERTED HERE LATER.

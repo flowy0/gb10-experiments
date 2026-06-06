@@ -1,0 +1,79 @@
+# Refactor Plan: Consolidate Transaction Parsing Behavior
+
+## Goal
+Consolidate duplicated transaction parsing behavior across multiple files without caller-visible changes.
+
+## Canonical Implementation
+
+Create a new module `payment_gateway/transaction_parser.py` with the canonical transaction parsing logic:
+
+```python
+# payment_gateway/transaction_parser.py
+def parse_transaction(raw: str) -> dict:
+    """
+    Parse transaction string into structured data.
+    
+    Args:
+        raw (str): Transaction string in format "PREFIX|TXN_ID|CURRENCY|AMOUNT"
+        
+    Returns:
+        dict: Parsed transaction with keys 'id', 'currency', 'amount'
+        
+    Raises:
+        ValueError: If transaction format is invalid
+    """
+    parts = raw.split('|')
+    if len(parts) != 4:
+        raise ValueError('bad transaction')
+    prefix, txn_id, currency, amount = parts
+    if prefix not in ('TXN', 'PAY'):
+        raise ValueError('bad prefix')
+    return {'id': txn_id.strip(), 'currency': currency.upper(), 'amount': float(amount)}
+```
+
+## Files to Change
+
+### 1. New File: `payment_gateway/transaction_parser.py`
+- Create the canonical transaction parser implementation
+
+### 2. Updated Files:
+- **`payment_gateway/adapters.py`**: Import and use canonical function
+- **`billing_service/handlers.py`**: Import and use canonical function  
+- **`reconciler/core.py`**: Import and use canonical function
+- **`audit_logger/extract.py`**: Import and use canonical function
+
+### 3. Updated Test Files:
+- **`tests/test_scheduler.py`**: Update imports to reference new module (if needed)
+
+## Backwards Compatibility
+
+✅ **Fully backwards compatible** - No API changes, same function signatures, same return types, same error messages.
+
+## Phase 1/2/3 Rollout
+
+### Phase 1: Implementation and Testing
+- Create `payment_gateway/transaction_parser.py`
+- Update all 4 files that contain duplicated logic to import from new module
+- Run existing tests to ensure no regressions
+- Add unit tests for the canonical parser if missing
+
+### Phase 2: Deployment
+- Deploy Phase 1 changes to staging environment
+- Run comprehensive integration tests
+- Monitor for any issues in transaction parsing behavior
+
+### Phase 3: Production Rollout
+- Deploy to production with canary release
+- Monitor transaction processing metrics
+- Validate that all services continue to work identically
+
+## Rollback Plan
+
+If issues arise during deployment:
+
+1. **Immediate Rollback**: Revert all changes to restore original duplicated implementations
+2. **Verification**: Confirm all services function as before
+3. **Root Cause Analysis**: Investigate why consolidation failed
+4. **Alternative Approach**: Consider keeping separate implementations if consolidation proves problematic
+
+**Rollback Duration**: 30 minutes maximum (assuming deployment system allows quick rollback)

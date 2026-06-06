@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"current_production_model\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n  \"obsolete_models\": [\n    \"qwen25-coder-14b\",\n    \"devstral-small2-24b-q4\"\n  ],\n  \"evidence_trail\": [\n    \"CONFLICT0-00000\",\n    \"CONFLICT1-00000\",\n    \"CONFLICT2-00000\",\n    \"CONFLICT3-00000\"\n  ],\n  \"final_date\": \"2026-05\"\n}"
+      }
+    }
+  ],
+  "created": 1777871657,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 137,
+    "prompt_tokens": 53379,
+    "total_tokens": 53516,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-ksneMj2QulRHKuv6nGTThDVG2zdCUsLa",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 53379,
+    "prompt_ms": 38007.437,
+    "prompt_per_token_ms": 0.7120297682609266,
+    "prompt_per_second": 1404.4356634729145,
+    "predicted_n": 137,
+    "predicted_ms": 5214.504,
+    "predicted_per_token_ms": 38.06207299270073,
+    "predicted_per_second": 26.272872741108266
+  }
+}

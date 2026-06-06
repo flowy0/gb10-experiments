@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```json\n{\n  \"current_production_model\": \"unsloth-qwen3-coder-30b-a3b-q4-64k\",\n  \"obsolete_models\": [\n    \"qwen25-coder-14b\",\n    \"devstral-small2-24b-q4\"\n  ],\n  \"evidence_trail\": [\n    \"2026-01 earlier policy superseded by later policy with production model qwen25-coder-14b.\",\n    \"2026-03 middle policy superseded by later policy with production model devstral-small2-24b-q4.\",\n    \"2026-05 final approved policy establishes current production model unsloth-qwen3-coder-30b-a3b-q4-64k.\"\n  ],\n  \"final_date\": \"2026-05\"\n}\n```"
+      }
+    }
+  ],
+  "created": 1777873530,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 168,
+    "prompt_tokens": 43979,
+    "total_tokens": 44147,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-eU4F1rnqGdiuYAkrYgm5P9ISmUPFKIpH",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 43979,
+    "prompt_ms": 31438.631,
+    "prompt_per_token_ms": 0.7148555219536598,
+    "prompt_per_second": 1398.884067184732,
+    "predicted_n": 168,
+    "predicted_ms": 8850.874,
+    "predicted_per_token_ms": 52.68377380952381,
+    "predicted_per_second": 18.98117632224795
+  }
+}

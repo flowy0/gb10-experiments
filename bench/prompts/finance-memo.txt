@@ -1,0 +1,22 @@
+You are preparing a trading advisory research memo.
+
+Task:
+Based only on the provided documents, produce a structured research memo.
+
+Return:
+1. Executive summary
+2. Bull case
+3. Bear case
+4. Key financial metrics
+5. Risks
+6. Contradictions across documents
+7. Missing information
+8. Final watchlist decision
+
+Rules:
+- Do not use external knowledge.
+- Separate facts from inference.
+- Do not hallucinate numbers.
+- Cite the section names from the provided prompt when possible.
+
+DOCUMENT CONTENT WILL BE INSERTED HERE LATER.

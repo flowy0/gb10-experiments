@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "## Entry Points\n\n- `payment_gateway/adapters.py` - `parse_transaction()` function\n- `billing_service/handlers.py` - `parse_transaction_response()` function  \n- `reconciler/core.py` - `parse_txn()` function\n- `audit_logger/extract.py` - `extract_transaction()` function\n- `client.py` - `post_payment()` function\n- `worker.py` - `run_with_retry()` function\n- `scheduler.py` - `schedule_job()` function\n\n## Data Flow\n\n1. Transaction data flows through parsing functions in multiple modules (`payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py`)\n2. Configuration values are imported and used across modules (`config.py` - TIMEOUT_SECONDS, MAX_RETRIES, JOB_INTERVAL_SECONDS)\n3. HTTP requests are made via `client.py`'s `post_payment()` function\n4. Retry logic is implemented in `worker.py` using `run_with_retry()`\n5. Scheduling is handled by `scheduler.py`'s `schedule_job()`\n\n## Key Modules\n\n- **Parsing modules**: `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py` - all contain identical transaction parsing logic\n- **Configuration**: `config.py` - centralizes timeout, retry, and scheduling constants\n- **Client interaction**: `client.py` - HTTP request handling with timeout configuration\n- **Retry mechanism**: `worker.py` - retry wrapper function using MAX_RETRIES\n- **Scheduling**: `scheduler.py` - job scheduling with interval configuration\n- **Service modules**: 452 modules (`service_000/module_000.py` through `service_451/module_451.py`) - each contains a service class with similar structure\n\n## External Dependencies\n\n- `requests` library (used in `client.py`)\n- Configuration constants from `config.py`\n- Test module `tests/test_scheduler.py` that references `JOB_INTERVAL_SECONDS` and `TIMEOUT_SECONDS`\n\n## Hidden Coupling\n\n1. **Identical parsing logic**: All four transaction parsing functions (`parse_transaction`, `parse_transaction_response`, `parse_txn`, `extract_transaction`) are exact duplicates with identical implementation\n2. **Configuration coupling**: Multiple modules import and use the same configuration constants from `config.py`\n3. **Test dependency**: Test file `tests/test_scheduler.py` directly references module-level constants, creating tight coupling between test and implementation\n4. **Service class duplication**: 452 service classes all follow identical pattern with only naming differences (service_000 through service_451)\n5. **Module naming convention**: All service modules follow predictable naming pattern (`service_XXX/module_XXX.py`)\n\n## Risky Files\n\n- `payment_gateway/adapters.py`, `billing_service/handlers.py`, `reconciler/core.py`, `audit_logger/extract.py` - contain identical code that should be consolidated\n- `config.py` - central configuration file that affects multiple modules; changes could have wide impact\n- `tests/test_scheduler.py` - test directly references module constants, making tests brittle to implementation changes\n- All 452 service modules (`service_XXX/module_XXX.py`) - massive duplication with no clear benefit\n\n## Suggested Refactor Areas\n\n1. **Consolidate parsing functions**: Extract identical transaction parsing logic into a single shared utility module\n2. **Reduce service class duplication**: Replace 452 similar service classes with a single configurable service class or factory pattern\n3. **Centralize configuration management**: Consider using a configuration manager class instead of direct imports from `config.py`\n4. **Improve test isolation**: Refactor `tests/test_scheduler.py` to not directly reference module constants\n5. **Module naming consistency**: Standardize the naming and structure of service modules to avoid 452 similar files\n6. **Extract common patterns**: Identify and extract common patterns from service classes into base classes or mixins"
+      }
+    }
+  ],
+  "created": 1777873020,
+  "model": "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 841,
+    "prompt_tokens": 59393,
+    "total_tokens": 60234,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-d4zv8UTsxvlGV9M5ylaoMWwgvRWBKAQ6",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 59393,
+    "prompt_ms": 44861.948,
+    "prompt_per_token_ms": 0.755340663041099,
+    "prompt_per_second": 1323.9059525457967,
+    "predicted_n": 841,
+    "predicted_ms": 34898.92,
+    "predicted_per_token_ms": 41.496932223543396,
+    "predicted_per_second": 24.098166934678783
+  }
+}

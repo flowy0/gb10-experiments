@@ -1,0 +1,36 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "```json\n{\n  \"rollback_branch\": \"rollback/flint-2026-05\",\n  \"invoice_tolerance\": \"SGD 12.50\",\n  \"litellm_endpoint\": \"http://flint.home.lan:4000/v1\",\n  \"deprecated_model\": \"codestral-22b-q4\",\n  \"kv_cache_type\": \"q8_0\",\n  \"evidence_positions\": []\n}\n```"
+      }
+    }
+  ],
+  "created": 1777873488,
+  "model": "granite-4.1-8b-Q5_K_M.gguf",
+  "system_fingerprint": "b8967-fc2b0053f",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 90,
+    "prompt_tokens": 47603,
+    "total_tokens": 47693,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "id": "chatcmpl-KkcN3FDW4Bm5RzDCPGdZJOB4EytuNecI",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 47603,
+    "prompt_ms": 34445.565,
+    "prompt_per_token_ms": 0.723600718442115,
+    "prompt_per_second": 1381.9776217925296,
+    "predicted_n": 90,
+    "predicted_ms": 4897.058,
+    "predicted_per_token_ms": 54.41175555555556,
+    "predicted_per_second": 18.378381469037123
+  }
+}
