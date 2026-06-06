@@ -2570,8 +2570,6 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-128k
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
             - unsloth-gemma4-26b-a4b-q5-256k-think
-            - unsloth-gemma4-26b-a4b-qat-128k-think
-            - unsloth-gemma4-26b-a4b-qat-256k-think
     summary:
         swap: true
         exclusive: false
@@ -2584,3 +2582,5 @@ groups:
 #            - unsloth-qwen35-35b-a3b-q4-128k-fa
             - unsloth-qwen36-35b-a3b-q2-128k-thinking
             - unsloth-qwen36-35b-a3b-mtp-q2-256k-thinking-code
+            - unsloth-gemma4-26b-a4b-qat-128k-think
+            - unsloth-gemma4-26b-a4b-qat-256k-think
