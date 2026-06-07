@@ -2541,13 +2541,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-qwen36-27b-q4-256k-iq4-fa-fa-think:
+    unsloth-qwen36-27b-q4-256k-iq4-fa-think:
         name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp - iq4_nl cache, thinking"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-256k-iq4-fa-fa-think
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-256k-iq4-fa-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-qwen36-27b-q4-256k-iq4-fa-fa-think \
+            --name ls-unsloth-qwen36-27b-q4-256k-iq4-fa-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2594,13 +2594,13 @@ models:
             --no-warmup \
             -ngl 99
 
-    unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-fa-think:
+    unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - iq4_nl cache, thinking"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-fa-think
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-fa-think \
+            --name ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2647,13 +2647,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-fa-think:
+    unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think:
         name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - iq4_nl cache, thinking"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-fa-think
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-fa-think \
+            --name ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2766,7 +2766,7 @@ groups:
             - unsloth-qwen36-27b-mtp-q4-256k-think-code
             - unsloth-gemma4-26b-a4b-q4-256k-fa
             - unsloth-qwen36-35b-a3b-q2-256k-iq4
-            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-fa-think
+            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
     research:
         swap: true
         exclusive: false
@@ -2777,7 +2777,7 @@ groups:
             - unsloth-gemma4-12b-qat-128k-think
             - unsloth-gemma4-12b-qat-256k-think
             - unsloth-qwen36-27b-q4-256k-iq4
-            - unsloth-qwen36-27b-q4-256k-iq4-fa-fa-think
+            - unsloth-qwen36-27b-q4-256k-iq4-fa-think
     stable:
         swap: true
         exclusive: false
@@ -2787,7 +2787,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
             - unsloth-gemma4-26b-a4b-q5-256k-think
             - unsloth-gemma4-26b-a4b-q5-256k-iq4
-            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-fa-think
+            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
     summary:
         swap: true
         exclusive: false
