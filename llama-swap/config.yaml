@@ -2540,6 +2540,32 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-27b-q4-256k-iq4-thinking:
+        name: "Unsloth Qwen3.6 27B Q4_K_M via llama.cpp - iq4_nl cache, thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-256k-iq4-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-27b-q4-256k-iq4-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --no-warmup \
+            --cache-type-k iq4_nl \
+            --cache-type-v iq4_nl \
+            --jinja \
+            -ngl 99
+
     unsloth-gemma4-26b-a4b-q5-256k-iq4:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - iq4_nl cache"
         ttl: 3600
@@ -2559,6 +2585,30 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --chat-template-kwargs '{"enable_thinking":false}' \
+            --cache-type-k iq4_nl \
+            --cache-type-v iq4_nl \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-26b-a4b-q5-256k-iq4-thinking:
+        name: "Unsloth Gemma 4 26B-A4B IT UD-Q5_K_M via llama.cpp - iq4_nl cache, thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-q5-256k-iq4-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
             --cache-type-k iq4_nl \
             --cache-type-v iq4_nl \
             --jinja \
@@ -2586,6 +2636,32 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --reasoning off \
+            --no-warmup \
+            --cache-type-k iq4_nl \
+            --cache-type-v iq4_nl \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-q2-256k-iq4-thinking:
+        name: "Unsloth Qwen3.6 35B-A3B UD-Q2_K_XL via llama.cpp - iq4_nl cache, thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-thinking
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-q2-256k-iq4-thinking \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294@sha256:39f1ce159666dbd338da47674eb2667b28c1410d6c51a0e3f78839446f7aace0 \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
             --no-warmup \
             --cache-type-k iq4_nl \
             --cache-type-v iq4_nl \
@@ -2684,6 +2760,7 @@ groups:
             - unsloth-qwen36-27b-mtp-q4-256k-thinking-code
             - unsloth-gemma4-26b-a4b-q4-256k-fa
             - unsloth-qwen36-35b-a3b-q2-256k-iq4
+            - unsloth-qwen36-35b-a3b-q2-256k-iq4-thinking
     research:
         swap: true
         exclusive: false
@@ -2694,6 +2771,7 @@ groups:
             - unsloth-gemma4-12b-qat-128k-think
             - unsloth-gemma4-12b-qat-256k-think
             - unsloth-qwen36-27b-q4-256k-iq4
+            - unsloth-qwen36-27b-q4-256k-iq4-thinking
     stable:
         swap: true
         exclusive: false
@@ -2703,6 +2781,7 @@ groups:
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
             - unsloth-gemma4-26b-a4b-q5-256k-think
             - unsloth-gemma4-26b-a4b-q5-256k-iq4
+            - unsloth-gemma4-26b-a4b-q5-256k-iq4-thinking
     summary:
         swap: true
         exclusive: false
