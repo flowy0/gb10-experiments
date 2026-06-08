@@ -2908,6 +2908,7 @@ groups:
         exclusive: false
         members:
             - unsloth-granite-4.1-8b-q4-128k
+            - unsloth-gemma4-12b-qat-128k
     hermes:
         swap: true
         exclusive: false
@@ -2917,7 +2918,6 @@ groups:
             - unsloth-qwen36-35b-a3b-q2-128k
             - unsloth-gemma4-26b-a4b-qat-128k-think
             - unsloth-gemma4-26b-a4b-qat-256k-think
-            - unsloth-gemma4-12b-qat-128k
 
     mtp-test:
         swap: true
