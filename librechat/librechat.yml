@@ -23,11 +23,11 @@ endpoints:
 
           models:
               default:
-                  - "unsloth-gemma4-12b-q4-128k"
+                  - "unsloth-qwen36-35b-a3b-q2-128k"
               fetch: false
 
           titleConvo: true
-          titleModel: "unsloth-gemma4-12b-q4-128k"
+          titleModel: "unsloth-qwen36-35b-a3b-q2-128k"
 
           modelDisplayLabel: "Flint (Llama-Swap)"
 

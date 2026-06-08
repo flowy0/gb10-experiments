@@ -123,7 +123,7 @@ services:
     #   restart: unless-stopped
 
 #    vllm-qwen35-nvfp4:
-#        image: ghcr.io/aeon-7/aeon-vllm-ultimate:v0.22.1-pr44389-spark
+#        image: vllm/vllm-openai:cu129-nightly-aarch64
 #        container_name: vllm-qwen35-nvfp4
 #        runtime: nvidia
 #        shm_size: "16g"
@@ -133,14 +133,17 @@ services:
 #            - /opt/atom/models:/models:ro
 #            - /home/g/.cache/huggingface:/root/.cache/huggingface
 #        ipc: host
-#        entrypoint: ["vllm"]
+#        entrypoint: ["vllm", "serve"]
 #        environment:
 #            HF_HOME: /root/.cache/huggingface
+#            VLLM_USE_FLASHINFER_MOE_FP4: "0"
+#            VLLM_FP8_MOE_BACKEND: flashinfer_cutlass
+#            CUDA_MANAGED_FORCE_DEVICE_ALLOC: "1"
+#            VLLM_MARLIN_USE_ATOMIC_ADD: "1"
 #        command:
-#            - serve
-#            - /models/Qwen3.6-35B-A3B-NVFP4
+#            - /models/Qwen3.6-35B-A3B-FP8
 #            - --served-model-name
-#            - nvidia-qwen36-35b-nvfp4-256k
+#            - nvidia-qwen36-35b-fp8-256k
 #            - --host
 #            - 0.0.0.0
 #            - --port
@@ -150,18 +153,20 @@ services:
 #            - --max-num-seqs
 #            - "4"
 #            - --kv-cache-dtype
-#            - nvfp4
+#            - fp8
 #            - --gpu-memory-utilization
 #            - "0.45"
 #            - --dtype
 #            - auto
-#            - --quantization
-#            - modelopt
 #            - --trust-remote-code
-#            - --enable-chunked-prefill
+#            - --attention-backend
+#            - flashinfer
+#            - --moe-backend
+#            - marlin
 #            - --enable-prefix-caching
-#            - --mamba-block-size
-#            - "256"
+#            - --max-num-batched-tokens
+#            - "32768"
+#            - --enable-chunked-prefill
 #        restart: unless-stopped
 
     llama-swap:
@@ -218,7 +223,7 @@ services:
             OPENAI_API_BASE_URL: http://llama-swap:8080/v1
             OPENAI_API_KEY: not-needed
             ENABLE_OLLAMA_API: "false"
-            OPENAI_MODEL_LIST: '["unsloth-gemma4-12b-q4-128k"]'
+            OPENAI_MODEL_LIST: '["unsloth-qwen36-35b-a3b-q2-128k"]'
         restart: unless-stopped
 
     mongodb:

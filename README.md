@@ -63,6 +63,38 @@ This does not affect chat or agent tool execution.
 
 ---
 
+## Recommended Default Setup
+
+| Role | Model | Context | Memory | Group |
+|---|---|---|---|---|
+| **pi (coding agent)** | `unsloth-qwen36-35b-a3b-q2-256k` | 256k | 39 GB | `code` |
+| **Hermes main** | `unsloth-qwen36-35b-a3b-q2-128k` | 128k | 34 GB | `hermes` |
+| **Hermes aux** | `unsloth-gemma4-12b-qat-128k` | 128k | 32 GB | `hermes` |
+| **Total** | | | **105 GB** | ✅ 17 GB free |
+
+All at q8_0 KV cache (full speed). Pi gets 256k for long coding sessions. Hermes uses the same Qwen 35B family for consistency.
+
+---
+
+## Session Management
+
+Based on 1,931 tracked sessions:
+- **78.7%** fit in 128k, **86.7%** fit in 256k
+- 13.3% exceed 256k — use 512k YaRN variant on-demand
+
+### Final Recommended Setup
+
+| Role | Model | Context | Memory | Group | Speed |
+|---|---|---|---|---|---|
+| **pi (coding agent)** | `unsloth-qwen36-35b-a3b-q2-256k` | 256k | 39 GB | `code` | ~50 tok/s |
+| **Hermes main** | `unsloth-qwen36-35b-a3b-q2-128k` | 128k | 34 GB | `hermes` | ~50 tok/s |
+| **Hermes aux** | `unsloth-gemma4-12b-qat-128k` | 128k | 32 GB | `hermes` | ~46 tok/s |
+| **Long context** (on-demand) | `unsloth-qwen36-35b-a3b-q2-512k-think` | 512k | 49 GB | `code` | ~15 tok/s |
+| **Total** (3 loaded) | | | **105 GB** ✅ | | |
+
+All at q8_0 KV cache (full precision). Matching context windows for deterministic compaction.
+The 512k variant swaps in automatically for sessions exceeding 256k, then unloads.
+
 ## Quick Reference
 
 - **llama-swap API:** `http://localhost:8088/v1`
@@ -74,11 +106,64 @@ This does not affect chat or agent tool execution.
 
 Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/MEMORY.md` for memory planning.
 
-## vLLM — Not Currently Used
+## vLLM — Qwen3.6 Formats & Status
 
-vLLM was attempted for Qwen3.6 35B FP8 at 512k context but has two blockers:
+### Qwen3.6 35B Formats
 
-1. **Driver version:** NVIDIA vLLM containers require driver ≥ 590.48 (host has 580.159.03). The custom `hellohal2064/vllm-dgx-spark-gb10` image works on this driver but lacks Qwen3.5/3.6 architecture support.
-2. **Transformers version:** Qwen3.6 uses `qwen3_5_moe` architecture which requires a newer transformers release than what's available in any vLLM container image currently on the system.
+| Format | Size | Quality | vLLM compat | Already have | MTP | TQ |
+|---|---|---|---|---|---|---|
+| **FP8** (official Qwen) | 35 GB | near-lossless 🏆 | `v0.20.0+` | ✅ | ✅ | ❌ |
+| **NVFP4** (NVIDIA) | 22 GB | near-lossless | `v0.22.1+` / `nightly` | ✅ | ✅ | ❌ |
+| AWQ 4-bit | 18 GB | good | `v0.18.0+` | ❌ | ✅ | ❌ |
+| BF16 (original) | 70 GB | reference | any | ❌ | ✅ | ❌ |
 
-**Status:** On hold until vLLM/transformers releases support for Qwen3.5/3.6 architecture. Meanwhile, llama.cpp serves Qwen3.6 35B at 256k with Q2 GGUF.
+**NVFP4** is officially recommended by NVIDIA for DGX Spark GB10 with:
+```bash
+export VLLM_USE_FLASHINFER_MOE_FP4=0
+export VLLM_FP8_MOE_BACKEND=flashinfer_cutlass
+vllm serve nvidia/Qwen3.6-35B-A3B-NVFP4 --quantization modelopt --kv-cache-dtype fp8
+```
+
+### Status
+
+vLLM has not yet been deployed successfully. Previous attempts:
+
+| Attempt | Image | Model | Issue |
+|---|---|---|---|
+| 1 | `v0.18.0-cu130` | FP8 | No SM 12.1 support |
+| 2 | `aeon-vllm-ultimate` (40.8 GB) | NVFP4 | Container too large → OOM |
+| 3 | `v0.22.1-aarch64` | NVFP4 | `lm_head.input_scale` modelopt mismatch |
+| 4 | `cu129-nightly-aarch64` | NVFP4 | Loaded model but OOM during AutoTuner compilation |
+| 5 | `cu129-nightly-aarch64` (no MTP) | NVFP4 | Loaded model but stuck in infinite AutoTuner loop (69+ passes) |
+
+**Root cause:** vLLM's NVFP4 AutoTuner on GB10 never completes — it loops through the same
+23 FP8 GEMM profiles indefinitely. This is a bug in the nightly build specific to this model/hardware combination.
+The torch.compile phase also spikes memory significantly during startup.
+
+**Status:** vLLM cannot serve NVFP4 models on this GB10 setup. Recommend sticking with
+llama-swap for reliable multi-model serving.
+
+### Latest Recommendations
+
+- **Image:** `vllm/vllm-openai:v0.22.1-aarch64` (CUDA 12.9, forward-compatible on 13.0 driver)
+- **NVFP4 model:** Already downloaded (22 GB). NVIDIA officially recommends for GB10.
+- **MTP:** `--speculative-config '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'` (v0.20.0+)
+- **TurboQuant** (`--kv-cache-dtype tq_k8v4`) requires nightly builds with PR #39931.
+
+### Tradeoff
+
+vLLM reserves memory upfront (`--gpu-memory-utilization`). At 0.45, it reserves ~55 GB for Qwen,
+leaving ~67 GB for llama-swap to run Gemma4 alongside. Cannot run 3 models simultaneously
+with vLLM active — run vLLM solo for maximum throughput, or pair with 1 llama-swap model.
+
+### Wshobson reference config
+
+```yaml
+image: vllm/vllm-openai:v0.20.0-aarch64-cu130-ubuntu2404
+model: Qwen/Qwen3.6-35B-A3B-FP8
+command:
+  - "--gpu-memory-utilization" "0.7069"
+  - "--kv-cache-dtype" "fp8"
+  - "--attention-backend" "flashinfer"
+  - "--speculative-config" '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
+```
