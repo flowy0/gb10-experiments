@@ -103,7 +103,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -129,7 +129,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -155,7 +155,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -182,7 +182,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -261,7 +261,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -343,7 +343,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -425,7 +425,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -510,7 +510,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -594,7 +594,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -671,7 +671,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -834,7 +834,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -887,7 +887,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -942,7 +942,7 @@ models:
             --min-p 0.00 \
             --presence-penalty 1.5 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -1303,7 +1303,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1328,7 +1328,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1353,7 +1353,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1377,7 +1377,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1401,7 +1401,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1425,7 +1425,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -1450,7 +1450,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1474,7 +1474,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -1525,7 +1525,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1550,7 +1550,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -1630,7 +1630,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1655,7 +1655,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q5_1 \
             --cache-type-v q5_1 \
@@ -1681,7 +1681,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q5_1 \
             --cache-type-v q5_1 \
@@ -1739,6 +1739,31 @@ models:
             --no-warmup \
             -ngl 99
 
+    unsloth-gemma4-26b-a4b-qat-128k-think-code:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp- think-code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-128k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-qat-128k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning-budget 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
     unsloth-gemma4-26b-a4b-qat-256k-think:
         name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp- think, YaRN 256k"
         ttl: 3600
@@ -1746,6 +1771,31 @@ models:
         cmd: |
             docker run --rm \
             --name ls-unsloth-gemma4-26b-a4b-qat-256k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning-budget 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-26b-a4b-qat-256k-think-code:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp- think-code, YaRN 256k"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-256k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-qat-256k-think-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -1808,7 +1858,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1884,7 +1934,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1932,7 +1982,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k q5_1 \
             --cache-type-v q5_1 \
@@ -2007,7 +2057,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2340,7 +2390,7 @@ models:
               --min-p 0.00 \
               --presence-penalty 1.5 \
               --repeat-penalty 1.0 \
-              --chat-template-kwargs '{"enable_thinking":false}' \
+              --reasoning off \
               --cache-type-k q8_0 \
               --cache-type-v q8_0 \
               --jinja \
@@ -2420,7 +2470,7 @@ models:
               --min-p 0.00 \
               --presence-penalty 1.5 \
               --repeat-penalty 1.0 \
-              --chat-template-kwargs '{"enable_thinking":false}' \
+              --reasoning off \
               --cache-type-k q8_0 \
               --cache-type-v q8_0 \
               --flash-attn on \
@@ -2448,7 +2498,7 @@ models:
               --min-p 0.00 \
               --presence-penalty 1.5 \
               --repeat-penalty 1.0 \
-              --chat-template-kwargs '{"enable_thinking":false}' \
+              --reasoning off \
             --no-warmup \
               --cache-type-k q8_0 \
               --cache-type-v q8_0 \
@@ -2500,7 +2550,7 @@ models:
     #         --temp 1.0 \
     #         --top-p 0.95 \
     #         --top-k 64 \
-    #         --chat-template-kwargs '{"enable_thinking":false}' \
+    #         --reasoning off \
     #         --cache-type-k q5_1 \
     #         --cache-type-v q5_1 \
     #         --jinja \
@@ -2600,7 +2650,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 1.5 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --no-warmup \
             --flash-attn on \
             --cache-type-k iq4_nl \
@@ -2682,7 +2732,7 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --chat-template-kwargs '{"enable_thinking":false}' \
+            --reasoning off \
             --flash-attn on \
             --cache-type-k iq4_nl \
             --cache-type-v iq4_nl \
@@ -2731,7 +2781,7 @@ models:
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 262144 \
-            --temp 0.6 \
+            --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
@@ -2936,7 +2986,9 @@ groups:
         members:
 #            - unsloth-qwen35-35b-a3b-q4-128k-fa
             - unsloth-gemma4-26b-a4b-qat-128k-think
+            - unsloth-gemma4-26b-a4b-qat-128k-think-code
             - unsloth-gemma4-26b-a4b-qat-256k-think
+            - unsloth-gemma4-26b-a4b-qat-256k-think-code
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think
             - unsloth-gemma4-26b-a4b-q4-128k-fa-think-mtp
 
