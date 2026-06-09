@@ -86,11 +86,11 @@ Based on 1,931 tracked sessions:
 
 | Role | Model | Context | Memory | Group | Speed |
 |---|---|---|---|---|---|
-| **pi (coding agent)** | `unsloth-qwen36-35b-a3b-q2-256k` | 256k | 39 GB | `code` | ~50 tok/s |
-| **Hermes main** | `unsloth-qwen36-35b-a3b-q2-128k` | 128k | 34 GB | `hermes` | ~50 tok/s |
-| **Hermes aux** | `unsloth-gemma4-12b-qat-128k` | 128k | 32 GB | `hermes` | ~46 tok/s |
+| **pi (coding agent)** | `unsloth-gemma4-26b-a4b-qat-256k-think` | 256k | 46 GB | `code` | ~82 tok/s |
+| **Hermes main** | `unsloth-gemma4-26b-a4b-qat-128k-think` | 128k | 31 GB | `hermes` | ~83 tok/s |
+| **Hermes aux** | `unsloth-gemma4-12b-qat-128k` | 128k | 32 GB | `summary` | ~46 tok/s |
 | **Long context** (on-demand) | `unsloth-qwen36-35b-a3b-q2-512k-think` | 512k | 49 GB | `code` | ~15 tok/s |
-| **Total** (3 loaded) | | | **105 GB** ✅ | | |
+| **Total** (3 loaded) | | | **110 GB** ✅ | | |
 
 All at q8_0 KV cache (full precision). Matching context windows for deterministic compaction.
 The 512k variant swaps in automatically for sessions exceeding 256k, then unloads.
@@ -135,13 +135,11 @@ vLLM has not yet been deployed successfully. Previous attempts:
 | 3 | `v0.22.1-aarch64` | NVFP4 | `lm_head.input_scale` modelopt mismatch |
 | 4 | `cu129-nightly-aarch64` | NVFP4 | Loaded model but OOM during AutoTuner compilation |
 | 5 | `cu129-nightly-aarch64` (no MTP) | NVFP4 | Loaded model but stuck in infinite AutoTuner loop (69+ passes) |
+| 6 | `cu129-nightly-aarch64` (FP8 model) | FP8 (35 GB) | Crashed during KV cache init — OOM |
 
-**Root cause:** vLLM's NVFP4 AutoTuner on GB10 never completes — it loops through the same
-23 FP8 GEMM profiles indefinitely. This is a bug in the nightly build specific to this model/hardware combination.
-The torch.compile phase also spikes memory significantly during startup.
-
-**Status:** vLLM cannot serve NVFP4 models on this GB10 setup. Recommend sticking with
-llama-swap for reliable multi-model serving.
+**Root cause:** vLLM's NVFP4 AutoTuner on GB10 never completes (infinite loop).
+The FP8 mode crashes during KV cache allocation due to insufficient contiguous memory.
+vLLM is not viable on this 128 GB system for Qwen3.6 models.
 
 ### Latest Recommendations
 
@@ -166,4 +164,20 @@ command:
   - "--kv-cache-dtype" "fp8"
   - "--attention-backend" "flashinfer"
   - "--speculative-config" '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
+```
+
+## Gemma4 MTP — Pending
+
+Gemma4 MTP support (PR #23398) was merged into llama.cpp on June 7, 2026, adding
+`gemma4-assistant` architecture for speculative decoding with up to 2× speedup.
+
+**Status:** The drafter model is downloaded (`gemma-4-26B-A4B-it-MTP-Q8_0.gguf`, 441 MB)
+and the config entry exists (`-fa-think-mtp`) but requires a llama.cpp build >9544
+that includes the June 7 merge. Current latest build is 9544 (June 6).
+
+**To use once available:**
+```bash
+--model-draft /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-MTP-Q8_0.gguf
+--spec-type draft-mtp --spec-draft-n-max 4
+--flash-attn on
 ```
