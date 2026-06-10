@@ -12,7 +12,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -31,7 +31,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -51,7 +51,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3.5-9b-gguf/Qwen_Qwen3.5-9B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -72,7 +72,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3.5-9b-gguf/Qwen_Qwen3.5-9B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -93,7 +93,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -119,7 +119,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -145,7 +145,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -172,7 +172,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -199,7 +199,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -225,7 +225,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -250,7 +250,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -277,7 +277,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -305,7 +305,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -332,7 +332,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -359,7 +359,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -387,7 +387,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -414,7 +414,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -442,7 +442,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -471,7 +471,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -499,7 +499,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -527,7 +527,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -556,7 +556,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -584,7 +584,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -610,7 +610,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -640,7 +640,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -671,7 +671,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -698,7 +698,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -729,7 +729,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -760,7 +760,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -787,7 +787,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -818,7 +818,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -849,7 +849,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -876,7 +876,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -906,7 +906,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -934,7 +934,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -965,7 +965,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -993,7 +993,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1025,7 +1025,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1058,7 +1058,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1085,7 +1085,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1116,7 +1116,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/google_gemma-3-4b-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1136,7 +1136,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen2.5-coder-7b-gguf/Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1155,14 +1155,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/devstral-small-2-24b-2512-gguf/mistralai_Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 32768 \
             --temp 0.15 \
             --min-p 0.01 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1178,14 +1177,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/devstral-small-2-24b-2512-gguf/mistralai_Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 65536 \
             --temp 0.15 \
             --min-p 0.01 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1201,7 +1199,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/ministral3-3b-instruct-2512-gguf/mistralai_Ministral-3-3B-Instruct-2512-Q6_K.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1224,7 +1222,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/ministral3-8b-instruct-2512-gguf/mistralai_Ministral-3-8B-Instruct-2512-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1247,7 +1245,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1267,7 +1265,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1275,7 +1273,6 @@ models:
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1291,7 +1288,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1299,7 +1296,6 @@ models:
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1315,7 +1311,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1323,7 +1319,6 @@ models:
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
-            --repeat-penalty 1.05 \
             --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -1340,7 +1335,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1365,7 +1360,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1390,7 +1385,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1415,7 +1410,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1429,6 +1424,85 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-gemma4-e4b-qat-q4-256k:
+        name: "Unsloth Gemma 4 E4B IT QAT UD-Q4_K_XL via llama.cpp"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-qat-q4-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-e4b-qat-q4-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-4-e4b-it-qat-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-e4b-qat-q4-256k-mtp:
+        name: "Unsloth Gemma 4 E4B IT QAT UD-Q4_K_XL via llama.cpp - MTP (⚠️ segfault on b9585)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-qat-q4-256k-mtp
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-e4b-qat-q4-256k-mtp \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-4-e4b-it-qat-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf \
+            --model-draft /models/unsloth-gemma-4-e4b-it-qat-gguf/MTP/gemma-4-E4B-it-Q8_0-MTP.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 4 \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --flash-attn off \
+            -fit off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-gemma4-e4b-q4-256k:
+        name: "Unsloth Gemma 4 E4B IT Q4_K_M via llama.cpp"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-q4-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-e4b-q4-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
     unsloth-gemma4-26b-a4b-q4:
         name: "Unsloth Gemma 4 26B-A4B IT UD-Q4_K_M via llama.cpp - non-think"
         ttl: 300
@@ -1439,7 +1513,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1463,7 +1537,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1488,7 +1562,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1512,7 +1586,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1537,7 +1611,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1562,7 +1636,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1588,7 +1662,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1614,7 +1688,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1640,7 +1714,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --model-draft /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-MTP-Q8_0.gguf \
             --spec-type draft-mtp --spec-draft-n-max 4 \
@@ -1668,7 +1742,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1693,7 +1767,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1719,7 +1793,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1745,7 +1819,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1770,7 +1844,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1779,6 +1853,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
+            --repeat-penalty 1.02 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1795,7 +1870,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1820,7 +1895,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1829,6 +1904,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
+            --repeat-penalty 1.02 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1845,7 +1921,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1854,6 +1930,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
+            --repeat-penalty 1.02 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1870,7 +1947,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1895,7 +1972,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1904,6 +1981,7 @@ models:
             --top-p 0.95 \
             --top-k 64 \
             --reasoning-budget 4096 \
+            --repeat-penalty 1.02 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1920,7 +1998,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1946,7 +2024,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1971,7 +2049,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -1996,7 +2074,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2022,7 +2100,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-gguf/gemma-4-12b-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2046,7 +2124,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-gguf/gemma-4-12b-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2070,7 +2148,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-gguf/gemma-4-12b-it-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2096,7 +2174,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-gguf/gemma-4-12b-it-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2121,7 +2199,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2145,7 +2223,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2169,7 +2247,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2194,7 +2272,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2219,7 +2297,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2244,7 +2322,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/bartowski-codestral-22b-v01-gguf/Codestral-22B-v0.1-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2264,7 +2342,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2272,7 +2350,6 @@ models:
             --temp 0.0 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2288,7 +2365,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2296,7 +2373,6 @@ models:
             --temp 0.0 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --flash-attn on \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -2313,7 +2389,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2321,7 +2397,6 @@ models:
             --temp 0.0 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2337,14 +2412,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 65536 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2360,14 +2434,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 131072 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2383,14 +2456,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 131072 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2406,14 +2478,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-30b-gguf/granite-4.1-30b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 32768 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2429,14 +2500,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-30b-gguf/granite-4.1-30b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 65536 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2452,14 +2522,13 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/granite-4.1-30b-gguf/granite-4.1-30b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 131072 \
             --top-k 0 \
             --top-p 1.0 \
-            --repeat-penalty 1.05 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -2475,7 +2544,7 @@ models:
               --runtime=nvidia \
               --network container:llama-swap \
               -v /opt/atom/models:/models:ro \
-              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
               -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
               --host 0.0.0.0 \
               --port ${PORT} \
@@ -2502,7 +2571,7 @@ models:
               --runtime=nvidia \
               --network container:llama-swap \
               -v /opt/atom/models:/models:ro \
-              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
               -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
               --host 0.0.0.0 \
               --port ${PORT} \
@@ -2529,7 +2598,7 @@ models:
               --runtime=nvidia \
               --network container:llama-swap \
               -v /opt/atom/models:/models:ro \
-              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
               -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
               --host 0.0.0.0 \
               --port ${PORT} \
@@ -2555,7 +2624,7 @@ models:
               --runtime=nvidia \
               --network container:llama-swap \
               -v /opt/atom/models:/models:ro \
-              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
               -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
               --host 0.0.0.0 \
               --port ${PORT} \
@@ -2583,7 +2652,7 @@ models:
               --runtime=nvidia \
               --network container:llama-swap \
               -v /opt/atom/models:/models:ro \
-              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+              ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
               -m /models/unsloth-qwen35-35b-a3b-gguf/Qwen3.5-35B-A3B-Q4_K_M.gguf \
               --host 0.0.0.0 \
               --port ${PORT} \
@@ -2613,7 +2682,7 @@ models:
     #         --runtime=nvidia \
     #         --network container:llama-swap \
     #         -v /opt/atom/models:/models:ro \
-    #         ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+    #         ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
     #         -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
     #         --host 0.0.0.0 \
     #         --port ${PORT} \
@@ -2621,7 +2690,6 @@ models:
     #         --temp 0.7 \
     #         --top-p 0.8 \
     #         --top-k 20 \
-    #         --repeat-penalty 1.05 \
     #         --cache-type-k q5_1 \
     #         --cache-type-v q5_1 \
     #         --jinja \
@@ -2638,7 +2706,7 @@ models:
     #         --runtime=nvidia \
     #         --network container:llama-swap \
     #         -v /opt/atom/models:/models:ro \
-    #         ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+    #         ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
     #         -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
     #         --host 0.0.0.0 \
     #         --port ${PORT} \
@@ -2662,7 +2730,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2686,7 +2754,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2711,7 +2779,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2736,7 +2804,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2764,7 +2832,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2792,7 +2860,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2820,7 +2888,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2846,7 +2914,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2872,7 +2940,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q5_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2898,7 +2966,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2926,7 +2994,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2958,7 +3026,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:19d699b6377b315f63f2691a75a232bc7620f92c2ae2e650cd93b1d20330f36c \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -2978,6 +3046,352 @@ models:
             --cache-type-k iq4_nl \
             --cache-type-v iq4_nl \
             --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-256k:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --reasoning off \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-256k-think:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp - thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --repeat-penalty 1.0 \
+            --reasoning-budget 4096 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp - think-code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --repeat-penalty 1.0 \
+            --reasoning-budget 4096 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-128k:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --reasoning off \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-128k-think:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp - thinking"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code:
+        name: "Unsloth Qwen3.6 35B-A3B MTP UD-IQ4_NL via llama.cpp - think-code"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-128k:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-128k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-128k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-128k-think:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp - thinking"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-128k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-128k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-128k-think-code:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp - think-code"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-128k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-128k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-256k:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-256k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-256k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-256k-think:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp - thinking"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-256k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-256k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-iq4-256k-think-code:
+        name: "Unsloth Qwen3.6 35B-A3B UD-IQ4_NL via llama.cpp - think-code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-iq4-256k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-iq4-256k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
             -ngl 99
 
 groups:
@@ -3085,6 +3499,9 @@ groups:
         members:
             - unsloth-granite-4.1-8b-q4-128k
             - unsloth-gemma4-12b-qat-128k
+            - unsloth-gemma4-e4b-q4-256k
+            - unsloth-gemma4-e4b-qat-q4-256k
+            - unsloth-gemma4-e4b-qat-q4-256k-mtp
     hermes:
         swap: true
         exclusive: false
@@ -3121,3 +3538,15 @@ groups:
             - unsloth-qwen36-35b-a3b-mtp-q2-256k-think
             - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
             - unsloth-qwen36-35b-a3b-mtp-q2-think
+            - unsloth-qwen36-35b-a3b-mtp-iq4-256k
+            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
+            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code
+            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
+            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
+            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
+            - unsloth-qwen36-35b-a3b-iq4-128k
+            - unsloth-qwen36-35b-a3b-iq4-128k-think
+            - unsloth-qwen36-35b-a3b-iq4-128k-think-code
+            - unsloth-qwen36-35b-a3b-iq4-256k
+            - unsloth-qwen36-35b-a3b-iq4-256k-think
+            - unsloth-qwen36-35b-a3b-iq4-256k-think-code

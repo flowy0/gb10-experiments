@@ -223,7 +223,7 @@ services:
             OPENAI_API_BASE_URL: http://llama-swap:8080/v1
             OPENAI_API_KEY: not-needed
             ENABLE_OLLAMA_API: "false"
-            OPENAI_MODEL_LIST: '["unsloth-qwen36-35b-a3b-q2-128k"]'
+            OPENAI_MODEL_LIST: '["unsloth-gemma4-26b-a4b-qat-128k-think"]'
         restart: unless-stopped
 
     mongodb:
