@@ -60,3 +60,23 @@
 - Qwen3.6 27B models added
 - Gemma4 E4B and 26B-A4B configured
 - LibreChat and Open WebUI integrated
+
+### Build 9585 — Gemma4 MTP Support (2026-06-10)
+
+- Upgraded llama.cpp from b9544 (Jun 6) → **b9585** (Jun 9) — includes PR #23398 for Gemma4 MTP speculative decoding
+- Added  entry with Q8_0 MTP drafter (95 MB)
+- Updated all 130 image SHA references in config.yaml
+
+
+### Build 9585 — Gemma4 MTP Support (2026-06-10)
+
+- Upgraded llama.cpp from b9544 (Jun 6) -> b9585 (Jun 9) — includes PR #23398 for Gemma4 MTP
+- Added unsloth-gemma4-e4b-qat-q4-256k-mtp entry with Q8_0 MTP drafter (95 MB)
+- Updated 130 image SHA references in config.yaml
+
+### Known Issue: E4B MTP segfault on b9585
+
+- E4B MTP works with flash-attn off + fit off at small contexts
+- Crashes (segfault, exit 139) at 128k+ context on Blackwell GB10
+- 26B MTP works fine — likely b9585 bug specific to E4B MTP
+- Using E4B QAT non-MTP variant instead
