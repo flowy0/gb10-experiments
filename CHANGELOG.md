@@ -80,3 +80,9 @@
 - Crashes (segfault, exit 139) at 128k+ context on Blackwell GB10
 - 26B MTP works fine — likely b9585 bug specific to E4B MTP
 - Using E4B QAT non-MTP variant instead
+
+### DiffusionGemma — Pending llama.cpp Support
+
+- Downloaded DiffusionGemma 26B Q4 (16 GB) — multimodal Gemma4 variant with image input
+- Entry added but commented out: unknown model architecture 'diffusion-gemma' on b9585
+- PRs #24427 and #24423 opened 2026-06-10 — waiting for merge + new build
