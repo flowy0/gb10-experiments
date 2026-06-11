@@ -3397,7 +3397,6 @@ groups:
         swap: true
         exclusive: false
         members:
-            # - unsloth-gemma4-26b-a4b-q4-128k-fa (removed - old model)
             - unsloth-gemma4-12b-q5-256k-think
             - unsloth-gemma4-12b-qat-128k-think
             - unsloth-gemma4-12b-qat-256k-think
