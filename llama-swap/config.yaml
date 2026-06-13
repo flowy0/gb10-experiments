@@ -1859,13 +1859,13 @@ models:
             --no-warmup \
             -ngl 99
 
-    unsloth-gemma4-26b-a4b-qat-256k-think-mtp:
-        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp - think, YaRN 256k, MTP"
+    unsloth-gemma4-26b-a4b-qat-mtp-256k-think:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp - MTP, think, YaRN 256k"
         ttl: 86400
-        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-256k-think-mtp
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-mtp-256k-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-26b-a4b-qat-256k-think-mtp \
+            --name ls-unsloth-gemma4-26b-a4b-qat-mtp-256k-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
