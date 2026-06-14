@@ -192,6 +192,56 @@ command:
   - "--speculative-config" '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
 ```
 
+### Custom vLLM Build for Gemma4 (spark-vllm-docker)
+
+The stock `vllm/vllm-openai` images don't support Gemma4 on Blackwell (GB10) due to:
+- Missing `TRITON_ATTN` backend fallback (CUTLASS crashes on SM121)
+- Outdated Transformers (no `gemma4` architecture recognition)
+- Missing Blackwell-specific patches
+
+A working image was built using [spark-vllm-docker](https://github.com/eugr/spark-vllm-docker):
+
+```bash
+# Build the image (requires ~2.6 TB free, takes 1-2 hours)
+cd build/spark-vllm-docker
+./build-and-copy.sh -t vllm-node-tf5 --tf5
+```
+
+**Result:** `vllm-node-tf5:latest` (19 GB) with:
+- Transformers v5 (Gemma4 architecture support)
+- Blackwell SM121 compilation (`TORCH_CUDA_ARCH_LIST="12.1a"`)
+- `TRITON_ATTN` backend (no CUTLASS crash)
+- NVFP4 support with `VLLM_CUTLASS` NvFp4 MoE backend
+
+**Usage with NVFP4 model:**
+```bash
+docker run --gpus all --network host --ipc=host \
+  --ulimit memlock=-1 --ulimit stack=67108864 \
+  --entrypoint vllm \
+  -v /opt/atom/models/nvidia-gemma-4-26b-a4b-nvfp4:/model:ro \
+  vllm-node-tf5:latest serve /model \
+  --host 0.0.0.0 --port 8000 \
+  --max-model-len 65536 --gpu-memory-utilization 0.4 \
+  --tensor-parallel-size 1 \
+  --load-format safetensors \
+  --kv-cache-dtype fp8 --enforce-eager
+```
+
+**Performance on GB10:**
+| Metric | vLLM NVFP4 | llama-swap QAT |
+|---|---|---|
+| Decode | 26 tok/s | **82 tok/s** (non-MTP) / **108 tok/s** (MTP) |
+| Models | 1 at a time | **3 simultaneously** |
+| Multi-session | PagedAttention | 4-slot KV pool |
+| MTP support | ❌ | ✅ |
+
+**Benchmark command:**
+```bash
+curl -X POST http://localhost:8022/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"/model","messages":[{"role":"user","content":"Write a paragraph"}],"max_tokens":200}'
+```
+
 ## Gemma4 MTP — Pending
 
 Gemma4 MTP support (PR #23398) was merged into llama.cpp on June 7, 2026, adding
