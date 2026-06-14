@@ -3409,31 +3409,31 @@ groups:
         swap: true
         exclusive: false
         members:
-            - gemma4-e4b-q4
-            - unsloth-qwen36-27b-q4
-            - unsloth-qwen36-27b-q4-64k
-            - unsloth-qwen36-27b-q4-128k
-            - unsloth-qwen36-27b-q4-256k
-            - unsloth-qwen36-27b-q4-think
-            - unsloth-qwen36-27b-q4-think-code
-            - unsloth-qwen36-35b-a3b-q2
-            - unsloth-qwen36-35b-a3b-q2-think
-            - unsloth-qwen36-35b-a3b-q2-think-code
-            - unsloth-qwen36-35b-a3b-q2-256k-think
-            - unsloth-gemma4-e4b-q4
-            - unsloth-gemma4-26b-a4b-q4
-            - unsloth-gemma4-26b-a4b-q4-fa
-            - unsloth-gemma4-26b-a4b-q4-64k
-            - unsloth-gemma4-26b-a4b-q4-64k-fa-think
-            - unsloth-gemma4-26b-a4b-q5-256k-fa
-            - unsloth-gemma4-26b-a4b-q4-256k
-            - unsloth-gemma4-26b-a4b-q4-256k-fa-think
-            - unsloth-gemma4-31b-q2-128k
-            - unsloth-gemma4-31b-q2-128k-think
-            - unsloth-gemma4-31b-q2-256k-think
-            - unsloth-gemma4-12b-q4-128k
-            - unsloth-gemma4-12b-q4-128k-think
-            - unsloth-gemma4-12b-q5-256k
+#            - gemma4-e4b-q4
+#            - unsloth-qwen36-27b-q4
+#            - unsloth-qwen36-27b-q4-64k
+#            - unsloth-qwen36-27b-q4-128k
+#            - unsloth-qwen36-27b-q4-256k
+#            - unsloth-qwen36-27b-q4-think
+#            - unsloth-qwen36-27b-q4-think-code
+#            - unsloth-qwen36-35b-a3b-q2
+#            - unsloth-qwen36-35b-a3b-q2-think
+#            - unsloth-qwen36-35b-a3b-q2-think-code
+#            - unsloth-qwen36-35b-a3b-q2-256k-think
+#            - unsloth-gemma4-e4b-q4
+#            - unsloth-gemma4-26b-a4b-q4
+#            - unsloth-gemma4-26b-a4b-q4-fa
+#            - unsloth-gemma4-26b-a4b-q4-64k
+#            - unsloth-gemma4-26b-a4b-q4-64k-fa-think
+#            - unsloth-gemma4-26b-a4b-q5-256k-fa
+#            - unsloth-gemma4-26b-a4b-q4-256k
+#            - unsloth-gemma4-26b-a4b-q4-256k-fa-think
+#            - unsloth-gemma4-31b-q2-128k
+#            - unsloth-gemma4-31b-q2-128k-think
+#            - unsloth-gemma4-31b-q2-256k-think
+#            - unsloth-gemma4-12b-q4-128k
+#            - unsloth-gemma4-12b-q4-128k-think
+#            - unsloth-gemma4-12b-q5-256k
 #            - unsloth-qwen35-35b-a3b-q4-64k
 #            - unsloth-qwen35-35b-a3b-q4-64k-think
 #            - unsloth-qwen35-35b-a3b-q4-64k-think-code
@@ -3442,47 +3442,47 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen3-coder-30b-a3b-q4-64k
-            - unsloth-qwen3-coder-30b-a3b-q4-128k
-            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
-            - qwen3-coder-next
-            - qwen3-coder-next-128k
-            - qwen3-coder-next-256k
-            - unsloth-qwen36-35b-a3b-q2-128k-think-code
-            - unsloth-qwen36-35b-a3b-q2-256k
-            - unsloth-qwen36-35b-a3b-q2-512k
-            - unsloth-qwen36-35b-a3b-q2-512k-think
-            - unsloth-gemma4-26b-a4b-q4-256k-fa
-            - unsloth-qwen36-35b-a3b-q2-256k-iq4
-            - unsloth-gemma4-26b-a4b-qat-256k-think-code
-            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
-            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think-code
+#            - unsloth-qwen3-coder-30b-a3b-q4-64k
+#            - unsloth-qwen3-coder-30b-a3b-q4-128k
+#            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
+#            - qwen3-coder-next
+#            - qwen3-coder-next-128k
+#            - qwen3-coder-next-256k
+#            - unsloth-qwen36-35b-a3b-q2-128k-think-code
+#            - unsloth-qwen36-35b-a3b-q2-256k
+#            - unsloth-qwen36-35b-a3b-q2-512k
+#            - unsloth-qwen36-35b-a3b-q2-512k-think
+#            - unsloth-gemma4-26b-a4b-q4-256k-fa
+#            - unsloth-qwen36-35b-a3b-q2-256k-iq4
+#            - unsloth-gemma4-26b-a4b-qat-256k-think-code
+#            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
+#            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think-code
     research:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-q5-256k-think
-            - unsloth-gemma4-12b-qat-128k-think
-            - unsloth-gemma4-12b-qat-256k-think
-            - unsloth-qwen36-27b-q4-256k-iq4
-            - unsloth-qwen36-27b-q4-256k-iq4-fa-think
-            - unsloth-qwen36-27b-q4-256k-iq4-fa-think-code
+#            - unsloth-gemma4-12b-q5-256k-think
+#            - unsloth-gemma4-12b-qat-128k-think
+#            - unsloth-gemma4-12b-qat-256k-think
+#            - unsloth-qwen36-27b-q4-256k-iq4
+#            - unsloth-qwen36-27b-q4-256k-iq4-fa-think
+#            - unsloth-qwen36-27b-q4-256k-iq4-fa-think-code
     stable:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-26b-a4b-q4-64k-fa
-            - unsloth-gemma4-26b-a4b-q4-128k
-            - unsloth-gemma4-26b-a4b-q5-256k-think
-            - unsloth-gemma4-26b-a4b-q5-256k-iq4
-            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
-            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think-code
+#            - unsloth-gemma4-26b-a4b-q4-64k-fa
+#            - unsloth-gemma4-26b-a4b-q4-128k
+#            - unsloth-gemma4-26b-a4b-q5-256k-think
+#            - unsloth-gemma4-26b-a4b-q5-256k-iq4
+#            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
+#            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think-code
     summary:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-128k
-            - unsloth-gemma4-e4b-q4-256k
+#            - unsloth-gemma4-12b-qat-128k
+#            - unsloth-gemma4-e4b-q4-256k
             - unsloth-gemma4-e4b-qat-q4-256k
 #            - unsloth-gemma4-e4b-qat-q4-256k-mtp
     hermes:
@@ -3490,9 +3490,9 @@ groups:
         exclusive: false
         members:
 #            - unsloth-qwen35-35b-a3b-q4-128k-fa
-            - unsloth-gemma4-26b-a4b-qat-128k-think
-            - unsloth-gemma4-26b-a4b-qat-128k
-            - unsloth-gemma4-26b-a4b-qat-128k-think-code
+#            - unsloth-gemma4-26b-a4b-qat-128k-think (disabled - vLLM handles 26B)
+#            - unsloth-gemma4-26b-a4b-qat-128k (disabled - vLLM handles 26B)
+#            - unsloth-gemma4-26b-a4b-qat-128k-think-code (disabled - vLLM handles 26B)
 #            - unsloth-gemma4-26b-a4b-qat-256k-think
 #            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
 #            - unsloth-gemma4-26b-a4b-qat-256k
@@ -3501,35 +3501,35 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen36-27b-mtp-q4
-            - unsloth-qwen36-27b-mtp-q4-think
-            - unsloth-qwen36-27b-mtp-q4-think-code
-            - unsloth-qwen36-27b-mtp-q4-64k
-            - unsloth-qwen36-27b-mtp-q4-64k-think
-            - unsloth-qwen36-27b-mtp-q4-64k-think-code
-            - unsloth-qwen36-27b-mtp-q4-128k
-            - unsloth-qwen36-27b-mtp-q4-128k-think
-            - unsloth-qwen36-27b-mtp-q4-128k-think-code
-            - unsloth-qwen36-27b-mtp-q4-256k
-            - unsloth-qwen36-27b-mtp-q4-256k-think
-            - unsloth-qwen36-27b-mtp-q4-256k-think-code
-            - unsloth-qwen36-35b-a3b-mtp-q2
-            - unsloth-qwen36-35b-a3b-mtp-q2-128k
-            - unsloth-qwen36-35b-a3b-mtp-q2-128k-think
-            - unsloth-qwen36-35b-a3b-mtp-q2-256k
-            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think
-            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
-            - unsloth-qwen36-35b-a3b-mtp-q2-think
+#            - unsloth-qwen36-27b-mtp-q4
+#            - unsloth-qwen36-27b-mtp-q4-think
+#            - unsloth-qwen36-27b-mtp-q4-think-code
+#            - unsloth-qwen36-27b-mtp-q4-64k
+#            - unsloth-qwen36-27b-mtp-q4-64k-think
+#            - unsloth-qwen36-27b-mtp-q4-64k-think-code
+#            - unsloth-qwen36-27b-mtp-q4-128k
+#            - unsloth-qwen36-27b-mtp-q4-128k-think
+#            - unsloth-qwen36-27b-mtp-q4-128k-think-code
+#            - unsloth-qwen36-27b-mtp-q4-256k
+#            - unsloth-qwen36-27b-mtp-q4-256k-think
+#            - unsloth-qwen36-27b-mtp-q4-256k-think-code
+#            - unsloth-qwen36-35b-a3b-mtp-q2
+#            - unsloth-qwen36-35b-a3b-mtp-q2-128k
+#            - unsloth-qwen36-35b-a3b-mtp-q2-128k-think
+#            - unsloth-qwen36-35b-a3b-mtp-q2-256k
+#            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think
+#            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
+#            - unsloth-qwen36-35b-a3b-mtp-q2-think
             - unsloth-qwen36-35b-a3b-mtp-iq4-256k
-            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
-            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code
-            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
-            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
-            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
-            - unsloth-qwen36-35b-a3b-iq4-128k
-            - unsloth-qwen36-35b-a3b-iq4-128k-think
-            - unsloth-qwen36-35b-a3b-iq4-128k-think-code
-            - unsloth-qwen36-35b-a3b-iq4-256k
-            - unsloth-qwen36-35b-a3b-iq4-256k-think
-            - unsloth-qwen36-35b-a3b-iq4-256k-think-code
-            - unsloth-gemma4-26b-a4b-qat-256k-think-mtp
+#            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
+#            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code
+#            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
+#            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
+#            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
+#            - unsloth-qwen36-35b-a3b-iq4-128k
+#            - unsloth-qwen36-35b-a3b-iq4-128k-think
+#            - unsloth-qwen36-35b-a3b-iq4-128k-think-code
+#            - unsloth-qwen36-35b-a3b-iq4-256k
+#            - unsloth-qwen36-35b-a3b-iq4-256k-think
+#            - unsloth-qwen36-35b-a3b-iq4-256k-think-code
+#            - unsloth-gemma4-26b-a4b-qat-256k-think-mtp
