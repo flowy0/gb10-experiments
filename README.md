@@ -8,6 +8,7 @@ Self-hosted LLM serving stack on an NVIDIA GB10 (122 GB unified VRAM).
 |---|---|
 | `llama-swap/` | Model router config (`config.yaml`) and swap definitions |
 | `llama-swap/docs/MEMORY.md` | Memory planning docs with architecture tables |
+| `docs/VLLM.md` | vLLM setup, benchmarking, and debugging history |
 | `librechat/` | LibreChat UI config (`librechat.yml`, `data/auth.json`) |
 | `open-webui/` | Open WebUI cache data |
 | `docker-compose.yml` | Main compose file — launches llama-swap, LibreChat, Open WebUI, MongoDB |
@@ -132,128 +133,7 @@ All at 256k with matching context windows for deterministic compaction. The Qwen
 
 Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/MEMORY.md` for memory planning.
 
-## vLLM — Qwen3.6 Formats & Status
 
-### Qwen3.6 35B Formats
+## vLLM
 
-| Format | Size | Quality | vLLM compat | Already have | MTP | TQ |
-|---|---|---|---|---|---|---|
-| **FP8** (official Qwen) | 35 GB | near-lossless 🏆 | `v0.20.0+` | ✅ | ✅ | ❌ |
-| **NVFP4** (NVIDIA) | 22 GB | near-lossless | `v0.22.1+` / `nightly` | ✅ | ✅ | ❌ |
-| AWQ 4-bit | 18 GB | good | `v0.18.0+` | ❌ | ✅ | ❌ |
-| BF16 (original) | 70 GB | reference | any | ❌ | ✅ | ❌ |
-
-**NVFP4** is officially recommended by NVIDIA for DGX Spark GB10 with:
-```bash
-export VLLM_USE_FLASHINFER_MOE_FP4=0
-export VLLM_FP8_MOE_BACKEND=flashinfer_cutlass
-vllm serve nvidia/Qwen3.6-35B-A3B-NVFP4 --quantization modelopt --kv-cache-dtype fp8
-```
-
-### Status
-
-vLLM has not yet been deployed successfully. Previous attempts:
-
-| Attempt | Image | Model | Issue |
-|---|---|---|---|
-| 1 | `v0.18.0-cu130` | FP8 | No SM 12.1 support |
-| 2 | `aeon-vllm-ultimate` (40.8 GB) | NVFP4 | Container too large → OOM |
-| 3 | `v0.22.1-aarch64` | NVFP4 | `lm_head.input_scale` modelopt mismatch |
-| 4 | `cu129-nightly-aarch64` | NVFP4 | Loaded model but OOM during AutoTuner compilation |
-| 5 | `cu129-nightly-aarch64` (no MTP) | NVFP4 | Loaded model but stuck in infinite AutoTuner loop (69+ passes) |
-| 6 | `cu129-nightly-aarch64` (FP8 model) | FP8 (35 GB) | Crashed during KV cache init — OOM |
-
-**Root cause:** vLLM's NVFP4 AutoTuner on GB10 never completes (infinite loop).
-The FP8 mode crashes during KV cache allocation due to insufficient contiguous memory.
-vLLM is not viable on this 128 GB system for Qwen3.6 models.
-
-### Latest Recommendations
-
-- **Image:** `vllm/vllm-openai:v0.22.1-aarch64` (CUDA 12.9, forward-compatible on 13.0 driver)
-- **NVFP4 model:** Already downloaded (22 GB). NVIDIA officially recommends for GB10.
-- **MTP:** `--speculative-config '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'` (v0.20.0+)
-- **TurboQuant** (`--kv-cache-dtype tq_k8v4`) requires nightly builds with PR #39931.
-
-### Tradeoff
-
-vLLM reserves memory upfront (`--gpu-memory-utilization`). At 0.45, it reserves ~55 GB for Qwen,
-leaving ~67 GB for llama-swap to run Gemma4 alongside. Cannot run 3 models simultaneously
-with vLLM active — run vLLM solo for maximum throughput, or pair with 1 llama-swap model.
-
-### Wshobson reference config
-
-```yaml
-image: vllm/vllm-openai:v0.20.0-aarch64-cu130-ubuntu2404
-model: Qwen/Qwen3.6-35B-A3B-FP8
-command:
-  - "--gpu-memory-utilization" "0.7069"
-  - "--kv-cache-dtype" "fp8"
-  - "--attention-backend" "flashinfer"
-  - "--speculative-config" '{"method":"qwen3_next_mtp","num_speculative_tokens":2}'
-```
-
-### Custom vLLM Build for Gemma4 (spark-vllm-docker)
-
-The stock `vllm/vllm-openai` images don't support Gemma4 on Blackwell (GB10) due to:
-- Missing `TRITON_ATTN` backend fallback (CUTLASS crashes on SM121)
-- Outdated Transformers (no `gemma4` architecture recognition)
-- Missing Blackwell-specific patches
-
-A working image was built using [spark-vllm-docker](https://github.com/eugr/spark-vllm-docker):
-
-```bash
-# Build the image (requires ~2.6 TB free, takes 1-2 hours)
-cd build/spark-vllm-docker
-./build-and-copy.sh -t vllm-node-tf5 --tf5
-```
-
-**Result:** `vllm-node-tf5:latest` (19 GB) with:
-- Transformers v5 (Gemma4 architecture support)
-- Blackwell SM121 compilation (`TORCH_CUDA_ARCH_LIST="12.1a"`)
-- `TRITON_ATTN` backend (no CUTLASS crash)
-- NVFP4 support with `VLLM_CUTLASS` NvFp4 MoE backend
-
-**Usage with NVFP4 model:**
-```bash
-docker run --gpus all --network host --ipc=host \
-  --ulimit memlock=-1 --ulimit stack=67108864 \
-  --entrypoint vllm \
-  -v /opt/atom/models/nvidia-gemma-4-26b-a4b-nvfp4:/model:ro \
-  vllm-node-tf5:latest serve /model \
-  --host 0.0.0.0 --port 8000 \
-  --max-model-len 65536 --gpu-memory-utilization 0.4 \
-  --tensor-parallel-size 1 \
-  --load-format safetensors \
-  --kv-cache-dtype fp8 --enforce-eager
-```
-
-**Performance on GB10:**
-| Metric | vLLM NVFP4 | llama-swap QAT |
-|---|---|---|
-| Decode | 26 tok/s | **82 tok/s** (non-MTP) / **108 tok/s** (MTP) |
-| Models | 1 at a time | **3 simultaneously** |
-| Multi-session | PagedAttention | 4-slot KV pool |
-| MTP support | ❌ | ✅ |
-
-**Benchmark command:**
-```bash
-curl -X POST http://localhost:8022/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"model":"/model","messages":[{"role":"user","content":"Write a paragraph"}],"max_tokens":200}'
-```
-
-## Gemma4 MTP — Pending
-
-Gemma4 MTP support (PR #23398) was merged into llama.cpp on June 7, 2026, adding
-`gemma4-assistant` architecture for speculative decoding with up to 2× speedup.
-
-**Status:** The drafter model is downloaded (`gemma-4-26B-A4B-it-MTP-Q8_0.gguf`, 441 MB)
-and the config entry exists (`-fa-think-mtp`) but requires a llama.cpp build >9544
-that includes the June 7 merge. Current latest build is 9544 (June 6).
-
-**To use once available:**
-```bash
---model-draft /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-MTP-Q8_0.gguf
---spec-type draft-mtp --spec-draft-n-max 4
---flash-attn on
-```
+See [docs/VLLM.md](docs/VLLM.md) for vLLM setup, benchmarking, and investigation history.
