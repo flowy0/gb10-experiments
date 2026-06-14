@@ -3493,9 +3493,9 @@ groups:
             - unsloth-gemma4-26b-a4b-qat-128k-think
             - unsloth-gemma4-26b-a4b-qat-128k
             - unsloth-gemma4-26b-a4b-qat-128k-think-code
-            - unsloth-gemma4-26b-a4b-qat-256k-think
-            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
-            - unsloth-gemma4-26b-a4b-qat-256k
+#            - unsloth-gemma4-26b-a4b-qat-256k-think
+#            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
+#            - unsloth-gemma4-26b-a4b-qat-256k
 
     mtp-test:
         swap: true

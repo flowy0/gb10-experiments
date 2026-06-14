@@ -169,6 +169,44 @@ services:
 #            - --enable-chunked-prefill
 #        restart: unless-stopped
 
+    # =========================
+    # vLLM - Gemma4 26B FP8 + MTP @ 256k
+    # =========================
+
+    vllm-gemma4:
+        image: vllm-node-tf5:latest
+        container_name: vllm-gemma4-256k
+        runtime: nvidia
+        shm_size: "64gb"
+        ports:
+            - "8000:8000"
+        volumes:
+            - /opt/atom/models/gemma-4-26b-a4b-it-fp8-dynamic:/model:ro
+            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
+        ipc: host
+        entrypoint: ["vllm", "serve"]
+        command:
+            - /model
+            - --speculative-config
+            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":4}'
+            - --host
+            - "0.0.0.0"
+            - --port
+            - "8000"
+            - --max-model-len
+            - "262144"
+            - --gpu-memory-utilization
+            - "0.65"
+            - --max-num-seqs
+            - "4"
+            - --kv-cache-dtype
+            - fp8
+            - --load-format
+            - safetensors
+            - --max-num-batched-tokens
+            - "8192"
+        restart: unless-stopped
+
     llama-swap:
         image: docker.io/local/llama-swap:arm64
         container_name: llama-swap
