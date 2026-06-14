@@ -187,6 +187,8 @@ services:
         entrypoint: ["vllm", "serve"]
         command:
             - /model
+            - --served-model-name
+            - unsloth-gemma4-26b-a4b-fp8-256k-mtp
             - --speculative-config
             - '{"method":"mtp","model":"/assistant","num_speculative_tokens":4}'
             - --host

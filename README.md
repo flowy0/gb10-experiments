@@ -101,12 +101,33 @@ All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 
 | **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 |
 | **Total** | | | **114 GB** ✅ 8 GB free | |
 
-vLLM handles the 26B main with PagedAttention (isolated per-session KV cache, no compaction). llama-swap serves Qwen 35B for pi coding and E4B for aux tasks. Start with: `docker compose up -d vllm-gemma4 llama-swap`
+vLLM handles the 26B main with MTP speculative decoding and PagedAttention (isolated per-session KV cache, no compaction). llama-swap serves Qwen 35B for pi coding and E4B for aux tasks. Start with:
+
+```bash
+docker compose up -d vllm-gemma4 llama-swap
+```
+
+### MTP Performance (vLLM)
+
+Tested with 2 concurrent sessions, 256k context:
+
+| Metric | Value |
+|---|---|
+| Mean acceptance length | 2.65 / 4 drafted |
+| Per-position acceptance | 71%, 46%, 30%, 17% |
+| Avg draft acceptance rate | 41.2% |
+| Generation throughput | 70.5 tok/s (2 sessions) |
+| Single session decode | 54-60 tok/s |
+
+### Model ID
+
+```
+unsloth-gemma4-26b-a4b-fp8-256k-mtp  (port 8000)
+```
 
 See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and multi-session details.
 
----
-## Historical Default Setups
+---## Historical Default Setups
 
 ### v6 — Gemma4-Only Stack
 
