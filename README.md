@@ -90,40 +90,28 @@ All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 
 
 ## Current Active Setup — vLLM + llama-swap
 
-| Service | Model | Context | Memory | Tok/s |
-|---|---|---|---|---|
-| **vLLM** | Gemma4 26B FP8 + MTP γ=4 | 256k | 67 GB | 55 |
-| **llama-swap** | Qwen3.6 35B IQ4 MTP | 256k | 30 GB | ~80 |
-| **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 |
-| **Total** | | | **114 GB** ✅ 8 GB free | |
+| Service | Model | Context | Memory | Tok/s | Model ID |
+|---|---|---|---|---|---|
+| **vLLM** | Qwen3.6 35B FP8 + MTP γ=2 | 256k | 45 GB | 55 | `unsloth-qwen36-35b-a3b-fp8-256k-think-mtp` |
+| **llama-swap** | Gemma4 26B QAT think | 128k | 31 GB | ~80 | `unsloth-gemma4-26b-a4b-qat-128k-think` |
+| **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 | `unsloth-gemma4-e4b-qat-q4-256k` |
+| **Total** | | | **93 GB** ✅ 29 GB free | | |
 
-vLLM handles the 26B main with MTP speculative decoding and PagedAttention (isolated per-session KV cache, no compaction). llama-swap serves Qwen 35B for pi coding and E4B for aux tasks. Start with:
+vLLM serves the Qwen 35B with built-in MTP and PagedAttention (isolated per-session KV cache). llama-swap handles the 26B QAT for thinking tasks and E4B for aux. Start with:
 
 ```bash
-docker compose up -d vllm-gemma4 llama-swap
+docker compose up -d vllm-qwen35 llama-swap
 ```
 
-### MTP Performance (vLLM)
+### Note on vLLM Reasoning Format
 
-Tested with 2 concurrent sessions, 256k context:
+vLLM's `--reasoning-parser qwen3` puts thinking content in `message.reasoning` (not `message.reasoning_content` like llama-swap). If your agent expects a different format, remove `--reasoning-parser qwen3` from the vLLM config.
 
-| Metric | Value |
-|---|---|
-| Mean acceptance length | 2.65 / 4 drafted |
-| Per-position acceptance | 71%, 46%, 30%, 17% |
-| Avg draft acceptance rate | 41.2% |
-| Generation throughput | 70.5 tok/s (2 sessions) |
-| Single session decode | 54-60 tok/s |
+### vLLM Alternatives
 
-### Model ID
+The compose file also includes a disabled `vllm-gemma4` service (Gemma4 26B FP8 + separate MTP assistant). Uncomment it and comment `vllm-qwen35` to switch back.
 
-```
-unsloth-gemma4-26b-a4b-fp8-256k-mtp  (port 8000)
-```
-
-See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and multi-session details.
-
----## Historical Default Setups
+---
 
 ## Historical Default Setups
 
