@@ -79,12 +79,12 @@ The 12B (48 layers × 8 KV heads) uses 48 GB for KV cache alone at 256k with q8_
 
 ## Current Active Setup — llama-swap Only
 
-| Role | Model | Context | Memory | Group |
-|---|---|---|---|---|
-| **pi (coding agent)** | `unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code` | 256k | 30 GB | `mtp-test` |
-| **Hermes main** | `unsloth-gemma4-26b-a4b-qat-256k-think` | 256k | 46 GB | `hermes` |
-| **Hermes aux** | `unsloth-gemma4-e4b-qat-q4-256k` | 256k | 17 GB | `summary` |
-| **Total** (3 loaded) | | | **93 GB** ✅ 29 GB free | |
+| Role | Model | Context | Memory | Group | Model ID |
+|---|---|---|---|---|---|---|
+| **pi (coding agent)** | Qwen3.6 35B IQ4 MTP think-code | 256k | 30 GB | `mtp-test` | `unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-code` |
+| **Hermes main** | Gemma4 26B QAT think | 256k | 46 GB | `hermes` | `unsloth-gemma4-26b-a4b-qat-256k-think` |
+| **Hermes aux** | Gemma4 E4B QAT | 256k | 17 GB | `summary` | `unsloth-gemma4-e4b-qat-q4-256k` |
+| **Total** (3 loaded) | | | **93 GB** ✅ 29 GB free | | |
 
 All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 tok/s (MTP).
 
@@ -129,12 +129,12 @@ See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and multi-session deta
 
 ### v7 — vLLM + Gemma4 26B + llama-swap (previous)
 
-| Service | Model | Context | Memory | Tok/s |
-|---|---|---|---|---|
-| **vLLM** | Gemma4 26B FP8 + MTP γ=4 | 256k | 71 GB | 55 |
-| **llama-swap** | Qwen3.6 35B IQ4 MTP | 256k | 30 GB | ~80 |
-| **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 |
-| **Total** | | | **118 GB** ✅ 4 GB free | |
+| Service | Model | Context | Memory | Tok/s | Model ID |
+|---|---|---|---|---|---|---|
+| **vLLM** | Gemma4 26B FP8 + MTP γ=4 | 256k | 71 GB | 55 | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
+| **llama-swap** | Qwen3.6 35B IQ4 MTP | 256k | 30 GB | ~80 | `unsloth-qwen36-35b-a3b-mtp-iq4-256k` |
+| **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 | `unsloth-gemma4-e4b-qat-q4-256k` |
+| **Total** | | | **118 GB** ✅ 4 GB free | | |
 
 vLLM served the 26B main with PagedAttention. Replaced by Qwen 35B FP8 (45 GB, frees 26 GB).
 
