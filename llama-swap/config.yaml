@@ -1812,6 +1812,35 @@ models:
             --no-warmup \
             -ngl 99
 
+    unsloth-gemma4-26b-a4b-qat-mtp-128k-think:
+        name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp - MTP think, YaRN 128k"
+        ttl: 86400
+        cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-mtp-128k-think
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-26b-a4b-qat-mtp-128k-think \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --model-draft /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/mtp-gemma-4-26B-A4B-it.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.02 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            --no-warmup \
+            -ngl 99
+
     unsloth-gemma4-26b-a4b-qat-128k:
         name: "Unsloth Gemma 4 26B-A4B IT QAT UD-Q4_K_XL via llama.cpp"
         ttl: 3600
@@ -3507,7 +3536,6 @@ groups:
         exclusive: false
         members:
 #            - unsloth-gemma4-12b-qat-128k
-            - gemma4-12b-coder-q4
 #            - unsloth-gemma4-e4b-q4-256k
             - unsloth-gemma4-e4b-qat-q4-256k
 #            - unsloth-gemma4-e4b-qat-q4-256k-mtp
@@ -3517,6 +3545,7 @@ groups:
         members:
 #            - unsloth-qwen35-35b-a3b-q4-128k-fa
             - unsloth-gemma4-26b-a4b-qat-128k-think
+            - unsloth-gemma4-26b-a4b-qat-mtp-128k-think
             - unsloth-gemma4-26b-a4b-qat-128k
             - unsloth-gemma4-26b-a4b-qat-128k-think-code
 #            - unsloth-gemma4-26b-a4b-qat-256k-think
