@@ -3490,9 +3490,9 @@ groups:
         exclusive: false
         members:
 #            - unsloth-qwen35-35b-a3b-q4-128k-fa
-#            - unsloth-gemma4-26b-a4b-qat-128k-think (disabled - vLLM handles 26B)
-#            - unsloth-gemma4-26b-a4b-qat-128k (disabled - vLLM handles 26B)
-#            - unsloth-gemma4-26b-a4b-qat-128k-think-code (disabled - vLLM handles 26B)
+            - unsloth-gemma4-26b-a4b-qat-128k-think
+            - unsloth-gemma4-26b-a4b-qat-128k
+            - unsloth-gemma4-26b-a4b-qat-128k-think-code
 #            - unsloth-gemma4-26b-a4b-qat-256k-think
 #            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
 #            - unsloth-gemma4-26b-a4b-qat-256k
