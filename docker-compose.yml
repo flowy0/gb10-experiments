@@ -232,7 +232,7 @@ services:
         command:
             - /model
             - --served-model-name
-            - unsloth-qwen36-35b-a3b-fp8-256k-think
+            - unsloth-qwen36-35b-a3b-fp8-256k-think-mtp
             - --speculative-config
             - '{"method":"qwen3_next_mtp","num_speculative_tokens":1}'
             - --host
