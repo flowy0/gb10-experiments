@@ -127,7 +127,20 @@ See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and multi-session deta
 
 ## Historical Default Setups
 
+### v7 — vLLM + Gemma4 26B + llama-swap (previous)
+
+| Service | Model | Context | Memory | Tok/s |
+|---|---|---|---|---|
+| **vLLM** | Gemma4 26B FP8 + MTP γ=4 | 256k | 71 GB | 55 |
+| **llama-swap** | Qwen3.6 35B IQ4 MTP | 256k | 30 GB | ~80 |
+| **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 |
+| **Total** | | | **118 GB** ✅ 4 GB free | |
+
+vLLM served the 26B main with PagedAttention. Replaced by Qwen 35B FP8 (45 GB, frees 26 GB).
+
 ### v6 — Gemma4-Only Stack (llama-swap)
+
+
 
 | Role | Model | Context | Memory | Group | Speed |
 |---|---|---|---|---|---|
