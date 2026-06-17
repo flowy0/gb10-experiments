@@ -119,6 +119,21 @@ Root cause: CUTLASS FP8 kernels lack SM121 support in stock builds.
 
 [ai-muninn article](https://ai-muninn.com/en/blog/dgx-spark-gemma4-mtp-108-toks): 108 tok/s single-stream with `gemma4-0505` preview image + patched `gemma4_mtp.py`. Not reproducible with newer builds.
 
+
+## Chat Template Update (PR #45553, June 16)
+
+The Gemma4 tool chat template was significantly updated in PR #45553:
+- Added `{{- bos_token -}}` natively (no longer needs manual prepend)
+- Added `preserve_thinking` parameter for reasoning across tool-call turns
+- Fixed offline parser truncation and `adjust_request` token leak
+- Added `image_url` and `input_audio` type support (OpenAI format)
+- Better `None`/null handling for tool arguments
+- O(1) continuation detection instead of O(n) backward scan
+
+Downloaded from: `https://raw.githubusercontent.com/vllm-project/vllm/6607a80d/examples/tool_chat_template_gemma4.jinja`
+
+Path: `/opt/atom/models/tool_chat_template_gemma4.jinja`
+
 ## Files
 
 | File | Path | Size |
