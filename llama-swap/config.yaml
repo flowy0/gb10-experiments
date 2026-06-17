@@ -3576,8 +3576,7 @@ groups:
 #            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
 #            - unsloth-qwen36-35b-a3b-mtp-q2-think
 #            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)
-            - unsloth-gemma4-12b-qat-128k
-            - gemma4-12b-coder-q4
+            - unsloth-qwen36-35b-a3b-mtp-iq4-256k
 ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think
 ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think-code
 #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
