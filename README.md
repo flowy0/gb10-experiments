@@ -92,29 +92,36 @@ All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 
 
 | Service | Model | Context | Memory | Tok/s | Model ID |
 |---|---|---|---|---|---|
-| **vLLM** | Qwen3.6 35B FP8 + MTP γ=1 | 256k | 50 GB | 55 | `unsloth-qwen36-35b-a3b-fp8-256k-think-mtp` |
-| **llama-swap** | Gemma4 26B QAT MTP think | 256k | 46 GB | ~55 | `unsloth-gemma4-26b-a4b-qat-mtp-256k-think` |
+| **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 256k | 59 GB | 55 | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
+| **llama-swap** | Qwen3.6 35B IQ4 MTP | 256k | 30 GB | ~80 | `unsloth-qwen36-35b-a3b-mtp-iq4-256k` |
 | **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 | `unsloth-gemma4-e4b-qat-q4-256k` |
-| **Total** | | | **113 GB** ✅ 9 GB free | | |
+| **Total** | | | **106 GB** ✅ 16 GB free | | |
 
-All three models at 256k with matching context windows. Qwen served via vLLM with PagedAttention (isolated per-session KV cache).
-Gemma4 26B served via llama-swap with MTP γ=1, reasoning on, single-slot (`--parallel 1`) for reliable tool testing.
-Start with:
+Gemma4 served via vLLM with MTP, reasoning, and PagedAttention (isolated per-session KV cache) for multi-session reasoning. Qwen served via llama-swap for coding tasks at high throughput. Start with:
 
 ```bash
-docker compose up -d vllm-qwen36 llama-swap
+docker compose up -d vllm-gemma4 llama-swap
 ```
 
-### Note on vLLM Reasoning Format
+### Model IDs
 
-vLLM's `--reasoning-parser qwen3` puts thinking content in `message.reasoning` (not `message.reasoning_content` like llama-swap). If your agent expects a different format, remove `--reasoning-parser qwen3` from the vLLM config.
+| Endpoint | Model ID |
+|---|---|
+| Port 8000 (vLLM) | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
+| Port 8088 (llama-swap) | `unsloth-qwen36-35b-a3b-mtp-iq4-256k` |
+| Port 8088 (llama-swap) | `unsloth-gemma4-e4b-qat-q4-256k` |
 
-### vLLM Alternatives
+### vLLM Configuration Notes
 
-The compose file also includes a disabled `vllm-gemma4` service (Gemma4 26B FP8 + separate MTP assistant). Uncomment it and comment `vllm-qwen35` to switch back.
+- Chat template: `tool_chat_template_gemma4.jinja` (June 16 version with PR #45553 fixes)
+- Reasoning: enabled by default via `--default-chat-template-kwargs {"enable_thinking":true}`
+- BOS token: included natively in chat template
+- Max context: 256k with fp8 KV cache
+- Single-slot baseline (`--max-num-seqs 2`) for reliable tool testing
+
+See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and debugging history.
 
 ---
-
 ## Historical Default Setups
 
 ### v7 — vLLM + Gemma4 26B + llama-swap (previous)
