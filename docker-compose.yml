@@ -1,246 +1,74 @@
 services:
-    # =========================
-    # vLLM - CODER MODEL
-    # =========================
-
-    # vllm-coder:
-    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
-    #   container_name: vllm-coder
-    #   runtime: nvidia
-    #   shm_size: "4g"
-    #   ports:
-    #     - "8000:8000"
-    #   volumes:
-    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
-    #     - /opt/atom/models:/models
-    #   entrypoint: ["vllm"]
-    #   command:
-    #     - serve
-    #     - /models/qwen2.5-coder-14b-awq
-    #     - --served-model-name
-    #     - research
-    #     - --host
-    #     - 0.0.0.0
-    #     - --port
-    #     - "8000"
-    #     - --gpu-memory-utilization
-    #     - "0.20"
-    #     - --max-model-len
-    #     - "4096"
-    #     - --enforce-eager
-    #     - --max-num-seqs
-    #     - "8"
-    #     - --dtype
-    #     - auto
-    #   environment:
-    #     - HF_HOME=/root/.cache/huggingface
-    #     - VLLM_USE_FLASHINFER_MOE_FP4=0
-    #     - VLLM_NVFP4_GEMM_BACKEND=marlin
-    #     - VLLM_TEST_FORCE_FP8_MARLIN=1
-    #   restart: unless-stopped
-
-    # =========================
-    # vLLM - RESEARCH MODEL
-    # =========================
-
-    # vllm-research:
-    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
-    #   container_name: vllm-research
-    #   runtime: nvidia
-    #   shm_size: "4g"
-    #   ports:
-    #     - "8001:8000"
-    #   volumes:
-    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
-    #     - /opt/atom/models:/models
-    #   entrypoint: ["vllm"]
-    #   command:
-    #     - serve
-    #     - /models/qwen2.5-14b-instruct-awq
-    #     - --served-model-name
-    #     - research
-    #     - --host
-    #     - 0.0.0.0
-    #     - --port
-    #     - "8000"
-    #     - --gpu-memory-utilization
-    #     - "0.22"
-    #     - --max-model-len
-    #     - "8192"
-    #     - --enforce-eager
-    #     - --max-num-seqs
-    #     - "4"
-    #     - --dtype
-    #     - auto
-    #     - --enable-auto-tool-choice
-    #     - --tool-call-parser
-    #     - hermes
-    #   environment:
-    #     - HF_HOME=/root/.cache/huggingface
-    #     - VLLM_USE_FLASHINFER_MOE_FP4=0
-    #     - VLLM_NVFP4_GEMM_BACKEND=marlin
-    #     - VLLM_TEST_FORCE_FP8_MARLIN=1
-    #   restart: unless-stopped
-    # vllm:
-    #   image: hellohal2064/vllm-dgx-spark-gb10:latest
-    #   container_name: vllm
-    #   privileged: true
-    #   runtime: nvidia
-    #   shm_size: "4g"
-    #   ports:
-    #     - "8000:8000"
-    #   volumes:
-    #     # Use your existing Hugging Face CLI login/cache
-    #     - /home/g/.cache/huggingface:/root/.cache/huggingface
-    #     - /opt/atom/models:/models
-    #   env_file:
-    #     - /opt/atom/.env
-    #   environment:
-    #     HF_HOME: /root/.cache/huggingface
-    #     HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
-    #     # GB10 / Blackwell safety settings
-    #     VLLM_USE_FLASHINFER_MOE_FP4: "0"
-    #     VLLM_NVFP4_GEMM_BACKEND: "marlin"
-    #     VLLM_TEST_FORCE_FP8_MARLIN: "1"
-    #   entrypoint: ["vllm", "serve"]
-    #   command:
-    #     - "${VLLM_MODEL}"
-    #     - "--served-model-name"
-    #     - "${VLLM_MODEL_ALIAS}"
-    #     - "--host"
-    #     - "0.0.0.0"
-    #     - "--port"
-    #     - "8000"
-    #     - "--gpu-memory-utilization"
-    #     - "${VLLM_GPU_MEM_UTIL}"
-    #     - "--max-model-len"
-    #     - "${VLLM_MAX_LEN}"
-    #     - "--enforce-eager"
-    #     - "--max-num-seqs"
-    #     - "8"
-    #     - "--dtype"
-    #     - "auto"
-    #   restart: unless-stopped
-
-#    vllm-qwen35-nvfp4:
-#        image: vllm/vllm-openai:cu129-nightly-aarch64
-#        container_name: vllm-qwen35-nvfp4
-#        runtime: nvidia
-#        shm_size: "16g"
-#        ports:
-#            - "8000:8000"
-#        volumes:
-#            - /opt/atom/models:/models:ro
-#            - /home/g/.cache/huggingface:/root/.cache/huggingface
-#        ipc: host
-#        entrypoint: ["vllm", "serve"]
-#        environment:
-#            HF_HOME: /root/.cache/huggingface
-#            VLLM_USE_FLASHINFER_MOE_FP4: "0"
-#            VLLM_FP8_MOE_BACKEND: flashinfer_cutlass
-#            CUDA_MANAGED_FORCE_DEVICE_ALLOC: "1"
-#            VLLM_MARLIN_USE_ATOMIC_ADD: "1"
-#        command:
-#            - /models/Qwen3.6-35B-A3B-FP8
-#            - --served-model-name
-#            - nvidia-qwen36-35b-fp8-256k
-#            - --host
-#            - 0.0.0.0
-#            - --port
-#            - "8000"
-#            - --max-model-len
-#            - "262144"
-#            - --max-num-seqs
-#            - "4"
-#            - --kv-cache-dtype
-#            - fp8
-#            - --gpu-memory-utilization
-#            - "0.45"
-#            - --dtype
-#            - auto
-#            - --trust-remote-code
-#            - --attention-backend
-#            - flashinfer
-#            - --moe-backend
-#            - marlin
-#            - --enable-prefix-caching
-#            - --max-num-batched-tokens
-#            - "32768"
-#            - --enable-chunked-prefill
-#        restart: unless-stopped
+    #    vllm-qwen35-nvfp4:
+    #        image: vllm/vllm-openai:cu129-nightly-aarch64
+    #        container_name: vllm-qwen35-nvfp4
+    #        runtime: nvidia
+    #        shm_size: "16g"
+    #        ports:
+    #            - "8000:8000"
+    #        volumes:
+    #            - /opt/atom/models:/models:ro
+    #            - /home/g/.cache/huggingface:/root/.cache/huggingface
+    #        ipc: host
+    #        entrypoint: ["vllm", "serve"]
+    #        environment:
+    #            HF_HOME: /root/.cache/huggingface
+    #            VLLM_USE_FLASHINFER_MOE_FP4: "0"
+    #            VLLM_FP8_MOE_BACKEND: flashinfer_cutlass
+    #            CUDA_MANAGED_FORCE_DEVICE_ALLOC: "1"
+    #            VLLM_MARLIN_USE_ATOMIC_ADD: "1"
+    #        command:
+    #            - /models/Qwen3.6-35B-A3B-FP8
+    #            - --served-model-name
+    #            - nvidia-qwen36-35b-fp8-256k
+    #            - --host
+    #            - 0.0.0.0
+    #            - --port
+    #            - "8000"
+    #            - --max-model-len
+    #            - "262144"
+    #            - --max-num-seqs
+    #            - "4"
+    #            - --kv-cache-dtype
+    #            - fp8
+    #            - --gpu-memory-utilization
+    #            - "0.45"
+    #            - --dtype
+    #            - auto
+    #            - --trust-remote-code
+    #            - --attention-backend
+    #            - flashinfer
+    #            - --moe-backend
+    #            - marlin
+    #            - --enable-prefix-caching
+    #            - --max-num-batched-tokens
+    #            - "32768"
+    #            - --enable-chunked-prefill
+    #        restart: unless-stopped
 
     # =========================
     # vLLM - Gemma4 26B FP8 + MTP @ 256k
     # =========================
 
-#    vllm-gemma4:
-#        image: vllm-node-tf5:latest
-#        container_name: vllm-gemma4-256k
-#        runtime: nvidia
-#        shm_size: "64gb"
-#        ports:
-#            - "8000:8000"
-#        volumes:
-#            - /opt/atom/models/gemma-4-26b-a4b-it-fp8-dynamic:/model:ro
-#            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
-#            - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
-#        ipc: host
-#        entrypoint: ["vllm", "serve"]
-#        command:
-#            - /model
-#            - --served-model-name
-#            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp
-#            - --speculative-config
-#            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
-#            - --host
-#            - "0.0.0.0"
-#            - --port
-#            - "8000"
-#            - --max-model-len
-#            - "262144"
-#            - --gpu-memory-utilization
-#            - "0.4"
-#            - --max-num-seqs
-#            - "2"
-#            - --kv-cache-dtype
-#            - fp8
-#            - --load-format
-#            - safetensors
-#            - --enforce-eager
-#            - --reasoning-parser
-#            - gemma4
-#            - --chat-template
-#            - /models/tool_chat_template_gemma4.jinja
-#            - --default-chat-template-kwargs
-#            - '{"enable_thinking":true}'
-#            - --enable-auto-tool-choice
-#            - --tool-call-parser
-#            - gemma4
-#            - --max-num-batched-tokens
-#            - "8192"
-#        restart: unless-stopped
-
-    # =========================
-    # Qwen3.6 35B FP8 + MTP @ 256k
-    # =========================
-
-    vllm-qwen36:
+    vllm-gemma4:
         image: vllm-node-tf5:latest
-        container_name: vllm-qwen36-256k
+        container_name: vllm-gemma4-256k
         runtime: nvidia
-        shm_size: "32gb"
+        shm_size: "64gb"
         ports:
             - "8000:8000"
         volumes:
-            - /opt/atom/models/Qwen3.6-35B-A3B-FP8:/model:ro
+            - /opt/atom/models/gemma-4-26b-a4b-it-fp8-dynamic:/model:ro
+            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
+            - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
         ipc: host
         entrypoint: ["vllm", "serve"]
         command:
             - /model
             - --served-model-name
-            - unsloth-qwen36-35b-a3b-fp8-256k-think-mtp
+            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp
             - --speculative-config
-            - '{"method":"qwen3_next_mtp","num_speculative_tokens":1}'
+            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
             - --host
             - "0.0.0.0"
             - --port
@@ -253,14 +81,63 @@ services:
             - "2"
             - --kv-cache-dtype
             - fp8
+            - --load-format
+            - safetensors
+            - --enforce-eager
             - --reasoning-parser
-            - qwen3
-            - --reasoning-config
-            - '{"reasoning_start_str":"<think>","reasoning_end_str":"</think>"}'
+            - gemma4
+            - --chat-template
+            - /models/tool_chat_template_gemma4.jinja
+            - --default-chat-template-kwargs
+            - '{"enable_thinking":true}'
             - --enable-auto-tool-choice
             - --tool-call-parser
-            - qwen3_coder
+            - gemma4
+            - --max-num-batched-tokens
+            - "8192"
         restart: unless-stopped
+
+    # =========================
+    # Qwen3.6 35B FP8 + MTP @ 256k
+    # =========================
+
+    # vllm-qwen36:
+    #     image: vllm-node-tf5:latest
+    #     container_name: vllm-qwen36-256k
+    #     runtime: nvidia
+    #     shm_size: "32gb"
+    #     ports:
+    #         - "8000:8000"
+    #     volumes:
+    #         - /opt/atom/models/Qwen3.6-35B-A3B-FP8:/model:ro
+    #     ipc: host
+    #     entrypoint: ["vllm", "serve"]
+    #     command:
+    #         - /model
+    #         - --served-model-name
+    #         - unsloth-qwen36-35b-a3b-fp8-256k-think-mtp
+    #         - --speculative-config
+    #         - '{"method":"qwen3_next_mtp","num_speculative_tokens":1}'
+    #         - --host
+    #         - "0.0.0.0"
+    #         - --port
+    #         - "8000"
+    #         - --max-model-len
+    #         - "262144"
+    #         - --gpu-memory-utilization
+    #         - "0.4"
+    #         - --max-num-seqs
+    #         - "2"
+    #         - --kv-cache-dtype
+    #         - fp8
+    #         - --reasoning-parser
+    #         - qwen3
+    #         - --reasoning-config
+    #         - '{"reasoning_start_str":"<think>","reasoning_end_str":"</think>"}'
+    #         - --enable-auto-tool-choice
+    #         - --tool-call-parser
+    #         - qwen3_coder
+    #     restart: unless-stopped
 
     llama-swap:
         image: docker.io/local/llama-swap:arm64
