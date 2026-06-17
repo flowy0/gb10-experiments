@@ -190,7 +190,7 @@ services:
 #            - --served-model-name
 #            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp
 #            - --speculative-config
-#            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":4}'
+#            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
 #            - --host
 #            - "0.0.0.0"
 #            - --port
@@ -198,13 +198,14 @@ services:
 #            - --max-model-len
 #            - "262144"
 #            - --gpu-memory-utilization
-#            - "0.65"
+#            - "0.4"
 #            - --max-num-seqs
-#            - "4"
+#            - "2"
 #            - --kv-cache-dtype
 #            - fp8
 #            - --load-format
 #            - safetensors
+#            - --enforce-eager
 #            - --reasoning-parser
 #            - gemma4
 #            - --enable-auto-tool-choice
