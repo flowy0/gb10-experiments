@@ -92,15 +92,17 @@ All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 
 
 | Service | Model | Context | Memory | Tok/s | Model ID |
 |---|---|---|---|---|---|
-| **vLLM** | Qwen3.6 35B FP8 + MTP γ=2 | 256k | 45 GB | 55 | `unsloth-qwen36-35b-a3b-fp8-256k-think-mtp` |
-| **llama-swap** | Gemma4 26B QAT think | 128k | 31 GB | ~80 | `unsloth-gemma4-26b-a4b-qat-128k-think` |
+| **vLLM** | Qwen3.6 35B FP8 + MTP γ=1 | 256k | 50 GB | 55 | `unsloth-qwen36-35b-a3b-fp8-256k-think-mtp` |
+| **llama-swap** | Gemma4 26B QAT MTP think | 256k | 46 GB | ~55 | `unsloth-gemma4-26b-a4b-qat-mtp-256k-think` |
 | **llama-swap** | Gemma4 E4B QAT | 256k | 17 GB | ~60 | `unsloth-gemma4-e4b-qat-q4-256k` |
-| **Total** | | | **93 GB** ✅ 29 GB free | | |
+| **Total** | | | **113 GB** ✅ 9 GB free | | |
 
-vLLM serves the Qwen 35B with built-in MTP and PagedAttention (isolated per-session KV cache). llama-swap handles the 26B QAT for thinking tasks and E4B for aux. Start with:
+All three models at 256k with matching context windows. Qwen served via vLLM with PagedAttention (isolated per-session KV cache).
+Gemma4 26B served via llama-swap with MTP γ=1, reasoning on, single-slot (`--parallel 1`) for reliable tool testing.
+Start with:
 
 ```bash
-docker compose up -d vllm-qwen35 llama-swap
+docker compose up -d vllm-qwen36 llama-swap
 ```
 
 ### Note on vLLM Reasoning Format
