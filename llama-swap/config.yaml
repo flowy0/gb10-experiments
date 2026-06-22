@@ -2351,32 +2351,33 @@ models:
 #            --jinja \
 #            -ngl 99
 #
-#    unsloth-gemma3-12b-q4-64k:
-#        name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp"
-#        ttl: 300
-#        cmdStop: docker rm -f ls-unsloth-gemma3-12b-q4-64k
-#        cmd: |
-#            docker run --rm \
-#            --name ls-unsloth-gemma3-12b-q4-64k \
-#            --runtime=nvidia \
-#            --network container:llama-swap \
-#            -v /opt/atom/models:/models:ro \
-#            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
-#            -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
-#            --host 0.0.0.0 \
-#            --port ${PORT} \
-#            -c 65536 \
-#            --temp 1.0 \
-#            --top-k 64 \
-#            --top-p 0.95 \
-#            --min-p 0.00 \
-#            --repeat-penalty 1.0 \
-#            --cache-type-k q8_0 \
-#            --cache-type-v q8_0 \
-#            --jinja \
-#            -ngl 99
-#
-#    codestral-22b-q4:
+    unsloth-gemma3-12b-q4-64k:
+        name: "Unsloth Gemma 3 12B IT Q4_K_M via llama.cpp - vision, 64k"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma3-12b-q4-64k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma3-12b-q4-64k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
+            --mmproj /models/unsloth-gemma-3-12b-it-gguf/mmproj-F16.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 65536 \
+            --temp 1.0 \
+            --top-k 64 \
+            --top-p 0.95 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    codestral-22b-q4:
 #        name: "Codestral 22B v0.1 Q4_K_M via llama.cpp"
 #        ttl: 300
 #        cmdStop: docker rm -f ls-codestral-22b-q4
@@ -3577,6 +3578,7 @@ groups:
 #            - unsloth-qwen36-35b-a3b-mtp-q2-think
 #            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)
             - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
+            - unsloth-gemma3-12b-q4-64k
 ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think
 ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think-code
 #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
