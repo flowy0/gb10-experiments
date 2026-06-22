@@ -309,6 +309,18 @@ Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/
 
 A lightweight Rust-based web scraper with Firecrawl-compatible API. Runs locally on port 3002.
 
+**Build:**
+```bash
+# Prerequisites: Rust (installed via rustup)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Clone and build
+git clone https://github.com/us/crw.git /opt/atom/crw
+cd /opt/atom/crw
+cargo build --release
+# Binary: /opt/atom/crw/target/release/crw (25 MB)
+```
+
 **Start:**
 ```bash
 /opt/atom/start-crw.sh
@@ -320,6 +332,7 @@ curl http://localhost:3002/v1/scrape -H "Content-Type: application/json" -d '{"u
 curl http://localhost:3002/v1/crawl  -H "Content-Type: application/json" -d '{"url":"https://example.com","depth":2}'
 ```
 
+**Auto-start on boot:** `crontab -l` should show `@reboot /opt/atom/start-crw.sh`
 **Source:** [github.com/us/crw](https://github.com/us/crw) (205 stars, Rust, 6 MB RAM)
 
 
