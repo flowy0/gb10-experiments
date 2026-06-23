@@ -1424,13 +1424,13 @@ models:
             --jinja \
             -ngl 99
 
-    qwen3.5-4b-formatter:
+    unsloth-qwen35-4b-q4-32k-formatter:
         name: "Qwen3.5 4B Q4_K_M - Markdown Formatter (32k)"
         ttl: 900
-        cmdStop: docker rm -f ls-qwen3.5-4b-formatter
+        cmdStop: docker rm -f ls-unsloth-qwen35-4b-q4-32k-formatter
         cmd: |
             docker run --rm \
-            --name ls-qwen3.5-4b-formatter \
+            --name ls-unsloth-qwen35-4b-q4-32k-formatter \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -3492,7 +3492,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - qwen3.5-4b-formatter
+            - unsloth-qwen35-4b-q4-32k-formatter
 
     test-models:
         swap: true
