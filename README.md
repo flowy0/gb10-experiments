@@ -5,8 +5,6 @@
 | `llama-swap/` | Model router config (`config.yaml`) and swap definitions |
 | `llama-swap/docs/MEMORY.md` | Memory planning docs with architecture tables |
 | `docs/VLLM.md` | vLLM setup, benchmarking, and debugging history |
-| `crw/` | crw web scraper source (Firecrawl-compatible, port 3002) |
-| `start-crw.sh` | Start script for crw web scraper |
 | `librechat/` | LibreChat UI config (`librechat.yml`, `data/auth.json`) |
 | `open-webui/` | Open WebUI cache data |
 | `docker-compose.yml` | Main compose file — launches llama-swap, LibreChat, Open WebUI, MongoDB |
@@ -130,8 +128,6 @@ See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and debugging history.
 | `llama-swap/` | Model router config (`config.yaml`) and swap definitions |
 | `llama-swap/docs/MEMORY.md` | Memory planning docs with architecture tables |
 | `docs/VLLM.md` | vLLM setup, benchmarking, and debugging history |
-| `crw/` | crw web scraper source (Firecrawl-compatible, port 3002) |
-| `start-crw.sh` | Start script for crw web scraper |
 | `librechat/` | LibreChat UI config (`librechat.yml`, `data/auth.json`) |
 | `open-webui/` | Open WebUI cache data |
 | `docker-compose.yml` | Main compose file — launches llama-swap, LibreChat, Open WebUI, MongoDB |
@@ -304,36 +300,3 @@ Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/
 
 
 ## vLLM
-
-## crw — Firecrawl-Compatible Web Scraper
-
-A lightweight Rust-based web scraper with Firecrawl-compatible API. Runs locally on port 3002.
-
-**Build:**
-```bash
-# Prerequisites: Rust (installed via rustup)
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Clone and build
-git clone https://github.com/us/crw.git /opt/atom/crw
-cd /opt/atom/crw
-cargo build --release
-# Binary: /opt/atom/crw/target/release/crw (25 MB)
-```
-
-**Start:**
-```bash
-/opt/atom/start-crw.sh
-```
-
-**API:**
-```bash
-curl http://localhost:3002/v1/scrape -H "Content-Type: application/json" -d '{"url":"https://example.com"}'
-curl http://localhost:3002/v1/crawl  -H "Content-Type: application/json" -d '{"url":"https://example.com","depth":2}'
-```
-
-**Auto-start on boot:** `crontab -l` should show `@reboot /opt/atom/start-crw.sh`
-**Source:** [github.com/us/crw](https://github.com/us/crw) (205 stars, Rust, 6 MB RAM)
-
-
-See [docs/VLLM.md](docs/VLLM.md) for vLLM setup, benchmarking, and investigation history.
