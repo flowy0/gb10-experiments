@@ -199,7 +199,7 @@ services:
         command:
             - /model
             - --served-model-name
-            - unsloth-gemma4-26b-a4b-fp8-128k-think-mtp
+            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp
             - --speculative-config
             - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
             - --host
@@ -207,9 +207,9 @@ services:
             - --port
             - "8000"
             - --max-model-len
-            - "131072"
+            - "262144"
             - --gpu-memory-utilization
-            - "0.45"
+            - "0.4"
             - --max-num-seqs
             - "2"
             - --kv-cache-dtype
