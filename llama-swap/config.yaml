@@ -3573,7 +3573,6 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-128k-tq-tq
             - unsloth-qwen36-27b-mtp-q4-128k-think-tq
 
     test-models:
