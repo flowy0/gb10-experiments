@@ -91,49 +91,49 @@ services:
     # - gemma4
     # restart: unless-stopped
 
-    vllm-gemma4:
-        image: vllm-node-tf5:latest
-        container_name: vllm-gemma4
-        runtime: nvidia
-        shm_size: "32gb"
-        ports:
-            - "8000:8000"
-        volumes:
-            - /opt/atom/models/redhatai-gemma-4-26b-a4b-it-nvfp4:/model:ro
-            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
-            - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
-        ipc: host
-        environment:
-            - VLLM_NVFP4_GEMM_BACKEND=marlin
-        entrypoint: ["vllm", "serve"]
-        command:
-            - /model
-            - --served-model-name
-            - unsloth-gemma4-26b-a4b-nvfp4-128k-think-mtp
-            - --speculative-config
-            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
-            - --host
-            - "0.0.0.0"
-            - --port
-            - "8000"
-            - --max-model-len
-            - "131072"
-            - --gpu-memory-utilization
-            - "0.45"
-            - --max-num-seqs
-            - "4"
-            - --max-num-batched-tokens
-            - "8192"
-            - --reasoning-parser
-            - gemma4
-            - --chat-template
-            - /models/tool_chat_template_gemma4.jinja
-            - --default-chat-template-kwargs
-            - '{"enable_thinking":true}'
-            - --enable-auto-tool-choice
-            - --tool-call-parser
-            - gemma4
-        restart: unless-stopped
+    # vllm-gemma4 (NVFP4 + MTP, disabled)
+    # image: vllm-node-tf5:latest
+    # container_name: vllm-gemma4
+    # runtime: nvidia
+    # shm_size: "32gb"
+    # ports:
+    # - "8000:8000"
+    # volumes:
+    # - /opt/atom/models/redhatai-gemma-4-26b-a4b-it-nvfp4:/model:ro
+    # - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
+    # - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
+    # ipc: host
+    # environment:
+    # - VLLM_NVFP4_GEMM_BACKEND=marlin
+    # entrypoint: ["vllm", "serve"]
+    # command:
+    # - /model
+    # - --served-model-name
+    # - unsloth-gemma4-26b-a4b-nvfp4-128k-think-mtp
+    # - --speculative-config
+    # - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
+    # - --host
+    # - "0.0.0.0"
+    # - --port
+    # - "8000"
+    # - --max-model-len
+    # - "131072"
+    # - --gpu-memory-utilization
+    # - "0.45"
+    # - --max-num-seqs
+    # - "4"
+    # - --max-num-batched-tokens
+    # - "8192"
+    # - --reasoning-parser
+    # - gemma4
+    # - --chat-template
+    # - /models/tool_chat_template_gemma4.jinja
+    # - --default-chat-template-kwargs
+    # - '{"enable_thinking":true}'
+    # - --enable-auto-tool-choice
+    # - --tool-call-parser
+    # - gemma4
+    # restart: unless-stopped
 
 
     # =========================
@@ -181,26 +181,112 @@ services:
 
 
     # =========================
-    # vLLM - Gemma4 FP8 backup (disabled - use vllm-gemma4 instead)
-    # =========================
+# =========================
 
-    # vllm-gemma4-fp8:
+    vllm-gemma4:
+        image: vllm-node-tf5:latest
+        container_name: vllm-gemma4
+        runtime: nvidia
+        shm_size: "32gb"
+        ports:
+            - "8000:8000"
+        volumes:
+            - /opt/atom/models/gemma-4-26b-a4b-it-fp8-dynamic:/model:ro
+            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
+            - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
+        ipc: host
+        entrypoint: ["vllm", "serve"]
+        command:
+            - /model
+            - --served-model-name
+            - unsloth-gemma4-26b-a4b-fp8-128k-think-mtp
+            - --speculative-config
+            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
+            - --host
+            - "0.0.0.0"
+            - --port
+            - "8000"
+            - --max-model-len
+            - "131072"
+            - --gpu-memory-utilization
+            - "0.45"
+            - --max-num-seqs
+            - "2"
+            - --kv-cache-dtype
+            - fp8
+            - --load-format
+            - safetensors
+            - --enforce-eager
+            - --reasoning-parser
+            - gemma4
+            - --chat-template
+            - /models/tool_chat_template_gemma4.jinja
+            - --default-chat-template-kwargs
+            - '{"enable_thinking":true}'
+            - --enable-auto-tool-choice
+            - --tool-call-parser
+            - gemma4
+            - --max-num-batched-tokens
+            - "8192"
+        restart: unless-stopped
+
+    # --- PrismaSCOUT Qwen3.6 27B (Blackwell NVFP4, vLLM) ---
+    # vllm-qwen36-prismascout:
     #     image: vllm-node-tf5:latest
-    #     container_name: vllm-gemma4-fp8
+    #     container_name: vllm-qwen36-prismascout
     #     runtime: nvidia
     #     shm_size: "32gb"
     #     ports:
-    #         - "8000:8000"
+    #         - "8001:8000"
     #     volumes:
-    #         - /opt/atom/models/gemma-4-26b-a4b-it-fp8-dynamic:/model:ro
-    #         - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
-    #         - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
+    #         - /opt/atom/models/qwen3.6-27b-prismascout-blackwell-nvfp4:/model:ro
+    #         - /opt/atom/models/tool_chat_template_qwen.jinja:/models/chat_template.jinja:ro
     #     ipc: host
     #     entrypoint: ["vllm", "serve"]
     #     command:
     #         - /model
     #         - --served-model-name
-    #         - unsloth-gemma4-26b-a4b-fp8-128k-think-mtp
+    #         - unsloth-qwen36-27b-prismascout-nvfp4
+    #         - --host
+    #         - "0.0.0.0"
+    #         - --port
+    #         - "8000"
+    #         - --max-model-len
+    #         - "131072"
+    #         - --gpu-memory-utilization
+    #         - "0.30"
+    #         - --max-num-seqs
+    #         - "4"
+    #         - --max-num-batched-tokens
+    #         - "8192"
+    #         - --chat-template
+    #         - /models/chat_template.jinja
+    #         - --enable-auto-tool-choice
+    #         - --tool-call-parser
+    #         - hermes
+    #     restart: unless-stopped
+
+
+    # --- NVFP4 + MTP (backup) ---
+    # vllm-gemma4-nvfp4-mtp:
+    #     image: vllm-node-tf5:latest
+    #     container_name: vllm-gemma4-nvfp4-mtp
+    #     runtime: nvidia
+    #     shm_size: "32gb"
+    #     ports:
+    #         - "8000:8000"
+    #     volumes:
+    #         - /opt/atom/models/redhatai-gemma-4-26b-a4b-it-nvfp4:/model:ro
+    #         - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
+    #         - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
+    #     ipc: host
+    #     environment:
+    #         - VLLM_NVFP4_GEMM_BACKEND=marlin
+    #     entrypoint: ["vllm", "serve"]
+    #     command:
+    #         - /model
+    #         - --served-model-name
+    #         - unsloth-gemma4-26b-a4b-nvfp4-128k-think-mtp
     #         - --speculative-config
     #         - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
     #         - --host
@@ -212,12 +298,9 @@ services:
     #         - --gpu-memory-utilization
     #         - "0.45"
     #         - --max-num-seqs
-    #         - "2"
-    #         - --kv-cache-dtype
-    #         - fp8
-    #         - --load-format
-    #         - safetensors
-    #         - --enforce-eager
+    #         - "4"
+    #         - --max-num-batched-tokens
+    #         - "8192"
     #         - --reasoning-parser
     #         - gemma4
     #         - --chat-template
@@ -230,7 +313,6 @@ services:
     #         - --max-num-batched-tokens
     #         - "8192"
     #     restart: unless-stopped
-
 
     llama-swap:
         image: docker.io/local/llama-swap:arm64
