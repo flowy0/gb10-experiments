@@ -3651,7 +3651,8 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --reasoning off \
+            --reasoning on \
+            --reasoning-budget 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -3675,7 +3676,8 @@ models:
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --reasoning off \
+            --reasoning on \
+            --reasoning-budget 4096 \
             --cache-type-k turbo4 \
             --cache-type-v turbo4 \
             --jinja \
