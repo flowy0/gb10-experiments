@@ -92,13 +92,14 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 | Service | Model | Context | Memory | Model ID |
 |---|---|---|---|---|
-| **vLLM** | Gemma4 26B NVFP4 + Marlin | 128k | ~46 GB¹ | ~50 tok/s | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
-| **llama-swap** | Qwen3.6 27B dense MTP think | 128k | ~34 GB | ~21 tok/s | `unsloth-qwen36-27b-mtp-q4-128k-think` |
-| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | ~26 GB | ~25 tok/s | `unsloth-gemma4-12b-qat-128k-tq` |
-| **Total** | | | **~106 GB** ✅ 25 GB free | | |
+| **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 256k | ~52 GB¹ | ~50 tok/s | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
+| **llama-swap** (code) | Qwen3.6 27B MTP Q4 think | 64k | ~35 GB | ~28 tok/s | `unsloth-qwen36-27b-mtp-q4-think` |
+| **llama-swap** (summary) | Gemma4 12B QAT + TurboQuant | 256k | ~20 GB | ~31 tok/s | `unsloth-gemma4-12b-qat-256k-tq` |
+| **Total** | | | **~107 GB** ✅ 24 GB free | | |
 
-¹ vLLM reserves via `--gpu-memory-utilization 0.35`. Model weights are 15.3 GB;
-  remainder is KV cache pool and PagedAttention overhead.
+¹ vLLM reserves via `--gpu-memory-utilization 0.4`. Model weights are ~27 GB;
+  remainder is KV cache pool (fp8) and MTP draft model.
+² All models now at 256k for deterministic compaction compatibility.
 
 Gemma4 via vLLM with PagedAttention. Qwen3.6 27B dense for coding with thinking. 12B QAT with TurboQuant for aux, vision, and compaction.
 
@@ -111,9 +112,9 @@ docker compose up -d vllm-gemma4 llama-swap
 
 | Endpoint | Model ID |
 |---|---|
-| Port 8000 (vLLM) | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
-| Port 8088 (llama-swap) | `unsloth-qwen36-27b-mtp-q4-128k-think` |
-| Port 8088 (llama-swap) | `unsloth-gemma4-12b-qat-128k-tq` |
+| Port 8000 (vLLM) | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
+| Port 8088 (llama-swap, code group) | `unsloth-qwen36-27b-mtp-q4-think` |
+| Port 8088 (llama-swap, summary group) | `unsloth-gemma4-12b-qat-256k-tq` |
 
 ---
 
