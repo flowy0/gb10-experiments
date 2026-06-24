@@ -81,9 +81,9 @@ services:
             - "2"
             - --kv-cache-dtype
             - fp8
+            - --enforce-eager
             - --load-format
             - safetensors
-            - --enforce-eager
             - --reasoning-parser
             - gemma4
             - --chat-template
