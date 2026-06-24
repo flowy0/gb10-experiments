@@ -287,6 +287,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 0.0 \
+            --reasoning on \
             --reasoning-budget 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
@@ -703,10 +704,7 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --reasoning on \
-            --repeat-penalty 1.0 \
             --presence-penalty 0.0 \
-            --reasoning on \
-            --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
             --no-warmup \
             --cache-type-k q8_0 \
