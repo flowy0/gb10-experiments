@@ -78,14 +78,34 @@ The 12B (48 layers × 8 KV heads) uses 48 GB for KV cache alone at 256k with q8_
 ---
 
 
-## Historical
-
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 
-## Historical
+## Current Active Setup — vLLM + llama-swap
 
-See [docs/HISTORICAL.md](docs/HISTORICAL.md) for all previous stack configurations.
+| Service | Model | Context | Memory | Model ID |
+|---|---|---|---|---|
+| **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 128k | 44 GB | `unsloth-gemma4-26b-a4b-fp8-128k-think-mtp` |
+| **llama-swap** | Qwen3.6 27B dense MTP think | 128k | 34 GB | `unsloth-qwen36-27b-mtp-q4-128k-think` |
+| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | 26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
+| **Total** | | | **104 GB** ✅ 18 GB free | |
+
+Gemma4 via vLLM with PagedAttention. Qwen3.6 27B dense for coding with thinking. 12B QAT with TurboQuant for aux, vision, and compaction.
+
+Start with:
+```bash
+docker compose up -d vllm-gemma4 llama-swap
+```
+
+### Model IDs
+
+| Endpoint | Model ID |
+|---|---|
+| Port 8000 (vLLM) | `unsloth-gemma4-26b-a4b-fp8-128k-think-mtp` |
+| Port 8088 (llama-swap) | `unsloth-qwen36-27b-mtp-q4-128k-think` |
+| Port 8088 (llama-swap) | `unsloth-gemma4-12b-qat-128k-tq` |
+
+---
 
 ## Quick Reference
 
