@@ -120,3 +120,5 @@ Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/
 
 
 ## vLLM
+
+See [docs/VLLM.md](docs/VLLM.md) for vLLM setup, benchmarking, and debugging history.
