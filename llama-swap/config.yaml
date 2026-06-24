@@ -3632,13 +3632,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-gemma4-31b-q4-xl-mtp:
+    unsloth-gemma4-31b-mtp-q4-xl-128k-think:
         name: "Gemma4 31B UD-Q4_K_XL + MTP via llama.cpp (18 GB)"
         ttl: 300
-        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q4-xl-mtp
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-mtp-q4-xl-128k-think
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-31b-q4-xl-mtp \
+            --name ls-unsloth-gemma4-31b-mtp-q4-xl-128k-think \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -3658,13 +3658,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-gemma4-31b-q4-xl-tq:
+    unsloth-gemma4-31b-q4-xl-128k-tq:
         name: "Gemma4 31B UD-Q4_K_XL + TurboQuant via llama-cpp-turboquant (18 GB)"
         ttl: 300
-        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q4-xl-tq
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-q4-xl-128k-tq
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-31b-q4-xl-tq \
+            --name ls-unsloth-gemma4-31b-q4-xl-128k-tq \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -3703,8 +3703,8 @@ groups:
             - gemma4-12b-agentic-v2-q4
             - gemma4-12b-agentic-v2-q3
             - unsloth-qwen36-27b-prism-pro-dq
-            - unsloth-gemma4-31b-q4-xl-mtp
-            - unsloth-gemma4-31b-q4-xl-tq
+            - unsloth-gemma4-31b-mtp-q4-xl-128k-think
+            - unsloth-gemma4-31b-q4-xl-128k-tq
 #            - gemma4-e4b-q4
 #            - unsloth-qwen36-27b-q4
 #            - unsloth-qwen36-27b-q4-64k
