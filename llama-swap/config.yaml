@@ -16,7 +16,7 @@ models:
 #            -m /models/Qwen2.5-Coder-14B-Instruct-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --cache-type-k q8_0 \
 #            --cache-type-v q8_0 \
 #            -ngl 99
@@ -35,7 +35,7 @@ models:
             -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -55,7 +55,7 @@ models:
 #            -m /models/qwen3.5-9b-gguf/Qwen_Qwen3.5-9B-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --cache-type-k q8_0 \
 #            --cache-type-v q8_0 \
 #            --flash-attn on \
@@ -97,7 +97,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
@@ -203,7 +203,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 20 \
@@ -229,7 +229,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
@@ -254,7 +254,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
@@ -281,7 +281,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 20 \
@@ -309,7 +309,7 @@ models:
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
@@ -588,7 +588,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
@@ -614,7 +614,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 20 \
@@ -644,7 +644,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
@@ -853,7 +853,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
@@ -880,7 +880,7 @@ models:
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q2_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 20 \
@@ -1120,7 +1120,7 @@ models:
 #            -m /models/google_gemma-3-4b-it-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --cache-type-k q8_0 \
 #            --cache-type-v q8_0 \
 #            --jinja \
@@ -1140,7 +1140,7 @@ models:
 #            -m /models/qwen2.5-coder-7b-gguf/Qwen2.5-Coder-7B-Instruct-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --cache-type-k q8_0 \
 #            --cache-type-v q8_0 \
 #            -ngl 99
@@ -1159,7 +1159,7 @@ models:
 #            -m /models/devstral-small-2-24b-2512-gguf/mistralai_Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.15 \
 #            --min-p 0.01 \
 #            --cache-type-k q8_0 \
@@ -1203,7 +1203,7 @@ models:
 #            -m /models/ministral3-3b-instruct-2512-gguf/mistralai_Ministral-3-3B-Instruct-2512-Q6_K.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.15 \
 #            --top-p 0.95 \
 #            --repeat-penalty 1.1 \
@@ -1226,7 +1226,7 @@ models:
 #            -m /models/ministral3-8b-instruct-2512-gguf/mistralai_Ministral-3-8B-Instruct-2512-Q5_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.1 \
 #            --top-p 0.95 \
 #            --repeat-penalty 1.1 \
@@ -1249,7 +1249,7 @@ models:
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -1339,7 +1339,7 @@ models:
 #            -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.7 \
 #            --top-p 0.8 \
 #            --top-k 20 \
@@ -1364,7 +1364,7 @@ models:
 #            -m /models/unsloth-qwen3.5-27b-gguf/Qwen3.5-27B-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.7 \
 #            --top-p 0.8 \
 #            --top-k 20 \
@@ -1414,7 +1414,7 @@ models:
             -m /models/unsloth-gemma-4-e4b-it-gguf/gemma-4-E4B-it-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
@@ -1424,13 +1424,68 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-qwen35-4b-q4-32k-formatter:
-        name: "Qwen3.5 4B Q4_K_M - Markdown Formatter (32k)"
+
+    unsloth-gemma4-e4b-qat-q4-256k-tq:
+        name: "Gemma4 E4B QAT - TurboQuant (256k) [TEST]"
         ttl: 900
-        cmdStop: docker rm -f ls-unsloth-qwen35-4b-q4-32k-formatter
+        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-qat-q4-256k-tq
         cmd: |
             docker run --rm \
-            --name ls-unsloth-qwen35-4b-q4-32k-formatter \
+            --name ls-unsloth-gemma4-e4b-qat-q4-256k-tq \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cpp-turboquant:latest \
+            -m /models/unsloth-gemma-4-e4b-it-qat-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf \
+            --mmproj /models/unsloth-gemma-4-e4b-it-qat-gguf/mmproj-F16.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 0.1 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k turbo4 \
+            --cache-type-v turbo4 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq:
+        name: "Qwen3.6 35B IQ4 MTP think - TurboQuant (256k) [TEST]"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cpp-turboquant:latest \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf \
+            --model-draft /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/MTP/Qwen3.6-35B-A3B-MTP-Q8_0.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 262144 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --repeat-penalty 1.0 \
+            --cache-type-k turbo4 \
+            --cache-type-v turbo4 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen35-4b-q4-64k-formatter:
+        name: "Qwen3.5 4B Q4_K_M - Markdown Formatter (64k)"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-qwen35-4b-q4-64k-formatter
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen35-4b-q4-64k-formatter \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -1438,7 +1493,7 @@ models:
             -m /models/unsloth-qwen3.5-4b-gguf/Qwen3.5-4B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.1 \
             --top-p 0.95 \
             --top-k 20 \
@@ -1575,7 +1630,7 @@ models:
 #            -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 1.0 \
 #            --top-p 0.95 \
 #            --top-k 64 \
@@ -1599,7 +1654,7 @@ models:
 #            -m /models/unsloth-gemma-4-26b-a4b-it-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 1.0 \
 #            --top-p 0.95 \
 #            --top-k 64 \
@@ -2368,7 +2423,7 @@ models:
 #            -m /models/unsloth-gemma-3-12b-it-gguf/gemma-3-12b-it-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 1.0 \
 #            --top-k 64 \
 #            --top-p 0.95 \
@@ -2419,7 +2474,7 @@ models:
 #            -m /models/bartowski-codestral-22b-v01-gguf/Codestral-22B-v0.1-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --chat-template mistral-instruct \
 #            --cache-type-k q8_0 \
 #            --cache-type-v q8_0 \
@@ -2439,7 +2494,7 @@ models:
 #            -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.0 \
 #            --top-k 0 \
 #            --top-p 1.0 \
@@ -2462,7 +2517,7 @@ models:
 #            -m /models/granite-4.1-8b-gguf/granite-4.1-8b-Q5_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --temp 0.0 \
 #            --top-k 0 \
 #            --top-p 1.0 \
@@ -2575,7 +2630,7 @@ models:
 #            -m /models/granite-4.1-30b-gguf/granite-4.1-30b-Q4_K_M.gguf \
 #            --host 0.0.0.0 \
 #            --port ${PORT} \
-#            -c 32768 \
+#            -c 65536 \
 #            --top-k 0 \
 #            --top-p 1.0 \
 #            --cache-type-k q8_0 \
@@ -2827,7 +2882,7 @@ models:
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-IQ2_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 32768 \
+            -c 65536 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
@@ -3492,7 +3547,14 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen35-4b-q4-32k-formatter
+            - unsloth-qwen35-4b-q4-64k-formatter
+
+    test-turboquant:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-gemma4-e4b-qat-q4-256k-tq
+            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq
 
     test-models:
         swap: true
