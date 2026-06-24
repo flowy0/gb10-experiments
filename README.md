@@ -77,7 +77,7 @@ The 12B (48 layers × 8 KV heads) uses 48 GB for KV cache alone at 256k with q8_
 
 ---
 
-## Current Active Setup — llama-swap Only
+## Archived: llama-swap Only (v6 — Gemma4 stack, replaced)
 
 | Role | Model | Context | Memory | Group | Model ID |
 |---|---|---|---|---|---|---|
@@ -126,7 +126,7 @@ The compose file includes a disabled `vllm-gemma4` section. Uncomment to switch 
 See [docs/VLLM.md](docs/VLLM.md) for build, benchmarking, and debugging history.
 
 ---
-## Current Active Setup — llama-swap Only
+## Archived: llama-swap Only (v6 — Gemma4 stack, replaced)
 
 | Role | Model | Context | Memory | Group | Model ID |
 |---|---|---|---|---|---|---|
