@@ -489,6 +489,35 @@ models:
             --jinja \
             -ngl 99
 
+
+    unsloth-qwen36-27b-mtp-q4-128k:
+        name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-q4-128k
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-27b-mtp-q4-128k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 0.7 \
+            --top-p 0.8 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 1.5 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+
     unsloth-qwen36-27b-mtp-q4-256k:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp"
         ttl: 3600
@@ -2306,6 +2335,31 @@ models:
             --jinja \
             -ngl 99
 
+
+    unsloth-gemma4-12b-qat-128k-tq:
+        name: "Unsloth Gemma 4 12B IT QAT UD-Q4_K_XL via llama.cpp - TurboQuant"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-128k-tq
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-12b-qat-128k-tq \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cpp-turboquant:latest \
+            -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port ${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k turbo4 \
+            --cache-type-v turbo4 \
+            --jinja \
+            -ngl 99
+
     unsloth-gemma4-12b-qat-128k:
         name: "Unsloth Gemma 4 12B IT QAT UD-Q4_K_XL via llama.cpp"
         ttl: 300
@@ -3553,8 +3607,8 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-e4b-qat-q4-256k-tq
-            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq
+            - unsloth-gemma4-12b-qat-128k-tq-tq
+            - unsloth-qwen36-27b-mtp-q4-128k-tq
 
     test-models:
         swap: true
@@ -3593,7 +3647,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen36-35b-a3b-mtp-iq4-256k-think
+            - unsloth-qwen36-27b-mtp-q4-128k
 #            - unsloth-qwen3-coder-30b-a3b-q4-64k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
@@ -3635,8 +3689,8 @@ groups:
         members:
 #            - unsloth-gemma4-12b-qat-128k
 #            - unsloth-gemma4-e4b-q4-256k
-            - unsloth-gemma4-e4b-qat-q4-256k
-#            - unsloth-gemma4-e4b-qat-q4-256k-mtp
+            - unsloth-gemma4-12b-qat-128k-tq
+#            - unsloth-gemma4-12b-qat-128k-tq-mtp
     hermes:
         swap: true
         exclusive: false
