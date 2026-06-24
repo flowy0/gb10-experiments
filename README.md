@@ -93,9 +93,9 @@ All at 256k with matching context windows. 26B QAT at 82 tok/s (non-MTP) or 108 
 | Service | Model | Context | Memory | Model ID |
 |---|---|---|---|---|
 | **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 128k | 44 GB | `unsloth-gemma4-26b-a4b-fp8-128k-think-mtp` |
-| **llama-swap** | Qwen3.6 27B dense MTP | 128k | 34 GB | `unsloth-qwen36-27b-mtp-q4-128k` |
+| **llama-swap** | Qwen3.6 27B dense MTP + TQ | 128k | 30 GB | `unsloth-qwen36-27b-mtp-q4-128k` |
 | **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | 26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
-| **Total** | | | **104 GB** ✅ 18 GB free | | |
+| **Total** | | | **100 GB** ✅ 22 GB free | | |
 
 Gemma4 served via vLLM with PagedAttention for multi-session reasoning at 128k. Qwen3.6 27B dense replaces the 35B MoE for coding (slower but all 27B params active). 12B QAT with TurboQuant handles aux, vision, and compaction tasks.
 
