@@ -3572,7 +3572,7 @@ groups:
         exclusive: false
         members:
             - unsloth-gemma4-12b-qat-128k-tq-tq
-            - unsloth-qwen36-27b-mtp-q4-128k-tq
+            - unsloth-qwen36-27b-mtp-q4-128k-think-tq
 
     test-models:
         swap: true
@@ -3611,7 +3611,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen36-27b-mtp-q4-128k
+            - unsloth-qwen36-27b-mtp-q4-128k-think
 #            - unsloth-qwen3-coder-30b-a3b-q4-64k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
@@ -3678,9 +3678,9 @@ groups:
 #            - unsloth-qwen36-27b-mtp-q4-64k
 #            - unsloth-qwen36-27b-mtp-q4-64k-think
 #            - unsloth-qwen36-27b-mtp-q4-64k-think-code
-#            - unsloth-qwen36-27b-mtp-q4-128k
 #            - unsloth-qwen36-27b-mtp-q4-128k-think
-#            - unsloth-qwen36-27b-mtp-q4-128k-think-code
+#            - unsloth-qwen36-27b-mtp-q4-128k-think-think
+#            - unsloth-qwen36-27b-mtp-q4-128k-think-think-code
 #            - unsloth-qwen36-27b-mtp-q4-256k
 #            - unsloth-qwen36-27b-mtp-q4-256k-think
 #            - unsloth-qwen36-27b-mtp-q4-256k-think-code
