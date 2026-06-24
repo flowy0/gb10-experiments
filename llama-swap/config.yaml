@@ -102,7 +102,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -128,7 +128,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -154,7 +154,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
@@ -181,7 +181,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
@@ -208,7 +208,7 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -259,7 +259,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --cache-type-k q8_0 \
@@ -286,7 +286,7 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
@@ -341,7 +341,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --cache-type-k q8_0 \
@@ -368,7 +368,7 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
@@ -423,7 +423,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --no-warmup \
@@ -451,15 +451,17 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
-            --no-warmup \
+
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
+            --reasoning on \
             -ngl 99
+            --repeat-penalty 1.0 \
 
     unsloth-qwen36-27b-mtp-q4-128k-think-code:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp- think code"
@@ -483,7 +485,7 @@ models:
             --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
-            --no-warmup \
+
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -501,7 +503,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --no-warmup \
@@ -529,11 +531,11 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
-            --no-warmup \
+
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -561,7 +563,7 @@ models:
             --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
 
-            --no-warmup \
+
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             --jinja \
@@ -586,7 +588,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -614,7 +616,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -673,7 +675,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
@@ -702,7 +704,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -762,7 +764,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --cache-type-k q8_0 \
@@ -791,7 +793,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -851,7 +853,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --cache-type-k q8_0 \
@@ -880,7 +882,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -908,7 +910,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --no-warmup \
@@ -938,7 +940,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -967,7 +969,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --reasoning off \
             --no-warmup \
@@ -997,7 +999,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -1060,7 +1062,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q5_1 \
             --cache-type-v q5_1 \
@@ -1089,7 +1091,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -2719,7 +2721,7 @@ models:
 #              --top-p 0.8 \
 #              --top-k 20 \
 #              --min-p 0.00 \
-#              --presence-penalty 1.5 \
+#              --presence-penalty 0.0 \
 #              --repeat-penalty 1.0 \
 #              --reasoning off \
 #              --cache-type-k q8_0 \
@@ -2746,7 +2748,7 @@ models:
 #              --top-p 0.95 \
 #              --top-k 20 \
 #              --min-p 0.00 \
-#              --presence-penalty 1.5 \
+#              --presence-penalty 0.0 \
 #            --reasoning-budget 4096 \
 #              --repeat-penalty 1.0 \
 #              --cache-type-k q8_0 \
@@ -2799,7 +2801,7 @@ models:
 #              --top-p 0.8 \
 #              --top-k 20 \
 #              --min-p 0.00 \
-#              --presence-penalty 1.5 \
+#              --presence-penalty 0.0 \
 #              --repeat-penalty 1.0 \
 #              --reasoning off \
 #              --cache-type-k q8_0 \
@@ -2827,7 +2829,7 @@ models:
 #              --top-p 0.8 \
 #              --top-k 20 \
 #              --min-p 0.00 \
-#              --presence-penalty 1.5 \
+#              --presence-penalty 0.0 \
 #              --repeat-penalty 1.0 \
 #              --reasoning off \
 #            --no-warmup \
@@ -2979,7 +2981,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --flash-attn on \
@@ -3007,7 +3009,7 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning-budget 4096 \
             --no-warmup \
             --flash-attn on \
@@ -3141,7 +3143,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --no-warmup \
             --flash-attn on \
@@ -3171,7 +3173,7 @@ models:
             --min-p 0.00 \
             --reasoning on \
             --repeat-penalty 1.0 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning on \
             --repeat-penalty 1.0 \
             --reasoning-budget 4096 \
@@ -3233,7 +3235,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --cache-type-k q8_0 \
@@ -3321,7 +3323,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --cache-type-k q8_0 \
@@ -3409,7 +3411,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
@@ -3494,7 +3496,7 @@ models:
             --top-p 0.8 \
             --top-k 20 \
             --min-p 0.00 \
-            --presence-penalty 1.5 \
+            --presence-penalty 0.0 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
