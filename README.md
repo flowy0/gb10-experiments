@@ -92,10 +92,13 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 | Service | Model | Context | Memory | Model ID |
 |---|---|---|---|---|
-| **vLLM** | Gemma4 26B NVFP4 + Marlin | 128k | 26 GB | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
-| **llama-swap** | Qwen3.6 27B dense MTP think | 128k | 34 GB | `unsloth-qwen36-27b-mtp-q4-128k-think` |
-| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | 26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
-| **Total** | | | **86 GB** ✅ 36 GB free | |
+| **vLLM** | Gemma4 26B NVFP4 + Marlin | 128k | ~46 GB¹ | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
+| **llama-swap** | Qwen3.6 27B dense MTP think | 128k | ~34 GB | `unsloth-qwen36-27b-mtp-q4-128k-think` |
+| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | ~26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
+| **Total** | | | **~106 GB** ✅ 25 GB free | |
+
+¹ vLLM reserves via `--gpu-memory-utilization 0.35`. Model weights are 15.3 GB;
+  remainder is KV cache pool and PagedAttention overhead.
 
 Gemma4 via vLLM with PagedAttention. Qwen3.6 27B dense for coding with thinking. 12B QAT with TurboQuant for aux, vision, and compaction.
 

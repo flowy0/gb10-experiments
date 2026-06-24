@@ -14,6 +14,10 @@
 | Qwen3-Coder-Next 80B (hybrid) | 12 attn layers, 2 KV heads, hd=256 | 12×2×256×2 = 12,288 elem |
 | Gemma4 26B-A4B (MoE) | 30 layers, 8 KV heads, hd=256 | 30×8×256×2 = 122,880 elem |
 | Gemma4 E4B (dense) | 42 layers, 2 KV heads, hd=256 | 42×2×256×2 = 43,008 elem |
+| Gemma4 26B NVFP4 (vLLM) | 30 layers, 8 KV heads, hd=256 | 30×8×256×2 = 122,880 elem |
+
+> **Note:** vLLM uses fp8 KV cache (1 byte/elem). llama.cpp uses q8_0 (1 byte/elem).
+> Same byte footprint, but fp8 is hardware-accelerated on Blackwell.
 
 ## KV Cache Size by Context Length
 
@@ -39,6 +43,16 @@ KV cache in GB for each cache type at each context length:
 | Gemma4 26B-A4B | UD-Q5_K_M | 20.0 GB | 30.0 GB | 2 GB | **52 GB** |
 | Gemma4 26B-A4B (q5_1 cache) | UD-Q4_K_M | 16.9 GB | 22.5 GB | 2 GB | **41 GB** |
 | Gemma4 E4B | Q4_K_M | 4.7 GB | 10.8 GB | 2 GB | **17 GB** |
+
+### vLLM Models (HuggingFace format)
+
+| Model | Format | File | KV (128k, fp8) | +OH | Total (estimate) |
+|---|---|---|---|---|---|
+| Gemma4 26B NVFP4 | NVFP4 + Marlin | 15.3 GB | ~15 GB | ~16 GB | **~46 GB**¹ |
+
+¹ vLLM reserves memory upfront via `--gpu-memory-utilization 0.35`. Actual usage
+  depends on KV cache fill. The 15.3 GB checkpoint is NVFP4 weights stored in GPU
+  memory; Marlin decompresses to BF16 tile-by-tile during GEMM.
 
 ## Group Configuration
 
@@ -68,6 +82,19 @@ Models in different groups can run simultaneously. Within a group, `swap: true` 
 ### Research + Code + Stable
 - All three simultaneously at 256k
 - **Total: ~108 GB** ✅ (14 GB free, tight)
+
+## Current Active Stack (vLLM + llama-swap hybrid)
+
+| Service | Model | Context | Memory | Model ID |
+|---|---|---|---|---|
+| **vLLM** | Gemma4 26B NVFP4 + Marlin | 128k | ~46 GB | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
+| **llama-swap** | Qwen3.6 27B MTP think | 128k | ~34 GB | `unsloth-qwen36-27b-mtp-q4-128k-think` |
+| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | ~26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
+| **Total** | | | **~106 GB** ✅ 25 GB free | |
+
+**Savings vs previous FP8 stack:** NVFP4 saves ~18 GB over FP8 (46 GB vs 64 GB
+with MTP assistant), enabling the 3-model configuration at 128k with comfortable
+headroom for session scaling.
 
 ## KV Cache Best Practices
 
