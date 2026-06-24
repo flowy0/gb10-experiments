@@ -94,7 +94,7 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 |---|---|---|---|---|
 | **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 256k | ~52 GB¹ | ~50 tok/s | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
 | **llama-swap** (code) | Qwen3.6 27B MTP Q4 think | 64k | ~35 GB | ~28 tok/s | `unsloth-qwen36-27b-mtp-q4-think` |
-| **llama-swap** (summary) | Gemma4 12B QAT + TurboQuant | 256k | ~20 GB | ~31 tok/s | `unsloth-gemma4-12b-qat-256k-tq` |
+| **llama-swap** (summary) | Gemma4 12B QAT + TurboQuant | 256k | ~20 GB | ~13 tok/s | `unsloth-gemma4-12b-qat-256k-tq` |
 | **Total** | | | **~107 GB** ✅ 24 GB free | | |
 
 ¹ vLLM reserves via `--gpu-memory-utilization 0.4`. Model weights are ~27 GB;
