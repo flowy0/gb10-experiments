@@ -46,8 +46,8 @@ but LibreChat's agent system may reject tool calls with:
 The model generates valid tool calls per its own template, but LibreChat's validation
 fails to parse them.
 
-**Status:** Unresolved. Use a Qwen model (`unsloth-qwen36-35b-a3b-q2-256k`) for agentic
-workflows that require web search and tool execution.
+**Status:** Unresolved. Use the Qwen3.6 27B through the `code` group for agentic workflows
+that require web search and tool execution.
 
 ### LibreChat — RAG API Warning
 
@@ -58,22 +58,29 @@ RAG API is either not running or not reachable at undefined
 LibreChat's RAG API is not deployed. File upload features may have issues.
 This does not affect chat or agent tool execution.
 
-### E4B MTP — Segfault on b9585 (Blackwell GB10)
+### Gemma4 26B on vLLM — TurboQuant Incompatible
 
-The E4B MTP spec decoding variant (`unsloth-gemma4-e4b-qat-q4-256k-mtp`) crashes with exit code 139 (segfault) at context sizes ≥128k on NVIDIA GB10.
+Gemma4 26B on vLLM forces `TRITON_ATTN` attention backend due to heterogeneous head
+dimensions (`head_dim=256`, `global_head_dim=512`). TRITON_ATTN does not support
+turboquant KV cache types, so `--kv-cache-dtype turboquant_k8v4` fails.
 
-- **Works:** small contexts (<64k) with `--flash-attn off` + `-fit off`
-- **Fails:** 128k+ → CUDA flash attention crash + segfault
-- **26B MTP** works fine with same flags — likely a b9585 build bug specific to E4B MTP
-- **Workaround:** Use non-MTP E4B QAT variant instead
+**Status:** Upstream vLLM issue. No fix available. Gemma4 vLLM uses fp8 KV cache.
+TurboQuant works on llama-swap models via the llama-cpp-turboquant fork.
 
-### llama.cpp SHA Digest — Wrong Image ID Used
+### llama-swap — MTP + TurboQuant Incompatible
 
-When updating b9544 → b9585, the SHA was incorrectly set to the Docker image ID instead of the registry manifest digest. The image ID is a content hash, not a valid `@sha256:` pin. Fixed by using the repo digest from `docker image inspect`.
+MTP speculative decoding and TurboQuant KV cache cannot be used together on the same
+model in the llama-cpp-turboquant fork. The MTP context fails to initialize with
+turbo4 cache types.
 
-### Gemma4 12B — Dense KV Cache at 256k
+**Resolution:** Models use either MTP (Qwen 27B for speed) or TurboQuant (12B QAT
+for memory), not both on the same model.
 
-The 12B (48 layers × 8 KV heads) uses 48 GB for KV cache alone at 256k with q8_0, limiting concurrent sessions. Solution: use E4B (2 KV heads, 10 GB KV cache at 256k) for aux tasks.
+### llama.cpp SHA Digest — Reference
+
+llama.cpp image SHAs are pinned in `config.yaml` using `@sha256:` format.
+When updating, use the manifest digest from `docker image inspect`, not the
+Docker image ID.
 
 ---
 
