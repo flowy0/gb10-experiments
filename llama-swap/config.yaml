@@ -3562,6 +3562,54 @@ models:
             --no-warmup \
             -ngl 99
 
+    gemma4-12b-agentic-v2-q4:
+        name: "Gemma4 12B Agentic v2 Q4_K_M (coding+agentic FT)"
+        ttl: 300
+        cmdStop: docker rm -f ls-gemma4-12b-agentic-v2-q4
+        cmd: |
+            docker run --rm \
+            --name ls-gemma4-12b-agentic-v2-q4 \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/yuxinlu1-gemma4-12b-agentic-v2/gemma4-v2-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    gemma4-12b-agentic-v2-q3:
+        name: "Gemma4 12B Agentic v2 Q3_K_M (coding+agentic FT, compact)"
+        ttl: 300
+        cmdStop: docker rm -f ls-gemma4-12b-agentic-v2-q3
+        cmd: |
+            docker run --rm \
+            --name ls-gemma4-12b-agentic-v2-q3 \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/yuxinlu1-gemma4-12b-agentic-v2/gemma4-v2-Q3_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 1.0 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
 groups:
     formatter:
         swap: true
@@ -3579,6 +3627,8 @@ groups:
         swap: true
         exclusive: false
         members:
+            - gemma4-12b-agentic-v2-q4
+            - gemma4-12b-agentic-v2-q3
 #            - gemma4-e4b-q4
 #            - unsloth-qwen36-27b-q4
 #            - unsloth-qwen36-27b-q4-64k
