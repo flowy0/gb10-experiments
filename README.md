@@ -82,6 +82,11 @@ The 12B (48 layers × 8 KV heads) uses 48 GB for KV cache alone at 256k with q8_
 
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
+
+## Historical
+
+See [docs/HISTORICAL.md](docs/HISTORICAL.md) for all previous stack configurations.
+
 ## Quick Reference
 
 - **llama-swap API:** `http://localhost:8088/v1`
