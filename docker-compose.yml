@@ -50,6 +50,47 @@ services:
     # vLLM - Gemma4 26B FP8 + MTP @ 256k
     # =========================
 
+    # --- NVFP4 no MTP (backup) ---
+    # image: vllm-node-tf5:latest
+    # container_name: vllm-gemma4
+    # runtime: nvidia
+    # shm_size: "32gb"
+    # ports:
+    # - "8000:8000"
+    # volumes:
+    # - /opt/atom/models/redhatai-gemma-4-26b-a4b-it-nvfp4:/model:ro
+    # - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
+    # ipc: host
+    # environment:
+    # - VLLM_NVFP4_GEMM_BACKEND=marlin
+    # entrypoint: ["vllm", "serve"]
+    # command:
+    # - /model
+    # - --served-model-name
+    # - unsloth-gemma4-26b-a4b-nvfp4-128k-think
+    # - --host
+    # - "0.0.0.0"
+    # - --port
+    # - "8000"
+    # - --max-model-len
+    # - "131072"
+    # - --gpu-memory-utilization
+    # - "0.35"
+    # - --max-num-seqs
+    # - "4"
+    # - --max-num-batched-tokens
+    # - "8192"
+    # - --reasoning-parser
+    # - gemma4
+    # - --chat-template
+    # - /models/tool_chat_template_gemma4.jinja
+    # - --default-chat-template-kwargs
+    # - '{"enable_thinking":true}'
+    # - --enable-auto-tool-choice
+    # - --tool-call-parser
+    # - gemma4
+    # restart: unless-stopped
+
     vllm-gemma4:
         image: vllm-node-tf5:latest
         container_name: vllm-gemma4
@@ -59,6 +100,7 @@ services:
             - "8000:8000"
         volumes:
             - /opt/atom/models/redhatai-gemma-4-26b-a4b-it-nvfp4:/model:ro
+            - /opt/atom/models/gemma-4-26b-a4b-it-assistant:/assistant:ro
             - /opt/atom/models/tool_chat_template_gemma4.jinja:/models/tool_chat_template_gemma4.jinja:ro
         ipc: host
         environment:
@@ -67,7 +109,9 @@ services:
         command:
             - /model
             - --served-model-name
-            - unsloth-gemma4-26b-a4b-nvfp4-128k-think
+            - unsloth-gemma4-26b-a4b-nvfp4-128k-think-mtp
+            - --speculative-config
+            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
             - --host
             - "0.0.0.0"
             - --port
@@ -75,7 +119,7 @@ services:
             - --max-model-len
             - "131072"
             - --gpu-memory-utilization
-            - "0.35"
+            - "0.45"
             - --max-num-seqs
             - "4"
             - --max-num-batched-tokens
