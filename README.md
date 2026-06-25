@@ -58,23 +58,13 @@ RAG API is either not running or not reachable at undefined
 LibreChat's RAG API is not deployed. File upload features may have issues.
 This does not affect chat or agent tool execution.
 
-### Gemma4 26B on vLLM — TurboQuant Incompatible
-
-Gemma4 26B on vLLM forces `TRITON_ATTN` attention backend due to heterogeneous head
-dimensions (`head_dim=256`, `global_head_dim=512`). TRITON_ATTN does not support
-turboquant KV cache types, so `--kv-cache-dtype turboquant_k8v4` fails.
-
-**Status:** Upstream vLLM issue. No fix available. Gemma4 vLLM uses fp8 KV cache.
-TurboQuant works on llama-swap models via the llama-cpp-turboquant fork.
-
-### llama-swap — MTP + TurboQuant Incompatible
+### MTP + TurboQuant Incompatible (llama-cpp-turboquant fork)
 
 MTP speculative decoding and TurboQuant KV cache cannot be used together on the same
-model in the llama-cpp-turboquant fork. The MTP context fails to initialize with
-turbo4 cache types.
+model. The MTP context fails to initialize with turbo4 cache types.
 
-**Resolution:** Models use either MTP (Qwen 27B for speed) or TurboQuant (12B QAT
-for memory), not both on the same model.
+**Resolution:** Models use either MTP (Qwen 27B, 35B for speed) or TurboQuant (12B QAT,
+E4B for memory), not both on the same model.
 
 ### llama.cpp SHA Digest — Reference
 
@@ -88,33 +78,37 @@ Docker image ID.
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 
-## Current Active Setup — vLLM + llama-swap
+## Current Active Setup — llama-swap only
 
-| Service | Model | Context | Memory | Model ID |
+| Group | Model | Context | TTL | Memory |
 |---|---|---|---|---|
-| **vLLM** | Gemma4 26B FP8 + MTP γ=1 | 256k | ~52 GB¹ | ~50 tok/s | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
-| **llama-swap** (code) | Qwen3.6 27B MTP Q4 think | 64k | ~35 GB | ~28 tok/s | `unsloth-qwen36-27b-mtp-q4-think` |
-| **llama-swap** (summary) | Gemma4 12B QAT + TurboQuant | 256k | ~20 GB | ~13 tok/s | `unsloth-gemma4-12b-qat-256k-tq` |
-| **Total** | | | **~107 GB** ✅ 24 GB free | | |
+| **hermes** | 26B QAT MTP γ=2 | 128k | 24h | ~37 GB |
+| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB |
+| **compression** | E4B QAT + TQ | 128k | 30min | ~8 GB |
+| **aux** | 12B QAT + TQ | 64k | 1h | ~10 GB |
+| **subagent** | 35B IQ4 MTP | 64k | 30min | ~24 GB |
+| **research** | 26B QAT MTP γ=2 | 64k | 1h | ~25 GB |
+| **Total** | | | | **~128 GB** |
 
-¹ vLLM reserves via `--gpu-memory-utilization 0.4`. Model weights are ~27 GB;
-  remainder is KV cache pool (fp8) and MTP draft model.
-² All models now at 256k for deterministic compaction compatibility.
-
-Gemma4 via vLLM with PagedAttention. Qwen3.6 27B dense for coding with thinking. 12B QAT with TurboQuant for aux, vision, and compaction.
+> Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
+> Hermes and compression stay hot. Code, aux, research load on demand.
+> Subagent has 30min TTL — unloads quickly when not needed.
 
 Start with:
 ```bash
-docker compose up -d vllm-gemma4 llama-swap
+docker compose up -d llama-swap
 ```
 
 ### Model IDs
 
-| Endpoint | Model ID |
+| Group | Model ID |
 |---|---|
-| Port 8000 (vLLM) | `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` |
-| Port 8088 (llama-swap, code group) | `unsloth-qwen36-27b-mtp-q4-think` |
-| Port 8088 (llama-swap, summary group) | `unsloth-gemma4-12b-qat-256k-tq` |
+| hermes | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
+| code | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
+| compression | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
+| aux | `unsloth-gemma4-12b-qat-64k-tq` |
+| subagent | `unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code` |
+| research | `unsloth-gemma4-26b-a4b-qat-mtp2-64k-think` |
 
 ---
 
@@ -130,6 +124,9 @@ docker compose up -d vllm-gemma4 llama-swap
 Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/MEMORY.md` for memory planning.
 
 
-## vLLM
+## vLLM (inactive)
 
-See [docs/VLLM.md](docs/VLLM.md) for vLLM setup, benchmarking, and debugging history.
+vLLM is currently disabled. All models run on llama-swap.
+Previous vLLM configurations are preserved in `docs/VLLM.md` and `docs/HISTORICAL.md`.
+Docker-compose entries for vLLM (Gemma4 FP8, DiffusionGemma, Qwen NVFP4) kept as
+commented backups for future reference.

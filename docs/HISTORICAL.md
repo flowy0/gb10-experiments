@@ -2,6 +2,33 @@
 
 Previous stack configurations for reference.
 
+## v10 — llama-swap only, multi-group stack
+
+Replaced the vLLM + llama-swap hybrid with a pure llama-swap setup.
+6 groups with different context windows and TTLs.
+
+| Group | Model | Context | TTL |
+|---|---|---|---|
+| hermes | 26B QAT MTP γ=2 | 128k | 24h |
+| code | 27B UD-Q3 MTP γ=2 | 64k | 1h |
+| compression | E4B QAT + TQ | 128k | 30min |
+| aux | 12B QAT + TQ | 64k | 1h |
+| subagent | 35B IQ4 MTP | 64k | 30min |
+| research | 26B QAT MTP γ=2 | 64k | 1h |
+
+**Removed:** vLLM Gemma4 26B FP8 (was on port 8000)
+**Removed:** DiffusionGemma 26B NVFP4 test (was on port 8001)
+**Kept:** docker-compose entries preserved as commented backups.
+
+## v9 — vLLM + llama-swap hybrid (replaced)
+
+| Service | Model | Context |
+|---|---|---|
+| **vLLM** (port 8000) | Gemma4 26B FP8 + MTP γ=1 | 256k |
+| **llama-swap** (code) | Qwen3.6 27B MTP Q4 think | 64k |
+| **llama-swap** (summary) | Gemma4 12B QAT + TurboQuant | 256k |
+| **Total** | | **~107 GB** |
+
 ## Archived: llama-swap Only (v6 — Gemma4 stack, replaced)
 
 | Role | Model | Context | Memory | Group | Model ID |
