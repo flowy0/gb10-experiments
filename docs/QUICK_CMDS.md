@@ -125,6 +125,12 @@ curl -s --max-time 180 -X POST http://127.0.0.1:8088/v1/chat/completions \
   -d '{"model":"unsloth-gemma4-26b-a4b-fp8-128k-think-mtp1","messages":[{"role":"user","content":"hi"}],"max_tokens":10}' | jq '{content: .choices[0].message.content, reasoning: (.choices[0].message.reasoning_content // .choices[0].message.reasoning), tokens: .usage.completion_tokens}'
 ```
 
+```bash
+  curl -s --max-time 180 -X POST http://127.0.0.1:8088/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"unsloth-gemma4-26b-a4b-qat-mtp3-128k-think","messages":[{"role":"user","content":"hi"}],"max_tokens":10}' | jq '{content: .choices[0].message.content, reasoning: (.choices[0].message.reasoning_content // .choices[0].message.reasoning), tokens: .usage.completion_tokens}'
+```
+
 
 
 ### List available models
