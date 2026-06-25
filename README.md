@@ -84,12 +84,12 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 |---|---|---|---|---|
 | **hermes** | 26B QAT MTP γ=2 | 128k | 24h | ~37 GB |
 | **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB |
-| **aux** | 12B QAT + TQ | 64k | 1h | ~10 GB |
+| **aux** | 12B QAT + TQ | **128k** | 1h | ~10 GB |
 | **subagent** | 35B IQ4 MTP | 64k | 30min | ~24 GB |
 | **research** | 26B QAT MTP γ=2 | 64k | 1h | ~25 GB |
 | **Total** | | | | **~120 GB** ✅ 11 GB free |
 
-> E4B compression model kept as available option but excluded from active memory calculation.
+> E4B compression model available in compression group but excluded from active memory.
 
 > Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
 > Hermes and compression stay hot. Code, aux, research load on demand.
@@ -107,7 +107,7 @@ docker compose up -d llama-swap
 | hermes | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
 | code | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
 | compression | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
-| aux | `unsloth-gemma4-12b-qat-64k-tq` |
+| aux | `unsloth-gemma4-12b-qat-128k-tq` |
 | subagent | `unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code` |
 | research | `unsloth-gemma4-26b-a4b-qat-mtp2-64k-think` |
 
