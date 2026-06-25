@@ -13,6 +13,7 @@
 - Always commit and push after config changes: `git add -A && git commit -m "message" && git push`
 - Check `git diff --stat` before committing to verify no unintended changes
 - If a model definition gets corrupted, restore with `git checkout HEAD -- llama-swap/config.yaml`
+- **Update `CHANGELOG.md`** for every change — new models, config changes, benchmarks, doc updates
 
 ### Model Management
 - Active stack (vLLM FP8 256k + 12B TQ 256k):

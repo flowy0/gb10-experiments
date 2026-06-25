@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-06-25
+
+- **Downloaded & tested Qwen3.6 27B NVFP4** (vLLM, 25 GB, 17 tok/s) — rejected
+- **Downloaded Qwen3.6 27B IQ4_NL + UD-Q4_K_XL** GGUF quants for llama.cpp
+- **Rebuilt spark-vllm-docker** with wheel from June 23 (PR #45413: Qwen3 parser engine)
+- **Added `qwen3_coder` tool parser** to vLLM config
+- **Tested DiffusionGemma 26B NVFP4** — 127-135 tok/s on vLLM (port 8001)
+- **DiffusionGemma tool-eval-bench** — 85/100 ★★★★ (53/69 passed)
+- **Rolled back** NVFP4 → FP8 256k baseline for Gemma4 26B (quality regression)
+- **Added MTP γ test entries** (mtp1/mtp2/mtp3) for Qwen3.6 27B in code group
+- **Switched 12B QAT** from 128k → 256k TQ (matches vLLM context)
+- **Fixed reasoning flags** across all think variants (`--reasoning on`, `--reasoning-budget`)
+- **Added `docs/BENCHMARKS.md`** with all tok/s and tool-eval results
+- **Added `docs/QUICK_CMDS.md`** with common commands reference
+- **Updated AGENTS.md** with benchmark recording rules, tool parser notes, V2 runner
+
 ## 2026-06-09
 
 - **Upgraded llama.cpp:** b9294 → 9544 (server-cuda13, commit 98d5e8ba8)
