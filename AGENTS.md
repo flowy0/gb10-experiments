@@ -51,42 +51,7 @@
 - Format: model ID, engine, quant, context, tok/s, notes.
 - Speed: measured with minimal prompt ("hi"), 100 output tokens, all models loaded.
 - vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell for standard models).
-
-### Qwen3.6 27B (llama.cpp, MTP γ=2)
-| Quant | File | tok/s | Notes |
-|---|---|---|---|
-| UD-Q3_K_XL | 14 GB | 31 | Best speed/quality balance |
-| UD-Q2_K_XL | 12 GB | 30 | Fast, 2-bit lossy |
-| Q4_K_M | 16 GB | 28 | Baseline |
-| IQ4_NL | 16 GB | 26 | Same size as Q4, slower |
-| UD-Q4_K_XL | 17 GB | 21 | Best quality, slowest |
-| NVFP4 (vLLM) | 25 GB | 17 | Too heavy — skip |
-| PRISM PRO DQ | 13 GB | 15 | llama.cpp baseline |
-
-### Gemma4 26B
-| Engine | Quant | Context | tok/s | Notes |
-|---|---|---|---|---|
-| vLLM | FP8 + MTP γ=1 | 256k | 50 | enforce-eager (no CUDA graphs) |
-| vLLM | NVFP4 + Marlin | 128k | 72-75 | CUDA graphs work, quality issues |
-| llm.cpp | QAT Q4 + MTP γ=1 | 128k | ~19 | CUDA graphs work |
-
-### Gemma4 12B
-| Engine | Variant | Context | tok/s |
-|---|---|---|---|
-| llm.cpp | QAT + TurboQuant | 256k | 13 |
-| llm.cpp | Agentic v2 Q4 | 128k | ~15 |
-
-### DiffusionGemma 26B NVFP4 (vLLM)
-| Setup | tok/s | Notes |
-|---|---|---|
-| Single, long output | 127-135 | Canvas filled |
-| tool-eval-bench | 85/100 | 53/69 passed |
-
-### Tool calling quality
-| Model | Score | Rating |
-|---|---|---|
-| DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
-| FP8 26B (June 14) | ~91/100 | ★★★★ |
+- See `docs/BENCHMARKS.md` for full results table.
 
 ### Key Files
 | File | Purpose |
