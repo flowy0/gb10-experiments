@@ -82,34 +82,18 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 | Group | Model | Context | TTL | Memory |
 |---|---|---|---|---|
-| **hermes** | 26B QAT MTP γ=2 | **256k** | 24h | ~48 GB |
-| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB |
-| **aux** | 12B QAT + MTP | 128k | 1h | ~17 GB |
-| **subagent** | 35B UD-Q3_K_XL MTP | 64k | 30min | ~18 GB |
-| **Total** | | | | **~107 GB** ✅ 24 GB free |
+| **hermes** | 26B QAT MTP γ=2 | **256k** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-256k-think` |
+| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
+| **aux** | 12B QAT + MTP | 128k | 1h | ~17 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
+| **subagent** | 35B UD-Q3_K_XL MTP | 64k | 30min | ~18 GB | `unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code` |
+| **Total** | | | | **~107 GB** ✅ 24 GB free | |
 
-> Research group (2nd 26B) dropped to make room for hermes at 256k.
 > E4B compression model available in compression group but excluded from active memory.
-
-> Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
-> Hermes and compression stay hot. Code, aux, research load on demand.
-> Subagent has 30min TTL — unloads quickly when not needed.
 
 Start with:
 ```bash
 docker compose up -d llama-swap
 ```
-
-### Model IDs
-
-| Group | Model ID |
-|---|---|
-| hermes | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
-| code | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
-| compression | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
-| aux | `unsloth-gemma4-12b-qat-128k-mtp` |
-| subagent | `unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code` |
-| research | `unsloth-gemma4-26b-a4b-qat-mtp2-64k-think` |
 
 ---
 
