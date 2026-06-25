@@ -89,6 +89,8 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 | **research** | 26B QAT MTP γ=2 | 64k | 1h | ~25 GB |
 | **Total** | | | | **~120 GB** ✅ 11 GB free |
 
+> E4B compression model kept as available option but excluded from active memory calculation.
+
 > Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
 > Hermes and compression stay hot. Code, aux, research load on demand.
 > Subagent has 30min TTL — unloads quickly when not needed.
