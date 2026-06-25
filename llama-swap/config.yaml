@@ -4249,22 +4249,22 @@ groups:
         members:
             - unsloth-qwen35-4b-q4-64k-formatter
 
-    test-turboquant:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-qwen36-27b-mtp-q4-128k-think-tq
+    # test-turboquant:
+    #     swap: true
+    #     exclusive: false
+    #     members:
+    #         - unsloth-qwen36-27b-mtp-q4-128k-think-tq
 
     test-models:
         swap: true
         exclusive: false
         members:
-            - gemma4-12b-agentic-v2-q4
-            - gemma4-12b-agentic-v2-q3
-            - unsloth-qwen36-27b-prism-pro-dq
-            - unsloth-gemma4-31b-mtp-q4-xl-128k-think
-            - unsloth-gemma4-31b-q4-xl-128k-tq
-    #            - gemma4-e4b-q4
+    #         - gemma4-12b-agentic-v2-q4
+    #         - gemma4-12b-agentic-v2-q3
+    #         - unsloth-qwen36-27b-prism-pro-dq
+    #         - unsloth-gemma4-31b-mtp-q4-xl-128k-think
+    #         - unsloth-gemma4-31b-q4-xl-128k-tq
+    #         - gemma4-e4b-q4
     #            - unsloth-qwen36-27b-q4
     #            - unsloth-qwen36-27b-q4-64k
     #            - unsloth-qwen36-27b-q4-128k
