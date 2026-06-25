@@ -46,6 +46,15 @@
 4. Test with: `curl -X POST http://localhost:8088/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"<name>","messages":[{"role":"user","content":"hi"}],"max_tokens":5}'`
 5. If it fails: remove from group, comment out definition, note in CHANGELOG
 
+### Benchmark Recording
+- When testing a new model/quant, save the tok/s result in the model's YAML comment in `llama-swap/config.yaml`:
+  ```yaml
+  # unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code: 26 tok/s, 16 GB
+  ```
+- Also add to the Benchmark Notes section below for easy comparison.
+- Speed: measured with minimal prompt ("hi"), 100 output tokens, all models loaded.
+- vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell for standard models).
+
 ## Benchmark Notes (tok/s)
 
 ### Qwen3.6 27B (llama.cpp, MTP γ=2)
