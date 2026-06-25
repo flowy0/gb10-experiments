@@ -2806,13 +2806,13 @@ models:
 #             --jinja \
 #             -ngl 99
 # 
-    unsloth-gemma4-12b-qat-64k-tq:
-        name: "Gemma4 12B QAT + TurboQuant (64k aux)"
+    unsloth-gemma4-12b-qat-128k-tq:
+        name: "Gemma4 12B QAT + TurboQuant (128k aux)"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-64k-tq
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-128k-tq
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-12b-qat-64k-tq \
+            --name ls-unsloth-gemma4-12b-qat-128k-tq \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2820,12 +2820,11 @@ models:
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
-            -c 65536 \
+            -c 131072 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
-            --reasoning on \
-            --reasoning-budget 4096 \
+            --reasoning off \
             --cache-type-k turbo4 \
             --cache-type-v turbo4 \
             --jinja \
@@ -4345,7 +4344,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-64k-tq
+            - unsloth-gemma4-12b-qat-128k-tq
     #            - unsloth-gemma4-12b-qat-128k
     #            - unsloth-gemma4-e4b-q4-256k
     #            - unsloth-gemma4-12b-qat-256k-tq
