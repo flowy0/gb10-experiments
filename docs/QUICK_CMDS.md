@@ -112,6 +112,12 @@ curl -s --max-time 180 -X POST http://127.0.0.1:8088/v1/chat/completions \
   -d '{"model":"<model-id>","messages":[{"role":"user","content":"hi"}],"max_tokens":10}'
 ```
 
+```bash 
+  curl -s --max-time 180 -X POST http://127.0.0.1:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"unsloth-gemma4-26b-a4b-fp8-256k-think-mtp3","messages":[{"role":"user","content":"hi"}],"max_tokens":10}'
+```
+
 ### List available models
 ```bash
 # llama-swap
