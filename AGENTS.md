@@ -47,55 +47,46 @@
 5. If it fails: remove from group, comment out definition, note in CHANGELOG
 
 ### Benchmark Recording
-- When testing a new model/quant, save the tok/s result in the model's YAML comment in `llama-swap/config.yaml`:
-  ```yaml
-  # unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code: 26 tok/s, 16 GB
-  ```
-- Also add to the Benchmark Notes section below for easy comparison.
+- When testing a new model/quant, add a row to the tables below.
+- Format: model ID, engine, quant, context, tok/s, notes.
 - Speed: measured with minimal prompt ("hi"), 100 output tokens, all models loaded.
 - vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell for standard models).
 
-## Benchmark Notes (tok/s)
-
 ### Qwen3.6 27B (llama.cpp, MTP γ=2)
-| Quant | Size | Speed | Notes |
+| Quant | File | tok/s | Notes |
 |---|---|---|---|
-| UD-Q3_K_XL | 14 GB | **31 tok/s** | Best speed/quality balance |
-| UD-Q2_K_XL | 12 GB | 30 tok/s | Fastest but 2-bit lossy |
-| Q4_K_M | 16 GB | 28 tok/s | Baseline |
-| IQ4_NL | 16 GB | 26 tok/s | Same size as Q4, slower |
-| UD-Q4_K_XL | 17 GB | 21 tok/s | Highest quality, slowest |
-| NVFP4 (vLLM) | 25 GB | 17 tok/s | Heaviest, slowest — skip |
-| PRISM PRO DQ | 13 GB | 15 tok/s | llama.cpp baseline |
+| UD-Q3_K_XL | 14 GB | 31 | Best speed/quality balance |
+| UD-Q2_K_XL | 12 GB | 30 | Fast, 2-bit lossy |
+| Q4_K_M | 16 GB | 28 | Baseline |
+| IQ4_NL | 16 GB | 26 | Same size as Q4, slower |
+| UD-Q4_K_XL | 17 GB | 21 | Best quality, slowest |
+| NVFP4 (vLLM) | 25 GB | 17 | Too heavy — skip |
+| PRISM PRO DQ | 13 GB | 15 | llama.cpp baseline |
 
 ### Gemma4 26B
-| Engine | Quant | Context | Speed | Notes |
+| Engine | Quant | Context | tok/s | Notes |
 |---|---|---|---|---|
-| **vLLM** | FP8 + MTP γ=1 | 256k | **50 tok/s** | enforce-eager (no CUDA graphs) |
-| **vLLM** | NVFP4 + Marlin | 128k | 72-75 tok/s | CUDA graphs work, quality issues |
-| llm.cpp | QAT Q4 + MTP γ=1 | 128k | ~19 tok/s | CUDA graphs work |
+| vLLM | FP8 + MTP γ=1 | 256k | 50 | enforce-eager (no CUDA graphs) |
+| vLLM | NVFP4 + Marlin | 128k | 72-75 | CUDA graphs work, quality issues |
+| llm.cpp | QAT Q4 + MTP γ=1 | 128k | ~19 | CUDA graphs work |
 
 ### Gemma4 12B
-| Engine | Variant | Context | Speed |
+| Engine | Variant | Context | tok/s |
 |---|---|---|---|
-| llm.cpp | QAT + TurboQuant | 256k | **13 tok/s** | With vLLM loaded concurrently |
-| llm.cpp | Agentic v2 Q4 | 128k | ~15 tok/s | Fine-tuned for agentic tasks |
+| llm.cpp | QAT + TurboQuant | 256k | 13 |
+| llm.cpp | Agentic v2 Q4 | 128k | ~15 |
 
-### DiffusionGemma 26B NVFP4 (vLLM v0.22.1)
-| Setup | Speed | Notes |
+### DiffusionGemma 26B NVFP4 (vLLM)
+| Setup | tok/s | Notes |
 |---|---|---|
-| Single request, long output | **127-135 tok/s** | 256-token canvas filled |
-| tool-eval-bench score | **85/100** | 53/69 passed |
-| CUDA graphs | ✅ | VLLM_USE_V2_MODEL_RUNNER=1, TRITON_ATTN |
+| Single, long output | 127-135 | Canvas filled |
+| tool-eval-bench | 85/100 | 53/69 passed |
 
-### Tool calling quality (tool-eval-bench)
+### Tool calling quality
 | Model | Score | Rating |
 |---|---|---|
-| DiffusionGemma 26B NVFP4 | **85/100** | ★★★★ Good |
-| FP8 26B (June 14 baseline) | **~91/100** | ★★★★ |
-
-> Speed measured with minimal prompt ("hi"), 100 output tokens, all models loaded simultaneously unless noted.
-> vLLM speeds with enforce-eager (CUDA graphs disabled on Blackwell SM121 for standard models).
+| DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
+| FP8 26B (June 14) | ~91/100 | ★★★★ |
 
 ### Key Files
 | File | Purpose |
