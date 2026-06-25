@@ -107,7 +107,7 @@ docker compose up -d llama-swap
 | hermes | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
 | code | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
 | compression | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
-| aux | `unsloth-gemma4-12b-qat-128k-tq` |
+| aux | `unsloth-gemma4-12b-qat-128k-mtp` |
 | subagent | `unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code` |
 | research | `unsloth-gemma4-26b-a4b-qat-mtp2-64k-think` |
 
