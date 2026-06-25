@@ -118,13 +118,22 @@ curl -s --max-time 180 -X POST http://127.0.0.1:8088/v1/chat/completions \
   -d '{"model":"unsloth-gemma4-26b-a4b-fp8-256k-think-mtp3","messages":[{"role":"user","content":"hi"}],"max_tokens":10}'
 ```
 
+
+```bash 
+  curl -s --max-time 180 -X POST http://127.0.0.1:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model":"unsloth-gemma4-26b-a4b-fp8-128k-think-mtp1","messages":[{"role":"user","content":"hi"}],"max_tokens":10}' | jq '{content: .choices[0].message.content, reasoning: (.choices[0].message.reasoning_content // .choices[0].message.reasoning), tokens: .usage.completion_tokens}'
+```
+
+
+
 ### List available models
 ```bash
-# llama-swap
-curl -s http://127.0.0.1:8088/v1/models | python3 -m json.tool
+# llama-swap — just model IDs
+curl -s http://127.0.0.1:8088/v1/models | jq -r '.data[].id'
 
-# vLLM
-curl -s http://127.0.0.1:8000/v1/models | python3 -m json.tool
+# vLLM — just model IDs
+curl -s http://127.0.0.1:8000/v1/models | jq -r '.data[].id'
 ```
 
 ### Benchmark decode speed
@@ -132,17 +141,15 @@ curl -s http://127.0.0.1:8000/v1/models | python3 -m json.tool
 curl -s -X POST http://127.0.0.1:8088/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"<model-id>","messages":[{"role":"user","content":"hi"}],"max_tokens":100}' \
-  | python3 -c "
-import json,sys; d=json.load(sys.stdin); t=d['timings']
-print(f'{t[\"predicted_n\"]} tok in {t[\"predicted_ms\"]/1000:.1f}s = {t[\"predicted_n\"]/(t[\"predicted_ms\"]/1000):.0f} tok/s')
-"
+  | jq -r '"\(.usage.completion_tokens) tok in \(.timings.predicted_ms/1000 | floor)s = \(.usage.completion_tokens / (.timings.predicted_ms/1000) | floor) tok/s"'
 ```
 
 ### Test tool calling
 ```bash
 curl -s -X POST http://127.0.0.1:8088/v1/chat/completions \
   -H "Content-Type: application/json" \
-  -d '{"model":"<model-id>","messages":[{"role":"user","content":"What is the weather in Paris?"}],"tools":[{"type":"function","function":{"name":"get_weather","description":"Get weather","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]}}}],"max_tokens":100}'
+  -d '{"model":"<model-id>","messages":[{"role":"user","content":"What is the weather in Paris?"}],"tools":[{"type":"function","function":{"name":"get_weather","description":"Get weather","parameters":{"type":"object","properties":{"city":{"type":"string"}},"required":["city"]}}}],"max_tokens":100}' \
+  | jq '{tool_calls: .choices[0].message.tool_calls, finish: .choices[0].finish_reason}'
 ```
 
 ## Git

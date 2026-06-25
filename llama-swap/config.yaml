@@ -771,6 +771,62 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code:
+        name: "Qwen3.6 27B MTP IQ4_NL think code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-IQ4_NL.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-27b-mtp-ud-q4-128k-think-code:
+        name: "Qwen3.6 27B MTP UD-Q4_K_XL think code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-mtp-ud-q4-128k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-27b-mtp-ud-q4-128k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-UD-Q4_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-qwen36-27b-mtp-q4-256k-think:
         name: "Unsloth Qwen3.6 27B MTP Q4_K_M via llama.cpp- think"
         ttl: 3600
@@ -4033,6 +4089,8 @@ groups:
             - unsloth-qwen36-27b-mtp3-ud-q3-128k-think-code
             - unsloth-qwen36-27b-mtp-ud-q3-128k-think-code-fa
             - unsloth-qwen36-27b-mtp-ud-q2-128k-think-code
+            - unsloth-qwen36-27b-mtp-iq4-nl-128k-think-code
+            - unsloth-qwen36-27b-mtp-ud-q4-128k-think-code
 #            - unsloth-qwen3-coder-30b-a3b-q4-64k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k
 #            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
