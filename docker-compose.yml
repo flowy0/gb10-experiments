@@ -135,7 +135,6 @@ services:
     # - gemma4
     # restart: unless-stopped
 
-
     # =========================
     # Qwen3.6 35B FP8 + MTP @ 256k
     # =========================
@@ -178,10 +177,8 @@ services:
     #         - qwen3_coder
     #     restart: unless-stopped
 
-
-
     # =========================
-# =========================
+    # =========================
 
     vllm-gemma4:
         image: vllm-node-tf5:latest
@@ -199,9 +196,9 @@ services:
         command:
             - /model
             - --served-model-name
-            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp
+            - unsloth-gemma4-26b-a4b-fp8-256k-think-mtp3
             - --speculative-config
-            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":1}'
+            - '{"method":"mtp","model":"/assistant","num_speculative_tokens":3}'
             - --host
             - "0.0.0.0"
             - --port
@@ -265,7 +262,6 @@ services:
     #         - --tool-call-parser
     #         - hermes
     #     restart: unless-stopped
-
 
     # --- NVFP4 + MTP (backup) ---
     # vllm-gemma4-nvfp4-mtp:
