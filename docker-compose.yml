@@ -310,6 +310,46 @@ services:
     #         - '{"enable_thinking":true}'
     #     restart: unless-stopped
 
+    # --- Qwen3.6 27B NVFP4 + MTP (vLLM) ---
+    # vllm-qwen36-nvfp4:
+    #     image: vllm-node-tf5:latest
+    #     container_name: vllm-qwen36-nvfp4
+    #     runtime: nvidia
+    #     shm_size: "32gb"
+    #     ports:
+    #         - "8002:8000"
+    #     volumes:
+    #         - /opt/atom/models/unsloth-qwen36-27b-nvfp4:/model:ro
+    #     ipc: host
+    #     entrypoint: ["vllm", "serve"]
+    #     command:
+    #         - /model
+    #         - --served-model-name
+    #         - unsloth-qwen36-27b-nvfp4
+    #         - --host
+    #         - "0.0.0.0"
+    #         - --port
+    #         - "8000"
+    #         - --trust-remote-code
+    #         - --dtype
+    #         - bfloat16
+    #         - --max-model-len
+    #         - "131072"
+    #         - --gpu-memory-utilization
+    #         - "0.30"
+    #         - --max-num-batched-tokens
+    #         - "8192"
+    #         - --max-num-seqs
+    #         - "4"
+    #         - --speculative-config
+    #         - '{"method":"mtp","num_speculative_tokens":2}'
+    #         - --enable-auto-tool-choice
+    #         - --tool-call-parser
+    #         - hermes
+    #         - --default-chat-template-kwargs
+    #         - '{"enable_thinking":true}'
+    #     restart: unless-stopped
+
     # --- NVFP4 + MTP (backup) ---
     # vllm-gemma4-nvfp4-mtp:
     #     image: vllm-node-tf5:latest
