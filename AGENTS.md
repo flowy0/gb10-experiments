@@ -16,12 +16,19 @@
 - **Update `CHANGELOG.md`** for every change — new models, config changes, benchmarks, doc updates
 
 ### Model Management
-- Active stack (vLLM FP8 256k + 12B TQ 256k):
-  - `unsloth-gemma4-26b-a4b-fp8-256k-think-mtp` (vLLM, port 8000)
-  - `unsloth-gemma4-12b-qat-256k-tq` (llama-swap, summary group)
-  - `unsloth-qwen36-27b-mtp-q4-think` (llama-swap, code group, 64k)
-- Models load on first request
-- llama-swap TTL: 3600s (1h) for most, 86400s (24h) for sticky models
+- Fully on llama-swap (no vLLM):
+
+| Group | Model | Context | TTL | Purpose |
+|---|---|---|---|---|
+| **hermes** | 26B QAT MTP γ=2 | 128k | 24h | Main agent |
+| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | Coding |
+| **compression** | E4B QAT + TQ | 128k | 30min | Summaries |
+| **aux** | 12B QAT + TQ | 64k | 1h | Web, titles, search, vision |
+| **subagent** | 35B IQ4 MTP | 64k | 30min | Quick sub-tasks |
+| **research** | 26B QAT MTP γ=2 | 64k | 1h | Fallback |
+
+- Models load on first request per group
+- Max simultaneous when all loaded: ~112 GB ✅ 19 GB free
 
 ### vLLM Naming Convention
 - Model ID format: `unsloth-{family}-{arch}-{quant}-mtp-{ctx}-{mode}`
