@@ -1840,29 +1840,7 @@ models:
 #             --jinja \
 #             -ngl 99
 # 
-    unsloth-gemma4-e4b-qat-tq-128k-compression:
-        name: "Gemma4 E4B QAT + TurboQuant (128k) - compression"
-        ttl: 1800
-        cmdStop: docker rm -f ls-unsloth-gemma4-e4b-qat-tq-128k-compression
-        cmd: |
-            docker run --rm \
-            --name ls-unsloth-gemma4-e4b-qat-tq-128k-compression \
-            --runtime=nvidia \
-            --network container:llama-swap \
-            -v /opt/atom/models:/models:ro \
-            llama-cpp-turboquant:latest \
-            -m /models/unsloth-gemma-4-e4b-it-qat-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf \
-            --host 0.0.0.0 \
-            --port \${PORT} \
-            -c 131072 \
-            --temp 0.1 \
-            --top-p 0.95 \
-            --top-k 64 \
-            --reasoning off \
-            --cache-type-k turbo4 \
-            --cache-type-v turbo4 \
-            --jinja \
-            -ngl 99
+
 
 #     unsloth-qwen36-35b-a3b-mtp-iq4-256k-think-tq:
 #         name: "Qwen3.6 35B IQ4 MTP think - TurboQuant (256k) [TEST]"
@@ -4405,7 +4383,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-e4b-qat-tq-128k-compression
+    #         - unsloth-gemma4-e4b-qat-tq-128k-compression
 
     code-subagent:
         swap: true

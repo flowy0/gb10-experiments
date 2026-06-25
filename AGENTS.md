@@ -22,8 +22,7 @@
 |---|---|---|---|---|
 | **hermes** | 26B QAT MTP γ=2 | 128k | 24h | Main agent |
 | **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | Coding |
-| **compression** | E4B QAT + TQ | 128k | 30min | Summaries |
-| **aux** | 12B QAT + TQ | 64k | 1h | Web, titles, search, vision |
+| **aux** | 12B QAT + TQ | 64k | 1h | Compression, web, titles, search, vision |
 | **subagent** | 35B IQ4 MTP | 64k | 30min | Quick sub-tasks |
 | **research** | 26B QAT MTP γ=2 | 64k | 1h | Fallback |
 
