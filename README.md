@@ -84,11 +84,10 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 |---|---|---|---|---|
 | **hermes** | 26B QAT MTP γ=2 | 128k | 24h | ~37 GB |
 | **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB |
-| **compression** | E4B QAT + TQ | 128k | 30min | ~8 GB |
 | **aux** | 12B QAT + TQ | 64k | 1h | ~10 GB |
 | **subagent** | 35B IQ4 MTP | 64k | 30min | ~24 GB |
 | **research** | 26B QAT MTP γ=2 | 64k | 1h | ~25 GB |
-| **Total** | | | | **~128 GB** |
+| **Total** | | | | **~120 GB** ✅ 11 GB free |
 
 > Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
 > Hermes and compression stay hot. Code, aux, research load on demand.
