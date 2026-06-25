@@ -11,7 +11,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | UD-Q2_K_XL | 12 GB | 30 | Fast, 2-bit lossy |
 | Q4_K_M | 16 GB | 28 | Baseline |
 | IQ4_NL | 16 GB | 26 | Same size as Q4, slower |
-| UD-Q4_K_XL | 17 GB | 21 | Best quality, slowest |
+| UD-Q4_K_XL | 17 GB | 21 | Best quality |
 | NVFP4 (vLLM) | 25 GB | 17 | Too heavy — skip |
 | PRISM PRO DQ | 13 GB | 15 | llama.cpp baseline |
 
