@@ -25,19 +25,24 @@
 ### vLLM Naming Convention
 - Model ID format: `unsloth-{family}-{arch}-{quant}-mtp-{ctx}-{mode}`
   - Example: `unsloth-qwen36-35b-a3b-fp8-256k-think-mtp`
-- Compose service format: `vllm-{family}` (e.g., `vllm-qwen35`, `vllm-gemma4`)
+- Compose service format: `vllm-{family}` (e.g., `vllm-gemma4`, `vllm-qwen36`)
 - Always set `--served-model-name` explicitly — never rely on defaults
 - When swapping models, comment out the old service, add the new one — never delete
 - Validate compose YAML after edits: `docker compose -f docker-compose.yml config`
 - Test the endpoint after changes: `curl http://localhost:8000/v1/models`
+- Ports: 8000 (primary), 8001 (DiffusionGemma test), 8002 (Qwen NVFP4 test)
 
 ### vLLM Known Pitfalls
 - `--reasoning-parser` puts thinking in `message.reasoning` not `message.reasoning_content`
 - Stock vLLM images crash on Blackwell (CUTLASS error) — use spark-vllm-docker (`vllm-node-tf5`)
+- Official `vllm/vllm-openai:gemma` image works for DiffusionGemma (different architecture)
 - MTP needs `--speculative-config` with correct method name (`mtp`, `qwen3_next_mtp`, etc.)
+- Qwen3.6 NVFP4 has built-in MTP — no separate draft model needed (`--speculative-config '{"method":"mtp","num_speculative_tokens":2}'`)
 - `--gpu-memory-utilization` caps total reserved memory, affects concurrent sessions
 - Each vLLM instance reserves memory upfront — can't run 2 instances on 1 GPU
 - Container must be force-recreated after config changes: `docker compose up -d --force-recreate`
+- New tool parsers (v0.23.1rc1.dev309+): `qwen3_coder`, `qwen3_xml` via `--tool-call-parser`
+- The V2 model runner (`VLLM_USE_V2_MODEL_RUNNER=1`) improves performance on DiffusionGemma
 
 ### New Model Testing
 1. Add definition to `llama-swap/config.yaml`
@@ -47,7 +52,7 @@
 5. If it fails: remove from group, comment out definition, note in CHANGELOG
 
 ### Benchmark Recording
-- When testing a new model/quant, add a row to the tables below.
+- When testing a new model/quant, add a row to `docs/BENCHMARKS.md`.
 - Format: model ID, engine, quant, context, tok/s, notes.
 - Speed: measured with minimal prompt ("hi"), 100 output tokens, all models loaded.
 - vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell for standard models).
@@ -62,3 +67,8 @@
 | `docker-compose.yml` | Service orchestration |
 | `AGENTS.md` | This file — project rules |
 | `PI.md` | Project overview for pi |
+| `docs/BENCHMARKS.md` | Benchmark results (tok/s, tool-eval scores) |
+| `docs/CUDA_GRAPHS.md` | CUDA graphs explanation |
+| `docs/QUICK_CMDS.md` | Common commands reference |
+| `docs/VLLM.md` | vLLM build, setup, debugging history |
+| `docs/HISTORICAL.md` | Previous stack configurations |
