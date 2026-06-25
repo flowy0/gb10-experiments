@@ -86,8 +86,9 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 | **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB |
 | **aux** | 12B QAT + MTP | 128k | 1h | ~17 GB |
 | **subagent** | 35B UD-Q3_K_XL MTP | 64k | 30min | ~18 GB |
-| **Total** | | | | **~120 GB** ✅ 11 GB free |
+| **Total** | | | | **~107 GB** ✅ 24 GB free |
 
+> Research group (2nd 26B) dropped to make room for hermes at 256k.
 > E4B compression model available in compression group but excluded from active memory.
 
 > Max simultaneous when all loaded is ~112 GB. Not all groups are loaded at once.
