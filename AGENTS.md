@@ -21,7 +21,7 @@
 | Group | Model | Context | TTL | Purpose |
 |---|---|---|---|---|
 | **hermes** | 26B QAT MTP γ=2 | 128k | 24h | Main agent |
-| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | Coding |
+| **code** | Ornith-1.0-35B MoE Q4_K_M | 64k | 24h | Coding agent (100/100 tool-eval) |
 | **aux** | 12B QAT + TQ | 64k | 1h | Compression, web, titles, search, vision |
 | **subagent** | 35B IQ4 MTP | 64k | 30min | Quick sub-tasks |
 | **research** | 26B QAT MTP γ=2 | 64k | 1h | Fallback |

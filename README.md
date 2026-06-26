@@ -83,10 +83,13 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 | Group | Model | Context | TTL | Memory |
 |---|---|---|---|---|
 | **hermes** | 26B QAT MTP γ=2 | **256k** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-256k-think` |
-| **code** | 27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
+| **code** | **Ornith-1.0-35B MoE** Q4_K_M | 64k | 24h | ~26 GB | `ornith-1.0-35b-q4-64k-code` |
 | **aux** | 12B QAT + MTP | 128k | 1h | ~17 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
 | **subagent** | 35B UD-Q3_K_XL MTP | 64k | 30min | ~18 GB | `unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code` |
-| **Total** | | | | **~107 GB** ✅ 24 GB free | |
+| **Total** | | | | **~109 GB** ✅ 22 GB free | |
+
+> Ornith-1.0-35B scored **100/100** on tool-eval-bench (short) — best score of any tested model.
+> 77 tok/s with flash attention. Replaces Qwen3.6 27B UD-Q3 in code group.
 
 > E4B compression model available in compression group but excluded from active memory.
 
