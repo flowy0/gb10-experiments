@@ -4326,8 +4326,8 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
             - ornith-1.0-35b-q4-64k-code
+    #         - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
     #            - unsloth-qwen36-27b-mtp1-ud-q3-64k-think-code
     #            - unsloth-qwen36-27b-mtp-ud-q4-64k-think-code
     #            - unsloth-qwen36-27b-mtp-q4-128k-think
@@ -4441,4 +4441,5 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
+            - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
     #         - unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code

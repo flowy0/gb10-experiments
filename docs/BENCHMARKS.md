@@ -3,6 +3,11 @@
 Speed measured with minimal prompt ("hi"), 100 output tokens, all models loaded simultaneously unless noted.
 vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for standard models).
 
+## Ornith-1.0-35B MoE (llama.cpp)
+| Quant | File | tok/s | tool-eval | Notes |
+|---|---|---|---|---|
+| Q4_K_M | 20 GB | 77 | **100/100** ★★★★★ | Best coding model tested. Flash attention on. |
+
 ## Qwen3.6 27B (llama.cpp, MTP γ=2)
 
 | Quant | File | tok/s | Notes |
@@ -50,6 +55,8 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 
 | Model | Score | Rating |
 |---|---|---|
+| **Ornith-1.0-35B MoE Q4_K_M** | **100/100** | **★★★★★ Excellent** |
+| Qwen3.6 27B UD-Q3_K_XL | 97/100 | ★★★★★ Excellent |
 | DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
 | FP8 26B (June 14 baseline) | ~91/100 | ★★★★ |
-| FP8 26B (128k, today) | ~73/100 | ★★★ Adequate |
+| FP8 26B (128k) | ~73/100 | ★★★ Adequate |
