@@ -2821,7 +2821,7 @@ models:
             --port \${PORT} \
             --jinja \
             --chat-template-file /models/s-batman-ornith-35b-nvfp4-mtp/chat_template.jinja \
-            -c 100000 \
+            -c 65536 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
