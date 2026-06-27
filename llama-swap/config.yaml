@@ -2805,13 +2805,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-ornith-35b-nvfp4-mtp-64k-think-code:
+    s-batman-ornith-35b-nvfp4-mtp-64k-think-code:
         name: "Ornith-1.0-35B NVFP4 MTP (64k think-code)"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-ornith-35b-nvfp4-mtp-64k-think-code
+        cmdStop: docker rm -f ls-s-batman-ornith-35b-nvfp4-mtp-64k-think-code
         cmd: |
             docker run --rm \
-            --name ls-unsloth-ornith-35b-nvfp4-mtp-64k-think-code \
+            --name ls-s-batman-ornith-35b-nvfp4-mtp-64k-think-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -4477,7 +4477,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-ornith-35b-nvfp4-mtp-64k-think-code
+            - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
 
     code-subagent:
         swap: true
