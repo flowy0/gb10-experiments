@@ -2806,6 +2806,85 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-ornith-9b-q4-64k-think-code:
+        name: "Ornith-1.0-9B Q4_K_M (64k think-code subagent)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-ornith-9b-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --reasoning off \
+            -t 4 \
+            -b 512 \
+            --jinja \
+            -ngl 99
+
+    unsloth-ornith-9b-q4-64k-think-code:
+        name: "Ornith-1.0-9B Q4_K_M (64k think-code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-ornith-9b-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            -t 4 \
+            -b 512 \
+            --jinja \
+            -ngl 99
+
+    unsloth-ornith-9b-q4-64k-code:
+        name: "Ornith-1.0-9B Q4_K_M (64k code, no reasoning)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-ornith-9b-q4-64k-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --reasoning off \
+            -t 4 \
+            -b 512 \
+            --jinja \
+            -ngl 99
+
     s-batman-ornith-35b-nvfp4-mtp-64k-think-code:
         name: "Ornith-1.0-35B NVFP4 MTP (64k think-code)"
         ttl: 3600
@@ -4486,4 +4565,6 @@ groups:
         members:
             - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
             - ornith-1.0-35b-q4-64k-code
+            - unsloth-ornith-9b-q4-64k-think-code
+            - unsloth-ornith-9b-q4-64k-code
     #         - unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code
