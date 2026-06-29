@@ -398,7 +398,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-e4b-qat-tq-128k-compression
+            - unsloth-gemma4-12b-qat-128k-mtp
 
     subagent:
         swap: true
