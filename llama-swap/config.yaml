@@ -4642,13 +4642,10 @@ models:
 #     #         - anbeeld-qwen36-27b-ud-q3-64k-dflash
 #     #         - anbeeld-ornith-9b-q4-64k-dflash
 # 
-#     code-subagent:
-#         swap: true
-#         exclusive: false
-#         members:
-#             - unsloth-gemma4-12b-qat-64k-mtp-np3
-#     #         - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
-#     #         - ornith-1.0-35b-q4-64k-code
-#     #         - deepreinforce-ornith-9b-q4-64k-think-code
-#     #         - deepreinforce-ornith-9b-q4-64k-code
-# 
+groups:
+    code-subagent:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-gemma4-12b-qat-64k-mtp-np3
+    #         - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code 
