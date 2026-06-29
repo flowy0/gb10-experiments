@@ -2922,6 +2922,32 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-gemma4-12b-qat-64k-mtp-np3:
+        name: "Gemma4 12B QAT + MTP (64k subagent, -np 3)"
+        ttl: 1800
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-64k-mtp-np3
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-12b-qat-64k-mtp-np3 \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
+            --mmproj /models/unsloth-gemma-4-12b-it-gguf/mmproj-F16.gguf \
+            --model-draft /models/unsloth-gemma-4-12b-it-qat-gguf/mtp-gemma-4-12B-it.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --parallel 3 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --reasoning off \
+            --jinja \
+            -ngl 99
+
     unsloth-gemma4-12b-qat-128k-mtp:
         name: "Gemma4 12B QAT + MTP (128k aux)"
         ttl: 3600
@@ -4362,8 +4388,8 @@ models:
 #             --jinja \
 #             -ngl 99
 #
-    anbeeld-gemma4-26b-qat-128k-dflash:
-        name: "Gemma4 26B QAT + DFlash (128k)"
+    # anbeeld-gemma4-26b-qat-128k-dflash:
+    #     name: "Gemma4 26B QAT + DFlash (128k)"
         ttl: 3600
         cmdStop: docker rm -f ls-anbeeld-gemma4-26b-dflash
         cmd: |
@@ -4387,8 +4413,8 @@ models:
             --jinja \
             -ngl 99
 
-    anbeeld-qwen36-27b-ud-q3-64k-dflash:
-        name: "Qwen3.6 27B UD-Q3 + DFlash (64k)"
+    # anbeeld-qwen36-27b-ud-q3-64k-dflash:
+    #     name: "Qwen3.6 27B UD-Q3 + DFlash (64k)"
         ttl: 3600
         cmdStop: docker rm -f ls-anbeeld-qwen36-27b-dflash
         cmd: |
@@ -4412,8 +4438,8 @@ models:
             --jinja \
             -ngl 99
 
-    anbeeld-ornith-9b-q4-64k-dflash:
-        name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
+    # anbeeld-ornith-9b-q4-64k-dflash:
+    #     name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
         ttl: 3600
         cmdStop: docker rm -f ls-anbeeld-ornith-9b-dflash
         cmd: |
@@ -4608,21 +4634,21 @@ groups:
         members:
             - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
 
-    dflash-test:
-        swap: true
-        exclusive: false
-        members:
-            - anbeeld-gemma4-26b-qat-128k-dflash
-            - anbeeld-qwen36-27b-ud-q3-64k-dflash
-            - anbeeld-ornith-9b-q4-64k-dflash
+    # dflash-test:
+    #     swap: true
+    #     exclusive: false
+    #     members:
+    #         - anbeeld-gemma4-26b-qat-128k-dflash
+    #         - anbeeld-qwen36-27b-ud-q3-64k-dflash
+    #         - anbeeld-ornith-9b-q4-64k-dflash
 
     code-subagent:
         swap: true
         exclusive: false
         members:
-            - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
-            - ornith-1.0-35b-q4-64k-code
-            - deepreinforce-ornith-9b-q4-64k-think-code
-            - deepreinforce-ornith-9b-q4-64k-code
-    #         - unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code
+            - unsloth-gemma4-12b-qat-64k-mtp-np3
+    #         - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
+    #         - ornith-1.0-35b-q4-64k-code
+    #         - deepreinforce-ornith-9b-q4-64k-think-code
+    #         - deepreinforce-ornith-9b-q4-64k-code
 
