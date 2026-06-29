@@ -442,4 +442,4 @@ groups:
             - deepreinforce-ornith-35b-q4-128k-think-code
             - deepreinforce-ornith-9b-q4-64k-think-code
             - deepreinforce-ornith-9b-q4-64k-code
-            - ornith-1.0-35b-q4-64k-think-code
+            - deepreinforce-ornith-35b-q4-64k-think-code
