@@ -214,6 +214,35 @@ models:
             --jinja \
             -ngl 99
 
+    ornith-1.0-35b-q4-128k-code:
+        name: "Ornith-1.0-35B MoE Q4_K_M (128k test)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-ornith-35b-q4-128k-code
+        cmd: |
+            docker run --rm \
+            --name ls-ornith-35b-q4-128k-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            -m /models/deepreinforce-ornith-35b/ornith-1.0-35b-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --repeat-penalty 1.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --flash-attn on \
+            -t 8 \
+            -b 512 \
+            --jinja \
+            -ngl 99
+
     deepreinforce-ornith-9b-q4-64k-think-code:
         name: "Ornith-1.0-9B Q4_K_M (64k think-code)"
         ttl: 3600
@@ -291,13 +320,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-gemma4-12b-qat-64k-mtp-np3:
-        name: "Gemma4 12B QAT + MTP (64k subagent, -np 3)"
+    unsloth-gemma4-12b-qat-64k-mtp-np2:
+        name: "Gemma4 12B QAT + MTP (64k subagent, -np 2)"
         ttl: 1800
-        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-64k-mtp-np3
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-64k-mtp-np2
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-12b-qat-64k-mtp-np3 \
+            --name ls-unsloth-gemma4-12b-qat-64k-mtp-np2 \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -309,7 +338,7 @@ models:
             --host 0.0.0.0 \
             --port \${PORT} \
             -c 65536 \
-            --parallel 3 \
+            --parallel 2 \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
@@ -404,10 +433,11 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-64k-mtp-np3
+            - unsloth-gemma4-12b-qat-64k-mtp-np2
 
     test:
         swap: true
         exclusive: false
         members:
             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
+            - ornith-1.0-35b-q4-128k-code
