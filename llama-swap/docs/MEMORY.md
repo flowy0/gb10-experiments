@@ -1,135 +1,88 @@
-# Memory Planning — GB10 (NVIDIA GB10, 122 GB unified VRAM)
+# Memory Planning — GB10 (NVIDIA GB10, 131 GB unified VRAM)
 
 ## Hardware
-- **GPU:** NVIDIA GB10, 122 GB unified VRAM
+- **GPU:** NVIDIA GB10, 131 GB unified VRAM
 - **System RAM:** 121 GB (117 GB available)
-- **llama.cpp server:** `ghcr.io/ggml-org/llama.cpp:server-cuda13-b9294`
 
-## Model Architectures (for KV cache calculations)
+## Model Architectures (KV cache size)
 
-| Model | Architecture | KV per token (q8_0) |
-|---|---|---|
-| Qwen3.6 27B (dense) | 65 layers, 4 KV heads, hd=256 | 65×4×256×2 = 133,120 elem |
-| Qwen3.6 35B-A3B (MoE) | 40 layers, 2 KV heads, hd=256 | 40×2×256×2 = 40,960 elem |
-| Qwen3-Coder-Next 80B (hybrid) | 12 attn layers, 2 KV heads, hd=256 | 12×2×256×2 = 12,288 elem |
-| Gemma4 26B-A4B (MoE) | 30 layers, 8 KV heads, hd=256 | 30×8×256×2 = 122,880 elem |
-| Gemma4 E4B (dense) | 42 layers, 2 KV heads, hd=256 | 42×2×256×2 = 43,008 elem |
-| Gemma4 26B NVFP4 (vLLM) | 30 layers, 8 KV heads, hd=256 | 30×8×256×2 = 122,880 elem |
+KV per token at q8_0 (1 byte/element): layers × KV heads × hd × 2 (K+V)
 
-> **Note:** vLLM uses fp8 KV cache (1 byte/elem). llama.cpp uses q8_0 (1 byte/elem).
-> Same byte footprint, but fp8 is hardware-accelerated on Blackwell.
+| Model | Layers | KV heads | hd | Elements/token |
+|---|---|---|---|---|
+| Qwen3.6-27B | 65 | 4 | 256 | 133,120 |
+| Qwen3.6-35B MoE | 40 | 2 | 256 | 40,960 |
+| Qwen3-Coder-Next (hybrid) | 12 attn | 2 | 256 | **12,288** |
+| Ornith-1.0-35B MoE (Qwen3.5) | 40 | 2 | 256 | 40,960 |
+| Ornith-1.0-9B (Qwen3.5 dense) | 32 | 8 | 128 | 65,536 |
+| Gemma4 12B (E4B dense) | 42 | 2 | 256 | 43,008 |
+| Gemma4 26B-A4B (MoE) | 30 | **8** | 256 | **122,880** |
 
-## KV Cache Size by Context Length
+## KV Cache by Context
 
-KV cache in GB for each cache type at each context length:
-
-| Model | 32k (q8_0) | 64k (q8_0) | 128k (q8_0) | 256k (q8_0) | 256k (q5_1) |
-|---|---|---|---|---|---|
-| Qwen3.6 27B | 4.2 | 8.5 | 17.0 | 34.0 | 25.5 |
-| Qwen3.6 35B-A3B | 1.3 | 2.5 | 5.0 | 10.0 | 7.5 |
-| Qwen3-Coder-Next | 0.4 | 0.8 | 1.5 | 3.0 | 2.3 |
-| Gemma4 26B-A4B | 3.8 | 7.5 | 15.0 | 30.0 | 22.5 |
-| Gemma4 E4B | 1.3 | 2.7 | 5.4 | 10.8 | 8.1 |
-
-## Total Memory per Model at 256k
-
-| Model | Quant | File | KV (256k) | +OH | Total |
-|---|---|---|---|---|---|
-| Qwen3.6 35B-A3B | UD-Q2_K_XL | 26.8 GB | 10.0 GB | 2 GB | **39 GB** |
-| Qwen3.6 35B-A3B MTP | UD-Q2_K_XL | 26.8 GB | 10.0 GB | 3 GB | **40 GB** |
-| Qwen3.6 27B | Q4_K_M | 16.0 GB | 34.0 GB | 2 GB | **52 GB** |
-| Qwen3-Coder-Next | UD-IQ2_M | 24.0 GB | 3.0 GB | 2 GB | **29 GB** |
-| Gemma4 26B-A4B | UD-Q4_K_M | 16.9 GB | 30.0 GB | 2 GB | **49 GB** |
-| Gemma4 26B-A4B | UD-Q5_K_M | 20.0 GB | 30.0 GB | 2 GB | **52 GB** |
-| Gemma4 26B-A4B (q5_1 cache) | UD-Q4_K_M | 16.9 GB | 22.5 GB | 2 GB | **41 GB** |
-| Gemma4 E4B | Q4_K_M | 4.7 GB | 10.8 GB | 2 GB | **17 GB** |
-
-### vLLM Models (HuggingFace format)
-
-| Model | Format | File | KV (128k, fp8) | +OH | Total (estimate) |
-|---|---|---|---|---|---|
-| Gemma4 26B NVFP4 | NVFP4 + Marlin | 15.3 GB | ~15 GB | ~16 GB | **~46 GB**¹ |
-
-¹ vLLM reserves memory upfront via `--gpu-memory-utilization 0.35`. Actual usage
-  depends on KV cache fill. The 15.3 GB checkpoint is NVFP4 weights stored in GPU
-  memory; Marlin decompresses to BF16 tile-by-tile during GEMM.
-
-## Group Configuration
-
-| Group | swap | exclusive | Members |
+| Model | 64k | 128k | 256k |
 |---|---|---|---|
-| test-models | true | false | All new/experimental models (64 models) |
-| code | true | false | Devstral, Qwen3-Coder, Qwen3-Coder-Next, Qwen3.5 27B (8 models) |
-| research | true | false | Qwen3.6 35B MTP 128k, Qwen3.6 35B Q2 256k (2 models) |
-| stable | true | false | Gemma4 26B variants (64k/128k/256k) (5 models) |
-| summary | true | false | Granite 8B 128k (1 model) |
-| hermes | true | false | Qwen3.5 35B 128k FA (1 model) |
+| Qwen3.6-27B | 8.5 GB | 17.0 GB | 34.0 GB |
+| Qwen3.6-35B MoE | 2.5 GB | 5.0 GB | 10.0 GB |
+| Qwen3-Coder-Next | **0.8 GB** | 1.5 GB | 3.0 GB |
+| Ornith-1.0-35B MoE | 2.5 GB | 5.0 GB | 10.0 GB |
+| Ornith-1.0-9B | 4.3 GB | 8.6 GB | — |
+| Gemma4 12B | 2.8 GB | 5.6 GB | 11.2 GB |
+| Gemma4 26B | 7.5 GB | 15.0 GB | 30.0 GB |
 
-Models in different groups can run simultaneously. Within a group, `swap: true` means requesting a different model in the same group swaps the active one.
+## Total Memory per Model
 
-## Common Pairings
+Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 
-### Research + Stable (default research pair)
-- `research`: Qwen3.6 35B-A3B Q2 @ 256k — **39 GB**
-- `stable`: Gemma4 26B-A4B Q4 @ 256k (q5_1 cache) — **41 GB**
-- **Total: ~80 GB** ✅ (42 GB free)
+| Model | Quant | File | Context | KV | OH | **Total** |
+|---|---|---|---|---|---|---|
+| **Hermes** | | | | | | |
+| Gemma4 26B QAT MTP γ=2 | QAT UD-Q4_K_XL | 16 GB | 128k | 15 GB | 2 GB | **~33 GB** |
+| + -np 2 (2 slots) | | | 128k | 30 GB | 2 GB | **~48 GB** |
+| **Code** | | | | | | |
+| Qwen3.6-27B MTP γ=2 | UD-Q3_K_XL | 14 GB | 64k | 8.5 GB | 2 GB | **~24 GB** |
+| Ornith-1.0-35B MoE | Q4_K_M | 20 GB | 64k | 2.5 GB | 2 GB | **~25 GB** |
+| Qwen3-Coder-Next 80B | UD-Q3_K_M | 34 GB | 64k | 0.8 GB | 2 GB | **~37 GB** |
+| **Aux / Compression** | | | | | | |
+| Gemma4 12B QAT MTP | QAT UD-Q4_K_XL | 6.3 GB | 128k | 5.6 GB | 2 GB | **~14 GB** |
+| Gemma4 12B QAT MTP | QAT UD-Q4_K_XL | 6.3 GB | 64k | 2.8 GB | 2 GB | **~11 GB** |
+| Gemma4 E4B QAT TQ | QAT UD-Q4_K_XL | 4.7 GB | 128k | 2.8 GB | 2 GB | **~9 GB** |
+| **Subagent** | | | | | | |
+| Gemma4 12B QAT MTP -np 3 | QAT UD-Q4_K_XL | 6.3 GB | 64k | 8.4 GB | 2 GB | **~17 GB** |
+| **Other** | | | | | | |
+| Ornith-1.0-9B | Q4_K_M | 5.3 GB | 64k | 4.3 GB | 1 GB | **~11 GB** |
+| Qwen3.6-35B MoE | IQ4_NL | 18 GB | 64k | 2.5 GB | 2 GB | **~23 GB** |
 
-### Code + Hermes
-- `code`: Qwen3-Coder-Next @ 256k — **29 GB**
-- `hermes`: Qwen3.5 35B @ 128k — **27 GB**
-- **Total: ~56 GB** ✅ (66 GB free)
+## Current Active Stack
 
-### Research + Code + Stable
-- All three simultaneously at 256k
-- **Total: ~108 GB** ✅ (14 GB free, tight)
+| Group | Model | Context | -np | Weights | KV | **Total** |
+|---|---|---|---|---|---|---|
+| hermes | 26B QAT MTP γ=2 | 128k | 2 | 16.4 GB | 30 GB | **48 GB** |
+| code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | 14 GB | 8.5 GB | **24 GB** |
+| aux | 12B QAT MTP (vision) | 128k | 1 | 6.5 GB | 5.6 GB | **14 GB** |
+| compression | E4B QAT TQ | 128k | 1 | 4.7 GB | 2.8 GB | **9 GB**¹ |
+| subagent | 12B QAT MTP -np 3 | 64k | 3 | 6.5 GB | 8.4 GB | **17 GB** |
+| **Max total** | | | | | | **~112 GB** ✅ 19 GB free |
 
-## Current Active Stack (vLLM + llama-swap hybrid)
+¹ Compression is usually idle — excluded from active memory calc (~104 GB ✅ 27 GB free).
 
-| Service | Model | Context | Memory | Model ID |
-|---|---|---|---|---|
-| **vLLM** | Gemma4 26B NVFP4 + Marlin | 128k | ~46 GB | `unsloth-gemma4-26b-a4b-nvfp4-128k-think` |
-| **llama-swap** | Qwen3.6 27B MTP think | 128k | ~34 GB | `unsloth-qwen36-27b-mtp-q4-128k-think` |
-| **llama-swap** | Gemma4 12B QAT + TurboQuant | 128k | ~26 GB | `unsloth-gemma4-12b-qat-128k-tq` |
-| **Total** | | | **~106 GB** ✅ 25 GB free | |
+> Note: `-np N` multiplies KV cache by N. Max total assumes all groups loaded simultaneously,
+> which rarely happens. Active memory (always-hot): hermes + code ≈ **72 GB** ✅ 59 GB free.
 
-**Savings vs previous FP8 stack:** NVFP4 saves ~18 GB over FP8 (46 GB vs 64 GB
-with MTP assistant), enabling the 3-model configuration at 128k with comfortable
-headroom for session scaling.
+## Previous Configurations
 
-## KV Cache Best Practices
+### v10 — 5-group llama-swap stack (replaced)
+- hermes: 26B QAT MTP 128k -np 2 (48 GB)
+- code: Ornith-1.0-35B (25 GB)
+- aux: 12B MTP 128k (14 GB)
+- compression: E4B TQ 128k (9 GB)
+- subagent: 12B MTP 64k -np 3 (17 GB)
 
-- **q8_0** — best quality, used by default
-- **q5_1** — good for 256k context (0.75× size of q8_0, minimal quality loss)
-- **q4_0** — aggressive, only if needed for fitting very large contexts
-- Flash attention (`--flash-attn on`) reduces compute but does not reduce KV cache memory
-- `--no-warmup` skips the warmup pass on load, saving minutes on 128k/256k models
+### v9 — vLLM + llama-swap hybrid
+- vLLM: Gemma4 26B FP8 + MTP 256k (52 GB)
+- llama-swap (code): Qwen3.6 27B MTP (34 GB)
+- llama-swap (summary): 12B QAT + TQ 256k (20 GB)
 
-## Session Scaling
-
-To increase parallel sessions without reducing per-slot context, increase the KV pool:
-
-```
-New KV pool = current pool × (desired slots / current slots)
-```
-
-For Qwen3.6 35B-A3B (40 layers, 2 KV heads, 256 hd — 40,960 elem/token):
-
-| Sessions | Context | Cache | KV pool | Per slot max |
-|---|---|---|---|---|
-| 3 | 256k | q5_1 | 8 GB | 256k |
-| 6 | 256k | q5_1 | 16 GB | 256k |
-| 4 | 512k (YaRN) | q5_1 | 22 GB | 512k |
-| 6 | 512k (YaRN) | q5_1 | 32 GB | 512k |
-| 6 | 512k (YaRN) | q4_0 | 22 GB | 512k |
-
-To scale: increase `--parallel N` and proportionally increase `-c` or reduce cache quantization.
-The MoE's tiny KV (2 heads) makes this much cheaper than dense models.
-
-For Gemma 4 26B-A4B (30 layers, 8 KV heads — 122,880 elem/token):
-
-| Sessions | Context | Cache | KV pool | Per slot max |
-|---|---|---|---|---|
-| 3 | 256k | q5_1 | 23 GB | 256k |
-| 4 | 256k | q5_1 | 30 GB | 256k |
-
-Gemma 4's larger KV heads make session scaling more expensive.
+### v8 — DiffusionGemma test
+- DiffusionGemma 26B NVFP4 on port 8001 (127 tok/s)
+- FP8 26B on port 8000 (50 tok/s)
