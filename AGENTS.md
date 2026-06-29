@@ -16,6 +16,12 @@
 - **Update `CHANGELOG.md`** for every change — new models, config changes, benchmarks, doc updates
 
 ### Model Management
+- **Naming convention:** Use the HuggingFace repo owner as the model ID prefix.
+  - `unsloth-` for Unsloth models (Gemma4, Qwen3.6)
+  - `deepreinforce-` for DeepReinforce models (Ornith)
+  - `s-batman-` for s-batman models
+  - `anbeeld-` for Anbeeld models (GGUF conversions)
+  - Never use `unsloth-` prefix for models from other providers.
 - Fully on llama-swap (no vLLM):
 
 | Group | Model | Context | TTL | Purpose |
