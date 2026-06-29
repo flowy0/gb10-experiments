@@ -4388,267 +4388,267 @@ models:
 #             --jinja \
 #             -ngl 99
 #
-    # anbeeld-gemma4-26b-qat-128k-dflash:
-    #     name: "Gemma4 26B QAT + DFlash (128k)"
-        ttl: 3600
-        cmdStop: docker rm -f ls-anbeeld-gemma4-26b-dflash
-        cmd: |
-            docker run --rm \
-            --name ls-anbeeld-gemma4-26b-dflash \
-            --runtime=nvidia \
-            --network container:llama-swap \
-            -v /opt/atom/models:/models:ro \
-            llama-cuda-dflash:latest \
-            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
-            --model-draft /models/anbeeld-dflash/gemma4-26b/gemma4-26b-a4b-it-dflash-Q4_K_M.gguf \
-            --spec-type draft-dflash \
-            --host 0.0.0.0 \
-            --port \${PORT} \
-            -c 131072 \
-            --temp 0.8 \
-            --top-p 0.95 \
-            --top-k 64 \
-            --reasoning on \
-            --reasoning-budget 4096 \
-            --jinja \
-            -ngl 99
-
-    # anbeeld-qwen36-27b-ud-q3-64k-dflash:
-    #     name: "Qwen3.6 27B UD-Q3 + DFlash (64k)"
-        ttl: 3600
-        cmdStop: docker rm -f ls-anbeeld-qwen36-27b-dflash
-        cmd: |
-            docker run --rm \
-            --name ls-anbeeld-qwen36-27b-dflash \
-            --runtime=nvidia \
-            --network container:llama-swap \
-            -v /opt/atom/models:/models:ro \
-            llama-cuda-dflash:latest \
-            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-UD-Q3_K_XL.gguf \
-            --model-draft /models/anbeeld-dflash/qwen27b/Qwen3.6-27B-DFlash-Q4_K_M.gguf \
-            --spec-type draft-dflash \
-            --host 0.0.0.0 \
-            --port \${PORT} \
-            -c 65536 \
-            --temp 0.6 \
-            --top-p 0.95 \
-            --top-k 20 \
-            --reasoning on \
-            --reasoning-budget 4096 \
-            --jinja \
-            -ngl 99
-
-    # anbeeld-ornith-9b-q4-64k-dflash:
-    #     name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
-        ttl: 3600
-        cmdStop: docker rm -f ls-anbeeld-ornith-9b-dflash
-        cmd: |
-            docker run --rm \
-            --name ls-anbeeld-ornith-9b-dflash \
-            --runtime=nvidia \
-            --network container:llama-swap \
-            -v /opt/atom/models:/models:ro \
-            llama-cuda-dflash:latest \
-            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
-            --model-draft /models/anbeeld-dflash/qwen9b/qwen35-9b-dflash-Q4_K_M.gguf \
-            --spec-type draft-dflash \
-            --host 0.0.0.0 \
-            --port \${PORT} \
-            -c 65536 \
-            --temp 0.6 \
-            --top-p 0.95 \
-            --top-k 20 \
-            --reasoning off \
-            --jinja \
-            -ngl 99
-
-
-groups:
-    formatter:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-qwen35-4b-q4-64k-formatter
-
-    # test-turboquant:
-    #     swap: true
-    #     exclusive: false
-    #     members:
-    #         - unsloth-qwen36-27b-mtp-q4-128k-think-tq
-
-    test-models:
-        swap: true
-        exclusive: false
-        members:
-    #         - gemma4-12b-agentic-v2-q4
-    #         - gemma4-12b-agentic-v2-q3
-    #         - unsloth-qwen36-27b-prism-pro-dq
-    #         - unsloth-gemma4-31b-mtp-q4-xl-128k-think
-    #         - unsloth-gemma4-31b-q4-xl-128k-tq
-    #         - gemma4-e4b-q4
-    #            - unsloth-qwen36-27b-q4
-    #            - unsloth-qwen36-27b-q4-64k
-    #            - unsloth-qwen36-27b-q4-128k
-    #            - unsloth-qwen36-27b-q4-256k
-    #            - unsloth-qwen36-27b-q4-think
-    #            - unsloth-qwen36-27b-q4-think-code
-    #            - unsloth-qwen36-35b-a3b-q2
-    #            - unsloth-qwen36-35b-a3b-q2-think
-    #            - unsloth-qwen36-35b-a3b-q2-think-code
-    #            - unsloth-qwen36-35b-a3b-q2-256k-think
-    #            - unsloth-gemma4-e4b-q4
-    #            - unsloth-gemma4-26b-a4b-q4
-    #            - unsloth-gemma4-26b-a4b-q4-fa
-    #            - unsloth-gemma4-26b-a4b-q4-64k
-    #            - unsloth-gemma4-26b-a4b-q4-64k-fa-think
-    #            - unsloth-gemma4-26b-a4b-q5-256k-fa
-    #            - unsloth-gemma4-26b-a4b-q4-256k
-    #            - unsloth-gemma4-26b-a4b-q4-256k-fa-think
-    #            - unsloth-gemma4-31b-q2-128k
-    #            - unsloth-gemma4-31b-q2-128k-think
-    #            - unsloth-gemma4-31b-q2-256k-think
-    #            - unsloth-gemma4-12b-q4-128k
-    #            - unsloth-gemma4-12b-q4-128k-think
-    #            - unsloth-gemma4-12b-q5-256k
-    #            - unsloth-qwen35-35b-a3b-q4-64k
-    #            - unsloth-qwen35-35b-a3b-q4-64k-think
-    #            - unsloth-qwen35-35b-a3b-q4-64k-think-code
-    #            - unsloth-qwen35-35b-a3b-q4-64k-fa
-    code:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
-    #         - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
-    #            - unsloth-qwen36-27b-mtp1-ud-q3-64k-think-code
-    #            - unsloth-qwen36-27b-mtp-ud-q4-64k-think-code
-    #            - unsloth-qwen36-27b-mtp-q4-128k-think
-    #            - unsloth-qwen36-27b-mtp-ud-q3-128k-think-code
-    #            - unsloth-qwen36-27b-mtp2-ud-q3-128k-think-code
-    #            - unsloth-qwen3-coder-30b-a3b-q4-64k
-    #            - unsloth-qwen3-coder-30b-a3b-q4-128k
-    #            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
-    #            - qwen3-coder-next
-    #            - qwen3-coder-next-128k
-    #            - qwen3-coder-next-256k
-    #            - unsloth-qwen36-35b-a3b-q2-128k-think-code
-    #            - unsloth-qwen36-35b-a3b-q2-256k
-    #            - unsloth-qwen36-35b-a3b-q2-512k
-    #            - unsloth-qwen36-35b-a3b-q2-512k-think
-    #            - unsloth-gemma4-26b-a4b-q4-256k-fa
-    #            - unsloth-qwen36-35b-a3b-q2-256k-iq4
-    #            - unsloth-gemma4-26b-a4b-qat-256k-think-code
-    #            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
-    #            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think-code
-    # research:
-    #     swap: true
-    #     exclusive: false
-    #     members:
-    #         - unsloth-gemma4-26b-a4b-qat-mtp2-64k-think
-    #            - unsloth-gemma4-12b-qat-256k-think
-    #            - unsloth-qwen36-27b-q4-256k-iq4
-    #            - unsloth-qwen36-27b-q4-256k-iq4-fa-think
-    #            - unsloth-qwen36-27b-q4-256k-iq4-fa-think-code
-    stable:
-        swap: true
-        exclusive: false
-        members:
-    #            - unsloth-gemma4-26b-a4b-q4-64k-fa
-    #            - unsloth-gemma4-26b-a4b-q4-128k
-    #            - unsloth-gemma4-26b-a4b-q5-256k-think
-    #            - unsloth-gemma4-26b-a4b-q5-256k-iq4
-    #            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
-    #            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think-code
-    aux:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-gemma4-12b-qat-128k-mtp
-    #         - unsloth-gemma4-12b-qat-128k-tq
-    #            - unsloth-gemma4-12b-qat-128k
-    #            - unsloth-gemma4-e4b-q4-256k
-    #            - unsloth-gemma4-12b-qat-256k-tq
-    #            - unsloth-gemma4-12b-qat-128k-tq-mtp
-    hermes:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
-    #            - unsloth-gemma4-26b-a4b-qat-mtp2-256k-think
-    #            - unsloth-qwen35-35b-a3b-q4-128k-fa
-    #            - unsloth-gemma4-26b-a4b-qat-mtp-128k-think
-    #            - unsloth-gemma4-26b-a4b-qat-128k
-    #            - unsloth-gemma4-26b-a4b-qat-128k-think-code
-    #            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
-    #            - unsloth-gemma4-26b-a4b-qat-mtp3-128k-think
-    #            - unsloth-gemma4-26b-a4b-qat-256k-think
-    #            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
-    #            - unsloth-gemma4-26b-a4b-qat-256k
-
-    mtp-test:
-        swap: true
-        exclusive: false
-        members:
-    #            - unsloth-qwen36-27b-mtp-q4
-    #            - unsloth-qwen36-27b-mtp-q4-think
-    #            - unsloth-qwen36-27b-mtp-q4-think-code
-    #            - unsloth-qwen36-27b-mtp-q4-64k
-    #            - unsloth-qwen36-27b-mtp-q4-64k-think
-    #            - unsloth-qwen36-27b-mtp-q4-64k-think-code
-    #            - unsloth-qwen36-27b-mtp-q4-128k-think
-    #            - unsloth-qwen36-27b-mtp-q4-128k-think-think
-    #            - unsloth-qwen36-27b-mtp-q4-128k-think-think-code
-    #            - unsloth-qwen36-27b-mtp-q4-256k
-    #            - unsloth-qwen36-27b-mtp-q4-256k-think
-    #            - unsloth-qwen36-27b-mtp-q4-256k-think-code
-    #            - unsloth-qwen36-35b-a3b-mtp-q2
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-128k
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-128k-think
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-256k
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
-    #            - unsloth-qwen36-35b-a3b-mtp-q2-think
-    #            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)
-    ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think
-    ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think-code
-    #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
-    #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
-    #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
-    #            - unsloth-qwen36-35b-a3b-iq4-128k
-    #            - unsloth-qwen36-35b-a3b-iq4-128k-think
-    #            - unsloth-qwen36-35b-a3b-iq4-128k-think-code
-    #            - unsloth-qwen36-35b-a3b-iq4-256k
-    #            - unsloth-qwen36-35b-a3b-iq4-256k-think
-    #            - unsloth-qwen36-35b-a3b-iq4-256k-think-code
-    #            - unsloth-gemma4-26b-a4b-qat-256k-think-mtp
-
-    compression:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-gemma4-e4b-qat-tq-128k-compression
-
-    ornith-test:
-        swap: true
-        exclusive: false
-        members:
-            - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
-
-    # dflash-test:
-    #     swap: true
-    #     exclusive: false
-    #     members:
-    #         - anbeeld-gemma4-26b-qat-128k-dflash
-    #         - anbeeld-qwen36-27b-ud-q3-64k-dflash
-    #         - anbeeld-ornith-9b-q4-64k-dflash
-
-    code-subagent:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-gemma4-12b-qat-64k-mtp-np3
-    #         - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
-    #         - ornith-1.0-35b-q4-64k-code
-    #         - deepreinforce-ornith-9b-q4-64k-think-code
-    #         - deepreinforce-ornith-9b-q4-64k-code
-
+#     # anbeeld-gemma4-26b-qat-128k-dflash:
+#     #     name: "Gemma4 26B QAT + DFlash (128k)"
+#         ttl: 3600
+#         cmdStop: docker rm -f ls-anbeeld-gemma4-26b-dflash
+#         cmd: |
+#             docker run --rm \
+#             --name ls-anbeeld-gemma4-26b-dflash \
+#             --runtime=nvidia \
+#             --network container:llama-swap \
+#             -v /opt/atom/models:/models:ro \
+#             llama-cuda-dflash:latest \
+#             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+#             --model-draft /models/anbeeld-dflash/gemma4-26b/gemma4-26b-a4b-it-dflash-Q4_K_M.gguf \
+#             --spec-type draft-dflash \
+#             --host 0.0.0.0 \
+#             --port \${PORT} \
+#             -c 131072 \
+#             --temp 0.8 \
+#             --top-p 0.95 \
+#             --top-k 64 \
+#             --reasoning on \
+#             --reasoning-budget 4096 \
+#             --jinja \
+#             -ngl 99
+# 
+#     # anbeeld-qwen36-27b-ud-q3-64k-dflash:
+#     #     name: "Qwen3.6 27B UD-Q3 + DFlash (64k)"
+#         ttl: 3600
+#         cmdStop: docker rm -f ls-anbeeld-qwen36-27b-dflash
+#         cmd: |
+#             docker run --rm \
+#             --name ls-anbeeld-qwen36-27b-dflash \
+#             --runtime=nvidia \
+#             --network container:llama-swap \
+#             -v /opt/atom/models:/models:ro \
+#             llama-cuda-dflash:latest \
+#             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-UD-Q3_K_XL.gguf \
+#             --model-draft /models/anbeeld-dflash/qwen27b/Qwen3.6-27B-DFlash-Q4_K_M.gguf \
+#             --spec-type draft-dflash \
+#             --host 0.0.0.0 \
+#             --port \${PORT} \
+#             -c 65536 \
+#             --temp 0.6 \
+#             --top-p 0.95 \
+#             --top-k 20 \
+#             --reasoning on \
+#             --reasoning-budget 4096 \
+#             --jinja \
+#             -ngl 99
+# 
+#     # anbeeld-ornith-9b-q4-64k-dflash:
+#     #     name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
+#         ttl: 3600
+#         cmdStop: docker rm -f ls-anbeeld-ornith-9b-dflash
+#         cmd: |
+#             docker run --rm \
+#             --name ls-anbeeld-ornith-9b-dflash \
+#             --runtime=nvidia \
+#             --network container:llama-swap \
+#             -v /opt/atom/models:/models:ro \
+#             llama-cuda-dflash:latest \
+#             -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
+#             --model-draft /models/anbeeld-dflash/qwen9b/qwen35-9b-dflash-Q4_K_M.gguf \
+#             --spec-type draft-dflash \
+#             --host 0.0.0.0 \
+#             --port \${PORT} \
+#             -c 65536 \
+#             --temp 0.6 \
+#             --top-p 0.95 \
+#             --top-k 20 \
+#             --reasoning off \
+#             --jinja \
+#             -ngl 99
+# 
+# 
+# groups:
+#     formatter:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-qwen35-4b-q4-64k-formatter
+# 
+#     # test-turboquant:
+#     #     swap: true
+#     #     exclusive: false
+#     #     members:
+#     #         - unsloth-qwen36-27b-mtp-q4-128k-think-tq
+# 
+#     test-models:
+#         swap: true
+#         exclusive: false
+#         members:
+#     #         - gemma4-12b-agentic-v2-q4
+#     #         - gemma4-12b-agentic-v2-q3
+#     #         - unsloth-qwen36-27b-prism-pro-dq
+#     #         - unsloth-gemma4-31b-mtp-q4-xl-128k-think
+#     #         - unsloth-gemma4-31b-q4-xl-128k-tq
+#     #         - gemma4-e4b-q4
+#     #            - unsloth-qwen36-27b-q4
+#     #            - unsloth-qwen36-27b-q4-64k
+#     #            - unsloth-qwen36-27b-q4-128k
+#     #            - unsloth-qwen36-27b-q4-256k
+#     #            - unsloth-qwen36-27b-q4-think
+#     #            - unsloth-qwen36-27b-q4-think-code
+#     #            - unsloth-qwen36-35b-a3b-q2
+#     #            - unsloth-qwen36-35b-a3b-q2-think
+#     #            - unsloth-qwen36-35b-a3b-q2-think-code
+#     #            - unsloth-qwen36-35b-a3b-q2-256k-think
+#     #            - unsloth-gemma4-e4b-q4
+#     #            - unsloth-gemma4-26b-a4b-q4
+#     #            - unsloth-gemma4-26b-a4b-q4-fa
+#     #            - unsloth-gemma4-26b-a4b-q4-64k
+#     #            - unsloth-gemma4-26b-a4b-q4-64k-fa-think
+#     #            - unsloth-gemma4-26b-a4b-q5-256k-fa
+#     #            - unsloth-gemma4-26b-a4b-q4-256k
+#     #            - unsloth-gemma4-26b-a4b-q4-256k-fa-think
+#     #            - unsloth-gemma4-31b-q2-128k
+#     #            - unsloth-gemma4-31b-q2-128k-think
+#     #            - unsloth-gemma4-31b-q2-256k-think
+#     #            - unsloth-gemma4-12b-q4-128k
+#     #            - unsloth-gemma4-12b-q4-128k-think
+#     #            - unsloth-gemma4-12b-q5-256k
+#     #            - unsloth-qwen35-35b-a3b-q4-64k
+#     #            - unsloth-qwen35-35b-a3b-q4-64k-think
+#     #            - unsloth-qwen35-35b-a3b-q4-64k-think-code
+#     #            - unsloth-qwen35-35b-a3b-q4-64k-fa
+#     code:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
+#     #         - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
+#     #            - unsloth-qwen36-27b-mtp1-ud-q3-64k-think-code
+#     #            - unsloth-qwen36-27b-mtp-ud-q4-64k-think-code
+#     #            - unsloth-qwen36-27b-mtp-q4-128k-think
+#     #            - unsloth-qwen36-27b-mtp-ud-q3-128k-think-code
+#     #            - unsloth-qwen36-27b-mtp2-ud-q3-128k-think-code
+#     #            - unsloth-qwen3-coder-30b-a3b-q4-64k
+#     #            - unsloth-qwen3-coder-30b-a3b-q4-128k
+#     #            - unsloth-qwen3-coder-30b-a3b-q4-128k-fa
+#     #            - qwen3-coder-next
+#     #            - qwen3-coder-next-128k
+#     #            - qwen3-coder-next-256k
+#     #            - unsloth-qwen36-35b-a3b-q2-128k-think-code
+#     #            - unsloth-qwen36-35b-a3b-q2-256k
+#     #            - unsloth-qwen36-35b-a3b-q2-512k
+#     #            - unsloth-qwen36-35b-a3b-q2-512k-think
+#     #            - unsloth-gemma4-26b-a4b-q4-256k-fa
+#     #            - unsloth-qwen36-35b-a3b-q2-256k-iq4
+#     #            - unsloth-gemma4-26b-a4b-qat-256k-think-code
+#     #            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think
+#     #            - unsloth-qwen36-35b-a3b-q2-256k-iq4-fa-think-code
+#     # research:
+#     #     swap: true
+#     #     exclusive: false
+#     #     members:
+#     #         - unsloth-gemma4-26b-a4b-qat-mtp2-64k-think
+#     #            - unsloth-gemma4-12b-qat-256k-think
+#     #            - unsloth-qwen36-27b-q4-256k-iq4
+#     #            - unsloth-qwen36-27b-q4-256k-iq4-fa-think
+#     #            - unsloth-qwen36-27b-q4-256k-iq4-fa-think-code
+#     stable:
+#         swap: true
+#         exclusive: false
+#         members:
+#     #            - unsloth-gemma4-26b-a4b-q4-64k-fa
+#     #            - unsloth-gemma4-26b-a4b-q4-128k
+#     #            - unsloth-gemma4-26b-a4b-q5-256k-think
+#     #            - unsloth-gemma4-26b-a4b-q5-256k-iq4
+#     #            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think
+#     #            - unsloth-gemma4-26b-a4b-q5-256k-iq4-fa-think-code
+#     aux:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-gemma4-12b-qat-128k-mtp
+#     #         - unsloth-gemma4-12b-qat-128k-tq
+#     #            - unsloth-gemma4-12b-qat-128k
+#     #            - unsloth-gemma4-e4b-q4-256k
+#     #            - unsloth-gemma4-12b-qat-256k-tq
+#     #            - unsloth-gemma4-12b-qat-128k-tq-mtp
+#     hermes:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-mtp2-256k-think
+#     #            - unsloth-qwen35-35b-a3b-q4-128k-fa
+#     #            - unsloth-gemma4-26b-a4b-qat-mtp-128k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-128k
+#     #            - unsloth-gemma4-26b-a4b-qat-128k-think-code
+#     #            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-mtp3-128k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-256k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-mtp-256k-think
+#     #            - unsloth-gemma4-26b-a4b-qat-256k
+# 
+#     mtp-test:
+#         swap: true
+#         exclusive: false
+#         members:
+#     #            - unsloth-qwen36-27b-mtp-q4
+#     #            - unsloth-qwen36-27b-mtp-q4-think
+#     #            - unsloth-qwen36-27b-mtp-q4-think-code
+#     #            - unsloth-qwen36-27b-mtp-q4-64k
+#     #            - unsloth-qwen36-27b-mtp-q4-64k-think
+#     #            - unsloth-qwen36-27b-mtp-q4-64k-think-code
+#     #            - unsloth-qwen36-27b-mtp-q4-128k-think
+#     #            - unsloth-qwen36-27b-mtp-q4-128k-think-think
+#     #            - unsloth-qwen36-27b-mtp-q4-128k-think-think-code
+#     #            - unsloth-qwen36-27b-mtp-q4-256k
+#     #            - unsloth-qwen36-27b-mtp-q4-256k-think
+#     #            - unsloth-qwen36-27b-mtp-q4-256k-think-code
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-128k
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-128k-think
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-256k
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-256k-think-code
+#     #            - unsloth-qwen36-35b-a3b-mtp-q2-think
+#     #            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)
+#     ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think
+#     ##            - unsloth-qwen36-35b-a3b-mtp-iq4-256k (disabled - vLLM handles Qwen)-think-code
+#     #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k
+#     #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think
+#     #            - unsloth-qwen36-35b-a3b-mtp-iq4-128k-think-code
+#     #            - unsloth-qwen36-35b-a3b-iq4-128k
+#     #            - unsloth-qwen36-35b-a3b-iq4-128k-think
+#     #            - unsloth-qwen36-35b-a3b-iq4-128k-think-code
+#     #            - unsloth-qwen36-35b-a3b-iq4-256k
+#     #            - unsloth-qwen36-35b-a3b-iq4-256k-think
+#     #            - unsloth-qwen36-35b-a3b-iq4-256k-think-code
+#     #            - unsloth-gemma4-26b-a4b-qat-256k-think-mtp
+# 
+#     compression:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-gemma4-e4b-qat-tq-128k-compression
+# 
+#     ornith-test:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
+# 
+#     # dflash-test:
+#     #     swap: true
+#     #     exclusive: false
+#     #     members:
+#     #         - anbeeld-gemma4-26b-qat-128k-dflash
+#     #         - anbeeld-qwen36-27b-ud-q3-64k-dflash
+#     #         - anbeeld-ornith-9b-q4-64k-dflash
+# 
+#     code-subagent:
+#         swap: true
+#         exclusive: false
+#         members:
+#             - unsloth-gemma4-12b-qat-64k-mtp-np3
+#     #         - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
+#     #         - ornith-1.0-35b-q4-64k-code
+#     #         - deepreinforce-ornith-9b-q4-64k-think-code
+#     #         - deepreinforce-ornith-9b-q4-64k-code
+# 
