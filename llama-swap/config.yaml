@@ -379,3 +379,9 @@ groups:
         exclusive: false
         members:
             - unsloth-gemma4-12b-qat-64k-mtp-np3
+
+    test:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-qwen3-coder-30b-a3b-q4-64k
