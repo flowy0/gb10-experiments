@@ -82,16 +82,14 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 | Group | Model | Context | TTL | Memory |
 |---|---|---|---|---|
-| **hermes** | 26B QAT MTP γ=2 | **256k** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-256k-think` |
-| **code** | **Ornith-1.0-35B MoE** Q4_K_M | 64k | 24h | ~26 GB | `ornith-1.0-35b-q4-64k-code` |
+| **hermes** | 26B QAT MTP γ=2 | **128k, -np 2** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
+| **code** | Ornith-1.0-35B MoE Q4_K_M | 64k | 24h | ~26 GB | `ornith-1.0-35b-q4-64k-code` |
 | **aux** | 12B QAT + MTP | 128k | 1h | ~17 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
-| **subagent** | 12B QAT + MTP | **64k, -np 3** | 30min | ~10 GB | `unsloth-gemma4-12b-qat-64k-mtp-np3` |
-| **Total** | | | | **~101 GB** ✅ 30 GB free | |
+| **compression** | Gemma4 E4B QAT + TQ | 128k | 30min | ~8 GB | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
+| **subagent** | 12B QAT + MTP -np 3 | 64k | 30min | ~10 GB | `unsloth-gemma4-12b-qat-64k-mtp-np3` |
+| **Total** | | | | **~109 GB** ✅ 22 GB free | |
 
-> Ornith-1.0-35B scored **100/100** on tool-eval-bench (short) — best score of any tested model.
-> Subagent uses 12B QAT MTP with 3 parallel slots for delegation tasks.
-
-> E4B compression model available in compression group but excluded from active memory.
+> Ornith-1.0-35B scored **100/100** on tool-eval-bench.
 
 Start with:
 ```bash
