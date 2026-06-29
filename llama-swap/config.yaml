@@ -186,7 +186,7 @@ models:
             -ngl 99
 
     ornith-1.0-35b-q4-64k-code:
-        name: "Ornith-1.0-35B MoE Q4_K_M (coding)"
+        name: "Ornith-1.0-35B MoE Q4_K_M (64k think-code)"
         ttl: 3600
         cmdStop: docker rm -f ls-ornith-35b-q4-64k-code
         cmd: |
