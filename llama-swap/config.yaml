@@ -4533,13 +4533,13 @@ groups:
         members:
             - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
 
-    unsloth-gemma4-26b-a4b-qat-mtp2-128k-dflash:
-        name: "Gemma4 26B QAT MTP γ=2 + DFlash (128k)"
+    anbeeld-gemma4-26b-qat-128k-dflash:
+        name: "Gemma4 26B QAT + DFlash (128k)"
         ttl: 3600
-        cmdStop: docker rm -f ls-gemma4-26b-dflash
+        cmdStop: docker rm -f ls-anbeeld-gemma4-26b-dflash
         cmd: |
             docker run --rm \
-            --name ls-gemma4-26b-dflash \
+            --name ls-anbeeld-gemma4-26b-dflash \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -4558,13 +4558,13 @@ groups:
             --jinja \
             -ngl 99
 
-    unsloth-qwen36-27b-mtp2-ud-q3-64k-dflash:
-        name: "Qwen3.6 27B UD-Q3 MTP γ=2 + DFlash (64k)"
+    anbeeld-qwen36-27b-ud-q3-64k-dflash:
+        name: "Qwen3.6 27B UD-Q3 + DFlash (64k)"
         ttl: 3600
-        cmdStop: docker rm -f ls-qwen36-27b-dflash
+        cmdStop: docker rm -f ls-anbeeld-qwen36-27b-dflash
         cmd: |
             docker run --rm \
-            --name ls-qwen36-27b-dflash \
+            --name ls-anbeeld-qwen36-27b-dflash \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -4583,13 +4583,13 @@ groups:
             --jinja \
             -ngl 99
 
-    deepreinforce-ornith-9b-q4-64k-dflash:
+    anbeeld-ornith-9b-q4-64k-dflash:
         name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
         ttl: 3600
-        cmdStop: docker rm -f ls-deepreinforce-ornith-9b-dflash
+        cmdStop: docker rm -f ls-anbeeld-ornith-9b-dflash
         cmd: |
             docker run --rm \
-            --name ls-deepreinforce-ornith-9b-dflash \
+            --name ls-anbeeld-ornith-9b-dflash \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -4611,9 +4611,9 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-dflash
-            - unsloth-qwen36-27b-mtp2-ud-q3-64k-dflash
-            - deepreinforce-ornith-9b-q4-64k-dflash
+            - anbeeld-gemma4-26b-qat-128k-dflash
+            - anbeeld-qwen36-27b-ud-q3-64k-dflash
+            - anbeeld-ornith-9b-q4-64k-dflash
 
     code-subagent:
         swap: true
