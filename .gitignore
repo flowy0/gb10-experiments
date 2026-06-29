@@ -25,3 +25,4 @@ bench/prompts/generated/
 build/llama-dflash-image/
 llama.cpp-build/
 llama.cpp-build.log
+build/*.log
