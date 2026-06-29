@@ -22,3 +22,6 @@ logs/
 
 # Test generated prompts
 bench/prompts/generated/
+build/llama-dflash-image/
+llama.cpp-build/
+llama.cpp-build.log
