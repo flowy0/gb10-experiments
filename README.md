@@ -85,9 +85,11 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 | **hermes** | 26B QAT MTP γ=2 | **128k, -np 2** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
 | **code** | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
 | **aux** | 12B QAT + MTP (vision, web, titles) | 128k | 1h | ~14 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
-| **compression** | 12B QAT + MTP | 128k | 30min | ~14 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
+| **compression** | Gemma4 E4B QAT + TQ | 128k | 30min | ~8 GB¹ | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
 | **subagent** | 12B QAT + MTP -np 3 | 64k | 30min | ~10 GB | `unsloth-gemma4-12b-qat-64k-mtp-np3` |
-| **Total** | | | | **~120 GB** ✅ 11 GB free | |
+| **Total** | | | | **~104 GB** ✅ 27 GB free | |
+
+¹ E4B reserved for compression but excluded from active memory calc.
 
 
 Start with:
