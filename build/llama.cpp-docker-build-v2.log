@@ -1,0 +1,1070 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from cuda.Dockerfile
+#1 transferring dockerfile: 3.83kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 ...
+
+#3 [internal] load metadata for docker.io/nvidia/cuda:12.8.1-devel-ubuntu24.04
+#3 DONE 1.5s
+
+#4 [internal] load metadata for docker.io/nvidia/cuda:12.8.1-runtime-ubuntu24.04
+#4 DONE 1.5s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 1.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 303B done
+#5 DONE 0.0s
+
+#6 [web 1/6] FROM docker.io/library/node:24@sha256:fdddfb3e688158251943d52eba361de991548f6814007acba4917ae6b512d6be
+#6 DONE 0.0s
+
+#7 [base 1/3] FROM docker.io/nvidia/cuda:12.8.1-runtime-ubuntu24.04@sha256:ebef3c171eeef0298e4eb2e4be843105edf3b8b0ac45e0b43acee358e8046867
+#7 DONE 0.0s
+
+#8 [build 1/8] FROM docker.io/nvidia/cuda:12.8.1-devel-ubuntu24.04@sha256:520292dbb4f755fd360766059e62956e9379485d9e073bbd2f6e3c20c270ed66
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 282.89kB 0.1s done
+#9 DONE 0.1s
+
+#10 [build 2/8] RUN apt-get update &&     apt-get install -y gcc-14 g++-14 build-essential cmake python3 python3-pip git libssl-dev libgomp1
+#10 CACHED
+
+#11 [build 3/8] WORKDIR /app
+#11 CACHED
+
+#12 [web 2/6] WORKDIR /app/tools/ui
+#12 CACHED
+
+#13 [web 3/6] COPY tools/ui/package.json tools/ui/package-lock.json ./
+#13 CACHED
+
+#14 [web 5/6] COPY tools/ui/ ./
+#14 CACHED
+
+#15 [web 4/6] RUN npm ci
+#15 CACHED
+
+#16 [web 6/6] RUN LLAMA_BUILD_NUMBER="N/A" npm run build
+#16 CACHED
+
+#17 [build 4/8] COPY . .
+#17 DONE 1.6s
+
+#18 [build 5/8] COPY --from=web /app/tools/ui/dist tools/ui/dist
+#18 DONE 0.1s
+
+#19 [build 6/8] RUN if [ "default" != "default" ]; then     export CMAKE_ARGS="-DCMAKE_CUDA_ARCHITECTURES=default";     fi &&     cmake -B build -DGGML_NATIVE=OFF -DGGML_CUDA=ON -DGGML_BACKEND_DL=ON -DGGML_CPU_ALL_VARIANTS=ON -DLLAMA_BUILD_TESTS=OFF ${CMAKE_ARGS} -DCMAKE_EXE_LINKER_FLAGS=-Wl,--allow-shlib-undefined . &&     cmake --build build --config Release -j$(nproc)
+#19 0.309 -- The C compiler identification is GNU 14.2.0
+#19 0.408 -- The CXX compiler identification is GNU 14.2.0
+#19 0.426 -- Detecting C compiler ABI info
+#19 0.511 -- Detecting C compiler ABI info - done
+#19 0.515 -- Check for working C compiler: /usr/bin/gcc-14 - skipped
+#19 0.516 -- Detecting C compile features
+#19 0.516 -- Detecting C compile features - done
+#19 0.523 -- Detecting CXX compiler ABI info
+#19 0.586 -- Detecting CXX compiler ABI info - done
+#19 0.594 -- Check for working CXX compiler: /usr/bin/g++-14 - skipped
+#19 0.595 -- Detecting CXX compile features
+#19 0.595 -- Detecting CXX compile features - done
+#19 0.597 CMAKE_BUILD_TYPE=Release
+#19 0.606 -- Found Git: /usr/bin/git (found version "2.43.0") 
+#19 0.753 -- The ASM compiler identification is GNU
+#19 0.755 -- Found assembler: /usr/bin/gcc-14
+#19 0.771 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+#19 0.852 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+#19 0.853 -- Found Threads: TRUE  
+#19 0.858 -- Warning: ccache not found - consider installing it for faster compilation or disable this warning with GGML_CCACHE=OFF
+#19 0.874 -- CMAKE_SYSTEM_PROCESSOR: aarch64
+#19 0.874 -- GGML_SYSTEM_ARCH: ARM
+#19 1.121 -- Found OpenMP_C: -fopenmp (found version "4.5") 
+#19 1.192 -- Found OpenMP_CXX: -fopenmp (found version "4.5") 
+#19 1.192 -- Found OpenMP: TRUE (found version "4.5")  
+#19 1.194 -- Including CPU backend
+#19 1.194 -- ARM detected
+#19 1.195 -- Performing Test GGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E
+#19 1.228 -- Performing Test GGML_COMPILER_SUPPORTS_FP16_FORMAT_I3E - Failed
+#19 1.228 -- Checking for ARM features using flags:
+#19 1.228 --   -march=armv8-a
+#19 1.229 -- Performing Test HAVE_DOTPROD
+#19 1.262 -- Performing Test HAVE_DOTPROD - Failed
+#19 1.262 -- Performing Test HAVE_SVE
+#19 1.294 -- Performing Test HAVE_SVE - Failed
+#19 1.294 -- Performing Test HAVE_MATMUL_INT8
+#19 1.325 -- Performing Test HAVE_MATMUL_INT8 - Failed
+#19 1.325 -- Performing Test HAVE_FMA
+#19 1.396 -- Performing Test HAVE_FMA - Success
+#19 1.396 -- Performing Test HAVE_FP16_VECTOR_ARITHMETIC
+#19 1.421 -- Performing Test HAVE_FP16_VECTOR_ARITHMETIC - Failed
+#19 1.421 -- Performing Test HAVE_SME
+#19 1.452 -- Performing Test HAVE_SME - Failed
+#19 1.452 -- Adding CPU backend variant ggml-cpu-armv8.0_1: -march=armv8-a 
+#19 1.453 -- ARM detected
+#19 1.453 -- Checking for ARM features using flags:
+#19 1.453 --   -march=armv8.2-a+dotprod
+#19 1.453 -- Adding CPU backend variant ggml-cpu-armv8.2_1: -march=armv8.2-a+dotprod GGML_USE_DOTPROD
+#19 1.454 -- ARM detected
+#19 1.454 -- Checking for ARM features using flags:
+#19 1.454 --   -march=armv8.2-a+dotprod+fp16
+#19 1.454 -- Adding CPU backend variant ggml-cpu-armv8.2_2: -march=armv8.2-a+dotprod+fp16 GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC
+#19 1.455 -- ARM detected
+#19 1.455 -- Checking for ARM features using flags:
+#19 1.455 --   -march=armv8.2-a+dotprod+fp16+sve
+#19 1.455 -- Adding CPU backend variant ggml-cpu-armv8.2_3: -march=armv8.2-a+dotprod+fp16+sve GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC;GGML_USE_SVE
+#19 1.455 -- ARM detected
+#19 1.456 -- Checking for ARM features using flags:
+#19 1.456 --   -march=armv8.6-a+dotprod+fp16+sve+i8mm
+#19 1.456 -- Adding CPU backend variant ggml-cpu-armv8.6_1: -march=armv8.6-a+dotprod+fp16+sve+i8mm GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC;GGML_USE_SVE;GGML_USE_MATMUL_INT8
+#19 1.456 -- ARM detected
+#19 1.456 -- Checking for ARM features using flags:
+#19 1.456 --   -march=armv8.6-a+dotprod+fp16+sve+i8mm+sve2
+#19 1.457 -- Adding CPU backend variant ggml-cpu-armv8.6_2: -march=armv8.6-a+dotprod+fp16+sve+i8mm+sve2 GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC;GGML_USE_SVE;GGML_USE_MATMUL_INT8;GGML_USE_SVE2
+#19 1.457 -- ARM detected
+#19 1.457 -- Checking for ARM features using flags:
+#19 1.457 --   -march=armv9.2-a+dotprod+fp16+sve+i8mm+sme
+#19 1.457 -- Adding CPU backend variant ggml-cpu-armv9.2_1: -march=armv9.2-a+dotprod+fp16+sve+i8mm+sme GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC;GGML_USE_SVE;GGML_USE_MATMUL_INT8;GGML_USE_SME
+#19 1.458 -- ARM detected
+#19 1.458 -- Checking for ARM features using flags:
+#19 1.458 --   -march=armv9.2-a+dotprod+fp16+sve+i8mm+sve2+sme
+#19 1.458 -- Adding CPU backend variant ggml-cpu-armv9.2_2: -march=armv9.2-a+dotprod+fp16+sve+i8mm+sve2+sme GGML_USE_DOTPROD;GGML_USE_FP16_VECTOR_ARITHMETIC;GGML_USE_SVE;GGML_USE_MATMUL_INT8;GGML_USE_SVE2;GGML_USE_SME
+#19 1.501 -- Found CUDAToolkit: /usr/local/cuda/targets/sbsa-linux/include (found version "12.8.93") 
+#19 1.533 -- CUDA Toolkit found
+#19 2.174 -- The CUDA compiler identification is NVIDIA 12.8.93
+#19 2.184 -- Detecting CUDA compiler ABI info
+#19 4.148 -- Detecting CUDA compiler ABI info - done
+#19 4.190 -- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+#19 4.203 -- Detecting CUDA compile features
+#19 4.203 -- Detecting CUDA compile features - done
+#19 4.204 -- Using CMAKE_CUDA_ARCHITECTURES=50-virtual;61-virtual;70-virtual;75-virtual;80-virtual;86-real;89-real;90-virtual;120a-real CMAKE_CUDA_ARCHITECTURES_NATIVE=No CUDA devices found.-real
+#19 4.208 -- Found NCCL: /usr/lib/aarch64-linux-gnu/libnccl.so  
+#19 4.237 -- CUDA host compiler is GNU 14.2.0
+#19 4.237 -- Including CUDA backend
+#19 4.241 -- ggml version: 0.15.3
+#19 4.241 -- ggml commit:  b3fed31b9-dirty
+#19 4.247 -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "3.0.13")  
+#19 4.247 -- Performing Test OPENSSL_VERSION_SUPPORTED
+#19 4.321 -- Performing Test OPENSSL_VERSION_SUPPORTED - Success
+#19 4.321 -- OpenSSL found: 3.0.13
+#19 4.332 -- Generating embedded license file for target: llama-app
+#19 4.336 -- Configuring done (4.1s)
+#19 4.427 -- Generating done (0.1s)
+#19 4.433 -- Build files have been written to: /app/build
+#19 4.471 [  0%] Building C object ggml/src/CMakeFiles/ggml-base.dir/ggml.c.o
+#19 4.472 [  1%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/ggml.cpp.o
+#19 4.472 [  1%] Building CXX object common/CMakeFiles/llama-common-base.dir/build-info.cpp.o
+#19 4.473 [  1%] Building CXX object vendor/cpp-httplib/CMakeFiles/cpp-httplib.dir/httplib.cpp.o
+#19 4.473 [  1%] Building C object examples/gguf-hash/CMakeFiles/sha256.dir/deps/sha256/sha256.c.o
+#19 4.473 [  1%] Building CXX object tools/mtmd/CMakeFiles/llama-gemma3-cli.dir/deprecation-warning.cpp.o
+#19 4.473 [  1%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.473 [  1%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.474 [  2%] Building CXX object tools/mtmd/CMakeFiles/llama-llava-cli.dir/deprecation-warning.cpp.o
+#19 4.474 [  2%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.476 [  3%] Building C object examples/gguf-hash/CMakeFiles/xxhash.dir/deps/xxhash/xxhash.c.o
+#19 4.477 [  4%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.477 [  4%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.477 [  5%] Building C object examples/gguf-hash/CMakeFiles/sha1.dir/deps/sha1/sha1.c.o
+#19 4.477 [  5%] Building CXX object tools/mtmd/CMakeFiles/llama-qwen2vl-cli.dir/deprecation-warning.cpp.o
+#19 4.477 [  5%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.478 [  5%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.478 [  5%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3-feats.dir/ggml-cpu/arch/arm/cpu-feats.cpp.o
+#19 4.479 [  5%] Building CXX object tools/mtmd/CMakeFiles/llama-minicpmv-cli.dir/deprecation-warning.cpp.o
+#19 4.482 [  6%] Building CXX object tools/ui/CMakeFiles/llama-ui-embed.dir/embed.cpp.o
+#19 4.506 [  6%] Built target ggml-cpu-armv8.6_1-feats
+#19 4.506 [  6%] Built target ggml-cpu-armv8.2_1-feats
+#19 4.506 [  6%] Built target ggml-cpu-armv8.0_1-feats
+#19 4.507 [  6%] Built target ggml-cpu-armv9.2_1-feats
+#19 4.510 [  6%] Building C object ggml/src/CMakeFiles/ggml-base.dir/ggml-alloc.c.o
+#19 4.510 [  6%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/ggml-backend.cpp.o
+#19 4.511 [  6%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/ggml-backend-meta.cpp.o
+#19 4.514 [  6%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/ggml-opt.cpp.o
+#19 4.526 [  6%] Built target ggml-cpu-armv8.2_3-feats
+#19 4.526 [  6%] Built target ggml-cpu-armv8.6_2-feats
+#19 4.526 [  6%] Built target ggml-cpu-armv9.2_2-feats
+#19 4.527 [  6%] Built target ggml-cpu-armv8.2_2-feats
+#19 4.535 [  6%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/ggml-threading.cpp.o
+#19 4.535 [  6%] Building C object ggml/src/CMakeFiles/ggml-base.dir/ggml-quants.c.o
+#19 4.535 [  7%] Building CXX object ggml/src/CMakeFiles/ggml-base.dir/gguf.cpp.o
+#19 4.614 [  7%] Linking CXX executable ../../bin/llama-llava-cli
+#19 4.615 [  8%] Linking CXX executable ../../bin/llama-gemma3-cli
+#19 4.615 [  8%] Built target sha1
+#19 4.619 [  9%] Linking CXX executable ../../bin/llama-minicpmv-cli
+#19 4.622 [  9%] Linking CXX executable ../../bin/llama-qwen2vl-cli
+#19 4.628 [  9%] Built target sha256
+#19 4.628 [  9%] Linking CXX static library libllama-common-base.a
+#19 4.659 [  9%] Built target llama-common-base
+#19 4.676 [  9%] Built target llama-llava-cli
+#19 4.679 [  9%] Built target llama-minicpmv-cli
+#19 4.682 [  9%] Built target llama-gemma3-cli
+#19 4.682 [  9%] Built target llama-qwen2vl-cli
+#19 5.266 [  9%] Linking CXX executable llama-ui-embed
+#19 5.321 [  9%] Built target llama-ui-embed
+#19 5.334 [  9%] Provisioning UI assets
+#19 5.342 -- UI: using pre-built assets from /app/tools/ui/dist
+#19 5.622 -- UI: gzip compression applied (/app/tools/ui/dist/_gzip)
+#19 5.670 embed: write output file /app/build/tools/ui/ui.h
+#19 5.670 embed: write output file /app/build/tools/ui/ui.cpp
+#19 5.677 [  9%] Built target llama-ui-assets
+#19 5.693 [  9%] Building CXX object tools/ui/CMakeFiles/llama-ui.dir/ui.cpp.o
+#19 6.071 [  9%] Built target xxhash
+#19 7.374 [  9%] Linking CXX shared library ../../bin/libggml-base.so
+#19 7.462 [  9%] Built target ggml-base
+#19 7.475 [  9%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 7.475 [  9%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/repack.cpp.o
+#19 7.475 [  9%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/quants.c.o
+#19 7.476 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/hbm.cpp.o
+#19 7.476 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.476 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/repack.cpp.o
+#19 7.477 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.477 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.478 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 7.478 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/hbm.cpp.o
+#19 7.478 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.479 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/quants.c.o
+#19 7.479 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.480 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/traits.cpp.o
+#19 7.480 [ 10%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/acc.cu.o
+#19 7.481 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.481 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.481 [ 10%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/ggml-cpu.c.o
+#19 7.482 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 7.493 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 7.510 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 7.941 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/amx/amx.cpp.o
+#19 7.947 [ 10%] Linking CXX static library libllama-ui.a
+#19 7.977 [ 10%] Built target llama-ui
+#19 7.985 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 7.991 [ 10%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/add-id.cu.o
+#19 7.994 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 8.023 [ 10%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 8.076 [ 11%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/repack.cpp.o
+#19 8.083 [ 11%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 8.083 [ 11%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/repack.cpp.o
+#19 8.085 [ 11%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/repack.cpp.o
+#19 8.099 [ 12%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/ggml-cpu.cpp.o
+#19 8.180 [ 13%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/amx/amx.cpp.o
+#19 8.180 [ 13%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/traits.cpp.o
+#19 8.233 [ 13%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/hbm.cpp.o
+#19 8.240 [ 13%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/quants.c.o
+#19 8.255 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/hbm.cpp.o
+#19 8.280 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/traits.cpp.o
+#19 8.307 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/amx/amx.cpp.o
+#19 8.327 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/repack.cpp.o
+#19 8.334 [ 14%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/allreduce.cu.o
+#19 8.340 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 8.501 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/repack.cpp.o
+#19 8.501 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/amx/mmq.cpp.o
+#19 8.568 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/binary-ops.cpp.o
+#19 8.603 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/hbm.cpp.o
+#19 8.624 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/amx/mmq.cpp.o
+#19 8.633 [ 14%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/repack.cpp.o
+#19 8.724 [ 15%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/binary-ops.cpp.o
+#19 8.763 [ 16%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/amx/mmq.cpp.o
+#19 8.819 [ 16%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/arange.cu.o
+#19 8.822 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 8.878 [ 16%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/hbm.cpp.o
+#19 8.881 [ 16%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/hbm.cpp.o
+#19 8.899 [ 16%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/binary-ops.cpp.o
+#19 8.901 [ 17%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/hbm.cpp.o
+#19 8.921 [ 17%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/quants.c.o
+#19 9.066 [ 18%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/quants.c.o
+#19 9.086 [ 19%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/quants.c.o
+#19 9.334 [ 19%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/quants.c.o
+#19 9.791 [ 19%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/argmax.cu.o
+#19 9.793 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 9.797 [ 19%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/argsort.cu.o
+#19 9.800 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 9.857 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/unary-ops.cpp.o
+#19 9.878 [ 19%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/quants.c.o
+#19 9.890 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/traits.cpp.o
+#19 10.19 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/traits.cpp.o
+#19 10.19 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/traits.cpp.o
+#19 10.49 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/amx/amx.cpp.o
+#19 10.69 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/amx/mmq.cpp.o
+#19 10.92 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/amx/amx.cpp.o
+#19 10.97 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/traits.cpp.o
+#19 11.18 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/amx/amx.cpp.o
+#19 11.28 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/amx/mmq.cpp.o
+#19 11.41 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/unary-ops.cpp.o
+#19 11.46 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/amx/amx.cpp.o
+#19 11.47 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/traits.cpp.o
+#19 11.50 [ 19%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/unary-ops.cpp.o
+#19 11.58 [ 20%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/binbcast.cu.o
+#19 11.58 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 11.59 [ 20%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/vec.cpp.o
+#19 11.67 [ 20%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/vec.cpp.o
+#19 11.67 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/amx/mmq.cpp.o
+#19 11.76 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/amx/mmq.cpp.o
+#19 11.85 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/amx/amx.cpp.o
+#19 11.86 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/binary-ops.cpp.o
+#19 11.87 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/binary-ops.cpp.o
+#19 12.00 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/ops.cpp.o
+#19 12.02 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/unary-ops.cpp.o
+#19 12.05 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/vec.cpp.o
+#19 12.14 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/binary-ops.cpp.o
+#19 12.23 [ 21%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/clamp.cu.o
+#19 12.24 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 12.27 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/amx/mmq.cpp.o
+#19 12.42 [ 21%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 12.43 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/vec.cpp.o
+#19 12.65 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/ops.cpp.o
+#19 12.79 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/ops.cpp.o
+#19 12.86 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/binary-ops.cpp.o
+#19 12.93 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/binary-ops.cpp.o
+#19 13.00 [ 22%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/unary-ops.cpp.o
+#19 13.04 [ 23%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/vec.cpp.o
+#19 13.15 [ 23%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/unary-ops.cpp.o
+#19 13.64 [ 23%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/unary-ops.cpp.o
+#19 13.66 [ 24%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/arch/arm/quants.c.o
+#19 13.84 [ 24%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/ops.cpp.o
+#19 14.27 [ 24%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/ops.cpp.o
+#19 14.34 [ 24%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 14.39 [ 24%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 14.42 [ 25%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 14.55 [ 25%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/unary-ops.cpp.o
+#19 14.63 [ 25%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/vec.cpp.o
+#19 14.93 [ 25%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/vec.cpp.o
+#19 15.23 [ 26%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/ops.cpp.o
+#19 15.27 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/ops.cpp.o
+#19 16.21 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_1.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 16.24 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/vec.cpp.o
+#19 16.45 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 16.54 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/arch/arm/quants.c.o
+#19 16.58 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 16.60 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/ops.cpp.o
+#19 17.15 [ 27%] Linking CXX static library libcpp-httplib.a
+#19 17.19 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/arch/arm/quants.c.o
+#19 17.19 [ 27%] Built target cpp-httplib
+#19 17.20 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 17.29 [ 27%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/col2im-1d.cu.o
+#19 17.29 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 17.37 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/arch/arm/quants.c.o
+#19 17.53 [ 27%] Linking CXX shared module ../../bin/libggml-cpu-armv8.2_1.so
+#19 17.55 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/arch/arm/quants.c.o
+#19 17.62 [ 27%] Built target ggml-cpu-armv8.2_1
+#19 17.63 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_2.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 17.85 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/arch/arm/quants.c.o
+#19 18.04 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/llamafile/sgemm.cpp.o
+#19 18.14 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_1.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 18.50 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.2_3.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 18.58 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/arch/arm/quants.c.o
+#19 18.60 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_2.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 18.84 [ 27%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/concat.cu.o
+#19 18.85 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 18.94 [ 27%] Building C object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/arch/arm/quants.c.o
+#19 18.98 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.6_2.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 19.21 [ 27%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv8.0_1.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 19.31 [ 27%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/conv-transpose-1d.cu.o
+#19 19.31 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 19.45 [ 27%] Linking CXX shared module ../../bin/libggml-cpu-armv8.2_3.so
+#19 19.48 [ 28%] Building CXX object ggml/src/CMakeFiles/ggml-cpu-armv9.2_1.dir/ggml-cpu/arch/arm/repack.cpp.o
+#19 19.54 [ 28%] Built target ggml-cpu-armv8.2_3
+#19 19.55 [ 28%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/conv2d-dw.cu.o
+#19 19.55 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 19.92 [ 29%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/conv2d-transpose.cu.o
+#19 19.92 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 19.94 [ 29%] Linking CXX shared module ../../bin/libggml-cpu-armv8.0_1.so
+#19 20.03 [ 29%] Built target ggml-cpu-armv8.0_1
+#19 20.04 [ 29%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/conv2d.cu.o
+#19 20.05 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.21 [ 30%] Linking CXX shared module ../../bin/libggml-cpu-armv8.6_1.so
+#19 20.24 [ 30%] Linking CXX shared module ../../bin/libggml-cpu-armv9.2_2.so
+#19 20.26 [ 30%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/convert.cu.o
+#19 20.26 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.28 [ 30%] Built target ggml-cpu-armv8.6_1
+#19 20.28 [ 30%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/count-equal.cu.o
+#19 20.29 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.33 [ 30%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/cpy.cu.o
+#19 20.33 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.33 [ 30%] Built target ggml-cpu-armv9.2_2
+#19 20.33 [ 30%] Linking CXX shared module ../../bin/libggml-cpu-armv8.6_2.so
+#19 20.34 [ 30%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/cross-entropy-loss.cu.o
+#19 20.34 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.42 [ 30%] Built target ggml-cpu-armv8.6_2
+#19 20.42 [ 30%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/cumsum.cu.o
+#19 20.43 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/diag.cu.o
+#19 20.43 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.43 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.45 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/diagmask.cu.o
+#19 20.45 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.74 [ 31%] Linking CXX shared module ../../bin/libggml-cpu-armv9.2_1.so
+#19 20.83 [ 31%] Built target ggml-cpu-armv9.2_1
+#19 20.84 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/fattn-tile.cu.o
+#19 20.85 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 20.91 [ 31%] Linking CXX shared module ../../bin/libggml-cpu-armv8.2_2.so
+#19 21.00 [ 31%] Built target ggml-cpu-armv8.2_2
+#19 21.01 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/fattn-wmma-f16.cu.o
+#19 21.02 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 21.17 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/fattn.cu.o
+#19 21.17 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 21.26 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/fill.cu.o
+#19 21.26 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 21.48 [ 31%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/fwht.cu.o
+#19 21.48 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 26.47 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/gated_delta_net.cu.o
+#19 26.47 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 28.94 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/getrows.cu.o
+#19 28.94 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 29.35 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/ggml-cuda.cu.o
+#19 29.35 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 29.53 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/gla.cu.o
+#19 29.54 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 29.74 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/im2col.cu.o
+#19 29.74 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 30.30 [ 32%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mean.cu.o
+#19 30.30 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 30.62 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mmf.cu.o
+#19 30.62 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 30.93 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mmid.cu.o
+#19 30.93 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 31.77 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mmq.cu.o
+#19 31.77 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 31.99 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mmvf.cu.o
+#19 31.99 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 32.48 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/mmvq.cu.o
+#19 32.49 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 33.04 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/norm.cu.o
+#19 33.04 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 34.51 [ 33%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/opt-step-adamw.cu.o
+#19 34.51 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 35.62 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/opt-step-sgd.cu.o
+#19 35.63 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 36.21 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/out-prod.cu.o
+#19 36.22 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 37.80 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/pad.cu.o
+#19 37.80 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 38.72 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/pad_reflect_1d.cu.o
+#19 38.73 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 40.69 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/pool2d.cu.o
+#19 40.69 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 41.81 [ 34%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/quantize.cu.o
+#19 41.82 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 43.70 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/roll.cu.o
+#19 43.70 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 44.72 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/rope.cu.o
+#19 44.72 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 46.21 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/scale.cu.o
+#19 46.21 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 46.42 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/set-rows.cu.o
+#19 46.42 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 46.70 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/set.cu.o
+#19 46.70 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 47.20 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/snake.cu.o
+#19 47.21 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 48.07 [ 35%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/softcap.cu.o
+#19 48.07 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 48.17 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/softmax.cu.o
+#19 48.17 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 48.33 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/solve_tri.cu.o
+#19 48.33 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 48.61 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/ssm-conv.cu.o
+#19 48.62 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 49.62 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/ssm-scan.cu.o
+#19 49.62 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 50.88 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/sum.cu.o
+#19 50.88 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 52.01 [ 36%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/sumrows.cu.o
+#19 52.02 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 52.37 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/top-k.cu.o
+#19 52.37 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 53.36 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/topk-moe.cu.o
+#19 53.37 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 54.09 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/tri.cu.o
+#19 54.10 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 56.22 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/tsembd.cu.o
+#19 56.22 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 58.54 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/unary.cu.o
+#19 58.54 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 58.62 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/upscale.cu.o
+#19 58.62 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 58.99 [ 37%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/wkv.cu.o
+#19 58.99 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 59.86 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq112-dv112.cu.o
+#19 59.87 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 61.95 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq128-dv128.cu.o
+#19 61.96 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 65.03 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq192-dv128.cu.o
+#19 65.03 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 66.15 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq256-dv256.cu.o
+#19 66.15 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 66.73 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq320-dv256.cu.o
+#19 66.73 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 68.17 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq40-dv40.cu.o
+#19 68.18 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 68.73 [ 38%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq512-dv512.cu.o
+#19 68.73 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 69.58 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq576-dv512.cu.o
+#19 69.59 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 70.70 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq64-dv64.cu.o
+#19 70.70 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 70.90 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq72-dv72.cu.o
+#19 70.90 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 71.02 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq80-dv80.cu.o
+#19 71.03 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 71.94 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-tile-instance-dkq96-dv96.cu.o
+#19 71.94 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 73.03 [ 39%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_1-ncols2_16.cu.o
+#19 73.03 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 73.89 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_1-ncols2_32.cu.o
+#19 73.89 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 78.67 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_1-ncols2_8.cu.o
+#19 78.67 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 86.83 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_16-ncols2_1.cu.o
+#19 86.84 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 98.41 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_16-ncols2_2.cu.o
+#19 98.42 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 104.3 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_16-ncols2_4.cu.o
+#19 104.3 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 119.9 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_2-ncols2_16.cu.o
+#19 119.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 122.2 [ 40%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_2-ncols2_32.cu.o
+#19 122.2 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 131.1 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_2-ncols2_4.cu.o
+#19 131.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 132.0 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_2-ncols2_8.cu.o
+#19 132.0 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 132.9 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_32-ncols2_1.cu.o
+#19 132.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 142.9 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_32-ncols2_2.cu.o
+#19 142.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 145.1 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_4-ncols2_16.cu.o
+#19 145.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 150.5 [ 41%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_4-ncols2_2.cu.o
+#19 150.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 153.1 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_4-ncols2_4.cu.o
+#19 153.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 153.5 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_4-ncols2_8.cu.o
+#19 153.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 157.6 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_64-ncols2_1.cu.o
+#19 157.6 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 159.4 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_8-ncols2_1.cu.o
+#19 159.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 166.2 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_8-ncols2_2.cu.o
+#19 166.2 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 168.2 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_8-ncols2_4.cu.o
+#19 168.2 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 168.7 [ 42%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-mma-f16-instance-ncols1_8-ncols2_8.cu.o
+#19 168.7 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 172.9 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq1_s.cu.o
+#19 172.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 174.6 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq2_s.cu.o
+#19 174.6 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 191.8 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq2_xs.cu.o
+#19 191.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 202.5 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq2_xxs.cu.o
+#19 202.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 217.4 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq3_s.cu.o
+#19 217.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 230.3 [ 43%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq3_xxs.cu.o
+#19 230.3 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 238.3 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq4_nl.cu.o
+#19 238.3 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 248.9 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-iq4_xs.cu.o
+#19 248.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 256.8 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-mxfp4.cu.o
+#19 256.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 258.1 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-nvfp4.cu.o
+#19 258.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 258.8 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q1_0.cu.o
+#19 258.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 264.4 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q2_k.cu.o
+#19 264.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 270.8 [ 44%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q3_k.cu.o
+#19 270.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 272.0 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q4_0.cu.o
+#19 272.0 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 277.5 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q4_1.cu.o
+#19 277.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 285.1 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q4_k.cu.o
+#19 285.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 289.0 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q5_0.cu.o
+#19 289.0 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 293.8 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q5_1.cu.o
+#19 293.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 297.3 [ 45%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q5_k.cu.o
+#19 297.3 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 301.2 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q6_k.cu.o
+#19 301.2 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 338.8 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmq-instance-q8_0.cu.o
+#19 338.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 339.7 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_1.cu.o
+#19 339.7 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 346.9 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_10.cu.o
+#19 346.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 353.5 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_11.cu.o
+#19 353.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 359.4 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_12.cu.o
+#19 359.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 369.5 [ 46%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_13.cu.o
+#19 369.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 371.4 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_14.cu.o
+#19 371.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 381.8 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_15.cu.o
+#19 381.8 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 383.4 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_16.cu.o
+#19 383.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 385.1 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_2.cu.o
+#19 385.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 386.5 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_3.cu.o
+#19 386.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 387.4 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_4.cu.o
+#19 387.4 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 391.7 [ 47%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_5.cu.o
+#19 391.7 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 395.5 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_6.cu.o
+#19 395.5 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 405.7 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_7.cu.o
+#19 405.7 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 410.9 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_8.cu.o
+#19 410.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 415.2 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/mmf-instance-ncols_9.cu.o
+#19 415.2 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 423.7 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-vec-instance-f16-f16.cu.o
+#19 423.7 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 425.0 [ 48%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-vec-instance-q4_0-q4_0.cu.o
+#19 425.0 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 425.1 [ 49%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-vec-instance-q8_0-q8_0.cu.o
+#19 425.1 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 425.9 [ 49%] Building CUDA object ggml/src/ggml-cuda/CMakeFiles/ggml-cuda.dir/template-instances/fattn-vec-instance-bf16-bf16.cu.o
+#19 425.9 nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+#19 475.7 [ 49%] Linking CUDA shared module ../../../bin/libggml-cuda.so
+#19 476.2 [ 49%] Built target ggml-cuda
+#19 476.2 [ 49%] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-backend-dl.cpp.o
+#19 476.2 [ 49%] Building CXX object ggml/src/CMakeFiles/ggml.dir/ggml-backend-reg.cpp.o
+#19 476.9 [ 49%] Linking CXX shared library ../../bin/libggml.so
+#19 477.0 [ 49%] Built target ggml
+#19 477.0 [ 49%] Building CXX object examples/gguf-hash/CMakeFiles/llama-gguf-hash.dir/gguf-hash.cpp.o
+#19 477.0 [ 49%] Building CXX object examples/gguf/CMakeFiles/llama-gguf.dir/gguf.cpp.o
+#19 477.0 [ 49%] Building CXX object src/CMakeFiles/llama.dir/llama.cpp.o
+#19 477.0 [ 49%] Building CXX object src/CMakeFiles/llama.dir/llama-adapter.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-chat.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-graph.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-grammar.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-io.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-kv-cache-iswa.cpp.o
+#19 477.0 [ 49%] Building CXX object src/CMakeFiles/llama.dir/llama-arch.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-batch.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-context.cpp.o
+#19 477.0 [ 50%] Building CXX object src/CMakeFiles/llama.dir/llama-cparams.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-memory.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-kv-cache.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-memory-hybrid.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-kv-cache-dsa.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-impl.cpp.o
+#19 477.0 [ 51%] Building CXX object src/CMakeFiles/llama.dir/llama-hparams.cpp.o
+#19 477.0 [ 52%] Building CXX object src/CMakeFiles/llama.dir/llama-memory-hybrid-iswa.cpp.o
+#19 477.1 [ 52%] Building CXX object src/CMakeFiles/llama.dir/llama-memory-recurrent.cpp.o
+#19 477.1 [ 52%] Building CXX object src/CMakeFiles/llama.dir/llama-mmap.cpp.o
+#19 477.2 [ 52%] Building CXX object src/CMakeFiles/llama.dir/llama-model-loader.cpp.o
+#19 477.3 [ 52%] Linking CXX executable ../../bin/llama-gguf
+#19 477.3 [ 52%] Built target llama-gguf
+#19 477.3 [ 52%] Building CXX object src/CMakeFiles/llama.dir/llama-model-saver.cpp.o
+#19 477.4 [ 53%] Linking CXX executable ../../bin/llama-gguf-hash
+#19 477.4 [ 53%] Building CXX object src/CMakeFiles/llama.dir/llama-model.cpp.o
+#19 477.4 [ 53%] Built target llama-gguf-hash
+#19 477.4 [ 54%] Building CXX object src/CMakeFiles/llama.dir/llama-quant.cpp.o
+#19 477.5 [ 54%] Building CXX object src/CMakeFiles/llama.dir/llama-sampler.cpp.o
+#19 477.6 [ 54%] Building CXX object src/CMakeFiles/llama.dir/llama-vocab.cpp.o
+#19 477.7 [ 54%] Building CXX object src/CMakeFiles/llama.dir/unicode-data.cpp.o
+#19 477.7 [ 54%] Building CXX object src/CMakeFiles/llama.dir/unicode.cpp.o
+#19 477.8 [ 54%] Building CXX object src/CMakeFiles/llama.dir/models/afmoe.cpp.o
+#19 477.8 [ 54%] Building CXX object src/CMakeFiles/llama.dir/models/apertus.cpp.o
+#19 477.9 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/arcee.cpp.o
+#19 478.0 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/arctic.cpp.o
+#19 478.1 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/arwkv7.cpp.o
+#19 478.2 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/baichuan.cpp.o
+#19 478.2 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/bailingmoe.cpp.o
+#19 478.4 [ 55%] Building CXX object src/CMakeFiles/llama.dir/models/bailingmoe2.cpp.o
+#19 478.5 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/bert.cpp.o
+#19 478.5 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/bitnet.cpp.o
+#19 478.6 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/bloom.cpp.o
+#19 478.6 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/chameleon.cpp.o
+#19 478.7 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/chatglm.cpp.o
+#19 478.7 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/codeshell.cpp.o
+#19 478.8 [ 56%] Building CXX object src/CMakeFiles/llama.dir/models/cogvlm.cpp.o
+#19 478.8 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/cohere2.cpp.o
+#19 478.9 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/cohere2moe.cpp.o
+#19 478.9 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/command-r.cpp.o
+#19 479.0 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/dbrx.cpp.o
+#19 479.0 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/deci.cpp.o
+#19 479.1 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/deepseek.cpp.o
+#19 479.1 [ 57%] Building CXX object src/CMakeFiles/llama.dir/models/deepseek2.cpp.o
+#19 479.2 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/deepseek2ocr.cpp.o
+#19 479.3 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/deepseek32.cpp.o
+#19 479.4 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/delta-net-base.cpp.o
+#19 479.4 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/dflash.cpp.o
+#19 479.5 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/dots1.cpp.o
+#19 479.6 [ 58%] Building CXX object src/CMakeFiles/llama.dir/models/dream.cpp.o
+#19 479.6 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/eagle3.cpp.o
+#19 479.7 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/ernie4-5-moe.cpp.o
+#19 479.8 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/ernie4-5.cpp.o
+#19 479.8 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/eurobert.cpp.o
+#19 479.9 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/exaone-moe.cpp.o
+#19 479.9 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/exaone.cpp.o
+#19 480.0 [ 59%] Building CXX object src/CMakeFiles/llama.dir/models/exaone4.cpp.o
+#19 480.0 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/falcon-h1.cpp.o
+#19 480.0 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/falcon.cpp.o
+#19 480.2 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/gemma-embedding.cpp.o
+#19 480.3 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/gemma.cpp.o
+#19 480.4 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/gemma2.cpp.o
+#19 480.4 [ 60%] Building CXX object src/CMakeFiles/llama.dir/models/gemma3.cpp.o
+#19 480.4 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/gemma3n.cpp.o
+#19 480.4 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/gemma4-assistant.cpp.o
+#19 480.5 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/gemma4.cpp.o
+#19 480.5 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/glm-dsa.cpp.o
+#19 480.6 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/glm4-moe.cpp.o
+#19 480.6 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/glm4.cpp.o
+#19 480.7 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/gpt2.cpp.o
+#19 480.8 [ 61%] Building CXX object src/CMakeFiles/llama.dir/models/granite-hybrid.cpp.o
+#19 480.8 [ 62%] Building CXX object src/CMakeFiles/llama.dir/models/gptneox.cpp.o
+#19 480.9 [ 62%] Building CXX object src/CMakeFiles/llama.dir/models/granite-moe.cpp.o
+#19 480.9 [ 62%] Building CXX object src/CMakeFiles/llama.dir/models/granite.cpp.o
+#19 480.9 [ 62%] Building CXX object src/CMakeFiles/llama.dir/models/grok.cpp.o
+#19 480.9 [ 62%] Building CXX object src/CMakeFiles/llama.dir/models/grovemoe.cpp.o
+#19 481.0 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/hunyuan-dense.cpp.o
+#19 481.0 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/hunyuan-moe.cpp.o
+#19 481.0 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/hunyuan-vl.cpp.o
+#19 481.1 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/internlm2.cpp.o
+#19 481.2 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/jais.cpp.o
+#19 481.2 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/jais2.cpp.o
+#19 481.2 [ 63%] Building CXX object src/CMakeFiles/llama.dir/models/jamba.cpp.o
+#19 481.4 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/jina-bert-v2.cpp.o
+#19 481.4 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/jina-bert-v3.cpp.o
+#19 481.4 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/kimi-linear.cpp.o
+#19 481.5 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/lfm2.cpp.o
+#19 481.5 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/lfm2moe.cpp.o
+#19 481.5 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/llada-moe.cpp.o
+#19 481.6 [ 64%] Building CXX object src/CMakeFiles/llama.dir/models/llada.cpp.o
+#19 481.6 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/llama-embed.cpp.o
+#19 481.6 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/llama.cpp.o
+#19 481.6 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/llama4.cpp.o
+#19 481.8 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/maincoder.cpp.o
+#19 481.8 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/mamba-base.cpp.o
+#19 481.8 [ 65%] Building CXX object src/CMakeFiles/llama.dir/models/mamba.cpp.o
+#19 481.8 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/mamba2.cpp.o
+#19 481.8 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/mellum.cpp.o
+#19 482.0 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/mimo2.cpp.o
+#19 482.0 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/minicpm.cpp.o
+#19 482.1 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/minicpm3.cpp.o
+#19 482.2 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/minimax-m2.cpp.o
+#19 482.2 [ 66%] Building CXX object src/CMakeFiles/llama.dir/models/mistral3.cpp.o
+#19 482.2 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/mistral4.cpp.o
+#19 482.2 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/modern-bert.cpp.o
+#19 482.2 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/mpt.cpp.o
+#19 482.3 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/nemotron-h-moe.cpp.o
+#19 482.3 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/nemotron-h.cpp.o
+#19 482.3 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/nemotron.cpp.o
+#19 482.4 [ 67%] Building CXX object src/CMakeFiles/llama.dir/models/nomic-bert-moe.cpp.o
+#19 482.4 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/neo-bert.cpp.o
+#19 482.4 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/nomic-bert.cpp.o
+#19 482.4 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/olmo.cpp.o
+#19 482.5 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/olmo2.cpp.o
+#19 482.5 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/olmoe.cpp.o
+#19 482.6 [ 68%] Building CXX object src/CMakeFiles/llama.dir/models/openai-moe.cpp.o
+#19 482.6 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/openelm.cpp.o
+#19 482.6 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/orion.cpp.o
+#19 482.7 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/paddleocr.cpp.o
+#19 482.7 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/pangu-embed.cpp.o
+#19 482.7 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/phi2.cpp.o
+#19 482.7 [ 69%] Building CXX object src/CMakeFiles/llama.dir/models/phi3.cpp.o
+#19 482.7 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/phimoe.cpp.o
+#19 482.8 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/plamo.cpp.o
+#19 482.8 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/plamo2.cpp.o
+#19 482.8 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/plamo3.cpp.o
+#19 482.9 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/plm.cpp.o
+#19 483.0 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/qwen.cpp.o
+#19 483.0 [ 70%] Building CXX object src/CMakeFiles/llama.dir/models/qwen2.cpp.o
+#19 483.0 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen2moe.cpp.o
+#19 483.1 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen2vl.cpp.o
+#19 483.1 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen3.cpp.o
+#19 483.1 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen35.cpp.o
+#19 483.1 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen35moe.cpp.o
+#19 483.2 [ 71%] Building CXX object src/CMakeFiles/llama.dir/models/qwen3moe.cpp.o
+#19 483.2 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/qwen3next.cpp.o
+#19 483.2 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/qwen3vl.cpp.o
+#19 483.2 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/qwen3vlmoe.cpp.o
+#19 483.3 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/refact.cpp.o
+#19 483.3 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/rnd1.cpp.o
+#19 483.3 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/rwkv6-base.cpp.o
+#19 483.4 [ 72%] Building CXX object src/CMakeFiles/llama.dir/models/rwkv6.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/rwkv6qwen2.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/rwkv7-base.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/rwkv7.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/seed-oss.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/smallthinker.cpp.o
+#19 483.5 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/smollm3.cpp.o
+#19 483.6 [ 73%] Building CXX object src/CMakeFiles/llama.dir/models/stablelm.cpp.o
+#19 483.6 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/starcoder.cpp.o
+#19 483.7 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/starcoder2.cpp.o
+#19 483.7 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/step35.cpp.o
+#19 483.8 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/t5.cpp.o
+#19 483.8 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/t5encoder.cpp.o
+#19 483.8 [ 74%] Building CXX object src/CMakeFiles/llama.dir/models/talkie.cpp.o
+#19 483.9 [ 75%] Building CXX object src/CMakeFiles/llama.dir/models/wavtokenizer-dec.cpp.o
+#19 484.0 [ 75%] Building CXX object src/CMakeFiles/llama.dir/models/xverse.cpp.o
+#19 484.4 [ 75%] Linking CXX shared library ../bin/libllama.so
+#19 484.6 [ 75%] Built target llama
+#19 484.6 [ 75%] Building CXX object examples/simple-chat/CMakeFiles/llama-simple-chat.dir/simple-chat.cpp.o
+#19 484.6 [ 75%] Building CXX object examples/simple/CMakeFiles/llama-simple.dir/simple.cpp.o
+#19 484.6 [ 75%] Building CXX object common/CMakeFiles/llama-common.dir/chat-auto-parser-generator.cpp.o
+#19 484.6 [ 75%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/mtmd-audio.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/chat.cpp.o
+#19 484.6 [ 76%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/clip.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/debug.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/console.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/download.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/arg.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/chat-auto-parser-helpers.cpp.o
+#19 484.6 [ 76%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/mtmd.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/chat-peg-parser.cpp.o
+#19 484.6 [ 77%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/cogvlm.cpp.o
+#19 484.6 [ 77%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/mtmd-image.cpp.o
+#19 484.6 [ 76%] Building CXX object common/CMakeFiles/llama-common.dir/chat-diff-analyzer.cpp.o
+#19 484.6 [ 77%] Building CXX object common/CMakeFiles/llama-common.dir/common.cpp.o
+#19 484.6 [ 77%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/conformer.cpp.o
+#19 484.6 [ 77%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/dotsocr.cpp.o
+#19 484.6 [ 77%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/mtmd-helper.cpp.o
+#19 484.8 [ 77%] Linking CXX executable ../../bin/llama-simple
+#19 484.9 [ 77%] Built target llama-simple
+#19 484.9 [ 77%] Linking CXX executable ../../bin/llama-simple-chat
+#19 484.9 [ 77%] Building CXX object common/CMakeFiles/llama-common.dir/fit.cpp.o
+#19 484.9 [ 77%] Built target llama-simple-chat
+#19 484.9 [ 77%] Building CXX object common/CMakeFiles/llama-common.dir/hf-cache.cpp.o
+#19 485.1 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/imatrix-loader.cpp.o
+#19 485.5 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/json-schema-to-grammar.cpp.o
+#19 485.6 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/llguidance.cpp.o
+#19 485.7 [ 78%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/exaone4_5.cpp.o
+#19 485.9 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/log.cpp.o
+#19 486.0 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/ngram-cache.cpp.o
+#19 486.1 [ 78%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/gemma4a.cpp.o
+#19 486.2 [ 78%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/gemma4v.cpp.o
+#19 486.2 [ 78%] Building CXX object common/CMakeFiles/llama-common.dir/ngram-map.cpp.o
+#19 486.3 [ 79%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/gemma4ua.cpp.o
+#19 486.5 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/ngram-mod.cpp.o
+#19 486.7 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/gemma4uv.cpp.o
+#19 486.7 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/peg-parser.cpp.o
+#19 486.8 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/glm4v.cpp.o
+#19 486.8 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/preset.cpp.o
+#19 486.8 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/regex-partial.cpp.o
+#19 487.0 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/granite-speech.cpp.o
+#19 487.1 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/granite4-vision.cpp.o
+#19 487.3 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/hunyuanvl.cpp.o
+#19 487.4 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/reasoning-budget.cpp.o
+#19 487.6 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/sampling.cpp.o
+#19 487.8 [ 80%] Building CXX object common/CMakeFiles/llama-common.dir/speculative.cpp.o
+#19 487.9 [ 80%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/internvl.cpp.o
+#19 488.1 [ 81%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/kimivl.cpp.o
+#19 488.1 [ 82%] Building CXX object common/CMakeFiles/llama-common.dir/unicode.cpp.o
+#19 488.5 [ 82%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/lexer.cpp.o
+#19 488.5 [ 82%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/kimik25.cpp.o
+#19 488.6 [ 82%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/nemotron-v2-vl.cpp.o
+#19 488.7 [ 82%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/parser.cpp.o
+#19 488.7 [ 82%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/llama4.cpp.o
+#19 488.8 [ 82%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/llava.cpp.o
+#19 488.8 [ 82%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/minicpmv.cpp.o
+#19 488.8 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/paddleocr.cpp.o
+#19 488.8 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/pixtral.cpp.o
+#19 489.0 [ 83%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/runtime.cpp.o
+#19 489.0 [ 83%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/value.cpp.o
+#19 489.2 [ 83%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/string.cpp.o
+#19 489.5 [ 83%] Building CXX object common/CMakeFiles/llama-common.dir/jinja/caps.cpp.o
+#19 489.6 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/qwen2vl.cpp.o
+#19 489.7 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/qwen3vl.cpp.o
+#19 489.7 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/mimovl.cpp.o
+#19 489.8 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/qwen3a.cpp.o
+#19 489.8 [ 83%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/step3vl.cpp.o
+#19 489.9 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/siglip.cpp.o
+#19 489.9 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/whisper-enc.cpp.o
+#19 490.2 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/deepseekocr.cpp.o
+#19 490.2 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/deepseekocr2.cpp.o
+#19 490.3 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/mobilenetv5.cpp.o
+#19 490.5 [ 84%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/youtuvl.cpp.o
+#19 490.5 [ 85%] Building CXX object tools/mtmd/CMakeFiles/mtmd.dir/models/yasa2.cpp.o
+#19 493.1 [ 85%] Linking CXX shared library ../../bin/libmtmd.so
+#19 493.2 [ 85%] Built target mtmd
+#19 497.5 [ 86%] Linking CXX shared library ../bin/libllama-common.so
+#19 497.6 [ 86%] Built target llama-common
+#19 497.7 [ 86%] Building CXX object examples/lookup/CMakeFiles/llama-lookup.dir/lookup.cpp.o
+#19 497.7 [ 87%] Building CXX object examples/batched/CMakeFiles/llama-batched.dir/batched.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/eval-callback/CMakeFiles/llama-eval-callback.dir/eval-callback.cpp.o
+#19 497.7 [ 87%] Building CXX object examples/embedding/CMakeFiles/llama-embedding.dir/embedding.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/debug/CMakeFiles/llama-debug.dir/debug.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/lookup/CMakeFiles/llama-lookup-create.dir/lookup-create.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/passkey/CMakeFiles/llama-passkey.dir/passkey.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/diffusion/CMakeFiles/llama-diffusion.dir/diffusion.cpp.o
+#19 497.7 [ 88%] Building CXX object tools/gguf-split/CMakeFiles/llama-gguf-split.dir/gguf-split.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/lookahead/CMakeFiles/llama-lookahead.dir/lookahead.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/idle/CMakeFiles/llama-idle.dir/idle.cpp.o
+#19 497.7 [ 88%] Building CXX object examples/retrieval/CMakeFiles/llama-retrieval.dir/retrieval.cpp.o
+#19 497.7 [ 89%] Building CXX object examples/speculative/CMakeFiles/llama-speculative.dir/speculative.cpp.o
+#19 497.7 [ 89%] Building CXX object examples/lookup/CMakeFiles/llama-lookup-stats.dir/lookup-stats.cpp.o
+#19 497.7 [ 89%] Building CXX object examples/lookup/CMakeFiles/llama-lookup-merge.dir/lookup-merge.cpp.o
+#19 497.7 [ 89%] Building CXX object examples/speculative-simple/CMakeFiles/llama-speculative-simple.dir/speculative-simple.cpp.o
+#19 497.7 [ 89%] Building CXX object examples/parallel/CMakeFiles/llama-parallel.dir/parallel.cpp.o
+#19 497.7 [ 90%] Building CXX object examples/training/CMakeFiles/llama-finetune.dir/finetune.cpp.o
+#19 497.7 [ 90%] Building CXX object examples/gen-docs/CMakeFiles/llama-gen-docs.dir/gen-docs.cpp.o
+#19 497.7 [ 90%] Building CXX object tools/batched-bench/CMakeFiles/llama-batched-bench-impl.dir/batched-bench.cpp.o
+#19 498.0 [ 90%] Linking CXX executable ../../bin/llama-lookup-merge
+#19 498.1 [ 90%] Built target llama-lookup-merge
+#19 498.1 [ 90%] Building CXX object tools/imatrix/CMakeFiles/llama-imatrix.dir/imatrix.cpp.o
+#19 498.1 [ 90%] Linking CXX static library libllama-diffusion.a
+#19 498.2 [ 90%] Linking CXX executable ../../bin/llama-gguf-split
+#19 498.2 [ 90%] Built target llama-diffusion
+#19 498.2 [ 90%] Building CXX object tools/llama-bench/CMakeFiles/llama-bench-impl.dir/llama-bench.cpp.o
+#19 498.3 [ 90%] Built target llama-gguf-split
+#19 498.3 [ 90%] Building CXX object tools/completion/CMakeFiles/llama-completion-impl.dir/completion.cpp.o
+#19 498.3 [ 91%] Linking CXX executable ../../bin/llama-lookup-create
+#19 498.3 [ 91%] Linking CXX executable ../../bin/llama-idle
+#19 498.4 [ 91%] Linking CXX executable ../../bin/llama-batched
+#19 498.4 [ 91%] Built target llama-idle
+#19 498.4 [ 91%] Built target llama-lookup-create
+#19 498.4 [ 91%] Linking CXX executable ../../bin/llama-passkey
+#19 498.4 [ 91%] Building CXX object tools/perplexity/CMakeFiles/llama-perplexity-impl.dir/perplexity.cpp.o
+#19 498.4 [ 91%] Building CXX object tools/quantize/CMakeFiles/llama-quantize-impl.dir/quantize.cpp.o
+#19 498.5 [ 91%] Built target llama-batched
+#19 498.5 [ 91%] Built target llama-passkey
+#19 498.5 [ 91%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-chat.cpp.o
+#19 498.5 [ 91%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-task.cpp.o
+#19 498.6 [ 91%] Linking CXX executable ../../bin/llama-embedding
+#19 498.7 [ 91%] Built target llama-embedding
+#19 498.7 [ 91%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-queue.cpp.o
+#19 498.7 [ 91%] Linking CXX executable ../../bin/llama-retrieval
+#19 498.8 [ 91%] Built target llama-retrieval
+#19 498.8 [ 91%] Linking CXX executable ../../bin/llama-lookup-stats
+#19 498.8 [ 91%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-common.cpp.o
+#19 498.8 [ 91%] Linking CXX executable ../../bin/llama-finetune
+#19 498.9 [ 91%] Built target llama-lookup-stats
+#19 498.9 [ 91%] Linking CXX executable ../../bin/llama-eval-callback
+#19 498.9 [ 91%] Linking CXX executable ../../bin/llama-gen-docs
+#19 498.9 [ 91%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-context.cpp.o
+#19 498.9 /app/tools/perplexity/perplexity.cpp: In lambda function:
+#19 498.9 /app/tools/perplexity/perplexity.cpp:1772:41: note: parameter passing for argument of type 'std::pair<double, double>' when C++17 is enabled changed to match C++14 in GCC 10.1
+#19 498.9  1772 |             return std::make_pair(0., 0.);
+#19 498.9       |                                         ^
+#19 498.9 [ 91%] Built target llama-finetune
+#19 498.9 [ 92%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-stream.cpp.o
+#19 498.9 [ 92%] Linking CXX executable ../../bin/llama-parallel
+#19 499.0 [ 92%] Built target llama-gen-docs
+#19 499.0 [ 92%] Built target llama-eval-callback
+#19 499.0 [ 92%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-tools.cpp.o
+#19 499.0 [ 92%] Building CXX object tools/server/CMakeFiles/server-context.dir/server-schema.cpp.o
+#19 499.0 [ 92%] Built target llama-parallel
+#19 499.0 [ 93%] Building CXX object tools/tokenize/CMakeFiles/llama-tokenize.dir/tokenize.cpp.o
+#19 499.0 [ 93%] Linking CXX shared library ../../bin/libllama-batched-bench-impl.so
+#19 499.1 [ 93%] Linking CXX executable ../../bin/llama-lookup
+#19 499.1 [ 93%] Linking CXX executable ../../bin/llama-speculative
+#19 499.1 [ 93%] Built target llama-batched-bench-impl
+#19 499.1 [ 93%] Building CXX object tools/parser/CMakeFiles/llama-debug-template-parser.dir/debug-template-parser.cpp.o
+#19 499.2 [ 93%] Linking CXX executable ../../bin/llama-speculative-simple
+#19 499.2 [ 93%] Built target llama-lookup
+#19 499.2 [ 93%] Building CXX object tools/parser/CMakeFiles/llama-template-analysis.dir/template-analysis.cpp.o
+#19 499.2 [ 93%] Built target llama-speculative
+#19 499.2 [ 93%] Building CXX object tools/tts/CMakeFiles/llama-tts.dir/tts.cpp.o
+#19 499.2 [ 93%] Built target llama-speculative-simple
+#19 499.3 [ 93%] Building CXX object tools/mtmd/CMakeFiles/llama-mtmd-cli.dir/mtmd-cli.cpp.o
+#19 499.3 [ 93%] Linking CXX executable ../../bin/llama-lookahead
+#19 499.4 [ 93%] Built target llama-lookahead
+#19 499.4 [ 93%] Building CXX object tools/mtmd/CMakeFiles/llama-mtmd-debug.dir/debug/mtmd-debug.cpp.o
+#19 499.7 [ 93%] Linking CXX shared library ../../bin/libllama-quantize-impl.so
+#19 499.8 [ 93%] Linking CXX executable ../../bin/llama-tokenize
+#19 499.8 [ 93%] Built target llama-quantize-impl
+#19 499.8 [ 93%] Building CXX object tools/fit-params/CMakeFiles/llama-fit-params-impl.dir/fit-params.cpp.o
+#19 499.9 [ 93%] Built target llama-tokenize
+#19 499.9 [ 93%] Building CXX object tools/results/CMakeFiles/llama-results.dir/results.cpp.o
+#19 500.4 [ 93%] Linking CXX executable ../../bin/llama-debug
+#19 500.4 [ 93%] Built target llama-debug
+#19 500.5 [ 94%] Building CXX object examples/diffusion/CMakeFiles/llama-diffusion-cli.dir/diffusion-cli.cpp.o
+#19 500.7 [ 94%] Linking CXX shared library ../../bin/libllama-fit-params-impl.so
+#19 500.8 [ 94%] Built target llama-fit-params-impl
+#19 500.8 [ 94%] Building CXX object tools/batched-bench/CMakeFiles/llama-batched-bench.dir/main.cpp.o
+#19 500.9 [ 94%] Linking CXX executable ../../bin/llama-batched-bench
+#19 500.9 [ 94%] Linking CXX shared library ../../bin/libllama-perplexity-impl.so
+#19 500.9 [ 94%] Built target llama-batched-bench
+#19 500.9 [ 95%] Building CXX object tools/quantize/CMakeFiles/llama-quantize.dir/main.cpp.o
+#19 500.9 [ 96%] Linking CXX shared library ../../bin/libllama-completion-impl.so
+#19 501.0 [ 96%] Linking CXX executable ../../bin/llama-quantize
+#19 501.0 [ 96%] Built target llama-perplexity-impl
+#19 501.0 [ 96%] Building CXX object tools/fit-params/CMakeFiles/llama-fit-params.dir/main.cpp.o
+#19 501.0 [ 96%] Built target llama-quantize
+#19 501.0 [ 96%] Linking CXX executable ../../bin/llama-fit-params
+#19 501.0 [ 96%] Built target llama-completion-impl
+#19 501.0 [ 96%] Building CXX object tools/perplexity/CMakeFiles/llama-perplexity.dir/main.cpp.o
+#19 501.1 [ 96%] Building CXX object tools/completion/CMakeFiles/llama-completion.dir/main.cpp.o
+#19 501.1 [ 96%] Linking CXX executable ../../bin/llama-mtmd-debug
+#19 501.1 [ 96%] Linking CXX executable ../../bin/llama-perplexity
+#19 501.1 [ 96%] Built target llama-fit-params
+#19 501.1 [ 96%] Linking CXX executable ../../bin/llama-completion
+#19 501.1 [ 96%] Built target llama-perplexity
+#19 501.1 [ 96%] Built target llama-completion
+#19 501.2 [ 96%] Built target llama-mtmd-debug
+#19 501.3 [ 97%] Linking CXX executable ../../bin/llama-results
+#19 501.3 [ 97%] Built target llama-results
+#19 501.6 [ 97%] Linking CXX executable ../../bin/llama-mtmd-cli
+#19 501.7 [ 97%] Built target llama-mtmd-cli
+#19 502.4 [ 97%] Linking CXX executable ../../bin/llama-template-analysis
+#19 502.5 [ 97%] Built target llama-template-analysis
+#19 502.8 [ 97%] Linking CXX executable ../../bin/llama-debug-template-parser
+#19 502.9 [ 97%] Linking CXX executable ../../bin/llama-diffusion-cli
+#19 502.9 [ 97%] Built target llama-debug-template-parser
+#19 503.0 [ 97%] Built target llama-diffusion-cli
+#19 503.2 [ 97%] Linking CXX executable ../../bin/llama-imatrix
+#19 503.3 [ 97%] Built target llama-imatrix
+#19 503.5 [ 97%] Linking CXX shared library ../../bin/libllama-bench-impl.so
+#19 503.6 [ 97%] Built target llama-bench-impl
+#19 503.6 [ 98%] Building CXX object tools/llama-bench/CMakeFiles/llama-bench.dir/main.cpp.o
+#19 503.6 [ 98%] Linking CXX executable ../../bin/llama-bench
+#19 503.7 [ 98%] Built target llama-bench
+#19 505.2 [ 98%] Linking CXX executable ../../bin/llama-tts
+#19 505.2 [ 98%] Built target llama-tts
+#19 511.0 [ 98%] Linking CXX static library libserver-context.a
+#19 511.1 [ 98%] Built target server-context
+#19 511.1 [ 98%] Building CXX object tools/server/CMakeFiles/llama-server-impl.dir/server-models.cpp.o
+#19 511.1 [ 98%] Building CXX object tools/cli/CMakeFiles/llama-cli-impl.dir/cli.cpp.o
+#19 511.1 [ 99%] Building CXX object tools/server/CMakeFiles/llama-server-impl.dir/server.cpp.o
+#19 511.1 [ 99%] Building CXX object tools/server/CMakeFiles/llama-server-impl.dir/server-http.cpp.o
+#19 514.9 [100%] Linking CXX shared library ../../bin/libllama-cli-impl.so
+#19 515.0 [100%] Built target llama-cli-impl
+#19 515.0 [100%] Building CXX object tools/cli/CMakeFiles/llama-cli.dir/main.cpp.o
+#19 515.0 [100%] Linking CXX executable ../../bin/llama-cli
+#19 515.1 [100%] Built target llama-cli
+#19 518.3 [100%] Linking CXX shared library ../../bin/libllama-server-impl.so
+#19 518.5 [100%] Built target llama-server-impl
+#19 518.5 [100%] Building CXX object app/CMakeFiles/llama-app.dir/__/license.cpp.o
+#19 518.5 [100%] Building CXX object app/CMakeFiles/llama-app.dir/download.cpp.o
+#19 518.5 [100%] Building CXX object tools/server/CMakeFiles/llama-server.dir/main.cpp.o
+#19 518.5 [100%] Building CXX object app/CMakeFiles/llama-app.dir/llama.cpp.o
+#19 518.5 [100%] Linking CXX executable ../../bin/llama-server
+#19 518.6 [100%] Built target llama-server
+#19 519.1 [100%] Linking CXX executable ../bin/llama
+#19 519.2 [100%] Built target llama-app
+#19 DONE 519.3s
+
+#20 [build 7/8] RUN mkdir -p /app/lib &&     find build -name "*.so*" -exec cp -P {} /app/lib ;
+#20 DONE 0.3s
+
+#21 [build 8/8] RUN mkdir -p /app/full     && cp build/bin/* /app/full     && cp *.py /app/full     && cp -r conversion /app/full     && cp -r gguf-py /app/full     && cp -r requirements /app/full     && cp requirements.txt /app/full     && cp .devops/tools.sh /app/full/tools.sh
+#21 DONE 0.3s
+
+#22 [base 2/3] RUN apt-get update     && apt-get install -y libgomp1 curl ffmpeg     && apt autoremove -y     && apt clean -y     && rm -rf /tmp/* /var/tmp/*     && find /var/cache/apt/archives /var/lib/apt/lists -not -name lock -type f -delete     && find /var/cache -type f -delete
+#22 CACHED
+
+#23 [base 3/3] COPY --from=build /app/lib/ /app
+#23 DONE 0.1s
+
+#24 [server 1/2] COPY --from=build /app/full/llama /app/full/llama-server /app
+#24 DONE 0.1s
+
+#25 [server 2/2] WORKDIR /app
+#25 DONE 0.1s
+
+#26 exporting to image
+#26 exporting layers
+#26 exporting layers 0.3s done
+#26 writing image sha256:aca0be1c3966b6a22c532e089fa1f9ca2aef961d6104e8f6ac30830f0c06dc23 done
+#26 naming to docker.io/library/llama-cuda-dflash:latest done
+#26 DONE 0.4s
