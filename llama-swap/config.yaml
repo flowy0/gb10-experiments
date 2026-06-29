@@ -214,8 +214,8 @@ models:
             --jinja \
             -ngl 99
 
-    ornith-1.0-35b-q4-128k-code:
-        name: "Ornith-1.0-35B MoE Q4_K_M (128k test)"
+    ornith-1.0-35b-q4-128k-think-code:
+        name: "Ornith-1.0-35B MoE Q4_K_M (128k think-code test)"
         ttl: 3600
         cmdStop: docker rm -f ls-ornith-35b-q4-128k-code
         cmd: |
@@ -440,4 +440,4 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
-            - ornith-1.0-35b-q4-128k-code
+            - ornith-1.0-35b-q4-128k-think-code
