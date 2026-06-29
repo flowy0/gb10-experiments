@@ -26,3 +26,4 @@ build/llama-dflash-image/
 llama.cpp-build/
 llama.cpp-build.log
 build/*.log
+build/beellama.cpp
