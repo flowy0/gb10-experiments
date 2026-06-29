@@ -83,8 +83,8 @@ if 'models' in data:
 if 'models' in data:
     for model_name, model_data in data['models'].items():
         cmd = model_data.get('cmd', '')
-        if '--np ' in cmd and '--parallel ' in cmd:
-            errors.append(f"Model '{model_name}': has both --np and --parallel (same flag, --np may be invalid)")
+        if '--np ' in cmd:
+            errors.append(f"Model '{model_name}': uses --np (double dash) — should be -np (single dash) or --parallel")
 
 if errors:
     print(f"❌ {len(errors)} issue(s) found:")
