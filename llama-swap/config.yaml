@@ -185,7 +185,7 @@ models:
             --jinja \
             -ngl 99
 
-    ornith-1.0-35b-q4-64k-code:
+    ornith-1.0-35b-q4-64k-think-code:
         name: "Ornith-1.0-35B MoE Q4_K_M (64k think-code)"
         ttl: 3600
         cmdStop: docker rm -f ls-ornith-35b-q4-64k-code
@@ -214,13 +214,13 @@ models:
             --jinja \
             -ngl 99
 
-    ornith-1.0-35b-q4-128k-think-code:
+    deepreinforce-ornith-35b-q4-128k-think-code:
         name: "Ornith-1.0-35B MoE Q4_K_M (128k think-code test)"
         ttl: 3600
-        cmdStop: docker rm -f ls-ornith-35b-q4-128k-code
+        cmdStop: docker rm -f ls-deepreinforce-ornith-35b-q4-128k-think-code
         cmd: |
             docker run --rm \
-            --name ls-ornith-35b-q4-128k-code \
+            --name ls-deepreinforce-ornith-35b-q4-128k-think-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -404,7 +404,6 @@ models:
             -ngl 99
 
 groups:
-
     code:
         swap: true
         exclusive: false
@@ -440,4 +439,6 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
-            - ornith-1.0-35b-q4-128k-think-code
+            - deepreinforce-ornith-35b-q4-128k-think-code
+            - ornith-1.0-35b-q4-64k-think-code
+            -
