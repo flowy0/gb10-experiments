@@ -2806,39 +2806,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-ornith-9b-q4-64k-think-code:
-        name: "Ornith-1.0-9B Q4_K_M (64k think-code subagent)"
-        ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-think-code
-        cmd: |
-            docker run --rm \
-            --name ls-unsloth-ornith-9b-q4-64k-think-code \
-            --runtime=nvidia \
-            --network container:llama-swap \
-            -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
-            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
-            --host 0.0.0.0 \
-            --port \${PORT} \
-            -c 65536 \
-            --temp 0.6 \
-            --top-p 0.95 \
-            --top-k 20 \
-            --min-p 0.00 \
-            --repeat-penalty 1.0 \
-            --reasoning off \
-            -t 4 \
-            -b 512 \
-            --jinja \
-            -ngl 99
-
-    unsloth-ornith-9b-q4-64k-think-code:
+    deepreinforce-ornith-9b-q4-64k-think-code:
         name: "Ornith-1.0-9B Q4_K_M (64k think-code)"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-think-code
+        cmdStop: docker rm -f ls-deepreinforce-ornith-9b-q4-64k-think-code
         cmd: |
             docker run --rm \
-            --name ls-unsloth-ornith-9b-q4-64k-think-code \
+            --name ls-deepreinforce-ornith-9b-q4-64k-think-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -2859,13 +2833,13 @@ models:
             --jinja \
             -ngl 99
 
-    unsloth-ornith-9b-q4-64k-code:
+    deepreinforce-ornith-9b-q4-64k-code:
         name: "Ornith-1.0-9B Q4_K_M (64k code, no reasoning)"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-ornith-9b-q4-64k-code
+        cmdStop: docker rm -f ls-deepreinforce-ornith-9b-q4-64k-code
         cmd: |
             docker run --rm \
-            --name ls-unsloth-ornith-9b-q4-64k-code \
+            --name ls-deepreinforce-ornith-9b-q4-64k-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -4559,12 +4533,94 @@ groups:
         members:
             - s-batman-ornith-35b-nvfp4-mtp-64k-think-code
 
+    unsloth-gemma4-26b-a4b-qat-mtp2-128k-dflash:
+        name: "Gemma4 26B QAT MTP γ=2 + DFlash (128k)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-gemma4-26b-dflash
+        cmd: |
+            docker run --rm \
+            --name ls-gemma4-26b-dflash \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cuda-dflash:latest \
+            -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
+            --model-draft /models/anbeeld-dflash/gemma4-26b/gemma4-26b-a4b-it-dflash-Q4_K_M.gguf \
+            --spec-type draft-dflash \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            --temp 0.8 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --jinja \
+            -ngl 99
+
+    unsloth-qwen36-27b-mtp2-ud-q3-64k-dflash:
+        name: "Qwen3.6 27B UD-Q3 MTP γ=2 + DFlash (64k)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-qwen36-27b-dflash
+        cmd: |
+            docker run --rm \
+            --name ls-qwen36-27b-dflash \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cuda-dflash:latest \
+            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-UD-Q3_K_XL.gguf \
+            --model-draft /models/anbeeld-dflash/qwen27b/Qwen3.6-27B-DFlash-Q4_K_M.gguf \
+            --spec-type draft-dflash \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --jinja \
+            -ngl 99
+
+    deepreinforce-ornith-9b-q4-64k-dflash:
+        name: "Ornith-1.0-9B Q4_K_M + DFlash (64k)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-deepreinforce-ornith-9b-dflash
+        cmd: |
+            docker run --rm \
+            --name ls-deepreinforce-ornith-9b-dflash \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            llama-cuda-dflash:latest \
+            -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
+            --model-draft /models/anbeeld-dflash/qwen9b/qwen35-9b-dflash-Q4_K_M.gguf \
+            --spec-type draft-dflash \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --reasoning off \
+            --jinja \
+            -ngl 99
+
+    dflash-test:
+        swap: true
+        exclusive: false
+        members:
+            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-dflash
+            - unsloth-qwen36-27b-mtp2-ud-q3-64k-dflash
+            - deepreinforce-ornith-9b-q4-64k-dflash
+
     code-subagent:
         swap: true
         exclusive: false
         members:
             - unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code
             - ornith-1.0-35b-q4-64k-code
-            - unsloth-ornith-9b-q4-64k-think-code
-            - unsloth-ornith-9b-q4-64k-code
+            - deepreinforce-ornith-9b-q4-64k-think-code
+            - deepreinforce-ornith-9b-q4-64k-code
     #         - unsloth-qwen36-35b-a3b-mtp-iq4-64k-think-code
