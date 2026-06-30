@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-06-27
+
+- **Hermes temp 0.8 → 0.6** — tighter for agentic tasks
+- **KV cache standardized to q8_0** on all Ornith routes (was f16 default, halved memory)
+- **Subagent -np 3 → -np 2** (saves 3 GB)
+- **Ornith 35B 128k added** (test group, ~27 GB with q8_0 KV)
+- **BeeLlama.cpp discovered** (Anbeeld fork, 718 stars) — DFlash + TurboQuant combined
+- **DeepSeek DSpark Gemma4 12B draft model** found — not llama.cpp compatible yet
+- **DFlash attempt**: Docker image built but `dflash-draft` architecture not recognized
+- **MEMORY.md rewritten** with full current stack calculations
+
 ## 2026-06-25
 
 - **Downloaded & tested Qwen3.6 27B NVFP4** (vLLM, 25 GB, 17 tok/s) — rejected

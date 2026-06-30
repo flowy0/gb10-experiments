@@ -71,6 +71,17 @@
 - vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell for standard models).
 - See `docs/BENCHMARKS.md` for full results table.
 
+### KV Cache Convention
+- Always set explicit `--cache-type-k q8_0 --cache-type-v q8_0` on non-TurboQuant models.
+- Without explicit KV type, llama.cpp defaults to **f16 (2 bytes)**, doubling memory.
+- TurboQuant models use `turbo4` (4-bit = 0.5 bytes) — cheapest option.
+
+### Speculative Decoding
+- `--spec-type draft-mtp` with `--spec-draft-n-max 2` is the default for models with MTP heads.
+- DFlash (`--spec-type draft-dflash`) requires a separate DFlash draft GGUF file.
+- BeeLlama.cpp (Anbeeld fork, 718 stars) combines DFlash + TurboQuant in one build.
+- Current DFlash status: Docker images don't support `dflash-draft` architecture yet.
+
 ### Key Files
 | File | Purpose |
 |---|---|
