@@ -348,7 +348,7 @@ models:
             --port \${PORT} \
             -c 65536 \
             --parallel 2 \
-            - kvu \
+            -kvu \
             --temp 0.6 \
             --top-p 0.95 \
             --top-k 20 \
