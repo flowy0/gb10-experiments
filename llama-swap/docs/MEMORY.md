@@ -62,8 +62,8 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | 14 GB | 8.5 GB | **24 GB** |
 | aux | 12B QAT MTP (vision) | 128k | 1 | 6.5 GB | 5.6 GB | **14 GB** |
 | compression | E4B QAT TQ | 128k | 1 | 4.7 GB | 2.8 GB | **9 GB**¹ |
-| subagent | 12B QAT MTP -np 3 | 64k | 3 | 6.5 GB | 8.4 GB | **17 GB** |
-| **Max total** | | | | | | **~112 GB** ✅ 19 GB free |
+| subagent | 12B QAT MTP -np 2 | 64k | 2 | 6.5 GB | 5.6 GB | **~14 GB** |
+| **Max total** | | | | | | **~109 GB** ✅ 22 GB free |
 
 ¹ Compression is usually idle — excluded from active memory calc (~104 GB ✅ 27 GB free).
 
@@ -77,7 +77,7 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 - code: Ornith-1.0-35B (25 GB)
 - aux: 12B MTP 128k (14 GB)
 - compression: E4B TQ 128k (9 GB)
-- subagent: 12B MTP 64k -np 3 (17 GB)
+- subagent: 12B MTP 64k -np 2 (14 GB)
 
 ### v9 — vLLM + llama-swap hybrid
 - vLLM: Gemma4 26B FP8 + MTP 256k (52 GB)
