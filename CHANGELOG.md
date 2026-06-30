@@ -2,6 +2,7 @@
 
 ## 2026-06-27
 
+- **MTP + mmproj collision tested** — no issue found. Draft acceptance 63% (text) and 53% (image).
 - **Hermes temp 0.8 → 0.6** — tighter for agentic tasks
 - **KV cache standardized to q8_0** on all Ornith routes (was f16 default, halved memory)
 - **Subagent -np 3 → -np 2** (saves 3 GB)

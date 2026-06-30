@@ -81,6 +81,7 @@
 - DFlash (`--spec-type draft-dflash`) requires a separate DFlash draft GGUF file.
 - BeeLlama.cpp (Anbeeld fork, 718 stars) combines DFlash + TurboQuant in one build.
 - Current DFlash status: Docker images don't support `dflash-draft` architecture yet.
+- **MTP + mmproj compatible** — tested on 12B QAT MTP: draft acceptance 63% (text) and 53% (image). No need to split entries.
 
 ### Key Files
 | File | Purpose |
