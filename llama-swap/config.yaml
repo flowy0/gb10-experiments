@@ -174,7 +174,7 @@ models:
             --port ${PORT} \
             -c 131072 \
             --parallel 2 \
-            --temp 0.8 \
+            --temp 0.6 \
             --top-p 0.95 \
             --top-k 64 \
             --reasoning on \
@@ -209,6 +209,8 @@ models:
             --reasoning on \
             --reasoning-budget 4096 \
             --flash-attn on \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
             -t 8 \
             -b 512 \
             --jinja \
