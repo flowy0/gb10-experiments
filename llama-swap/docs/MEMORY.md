@@ -58,7 +58,7 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 
 | Group | Model | Context | -np | Weights | KV | **Total** |
 |---|---|---|---|---|---|---|
-| hermes | 26B QAT MTP γ=2 | 128k | 2 | 16.4 GB | 30 GB | **48 GB** |
+| hermes | 26B QAT MTP γ=2 | 256k | 2 | 16.4 GB | 30 GB | **48 GB** |
 | code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | 14 GB | 8.5 GB | **24 GB** |
 | aux | 12B QAT MTP (vision) | 128k | 1 | 6.5 GB | 5.6 GB | **14 GB** |
 | compression | E4B QAT TQ | 128k | 1 | 4.7 GB | 2.8 GB | **9 GB**¹ |

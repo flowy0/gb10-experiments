@@ -2,6 +2,11 @@
 
 ## 2026-06-27
 
+- **Fixed slot splitting bug** — added `-kvu` (kv-unified) to hermes and subagent.
+  Without it, `-c 131072 --parallel 2` silently gave each slot only 65k.
+  With `-kvu`, the full pool is shared dynamically between slots.
+  Hermes: `-c 262144 -kvu` → 256k pool, 2 slots (~48 GB).
+  Subagent: `-c 65536 -kvu --parallel 2` → full 64k per slot.
 - **MTP + mmproj collision tested** — no issue found. Draft acceptance 63% (text) and 53% (image).
 - **Hermes temp 0.8 → 0.6** — tighter for agentic tasks
 - **KV cache standardized to q8_0** on all Ornith routes (was f16 default, halved memory)
