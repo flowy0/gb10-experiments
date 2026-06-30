@@ -41,7 +41,8 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | + -np 2 (2 slots) | | | 128k | 30 GB | 2 GB | **~48 GB** |
 | **Code** | | | | | | |
 | Qwen3.6-27B MTP γ=2 | UD-Q3_K_XL | 14 GB | 64k | 8.5 GB | 2 GB | **~24 GB** |
-| Ornith-1.0-35B MoE | Q4_K_M | 20 GB | 64k | 2.5 GB | 2 GB | **~25 GB** |
+| Ornith-1.0-35B MoE | Q4_K_M | 20 GB | 64k | 2.7 GB | 2 GB | **~25 GB** |
+| Ornith-1.0-35B MoE | Q4_K_M | 20 GB | 128k | 5.4 GB | 2 GB | **~27 GB** |
 | Qwen3-Coder-Next 80B | UD-Q3_K_M | 34 GB | 64k | 0.8 GB | 2 GB | **~37 GB** |
 | **Aux / Compression** | | | | | | |
 | Gemma4 12B QAT MTP | QAT UD-Q4_K_XL | 6.3 GB | 128k | 5.6 GB | 2 GB | **~14 GB** |
