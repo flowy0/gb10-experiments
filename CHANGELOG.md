@@ -2,6 +2,41 @@
 
 ## 2026-06-27
 
+**Stack config changes:**
+- **Code model**: Ornith-35B → Qwen3.6-27B UD-Q3 MTP (SWE-bench 75.0, 24 GB, 97/100 tool-eval)
+- **Hermes**: `-c 262144 --parallel 2 -kvu` → 256k shared pool, 2 slots (~48 GB)
+- **Subagent**: `-c 65536 --parallel 2 -kvu` → 64k shared pool, 2 slots
+- **Hermes temp 0.8 → 0.6** — tighter for agentic tasks
+- **Subagent -np 3 → -np 2** (saves 3 GB)
+- **KV cache standardized to q8_0** on all Ornith routes (was f16 → halved memory)
+- **Compression**: uses E4B TQ (excluded from active memory calc)
+- **Ornith and 9B renamed** to `deepreinforce-` prefix (convention)
+
+**Test group additions:**
+- `deepreinforce-ornith-35b-q4-128k-think-code` (~27 GB with q8_0 KV)
+- `deepreinforce-ornith-35b-q4-64k-think-code` (~25 GB)
+- `deepreinforce-ornith-9b-q4-64k-think-code` and `-code` (no reasoning)
+- `unslooth-qwen3-coder-next-ud-q3-64k-think-code` (80B hybrid, 34 GB file)
+
+**Bugs found and fixed:**
+- **Slot splitting** — `-c 131072 --parallel 2` without `-kvu` silently gave each slot 65k
+- **`--np 2` invalid** — should be `-np 2` (single dash). Removed duplicate with `--parallel`.
+- **Missing `groups:` section** — corrupted by YAML edits. Restored.
+- **Config validation script** (`llama-swap/check-yaml.sh`) updated with better checks.
+
+**Discovered / evaluated:**
+- **Ornith-1.0-35B** — 100/100 tool-eval (Q4_K_M, 20 GB)
+- **Qwen3-Coder-Next 80B** — 39 tok/s, ~37 GB at 64k
+- **BeeLlama.cpp** (Anbeeld fork, 718 stars) — DFlash + TurboQuant combined
+- **DeepSeek DSpark Gemma4 12B draft** — `Gemma4DSparkModel` arch, not compat yet
+- **DFlash attempt**: Docker image built but `dflash-draft` arch not recognized
+
+**Documentation:**
+- **MEMORY.md** rewritten with full architecture tables, KV calculations, active stack
+- **AGENTS.md** updated: naming convention, KV cache convention, MTP+mmproj note
+- **BENCHMARKS.md** updated with Ornith and tool-eval scores
+- **CHANGELOG update rule** added to AGENTS.md
+
 - **Fixed slot splitting bug** — added `-kvu` (kv-unified) to hermes and subagent.
   Without it, `-c 131072 --parallel 2` silently gave each slot only 65k.
   With `-kvu`, the full pool is shared dynamically between slots.
