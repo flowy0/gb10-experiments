@@ -78,18 +78,18 @@ Docker image ID.
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 
-## Current Active Setup — llama-swap only
+## Proposed Setup — 12B hermes, 26B analysis
 
-| Group | Model | Context | TTL | Memory |
-|---|---|---|---|---|
-| **hermes** | 26B QAT MTP γ=2 (temp 0.6) | **256k, -np 2, -kvu** | 24h | ~48 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
-| **code** | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1h | ~24 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
-| **aux** | 12B QAT + MTP (vision, web, titles) | 128k | 1h | ~14 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
-| **compression** | Gemma4 E4B QAT + TQ | 128k | 30min | ~8 GB¹ | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
-| **subagent** | 12B QAT + MTP -np 2 | 64k | 30min | ~14 GB | `unsloth-gemma4-12b-qat-64k-mtp-np2` |
-| **Total** | | | | **~104 GB** ✅ 27 GB free | |
+| Group | Model | Context | -np | Memory | Model ID |
+|---|---|---|---|---|---|
+| **hermes** | 12B QAT MTP | 128k | 2 -kvu | ~19 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
+| **analysis** | 26B QAT MTP | 128k | 1 | ~33 GB | `unsloth-gemma4-26b-a4b-qat-128k` |
+| **code** | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | ~25 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
+| **subagent** | 12B QAT MTP | 64k | 2 -kvu | ~14 GB | `unsloth-gemma4-12b-qat-64k-mtp-np2` |
+| **compression** | Gemma4 E4B TQ | 128k | 1 | ~9 GB | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
+| **Total** | | | | **~100 GB** ✅ 31 GB free | |
 
-¹ E4B reserved for compression but excluded from active memory calc.
+> (Reviewing — not yet applied)
 
 
 Start with:
