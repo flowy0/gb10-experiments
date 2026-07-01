@@ -112,6 +112,34 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-35b-mtp-ud-q3-128k-code:
+        name: "Qwen3.6 35B MoE UD-Q3_K_XL (128k code, no reasoning)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-qwen36-35b-ud-q3-128k-code
+        cmd: |
+            docker run --rm \
+            --name ls-qwen36-35b-ud-q3-128k-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 262144 \
+            --parallel 2 \
+            -kvu \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.02 \
+            --repeat-penalty 1.0 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-qwen3-coder-30b-a3b-q4-64k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 14000
@@ -270,6 +298,36 @@ models:
             --reasoning on \
             --reasoning-budget 4096 \
             --flash-attn on \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            -t 8 \
+            -b 512 \
+            --jinja \
+            -ngl 99
+
+    deepreinforce-ornith-35b-q4-128k-code:
+        name: "Ornith-1.0-35B MoE Q4_K_M (128k code, no reasoning)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-deepreinforce-ornith-35b-q4-128k-code
+        cmd: |
+            docker run --rm \
+            --name ls-deepreinforce-ornith-35b-q4-128k-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/deepreinforce-ornith-35b/ornith-1.0-35b-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 262144 \
+            -kvu \
+            --parallel 2 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 8 \
@@ -461,7 +519,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-128k-mtp
+            - deepreinforce-ornith-35b-q4-128k-code
 
     compression:
         swap: true
@@ -482,6 +540,7 @@ groups:
             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
             - deepreinforce-ornith-35b-q4-128k-think-code
             - unsloth-qwen36-35b-mtp-ud-q3-128k-think-code
+            - unsloth-qwen36-35b-mtp-ud-q3-128k-code
             - deepreinforce-ornith-9b-q4-64k-think-code
             - deepreinforce-ornith-9b-q4-64k-code
             - deepreinforce-ornith-35b-q4-64k-think-code
