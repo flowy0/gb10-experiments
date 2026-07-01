@@ -78,18 +78,20 @@ Docker image ID.
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 
-## Proposed Setup — 12B hermes, 26B analysis
+## Current Active Setup — llama-swap only
 
 | Group | Model | Context | -np | Memory | Model ID |
 |---|---|---|---|---|---|
 | **hermes** | 12B QAT MTP | 128k | 2 -kvu | ~19 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
-| **analysis** | 26B QAT MTP | 128k | 1 | ~33 GB | `unsloth-gemma4-26b-a4b-qat-128k` |
+| **research** | 26B QAT MTP γ=2 | 128k | 1 | ~33 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
 | **code** | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | ~25 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
 | **subagent** | 12B QAT MTP | 64k | 2 -kvu | ~14 GB | `unsloth-gemma4-12b-qat-64k-mtp-np2` |
-| **compression** | Gemma4 E4B TQ | 128k | 1 | ~9 GB | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
+| **compression** | E4B QAT TQ | 128k | 1 | ~9 GB | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
+| **test** | Ornith-35B Q4 @ 128k, Qwen3-Coder-Next | 64-128k | 1 | varies | multiple |
 | **Total** | | | | **~100 GB** ✅ 31 GB free | |
 
-> (Reviewing — not yet applied)
+> Test group not included in active memory calc. Ornith 35B at 128k adds ~27 GB when loaded.
+> Hermes at 128k with -kvu gives 2 sessions sharing a 256k unified KV pool.
 
 
 Start with:

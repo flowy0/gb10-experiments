@@ -373,7 +373,9 @@ models:
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --host 0.0.0.0 \
             --port \${PORT} \
-            -c 131072 \
+            -c 262144 \
+            -kvu \
+            --parallel 2 \
             --temp 1.0 \
             --top-p 0.95 \
             --top-k 64 \
@@ -420,17 +422,17 @@ groups:
         members:
             - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
 
-    aux:
+    research:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-128k-mtp
+            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
 
     hermes:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
+            - unsloth-gemma4-12b-qat-128k-mtp
 
     compression:
         swap: true
