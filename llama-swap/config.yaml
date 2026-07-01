@@ -12,7 +12,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -40,7 +40,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-qwen3-coder-next-gguf/Qwen3-Coder-Next-UD-Q3_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -65,7 +65,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-UD-Q3_K_XL.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -83,6 +83,35 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-qwen36-35b-mtp-ud-q3-128k-think-code:
+        name: "Qwen3.6 35B MoE UD-Q3_K_XL (128k think-code, -kvu)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-qwen36-35b-ud-q3-256k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-qwen36-35b-ud-q3-256k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 262144 \
+            --parallel 2 \
+            -kvu \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.02 \
+            --repeat-penalty 1.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-qwen3-coder-30b-a3b-q4-64k:
         name: "Unsloth Qwen3 Coder 30B-A3B Instruct Q4_K_M via llama.cpp"
         ttl: 14000
@@ -93,7 +122,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/qwen3-coder-30b-a3b-gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -140,7 +169,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-qwen3.5-4b-gguf/Qwen3.5-4B-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port ${PORT} \
@@ -166,7 +195,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
             --model-draft /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/mtp-gemma-4-26B-A4B-it.gguf \
             --spec-type draft-mtp --spec-draft-n-max 2 \
@@ -183,7 +212,7 @@ models:
             --repeat-penalty 1.02 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/tool_chat_template_gemma4.jinja \
             -ngl 99
 
     deepreinforce-ornith-35b-q4-64k-think-code:
@@ -196,7 +225,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/deepreinforce-ornith-35b/ornith-1.0-35b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -227,7 +256,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/deepreinforce-ornith-35b/ornith-1.0-35b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -258,7 +287,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -287,7 +316,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/deepreinforce-ornith-9b/ornith-1.0-9b-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -339,7 +368,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --mmproj /models/unsloth-gemma-4-12b-it-gguf/mmproj-F16.gguf \
             --model-draft /models/unsloth-gemma-4-12b-it-qat-gguf/mtp-gemma-4-12B-it.gguf \
@@ -353,7 +382,7 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --reasoning off \
-            --jinja \
+            --chat-template-file /models/tool_chat_template_gemma4.jinja \
             -ngl 99
 
     unsloth-gemma4-12b-qat-128k-mtp:
@@ -366,7 +395,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
             --mmproj /models/unsloth-gemma-4-12b-it-gguf/mmproj-F16.gguf \
             --model-draft /models/unsloth-gemma-4-12b-it-qat-gguf/mtp-gemma-4-12B-it.gguf \
@@ -376,13 +405,13 @@ models:
             -c 262144 \
             -kvu \
             --parallel 2 \
-            --temp 1.0 \
+            --temp 0.7 \
             --top-p 0.95 \
             --top-k 64 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/tool_chat_template_gemma4.jinja \
             -ngl 99
 
     unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code:
@@ -395,7 +424,7 @@ models:
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
-            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:bb435df10c03b32465024df1db2e77edf2f85f0cb44e0ade99cdb0fc1f22a14f \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-qwen3.6-35b-a3b-mtp-gguf/Qwen3.6-35B-A3B-UD-Q3_K_XL.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
@@ -452,6 +481,7 @@ groups:
         members:
             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
             - deepreinforce-ornith-35b-q4-128k-think-code
+            - unsloth-qwen36-35b-mtp-ud-q3-128k-think-code
             - deepreinforce-ornith-9b-q4-64k-think-code
             - deepreinforce-ornith-9b-q4-64k-code
             - deepreinforce-ornith-35b-q4-64k-think-code
