@@ -34,7 +34,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | Engine | Variant | Context | tok/s | Notes |
 |---|---|---|---|---|
 | llama.cpp | QAT + TurboQuant | 256k | 13 | With vLLM loaded concurrently |
-| llama.cpp | Agentic v2 Q4 | 128k | ~15 | Fine-tuned for agentic tasks |
+| llama.cpp | **Agentic v2 Q4** | 128k | 27 | **90/100** ★★★★★ | Fine-tuned for agentic tasks |
 
 ## Gemma4 31B
 
@@ -57,6 +57,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 |---|---|---|
 | **Ornith-1.0-35B MoE Q4_K_M** | **100/100** | **★★★★★ Excellent** |
 | Qwen3.6 27B UD-Q3_K_XL | 97/100 | ★★★★★ Excellent |
+| Gemma4 12B Agentic v2 | 90/100 | ★★★★★ Excellent |
 | DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
 | FP8 26B (June 14 baseline) | ~91/100 | ★★★★ |
 | FP8 26B (128k) | ~73/100 | ★★★ Adequate |
