@@ -392,6 +392,35 @@ models:
             --jinja \
             -ngl 99
 
+    unsloth-gemma4-31b-ud-q4-64k-think-code:
+        name: "Gemma4 31B UD-Q4_K_XL + MTP (64k think-code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-gemma4-31b-ud-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-31b-ud-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/unsloth-gemma-4-31b-gguf/gemma-4-31B-it-UD-Q4_K_XL.gguf \
+            --model-draft /models/unsloth-gemma-4-31b-gguf/MTP/gemma-4-31B-it-Q8_0-MTP.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --jinja \
+            -ngl 99
+
     unsloth-gemma4-12b-qat-128k-tq:
         name: "Gemma4 12B QAT + TurboQuant (128k aux)"
         ttl: 3600
@@ -544,3 +573,4 @@ groups:
             - deepreinforce-ornith-9b-q4-64k-think-code
             - deepreinforce-ornith-9b-q4-64k-code
             - deepreinforce-ornith-35b-q4-64k-think-code
+            - unsloth-gemma4-31b-ud-q4-64k-think-code

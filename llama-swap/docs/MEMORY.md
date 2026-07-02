@@ -17,6 +17,7 @@ KV per token at q8_0 (1 byte/element): layers × KV heads × hd × 2 (K+V)
 | Ornith-1.0-9B (Qwen3.5 dense) | 32 | 8 | 128 | 65,536 |
 | Gemma4 12B (E4B dense) | 42 | 2 | 256 | 43,008 |
 | Gemma4 26B-A4B (MoE) | 30 | **8** | 256 | **122,880** |
+| Gemma4 31B (dense) | ~48 | 8 | 256 | ~196,608 |
 
 ## KV Cache by Context
 
@@ -29,6 +30,7 @@ KV per token at q8_0 (1 byte/element): layers × KV heads × hd × 2 (K+V)
 | Ornith-1.0-9B | 4.3 GB | 8.6 GB | — |
 | Gemma4 12B | 2.8 GB | 5.6 GB | 11.2 GB |
 | Gemma4 26B | 7.5 GB | 15.0 GB | 30.0 GB |
+| Gemma4 31B (dense) | ~25 GB | — | — |
 
 ## Total Memory per Model
 
@@ -52,6 +54,7 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | Gemma4 12B QAT MTP -np 3 | QAT UD-Q4_K_XL | 6.3 GB | 64k | 8.4 GB | 2 GB | **~17 GB** |
 | **Other** | | | | | | |
 | Ornith-1.0-9B | Q4_K_M | 5.3 GB | 64k | 4.3 GB | 1 GB | **~11 GB** |
+| Gemma4 31B (dense) | UD-Q4_K_XL | 18 GB | 64k | ~25 GB | 2 GB | **~45 GB** ⚠️ |
 | Qwen3.6-35B MoE | IQ4_NL | 18 GB | 64k | 2.5 GB | 2 GB | **~23 GB** |
 
 ## Current Active Stack
@@ -67,6 +70,8 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 
 ¹ Compression is usually idle — excluded from active memory calc (~104 GB ✅ 27 GB free).
 
+> **Gemma4 31B dense**: ~7 tok/s with MTP γ=2 on GB10. Compute-bound (all 31B params active).
+> Not practical for interactive use — consider MoE or smaller dense models.
 > Note: `-np N` multiplies KV cache by N. Max total assumes all groups loaded simultaneously,
 > which rarely happens. Active memory (always-hot): hermes + code ≈ **72 GB** ✅ 59 GB free.
 
