@@ -392,13 +392,13 @@ models:
             --jinja \
             -ngl 99
 
-    gemma4-12b-agentic-v2-q4:
-        name: "Gemma4 12B Agentic v2 Q4_K_M (128k)"
+    yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code:
+        name: "Gemma4 12B Agentic v2 Q4_K_M (128k think-code)"
         ttl: 3600
-        cmdStop: docker rm -f ls-gemma4-12b-agentic-v2-q4
+        cmdStop: docker rm -f ls-yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
         cmd: |
             docker run --rm \
-            --name ls-gemma4-12b-agentic-v2-q4 \
+            --name ls-yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -601,4 +601,4 @@ groups:
             - deepreinforce-ornith-9b-q4-64k-code
             - deepreinforce-ornith-35b-q4-64k-think-code
             - unsloth-gemma4-31b-ud-q4-64k-think-code
-            - gemma4-12b-agentic-v2-q4
+            - yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
