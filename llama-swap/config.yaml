@@ -77,10 +77,12 @@ models:
             --presence-penalty 0.0 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --repeat-penalty 1.08 \
+            --repeat-last-n 4096 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-qwen36-35b-mtp-ud-q3-128k-think-code:
@@ -326,13 +328,14 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
+            --repeat-last-n 4096 \
             --reasoning off \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 8 \
             -b 512 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     deepreinforce-ornith-9b-q4-64k-think-code:
