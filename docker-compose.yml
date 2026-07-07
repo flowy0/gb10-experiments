@@ -187,7 +187,7 @@ services:
         runtime: nvidia
         shm_size: "32gb"
         ports:
-            - "8002:8000"
+            - "8000:8000"
         volumes:
             - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
             - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
