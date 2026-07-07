@@ -21,13 +21,16 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
+            --repeat-penalty 1.08 \
             --presence-penalty 0.0 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
             --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-qwen3-coder-next-ud-q3-64k-think-code:
@@ -49,10 +52,11 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning on \
             --reasoning-budget 4096 \
-            --jinja \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code:
@@ -106,12 +110,14 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.02 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-qwen36-35b-mtp-ud-q3-128k-code:
@@ -135,11 +141,12 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.02 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning off \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-qwen3-coder-30b-a3b-q4-64k:
@@ -160,9 +167,10 @@ models:
             --temp 0.7 \
             --top-p 0.8 \
             --top-k 20 \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     unsloth-gemma4-e4b-qat-tq-128k-compression:
@@ -265,15 +273,17 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 0.0 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
             --flash-attn on \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 8 \
             -b 512 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     deepreinforce-ornith-35b-q4-128k-think-code:
@@ -296,15 +306,17 @@ models:
             --top-k 20 \
             --min-p 0.00 \
             --presence-penalty 0.0 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
             --flash-attn on \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 8 \
             -b 512 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     deepreinforce-ornith-35b-q4-128k-code:
@@ -357,14 +369,16 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning on \
             --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 4 \
             -b 512 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     deepreinforce-ornith-9b-q4-64k-code:
@@ -386,13 +400,14 @@ models:
             --top-p 0.95 \
             --top-k 20 \
             --min-p 0.00 \
-            --repeat-penalty 1.0 \
+            --repeat-penalty 1.08 \
             --reasoning off \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
             -t 4 \
             -b 512 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
     yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code:
@@ -553,12 +568,107 @@ models:
             --presence-penalty 0.0 \
             --reasoning on \
             --reasoning-budget 4096 \
-            --repeat-penalty 1.0 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-penalty 1.08 \
             --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
             --cache-type-k q8_0 \
             --cache-type-v q8_0 \
-            --jinja \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             --no-warmup \
+            -ngl 99
+
+    empero-ai-qwythos-9b-mtp-q4-64k-think-code:
+        name: "Qwythos-9B-Claude-Mythos MTP-Q4_K_M (64k think-code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-empero-ai-qwythos-9b-mtp-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-empero-ai-qwythos-9b-mtp-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/empero-ai-qwythos-9b-gguf/Qwythos-9B-Claude-Mythos-5-1M-MTP-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-penalty 1.08 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
+            -ngl 99
+
+    jackrong-qwopus27b-v2-mtp-q4-64k-think-code:
+        name: "Qwopus3.6-27B-v2 MTP-Q4_K_M (64k think-code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-jackrong-qwopus27b-v2-mtp-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-jackrong-qwopus27b-v2-mtp-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/jackrong-qwopus27b-v2-mtp-gguf/Qwopus3.6-27B-v2-MTP-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-penalty 1.08 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
+            -ngl 99
+
+    jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code:
+        name: "Qwopus3.6-35B-A3B-Coder MTP-Q4_K_M (64k think-code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/jackrong-qwopus35b-a3b-coder-mtp-gguf/Qwopus3.6-35B-A3B-Coder-MTP-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --repeat-penalty 1.08 \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
 groups:
@@ -584,6 +694,7 @@ groups:
         swap: true
         exclusive: false
         members:
+            - unsloth-gemma4-12b-qat-128k-mtp
             - unsloth-gemma4-e4b-qat-tq-128k-compression
 
     subagent:
@@ -605,3 +716,6 @@ groups:
             - deepreinforce-ornith-35b-q4-64k-think-code
             - unsloth-gemma4-31b-ud-q4-64k-think-code
             - yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
+            - empero-ai-qwythos-9b-mtp-q4-64k-think-code
+            - jackrong-qwopus27b-v2-mtp-q4-64k-think-code
+            - jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
