@@ -190,6 +190,7 @@ services:
             - "8002:8000"
         volumes:
             - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
+            - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
         ipc: host
         entrypoint: ["vllm", "serve"]
         command:
@@ -207,6 +208,17 @@ services:
             - "0.40"
             - --max-num-seqs
             - "2"
+            - --max-num-batched-tokens
+            - "8192"
+            - --reasoning-parser
+            - qwen3
+            - --reasoning-config
+            - '{"reasoning_start_str":"<think>","reasoning_end_str":"</think>"}'
+            - --chat-template
+            - /models/chat_template.jinja
+            - --enable-auto-tool-choice
+            - --tool-call-parser
+            - qwen3_coder
         depends_on:
             - llama-swap
         restart: unless-stopped
