@@ -73,25 +73,26 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
 | research | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
 | subagent | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
-| aux | Gemma4 12B QAT MTP (vision) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
-| compression | E4B QAT TQ | 128k | 4.7 GB | 1.4 GB | 2 GB | **~8 GB** |
+| compression (12B) | Gemma4 12B QAT MTP (vision+compression) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
 
 ### Memory Scenarios
 
 All scenarios include vLLM reservation (52 GB). llama-swap models load on demand.
+Hermes handles all vision+agent tasks — compression model only loads for compression.
 
 | Scenario | vLLM | + models | **Total** | **Free** |
 |---|---|---|---|---|
 | **Hermes only** | 52 GB | — | **52 GB** | **79 GB** ✅ |
-| **Hermes + aux** | 52 GB | 20 GB | **72 GB** | **59 GB** ✅ |
-| **Hermes + aux + code** | 52 GB | 44 GB | **96 GB** | **35 GB** ✅ |
+| **Hermes + compression** | 52 GB | 20 GB | **72 GB** | **59 GB** ✅ |
+| **Hermes + code** | 52 GB | 24 GB | **76 GB** | **55 GB** ✅ |
 | **Hermes + code + research** | 52 GB | 57 GB | **109 GB** | **22 GB** ✅ |
-| **Hermes + all (worst case)** | 52 GB | 99 GB | **151 GB** | **-20 GB** ❌ |
-| **Hermes + aux + code + sub** | 52 GB | 58 GB | **110 GB** | **21 GB** ✅ |
-| **Hermes + aux + compression** | 52 GB | 28 GB | **80 GB** | **51 GB** ✅ |
+| **Hermes + code + subagent** | 52 GB | 35 GB | **87 GB** | **44 GB** ✅ |
+| **Hermes + code + research + sub** | 52 GB | 68 GB | **120 GB** | **11 GB** ✅ |
+| **Hermes + compression + code** | 52 GB | 44 GB | **96 GB** | **35 GB** ✅ |
+| **Hermes + all (worst case)** | 52 GB | 88 GB | **140 GB** | **-9 GB** ❌ |
 
-> Most common: hermes + aux (~72 GB). Code/research/subagent load only when needed.
-> Compression model loads in ~10-20s. Set TTL to 30 min for quick swap.
+> Most common: hermes alone (~52 GB). Compression loads only for compression tasks (~5s).
+> Code/research/subagent load on demand. Worst case exceeds by 9 GB — models swap naturally.
 
 ## Previous Configurations
 
