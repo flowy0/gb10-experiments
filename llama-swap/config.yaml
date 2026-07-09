@@ -224,8 +224,8 @@ models:
             -ngl 99
 
     unsloth-gemma4-26b-a4b-qat-mtp2-128k-think:
-        name: "Gemma4 26B QAT MTP γ=2 (128k hermes, -np 2)"
-        ttl: 86400
+        name: "Gemma4 26B QAT MTP γ=2 (128k research)"
+        ttl: 3600
         cmdStop: docker rm -f ls-unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
         cmd: |
             docker run --rm \
@@ -519,7 +519,7 @@ models:
 
     unsloth-gemma4-12b-qat-256k-mtp:
         name: "Gemma4 12B QAT + MTP (256k aux)"
-        ttl: 3600
+        ttl: 900
         cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-256k-mtp
         cmd: |
             docker run --rm \
