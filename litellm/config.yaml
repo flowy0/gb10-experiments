@@ -29,9 +29,9 @@ model_list:
       api_key: dummy
 
   # llama-swap - aux (vision)
-  - model_name: unsloth-gemma4-12b-qat-128k-mtp
+  - model_name: unsloth-gemma4-12b-qat-256k-mtp
     litellm_params:
-      model: openai/unsloth-gemma4-12b-qat-128k-mtp
+      model: openai/unsloth-gemma4-12b-qat-256k-mtp
       api_base: http://llama-swap:8080/v1
       api_key: dummy
 
