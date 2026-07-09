@@ -57,29 +57,47 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | Gemma4 31B (dense) | UD-Q4_K_XL | 18 GB | 64k | ~25 GB | 2 GB | **~45 GB** ⚠️ |
 | Qwen3.6-35B MoE | IQ4_NL | 18 GB | 64k | 2.5 GB | 2 GB | **~23 GB** |
 
-## Current Active Stack
+## Current Active Stack (v11 — vLLM hermes)
 
-| Group | Model | Context | -np | Weights | KV | **Total** |
+### Services
+| Service | Role | Port | Memory |
+|---|---|---|---|
+| vLLM | hermes (Qwen3.6-35B-A3B NVFP4, 256k) | 8000 | **~52 GB** (40% reservation) |
+| llama-swap | code, research, subagent, aux, test | 8088 | models loaded on demand |
+| LiteLLM | unified router | 4000 | ~0.2 GB |
+
+### llama-swap models (loaded on demand)
+
+| Group | Model | Context | Weights | KV | OH | **Total** |
 |---|---|---|---|---|---|---|
-| hermes | 26B QAT MTP γ=2 | 256k | 2 | 16.4 GB | 30 GB | **48 GB** |
-| code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | 14 GB | 8.5 GB | **24 GB** |
-| aux | 12B QAT MTP (vision) | 128k | 1 | 6.5 GB | 5.6 GB | **14 GB** |
-| compression | E4B QAT TQ | 128k | 1 | 4.7 GB | 2.8 GB | **9 GB**¹ |
-| subagent | 12B QAT MTP -np 2 | 64k | 2 | 6.5 GB | 5.6 GB | **~14 GB** |
-| **Max total** | | | | | | **~109 GB** ✅ 22 GB free |
+| code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
+| research | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
+| subagent | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
+| aux | Gemma4 12B QAT MTP (vision) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
+| compression | E4B QAT TQ | 128k | 4.7 GB | 1.4 GB | 2 GB | **~8 GB** |
 
-¹ Compression is usually idle — excluded from active memory calc (~104 GB ✅ 27 GB free).
+### Memory Scenarios
 
-> **Gemma4 31B dense**: ~7 tok/s with MTP γ=2 on GB10. Compute-bound (all 31B params active).
-> Not practical for interactive use — consider MoE or smaller dense models.
-> Note: `-np N` multiplies KV cache by N. Max total assumes all groups loaded simultaneously,
-> which rarely happens. Active memory (always-hot): hermes + code ≈ **72 GB** ✅ 59 GB free.
+All scenarios include vLLM reservation (52 GB). llama-swap models load on demand.
+
+| Scenario | vLLM | + models | **Total** | **Free** |
+|---|---|---|---|---|
+| **Hermes only** | 52 GB | — | **52 GB** | **79 GB** ✅ |
+| **Hermes + aux** | 52 GB | 20 GB | **72 GB** | **59 GB** ✅ |
+| **Hermes + aux + code** | 52 GB | 44 GB | **96 GB** | **35 GB** ✅ |
+| **Hermes + code + research** | 52 GB | 57 GB | **109 GB** | **22 GB** ✅ |
+| **Hermes + all (worst case)** | 52 GB | 99 GB | **151 GB** | **-20 GB** ❌ |
+| **Hermes + aux + code + sub** | 52 GB | 58 GB | **110 GB** | **21 GB** ✅ |
+| **Hermes + aux + compression** | 52 GB | 28 GB | **80 GB** | **51 GB** ✅ |
+
+> Most common: hermes + aux (~72 GB). Code/research/subagent load only when needed.
+> Compression model loads in ~10-20s. Set TTL to 30 min for quick swap.
 
 ## Previous Configurations
 
 ### v10 — 5-group llama-swap stack (replaced)
-- hermes: 26B QAT MTP 128k -np 2 (48 GB)
-- code: Ornith-1.0-35B (25 GB)
+- hermes: Ornith 35B Q4_K_M (27 GB)
+- code: Qwen3.6 27B UD-Q3 (24 GB)
 - aux: 12B MTP 128k (14 GB)
 - compression: E4B TQ 128k (9 GB)
 - subagent: 12B MTP 64k -np 2 (14 GB)

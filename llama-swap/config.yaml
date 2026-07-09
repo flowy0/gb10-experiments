@@ -517,13 +517,13 @@ models:
             --chat-template-file /models/tool_chat_template_gemma4.jinja \
             -ngl 99
 
-    unsloth-gemma4-12b-qat-128k-mtp:
-        name: "Gemma4 12B QAT + MTP (128k aux)"
+    unsloth-gemma4-12b-qat-256k-mtp:
+        name: "Gemma4 12B QAT + MTP (256k aux)"
         ttl: 3600
-        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-128k-mtp
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-256k-mtp
         cmd: |
             docker run --rm \
-            --name ls-unsloth-gemma4-12b-qat-128k-mtp \
+            --name ls-unsloth-gemma4-12b-qat-256k-mtp \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -694,7 +694,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - unsloth-gemma4-12b-qat-128k-mtp
+            - unsloth-gemma4-12b-qat-256k-mtp
             - unsloth-gemma4-e4b-qat-tq-128k-compression
 
     subagent:
