@@ -671,22 +671,22 @@ models:
             --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
-    qwen3-embedding-8b-q4-32k:
-        name: "Qwen3-Embedding-8B Q4_K_M (32k) - embeddings"
+    bge-m3-q4-8k:
+        name: "BGE-M3 Q4_K_M (8k) - embeddings"
         ttl: 3600
-        cmdStop: docker rm -f ls-qwen3-embedding-8b-q4-32k
+        cmdStop: docker rm -f ls-bge-m3-q4-8k
         cmd: |
             docker run --rm \
-            --name ls-qwen3-embedding-8b-q4-32k \
+            --name ls-bge-m3-q4-8k \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
             ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             --embedding \
-            -m /models/qwen3-embedding-8b-gguf/Qwen3-Embedding-8B-Q4_K_M.gguf \
+            -m /models/bge-m3-gguf/bge-m3-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
-            -c 32768 \
+            -c 8192 \
             -ngl 99
 
 groups:
@@ -719,7 +719,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - qwen3-embedding-8b-q4-32k
+            - bge-m3-q4-8k
 
     subagent:
         swap: true
