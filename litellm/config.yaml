@@ -115,8 +115,8 @@ model_list:
       api_key: dummy
 
   # llama-swap - embed
-  - model_name: qwen3-embedding-8b-q4-32k
+  - model_name: bge-m3-q4-8k
     litellm_params:
-      model: openai/qwen3-embedding-8b-q4-32k
+      model: openai/bge-m3-q4-8k
       api_base: http://llama-swap:8080/v1
       api_key: dummy
