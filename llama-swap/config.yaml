@@ -671,6 +671,24 @@ models:
             --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
+    qwen3-embedding-8b-q4-32k:
+        name: "Qwen3-Embedding-8B Q4_K_M (32k) - embeddings"
+        ttl: 3600
+        cmdStop: docker rm -f ls-qwen3-embedding-8b-q4-32k
+        cmd: |
+            docker run --rm \
+            --name ls-qwen3-embedding-8b-q4-32k \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            --embedding \
+            -m /models/qwen3-embedding-8b-gguf/Qwen3-Embedding-8B-Q4_K_M.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 32768 \
+            -ngl 99
+
 groups:
     code:
         swap: true
@@ -696,6 +714,12 @@ groups:
         members:
             - unsloth-gemma4-12b-qat-256k-mtp
             - unsloth-gemma4-e4b-qat-tq-128k-compression
+
+    embed:
+        swap: true
+        exclusive: false
+        members:
+            - qwen3-embedding-8b-q4-32k
 
     subagent:
         swap: true

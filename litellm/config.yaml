@@ -113,3 +113,10 @@ model_list:
       model: openai/jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
       api_base: http://llama-swap:8080/v1
       api_key: dummy
+
+  # llama-swap - embed
+  - model_name: qwen3-embedding-8b-q4-32k
+    litellm_params:
+      model: openai/qwen3-embedding-8b-q4-32k
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy
