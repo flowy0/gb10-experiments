@@ -33,38 +33,35 @@
 
 ## Known Issues
 
-### Gemma 4 — LibreChat Agent / Tool-Calling
+### LibreChat — Gemma4 Tool-Calling (Stopped)
 
-Gemma 4 models (`12b`, `26b`) support tool calling in their chat template (`supports_tool_calls: true`)
-but LibreChat's agent system may reject tool calls with:
+LibreChat has been **stopped** due to unresolved Gemma4 tool-calling issues.
+The model generates valid tool calls per its own template, but LibreChat's validation schema fails to parse them.
 
 ```
 [ON_TOOL_EXECUTE] Tool web_search error: Received tool input did not match expected schema
 ```
 
-**Root cause:** Gemma 4 formats tool calls differently than what LibreChat's tool schemas expect.
-The model generates valid tool calls per its own template, but LibreChat's validation
-fails to parse them.
+**Status:** LibreChat service is stopped. Use Open WebUI (port 3000) instead.
+LibreChat config is preserved for future reference.
 
-**Status:** Unresolved. Use the Qwen3.6 27B through the `code` group for agentic workflows
-that require web search and tool execution.
+### Open WebUI — Browser Cache After Upgrade
 
-### LibreChat — RAG API Warning
+After upgrading Open WebUI to v0.10.2, the UI may flash or appear broken.
+This is a **browser cache issue** — old JavaScript files from the previous version are cached.
 
+**Fix:** Hard refresh (`Ctrl+Shift+R` / `Cmd+Shift+R`) or clear browser cache for the site.
+
+### OOM When Loading Multiple llama.cpp Models
+
+Loading 3+ llama.cpp models alongside vLLM hermes (~52 GB reserved) risks OOM.
+vLLM reserves 40% of GPU memory. Only ~79 GB remains for llama-swap models.
+
+**Fix:** Load only 1-2 llama.cpp models at a time. They load on demand (~5-30s cold start).
+If a crash occurs:
+```bash
+docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f
 ```
-RAG API is either not running or not reachable at undefined
-```
-
-LibreChat's RAG API is not deployed. File upload features may have issues.
-This does not affect chat or agent tool execution.
-
-### MTP + TurboQuant Incompatible (llama-cpp-turboquant fork)
-
-MTP speculative decoding and TurboQuant KV cache cannot be used together on the same
-model. The MTP context fails to initialize with turbo4 cache types.
-
-**Resolution:** Models use either MTP (Qwen 27B, 35B for speed) or TurboQuant (12B QAT,
-E4B for memory), not both on the same model.
 
 ### llama.cpp SHA Digest — Reference
 
@@ -74,48 +71,36 @@ Docker image ID.
 
 ---
 
-
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
+## Current Active Setup — vLLM Hermes + llama-swap
 
-## Current Active Setup — llama-swap only
+| Service | Role | Port |
+|---|---|---|
+| **vLLM** | Hermes (Qwen3.6-35B-A3B NVFP4, 256k, DFlash) | 8000 |
+| **llama-swap** | Code, Research, Subagent, Embed, Test | 8088 |
+| **LiteLLM** | Unified router for all models | 4000 |
+| **Open WebUI** | Chat UI | 3000 |
+| **MongoDB** | LibreChat data store (inactive) | 27017 |
 
-| Group | Model | Context | -np | Memory | Model ID |
-|---|---|---|---|---|---|
-| **hermes** | 12B QAT MTP | 128k | 2 -kvu | ~19 GB | `unsloth-gemma4-12b-qat-128k-mtp` |
-| **research** | 26B QAT MTP γ=2 | 128k | 1 | ~33 GB | `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` |
-| **code** | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 1 | ~25 GB | `unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code` |
-| **subagent** | 12B QAT MTP | 64k | 2 -kvu | ~14 GB | `unsloth-gemma4-12b-qat-64k-mtp-np2` |
-| **compression** | E4B QAT TQ | 128k | 1 | ~9 GB | `unsloth-gemma4-e4b-qat-tq-128k-compression` |
-| **test** | Ornith-35B Q4 @ 128k, Qwen3-Coder-Next | 64-128k | 1 | varies | multiple |
-| **Total** | | | | **~100 GB** ✅ 31 GB free | |
+See `llama-swap/docs/MEMORY.md` for full model details, memory calculations, and DFlash benchmarks.
 
-> Test group not included in active memory calc. Ornith 35B at 128k adds ~27 GB when loaded.
-> Hermes at 128k with -kvu gives 2 sessions sharing a 256k unified KV pool.
+### Quick Start
 
-
-Start with:
 ```bash
-docker compose up -d llama-swap
+docker compose up -d llama-swap litellm open-webui
+# vLLM starts separately (needs GPU memory reservation):
+docker compose up -d vllm-qwen36-35b-a3b-nvfp4
 ```
-
----
 
 ## Quick Reference
 
-- **llama-swap API:** `http://localhost:8088/v1`
-- **LibreChat UI:** `http://localhost:3080`
+- **LiteLLM API (recommended):** `http://localhost:4000/v1`
+- **llama-swap API (direct):** `http://localhost:8088/v1`
+- **vLLM API (hermes only):** `http://localhost:8000/v1`
 - **Open WebUI:** `http://localhost:3000`
-- **MongoDB:** `localhost:27017`
+- **LibreChat (stopped):** `http://localhost:3080`
 
 ## Model Groups
 
-Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/MEMORY.md` for memory planning.
-
-
-## vLLM (inactive)
-
-vLLM is currently disabled. All models run on llama-swap.
-Previous vLLM configurations are preserved in `docs/VLLM.md` and `docs/HISTORICAL.md`.
-Docker-compose entries for vLLM (Gemma4 FP8, DiffusionGemma, Qwen NVFP4) kept as
-commented backups for future reference.
+Models are organized by group in `llama-swap/config.yaml`. See `llama-swap/docs/MEMORY.md` for memory planning and DFlash benchmarks.
