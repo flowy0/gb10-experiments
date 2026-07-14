@@ -701,13 +701,13 @@ models:
             --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
-    nomic-embed-text-v1.5-q4-8k:
-        name: "nomic-embed-text-v1.5 Q4_K_M (8k) - embeddings"
+    nomic-embed-text-v1.5-q4-32k:
+        name: "nomic-embed-text-v1.5 Q4_K_M (32k) - embeddings"
         ttl: 3600
-        cmdStop: docker rm -f ls-nomic-embed-text-v1.5-q4-8k
+        cmdStop: docker rm -f ls-nomic-embed-text-v1.5-q4-32k
         cmd: |
             docker run --rm \
-            --name ls-nomic-embed-text-v1.5-q4-8k \
+            --name ls-nomic-embed-text-v1.5-q4-32k \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
@@ -716,7 +716,7 @@ models:
             -m /models/nomic-embed-text-gguf/nomic-embed-text-v1.5-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
-            -c 8192 \
+            -c 32768 \
             -ngl 99
 
     unsloth-qwen36-27b-q4-dflash-64k-code:
@@ -808,7 +808,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - nomic-embed-text-v1.5-q4-8k
+            - nomic-embed-text-v1.5-q4-32k
 
     subagent:
         swap: true
