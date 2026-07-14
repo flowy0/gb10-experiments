@@ -71,11 +71,11 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | Group | Model | Context | Weights | KV | OH | **Total** |
 |---|---|---|---|---|---|---|
 | code (MTP) | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
-| code (DFlash) | Qwen3.6-27B Q4_K_M + DFlash | 64k | 16 GB | 8.5 GB | 2 GB | **~26 GB** |
+| code (DFlash) | Qwen3.6-27B Q4_K_M + DFlash | 64k | 16+1 GB | 8.5 GB | 2 GB | **~27.5 GB** |
 | research (MTP) | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
-| research (DFlash) | Gemma4 26B UD-Q4_K_M + DFlash | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
+| research (DFlash) | Gemma4 26B UD-Q4_K_M + DFlash | 128k | 16+0.25 GB | 15 GB | 2 GB | **~33.25 GB** |
 | subagent (MTP) | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
-| subagent (DFlash) | Gemma4 12B Q4_K_M + DFlash | 64k | 6.5 GB | 2.8 GB | 1 GB | **~10 GB** |
+| subagent (DFlash) | Gemma4 12B Q4_K_M + DFlash | 64k | 6.7+0.4 GB | 2.8 GB | 1 GB | **~11 GB** |
 | embed | BGE-M3 Q4_K_M | 32k | 0.4 GB | — | 0.5 GB | **~1 GB** |
 | compression | Gemma4 12B QAT MTP (unused) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
 
@@ -95,16 +95,18 @@ Hermes handles all vision+agent tasks. **Load only one llama.cpp model at a time
 | Scenario | vLLM | + models | **Total** | **Free** |
 |---|---|---|---|---|
 | **Hermes only** (most common) | 52 GB | — | **52 GB** | **79 GB** ✅ |
-| **Hermes + embed** | 52 GB | 1 GB | **53 GB** | **78 GB** ✅ |
-| **Hermes + subagent (DFlash)** | 52 GB | 10 GB | **62 GB** | **69 GB** ✅ |
-| **Hermes + code (MTP/DFlash)** | 52 GB | 24-26 GB | **76-78 GB** | **53-55 GB** ✅ |
-| **Hermes + research (MTP/DFlash)** | 52 GB | 33 GB | **85 GB** | **46 GB** ✅ |
-| **Hermes + code + subagent** | 52 GB | 34-36 GB | **86-88 GB** | **43-45 GB** ✅ |
-| **Hermes + code + research** | 52 GB | 57-59 GB | **109-111 GB** | **20-22 GB** ✅ |
-| **Hermes + all three** | 52 GB | 67-69 GB | **119-121 GB** | **10-12 GB** ⚠️ |
-| **+ compression too (worst)** | 52 GB | 87-89 GB | **139-141 GB** | **-8 GB** ❌ |
+| **+ embed** | 52 GB | 1 GB | **53 GB** | **78 GB** ✅ |
+| **+ subagent (DFlash)** | 52 GB | 11 GB | **63 GB** | **68 GB** ✅ |
+| **+ subagent (MTP)** | 52 GB | 14 GB | **66 GB** | **65 GB** ✅ |
+| **+ code (MTP/DFlash)** | 52 GB | 24-27.5 GB | **76-79.5 GB** | **51.5-55 GB** ✅ |
+| **+ research (MTP/DFlash)** | 52 GB | 33-33.25 GB | **85-85.25 GB** | **45.75-46 GB** ✅ |
+| **+ code + sub (DFlash)** | 52 GB | 38.5 GB | **90.5 GB** | **40.5 GB** ✅ |
+| **+ code + research (DFlash)** | 52 GB | 60.75 GB | **112.75 GB** | **18.25 GB** ✅ |
+| **+ research + sub (DFlash)** | 52 GB | 44.25 GB | **96.25 GB** | **34.75 GB** ✅ |
+| **+ all three (DFlash)** | 52 GB | 71.75 GB | **123.75 GB** | **7.25 GB** ✅ |
+| **+ all + compression (worst)** | 52 GB | 91.75 GB | **143.75 GB** | **-12.75 GB** ❌ |
 
-> ⚠️ **Critical:** Loading 3+ llama.cpp models alongside vLLM risks OOM.
+> All three DFlash models (71.75 GB) fit alongside vLLM in 131 GB (123.75 GB used).
 
 ## Previous Configurations
 
