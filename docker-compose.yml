@@ -190,6 +190,7 @@ services:
             - "8000:8000"
         volumes:
             - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
+            - /opt/atom/models/z-lab-qwen36-35b-a3b-dflash:/dflash:ro
             - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
         ipc: host
         entrypoint: ["vllm", "serve"]
@@ -216,6 +217,8 @@ services:
             - '{"reasoning_start_str":"<think>","reasoning_end_str":"</think>"}'
             - --chat-template
             - /models/chat_template.jinja
+            - --speculative-config
+            - '{"method":"dflash","model":"/dflash","num_speculative_tokens":15}'
             - --enable-auto-tool-choice
             - --tool-call-parser
             - qwen3_coder
