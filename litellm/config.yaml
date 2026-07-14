@@ -127,3 +127,10 @@ model_list:
       model: openai/unsloth-gemma4-26b-ud-q4-dflash-128k-think
       api_base: http://llama-swap:8080/v1
       api_key: dummy
+
+  # llama-swap - subagent (vanilla + DFlash)
+  - model_name: unsloth-gemma4-12b-q4-dflash-64k-think
+    litellm_params:
+      model: openai/unsloth-gemma4-12b-q4-dflash-64k-think
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy
