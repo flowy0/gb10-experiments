@@ -27,7 +27,7 @@ endpoints:
               fetch: true
 
           titleConvo: true
-          titleModel: "nvidia-qwen36-35b-a3b-nvfp4-256k"
+          titleModel: "unsloth-gemma4-12b-q4-dflash-64k-think"
 
           modelDisplayLabel: "Flint (Llama-Swap)"
 
