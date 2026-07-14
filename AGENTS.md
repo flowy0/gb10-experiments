@@ -45,6 +45,21 @@
 - Test the endpoint after changes: `curl http://localhost:8000/v1/models`
 - Ports: 8000 (primary), 8001 (DiffusionGemma test), 8002 (Qwen NVFP4 test)
 
+### Avoiding Crashes (OOM)
+- **vLLM reserves ~52 GB at 0.40 utilization** — only ~79 GB left for llama.cpp models
+- **Never load multiple llama.cpp models simultaneously** — request them one at a time
+- llama.cpp models load on demand (cold start ~5-30s) — let them finish loading before requesting another
+- If a request hangs or times out, models may be competing for memory. Stop unused containers:
+  ```bash
+  docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f
+  ```
+- **DFlash models**: vanilla targets (Q4_K_M) work best. QAT/UD quant models have lower draft acceptance.
+- Memory scenarios (with vLLM @ 0.40):
+  - Hermes only: 52 GB ✅ 79 GB free
+  - + one llama.cpp model: ~65-85 GB ✅
+  - + two llama.cpp models: ~85-118 GB ⚠️ tight
+  - + three or more: ❌ crash risk
+
 ### vLLM Known Pitfalls
 - `--reasoning-parser` puts thinking in `message.reasoning` not `message.reasoning_content`
 - Stock vLLM images crash on Blackwell (CUTLASS error) — use spark-vllm-docker (`vllm-node-tf5`)
