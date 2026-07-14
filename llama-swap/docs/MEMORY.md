@@ -70,29 +70,41 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 
 | Group | Model | Context | Weights | KV | OH | **Total** |
 |---|---|---|---|---|---|---|
-| code | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
-| research | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
-| subagent | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
-| compression (12B) | Gemma4 12B QAT MTP (vision+compression) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
+| code (MTP) | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
+| code (DFlash) | Qwen3.6-27B Q4_K_M + DFlash | 64k | 16 GB | 8.5 GB | 2 GB | **~26 GB** |
+| research (MTP) | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
+| research (DFlash) | Gemma4 26B UD-Q4_K_M + DFlash | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
+| subagent (MTP) | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
+| subagent (DFlash) | Gemma4 12B Q4_K_M + DFlash | 64k | 6.5 GB | 2.8 GB | 1 GB | **~10 GB** |
+| embed | BGE-M3 Q4_K_M | 32k | 0.4 GB | — | 0.5 GB | **~1 GB** |
+| compression | Gemma4 12B QAT MTP (unused) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
+
+### DFlash Speed Benchmarks
+
+| Model | Target | Engine | Speculation | Acceptance | Speed |
+|---|---|---|---|---|---|
+| Qwen3.6-35B-A3B | NVFP4 | vLLM | DFlash γ=15 | high | **270 tok/s** 🚀 |
+| Gemma4 26B | UD-Q4_K_M | llama.cpp | DFlash γ=15 | 23% | **80 tok/s** |
+| Gemma4 12B | Q4_K_M | llama.cpp | DFlash γ=15 | 60% | **76 tok/s** |
 
 ### Memory Scenarios
 
 All scenarios include vLLM reservation (52 GB). llama-swap models load on demand.
-Hermes handles all vision+agent tasks — compression model only loads for compression.
+Hermes handles all vision+agent tasks. **Load only one llama.cpp model at a time** to avoid OOM.
 
 | Scenario | vLLM | + models | **Total** | **Free** |
 |---|---|---|---|---|
-| **Hermes only** | 52 GB | — | **52 GB** | **79 GB** ✅ |
-| **Hermes + compression** | 52 GB | 20 GB | **72 GB** | **59 GB** ✅ |
-| **Hermes + code** | 52 GB | 24 GB | **76 GB** | **55 GB** ✅ |
-| **Hermes + code + research** | 52 GB | 57 GB | **109 GB** | **22 GB** ✅ |
-| **Hermes + code + subagent** | 52 GB | 35 GB | **87 GB** | **44 GB** ✅ |
-| **Hermes + code + research + sub** | 52 GB | 68 GB | **120 GB** | **11 GB** ✅ |
-| **Hermes + compression + code** | 52 GB | 44 GB | **96 GB** | **35 GB** ✅ |
-| **Hermes + all (worst case)** | 52 GB | 88 GB | **140 GB** | **-9 GB** ❌ |
+| **Hermes only** (most common) | 52 GB | — | **52 GB** | **79 GB** ✅ |
+| **Hermes + embed** | 52 GB | 1 GB | **53 GB** | **78 GB** ✅ |
+| **Hermes + subagent (DFlash)** | 52 GB | 10 GB | **62 GB** | **69 GB** ✅ |
+| **Hermes + code (MTP/DFlash)** | 52 GB | 24-26 GB | **76-78 GB** | **53-55 GB** ✅ |
+| **Hermes + research (MTP/DFlash)** | 52 GB | 33 GB | **85 GB** | **46 GB** ✅ |
+| **Hermes + code + subagent** | 52 GB | 34-36 GB | **86-88 GB** | **43-45 GB** ✅ |
+| **Hermes + code + research** | 52 GB | 57-59 GB | **109-111 GB** | **20-22 GB** ✅ |
+| **Hermes + all three** | 52 GB | 67-69 GB | **119-121 GB** | **10-12 GB** ⚠️ |
+| **+ compression too (worst)** | 52 GB | 87-89 GB | **139-141 GB** | **-8 GB** ❌ |
 
-> Most common: hermes alone (~52 GB). Compression loads only for compression tasks (~5s).
-> Code/research/subagent load on demand. Worst case exceeds by 9 GB — models swap naturally.
+> ⚠️ **Critical:** Loading 3+ llama.cpp models alongside vLLM risks OOM.
 
 ## Previous Configurations
 
