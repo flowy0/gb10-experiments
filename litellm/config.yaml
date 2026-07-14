@@ -134,3 +134,10 @@ model_list:
       model: openai/unsloth-gemma4-12b-q4-dflash-64k-think
       api_base: http://llama-swap:8080/v1
       api_key: dummy
+
+  # llama-swap - code (vanilla Q4 + DFlash)
+  - model_name: unsloth-qwen36-27b-q4-dflash-64k-code
+    litellm_params:
+      model: openai/unsloth-qwen36-27b-q4-dflash-64k-code
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy

@@ -719,6 +719,37 @@ models:
             -c 32768 \
             -ngl 99
 
+    unsloth-qwen36-27b-q4-dflash-64k-code:
+        name: "Qwen3.6-27B Q4_K_M + DFlash (64k code)"
+        ttl: 3600
+        cmdStop: docker rm -f ls-unsloth-qwen36-27b-q4-dflash-64k-code
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-qwen36-27b-q4-dflash-64k-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/unsloth-qwen3.6-27b-mtp-gguf/Qwen3.6-27B-Q4_K_M.gguf \
+            --model-draft /models/dflash-qwen36-27b/qwen36-27b-dflash-Q4_K_M.gguf \
+            --spec-type draft-dflash --spec-draft-n-max 15 \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 65536 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --reasoning-budget-message 'I have thought enough. Let me give my answer now.' \
+            --repeat-penalty 1.08 \
+            --repeat-last-n 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
+            -ngl 99
+
     unsloth-gemma4-12b-q4-dflash-64k-think:
         name: "Gemma4 12B Q4_K_M + DFlash (64k subagent)"
         ttl: 1800
@@ -751,6 +782,7 @@ groups:
         exclusive: false
         members:
             - unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
+            - unsloth-qwen36-27b-q4-dflash-64k-code
 
     research:
         swap: true
