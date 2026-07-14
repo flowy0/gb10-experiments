@@ -19,15 +19,15 @@ endpoints:
     custom:
         - name: "Flint Local"
           apiKey: "not-needed"
-          baseURL: "http://llama-swap:8080/v1"
+          baseURL: "http://litellm:4000/v1"
 
           models:
               default:
-                  - "unsloth-gemma4-26b-a4b-qat-128k-think"
-              fetch: false
+                  - "nvidia-qwen36-35b-a3b-nvfp4-256k"
+              fetch: true
 
           titleConvo: true
-          titleModel: "unsloth-gemma4-26b-a4b-qat-128k-think"
+          titleModel: "nvidia-qwen36-35b-a3b-nvfp4-256k"
 
           modelDisplayLabel: "Flint (Llama-Swap)"
 
