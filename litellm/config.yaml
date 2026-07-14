@@ -115,9 +115,9 @@ model_list:
       api_key: dummy
 
   # llama-swap - embed
-  - model_name: bge-m3-q4-32k
+  - model_name: nomic-embed-text-v1.5-q4-8k
     litellm_params:
-      model: openai/bge-m3-q4-32k
+      model: openai/nomic-embed-text-v1.5-q4-8k
       api_base: http://llama-swap:8080/v1
       api_key: dummy
 

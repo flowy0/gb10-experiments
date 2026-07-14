@@ -701,22 +701,22 @@ models:
             --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
-    bge-m3-q4-32k:
-        name: "BGE-M3 Q4_K_M (32k) - embeddings"
+    nomic-embed-text-v1.5-q4-8k:
+        name: "nomic-embed-text-v1.5 Q4_K_M (8k) - embeddings"
         ttl: 3600
-        cmdStop: docker rm -f ls-bge-m3-q4-32k
+        cmdStop: docker rm -f ls-nomic-embed-text-v1.5-q4-8k
         cmd: |
             docker run --rm \
-            --name ls-bge-m3-q4-32k \
+            --name ls-nomic-embed-text-v1.5-q4-8k \
             --runtime=nvidia \
             --network container:llama-swap \
             -v /opt/atom/models:/models:ro \
             ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             --embedding \
-            -m /models/bge-m3-gguf/bge-m3-Q4_K_M.gguf \
+            -m /models/nomic-embed-text-gguf/nomic-embed-text-v1.5-Q4_K_M.gguf \
             --host 0.0.0.0 \
             --port \${PORT} \
-            -c 32768 \
+            -c 8192 \
             -ngl 99
 
     unsloth-qwen36-27b-q4-dflash-64k-code:
@@ -808,7 +808,7 @@ groups:
         swap: true
         exclusive: false
         members:
-            - bge-m3-q4-32k
+            - nomic-embed-text-v1.5-q4-8k
 
     subagent:
         swap: true
