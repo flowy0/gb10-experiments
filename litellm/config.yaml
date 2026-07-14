@@ -120,3 +120,10 @@ model_list:
       model: openai/bge-m3-q4-32k
       api_base: http://llama-swap:8080/v1
       api_key: dummy
+
+  # llama-swap - research (vanilla + DFlash)
+  - model_name: unsloth-gemma4-26b-ud-q4-dflash-128k-think
+    litellm_params:
+      model: openai/unsloth-gemma4-26b-ud-q4-dflash-128k-think
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy
