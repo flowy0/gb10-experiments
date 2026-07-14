@@ -591,7 +591,7 @@ services:
         restart: unless-stopped
 
     librechat:
-        image: ghcr.io/danny-avila/librechat:latest@sha256:a46254938507971e0d4f7ed3f9d116bd9b118f4810b5b75eb716baf575645068
+        image: ghcr.io/danny-avila/librechat:v0.8.7
         container_name: librechat
         env_file:
             - /opt/atom/.env
