@@ -235,8 +235,8 @@ models:
             -v /opt/atom/models:/models:ro \
             ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
             -m /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf \
-            --model-draft /models/unsloth-gemma-4-26b-a4b-it-qat-gguf/mtp-gemma-4-26B-A4B-it.gguf \
-            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --model-draft /models/dflash-gemma4-26b/gemma4-26b-dflash-Q4_K_M.gguf \
+            --spec-type draft-dflash --spec-draft-n-max 15 \
             --host 0.0.0.0 \
             --port ${PORT} \
             -c 262144 \
