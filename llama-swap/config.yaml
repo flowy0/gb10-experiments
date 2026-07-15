@@ -717,8 +717,8 @@ models:
             --host 0.0.0.0 \
             --port \${PORT} \
             -c 32768 \
-            -b 4096 \
-            -ub 4096 \
+            -b 8192 \
+            -ub 8192 \
             -ngl 99
 
     unsloth-qwen36-27b-q4-dflash-64k-code:
