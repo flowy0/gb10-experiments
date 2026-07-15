@@ -1,5 +1,42 @@
 # Changelog
 
+## 2026-07-14
+
+**Stack overhaul — vLLM hermes + DFlash:**
+- **Hermes switched from Ornith 35B (llama-swap) → Qwen3.6-35B-A3B NVFP4 (vLLM)**
+  - 73 tok/s baseline, **270 tok/s with DFlash** (3.7× speedup)
+  - Built-in vision — replaces aux model
+  - LiteLLM router added (port 4000) for unified endpoint
+  - Gemma4 vLLM services retired (commented out)
+
+**DFlash speculative decoding (vLLM + llama.cpp):**
+- **Hermes (vLLM):** 270 tok/s with z-lab DFlash draft (737 MB)
+- **Gemma4 26B research (llama.cpp):** 80 tok/s with Alittlehammmer DFlash (254 MB)
+- **Gemma4 12B subagent (llama.cpp):** 76 tok/s with williamliao DFlash (422 MB)
+- **Qwen3.6-27B code (llama.cpp):** vanilla Q4 + DFlash draft (986 MB) added
+- Rebuilt vLLM image to July 12 main (v0.23.1rc1.dev1053)
+
+**New models:**
+- **Qwopus3.6-27B-v2** and **Qwopus3.6-35B-A3B-Coder** (Jackrong finetunes, test group)
+- **Qwythos-9B** (Empero, Claude Mythos reasoning, test group)
+- **nomic-embed-text-v1.5** (81 MB, embed group, 32k context, batch 8192)
+- **BGE-M3** replaced nomic (briefly), then nomic restored
+
+**Memory optimization:**
+- Aux model removed (hermes handles vision)
+- Compression model unused
+- All three DFlash models fit simultaneously (~124 GB out of 131)
+- OOM avoidance notes added to AGENTS.md
+
+**Infrastructure:**
+- vLLM image rebuilt (spark-vllm-docker)
+- LiteLLM router added for unified endpoint
+- LibreChat stopped (Gemma4 tool-calling issues)
+- Open WebUI upgraded to v0.10.2
+- Chat template updated to froggeric v21.3
+- MEMORY.md updated with DFlash benchmarks and scenarios
+- README updated with current stack and known issues
+
 ## 2026-06-27
 
 **Stack config changes:**
