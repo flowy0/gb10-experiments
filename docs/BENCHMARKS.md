@@ -51,6 +51,18 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | tool-eval-bench score | 85/100 | 53/69 passed |
 | CUDA graphs | ✅ | VLLM_USE_V2_MODEL_RUNNER=1, TRITON_ATTN |
 
+## DFlash Speculative Decoding
+
+| Target Model | Engine | Draft Model | Acceptance | Speed |
+|---|---|---|---|---|
+| Qwen3.6-35B-A3B NVFP4 (hermes) | **vLLM** | z-lab DFlash (737 MB) | high | **270 tok/s** 🚀 |
+| Gemma4 26B UD-Q4_K_M (research) | llama.cpp | Alittlehammmer DFlash (254 MB) | 23% | **80 tok/s** |
+| Gemma4 12B Q4_K_M (subagent) | llama.cpp | williamliao DFlash (422 MB) | 60% | **76 tok/s** |
+| Qwen3.6-27B Q4_K_M (code) | llama.cpp | Alittlehammmer DFlash (986 MB) | TBD | TBD |
+
+> DFlash replaces MTP on all models where available. vLLM DFlash uses safetensors format;
+> llama.cpp DFlash requires GGUF with `dflash` architecture (not `dflash-draft`).
+
 ## Tool Calling Quality (tool-eval-bench)
 
 | Model | Score | Rating |
@@ -61,3 +73,11 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
 | FP8 26B (June 14 baseline) | ~91/100 | ★★★★ |
 | FP8 26B (128k) | ~73/100 | ★★★ Adequate |
+
+## Other Models (test group)
+
+| Model | Engine | tok/s | Notes |
+|---|---|---|---|
+| Qwopus3.6-27B-v2 MTP Q4_K_M | llama.cpp | 25 | Jackrong finetune |
+| Qwopus3.6-35B-A3B-Coder MTP Q4_K_M | llama.cpp | **84** | MoE, fast! |
+| Qwythos-9B MTP Q4_K_M | llama.cpp | 52 | Claude Mythos reasoning |
