@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-07-16
+
+**Gemma4 updates & testing:**
+- **Updated Gemma4 chat template** (July 2026 release) — fixed tool-calling loops, thinking gate logic
+- **Gemma4 26B vanilla + DFlash** scored **97/100** tool-eval (up from ~85-90 for earlier Gemma4 variants)
+- **Tested Unsloth Qwen3.6-35B-A3B NVFP4** (25 GB) — **66 tok/s** vs NVIDIA's 73 tok/s, removed
+- **nomic-embed-text batch size** increased to 8192 for large embedding chunks
+- **Agentic workflow note added**: DFlash + thinking = broken. DFlash needs `enable_thinking: false`
+
 ## 2026-07-14
 
 **Stack overhaul — vLLM hermes + DFlash:**
