@@ -70,6 +70,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | **Ornith-1.0-35B MoE Q4_K_M** | **100/100** | **★★★★★ Excellent** |
 | Qwen3.6 27B UD-Q3_K_XL | 97/100 | ★★★★★ Excellent |
 | Gemma4 12B Agentic v2 | 90/100 | ★★★★★ Excellent |
+| **Gemma4 26B vanilla + DFlash** (Jul 2026 template) | **97/100** | **★★★★★ Excellent** |
 | DiffusionGemma 26B NVFP4 | 85/100 | ★★★★ Good |
 | FP8 26B (June 14 baseline) | ~91/100 | ★★★★ |
 | FP8 26B (128k) | ~73/100 | ★★★ Adequate |
