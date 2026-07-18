@@ -1,0 +1,32 @@
+{
+  "title": "LLM Stack",
+  "uid": "llm-stack",
+  "schemaVersion": 38,
+  "version": 1,
+  "panels": [
+    {
+      "title": "vLLM Request Rate",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [{"expr": "rate(vllm:request_count_total[5m])", "legendFormat": "requests/s"}]
+    },
+    {
+      "title": "vLLM GPU Memory",
+      "type": "gauge",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [{"expr": "vllm:gpu_memory_used_bytes / vllm:gpu_memory_total_bytes * 100", "legendFormat": "GPU %"}]
+    },
+    {
+      "title": "llama-swap CPU Usage",
+      "type": "graph",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "targets": [{"expr": "llamaswap_cpu_util_percent", "legendFormat": "core {{core}}"}]
+    },
+    {
+      "title": "Active Models",
+      "type": "stat",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "targets": [{"expr": "count(llamaswap_model_loaded == 1)", "legendFormat": "models"}]
+    }
+  ]
+}
