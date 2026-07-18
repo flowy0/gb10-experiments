@@ -625,9 +625,32 @@ services:
             JINA_API_URL: ${JINA_API_URL}
         restart: unless-stopped
 
+    prometheus:
+        image: prom/prometheus:latest
+        container_name: prometheus
+        volumes:
+            - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+            - prometheus-data:/prometheus
+        ports:
+            - "9090:9090"
+        restart: unless-stopped
+
+    grafana:
+        image: grafana/grafana:latest
+        container_name: grafana
+        ports:
+            - "3001:3000"
+        volumes:
+            - grafana-data:/var/lib/grafana
+            - ./prometheus/dashboards:/etc/grafana/provisioning/dashboards:ro
+            - ./prometheus/datasources:/etc/grafana/provisioning/datasources:ro
+        restart: unless-stopped
+
 volumes:
     mongo-data:
     librechat-images:
     librechat-uploads:
     librechat-logs:
     open-webui-data:
+    prometheus-data:
+    grafana-data:
