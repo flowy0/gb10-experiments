@@ -45,20 +45,46 @@
 - Test the endpoint after changes: `curl http://localhost:8000/v1/models`
 - Ports: 8000 (primary), 8001 (DiffusionGemma test), 8002 (Qwen NVFP4 test)
 
-### Avoiding Crashes (OOM)
-- **vLLM reserves ~52 GB at 0.40 utilization** — only ~79 GB left for llama.cpp models
-- **Never load multiple llama.cpp models simultaneously** — request them one at a time
-- llama.cpp models load on demand (cold start ~5-30s) — let them finish loading before requesting another
-- If a request hangs or times out, models may be competing for memory. Stop unused containers:
+### Avoiding Crashes (OOM & Cascade Failure)
+
+#### Cascade Failure Pattern
+GPU OOM doesn't just kill a container — it can **lock up the entire system.**
+
+1. GPU runs out of memory → NVIDIA UVM tries swapping GPU memory to system RAM
+2. System RAM fills up → journald/dockerd/sshd all stall
+3. llama-server processes block on NVIDIA driver locks (122s+)
+4. SSH becomes unresponsive → hard reboot required
+
+#### Signs of Cascade
+- `NVRM: Xid ... Graphics Exception` in `dmesg` (GPU hardware error)
+- `NV_ERR_NO_MEMORY` in kernel logs
+- `Under memory pressure, flushing caches` in journald
+- `task:llama-server blocked for more than 122 seconds`
+- SSH connection drops despite machine being powered on
+
+#### Prevention
+- **vLLM at 0.35 utilization** (~46 GB) — don't increase this
+- **Load one llama.cpp model at a time** — let it cold start (~5-30s) before requesting another
+- **Don't run tool-eval-bench with multiple models loaded** — it makes concurrent requests
+- **If system feels sluggish, stop unused containers immediately:**
   ```bash
   docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f
   ```
-- **DFlash models**: vanilla targets (Q4_K_M) work best. QAT/UD quant models have lower draft acceptance.
-- Memory scenarios (with vLLM @ 0.40):
-  - Hermes only: 52 GB ✅ 79 GB free
-  - + one llama.cpp model: ~65-85 GB ✅
-  - + two llama.cpp models: ~85-118 GB ⚠️ tight
-  - + three or more: ❌ crash risk
+- **GPU health monitor**: `/opt/atom/scripts/gpu-health.sh` checks for Xid errors
+
+#### If Locked Out
+- Hard power cycle (hold power button)
+- After reboot, check `journalctl -k | grep NVRM` for Xid errors
+- Don't restart the same workload — the GPU driver may need a cold boot
+
+#### Memory Scenarios (vLLM @ 0.35 = ~46 GB reserved)
+
+| Scenario | Total | Free |
+|---|---|---|
+| Hermes only | 46 GB | **85 GB** ✅ |
+| + one llama.cpp model | 56-79 GB | **52-75 GB** ✅ |
+| + two llama.cpp models | 79-112 GB | **19-52 GB** ⚠️ |
+| + three or more | 112+ GB | ❌ crash risk |
 
 ### vLLM Known Pitfalls
 - `--reasoning-parser` puts thinking in `message.reasoning` not `message.reasoning_content`
