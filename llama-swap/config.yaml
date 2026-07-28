@@ -787,19 +787,19 @@ groups:
             - unsloth-gemma4-12b-qat-64k-mtp-np2
             - unsloth-gemma4-12b-q4-dflash-64k-think
 
-    test:
-        swap: true
-        exclusive: false
-        members:
-            - unsloth-qwen3-coder-next-ud-q3-64k-think-code
-            - deepreinforce-ornith-35b-q4-128k-think-code
-            - unsloth-qwen36-35b-mtp-ud-q3-128k-think-code
-            - unsloth-qwen36-35b-mtp-ud-q3-128k-code
-            - deepreinforce-ornith-9b-q4-64k-think-code
-            - deepreinforce-ornith-9b-q4-64k-code
-            - deepreinforce-ornith-35b-q4-64k-think-code
-            - unsloth-gemma4-31b-ud-q4-64k-think-code
-            - yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
-            - empero-ai-qwythos-9b-mtp-q4-64k-think-code
+  #     test:
+  #         swap: true
+  #         exclusive: false
+  #         members:
+  #             - unsloth-qwen3-coder-next-ud-q3-64k-think-code
+  #             - deepreinforce-ornith-35b-q4-128k-think-code
+  #             - unsloth-qwen36-35b-mtp-ud-q3-128k-think-code
+  #             - unsloth-qwen36-35b-mtp-ud-q3-128k-code
+  #             - deepreinforce-ornith-9b-q4-64k-think-code
+  #             - deepreinforce-ornith-9b-q4-64k-code
+  #             - deepreinforce-ornith-35b-q4-64k-think-code
+  #             - unsloth-gemma4-31b-ud-q4-64k-think-code
+  #             - yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
+  #             - empero-ai-qwythos-9b-mtp-q4-64k-think-code
             - jackrong-qwopus27b-v2-mtp-q4-64k-think-code
             - jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
