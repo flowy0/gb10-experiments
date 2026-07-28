@@ -2,6 +2,13 @@
 
 ## 2026-07-28
 
+**AEON vLLM Ultimate tested — 3× speedup:**
+- **Qwen3.6-35B-A3B**: 222 tok/s (vs 73 before) — AEON vLLM v0.25.1, DFlash + FP8 KV
+- **Gemma4 26B NVFP4**: 309 tok/s (vs 80 on llama.cpp, 50 on old vLLM) — DFlash + FP8 KV
+- AEON uses `--gpu-memory-utilization 0.60` (78 GB) vs 0.35 (46 GB) before
+- Tool calling works on both models
+- Memory trade-off: 52 GB remaining for llama.cpp (was 85 GB)
+
 **GPU cascade crash investigation:**
 - **Root cause**: vLLM hit NVRM Xid 13 Graphics Exception at 03:07, corrupting GPU state
 - **Cascade**: Subsequent model loads failed with OOM → system memory pressure → SSH dead → reboot
