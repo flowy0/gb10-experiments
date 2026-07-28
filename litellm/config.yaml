@@ -150,3 +150,13 @@ model_list:
       model: openai/aeon-gemma4-26b-nvfp4-dflash-131k-think
       api_base: http://aeon-gemma4-26b:8000/v1
       api_key: dummy
+
+  # llama-swap - compression (128k)
+  - model_name: unsloth-gemma4-12b-qat-128k-mtp
+    litellm_params:
+      model: openai/unsloth-gemma4-12b-qat-128k-mtp
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy
+
+  # llama-swap - compression (128k)
+      api_key: dummy
