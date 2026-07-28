@@ -23,7 +23,7 @@ endpoints:
 
           models:
               default:
-                  - "nvidia-qwen36-35b-a3b-nvfp4-256k"
+                  - "aeon-gemma4-26b-nvfp4-dflash-131k-think"
               fetch: true
 
           titleConvo: true
