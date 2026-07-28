@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-07-28
+
+**GPU cascade crash investigation:**
+- **Root cause**: vLLM hit NVRM Xid 13 Graphics Exception at 03:07, corrupting GPU state
+- **Cascade**: Subsequent model loads failed with OOM → system memory pressure → SSH dead → reboot
+- **Fix**: Reduced vLLM `--gpu-memory-utilization` 0.40 → 0.35 (~46 GB), added GPU health monitor
+- **Doc**: Added cascade failure pattern, diagnosis steps, and lockout recovery to AGENTS.md
+
 ## 2026-07-16
 
 **Gemma4 updates & testing:**
