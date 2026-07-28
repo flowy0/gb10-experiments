@@ -31,11 +31,11 @@ model_list:
       api_key: dummy
 
   # llama-swap - test models (wildcard fallback)
-  - model_name: deepreinforce-ornith-35b-q4-128k-code
-    litellm_params:
-      model: openai/deepreinforce-ornith-35b-q4-128k-code
-      api_base: http://llama-swap:8080/v1
-      api_key: dummy
+  # - model_name: deepreinforce-ornith-35b-q4-128k-code
+  #   litellm_params:
+  #     model: openai/deepreinforce-ornith-35b-q4-128k-code
+  #     api_base: http://llama-swap:8080/v1
+  #     api_key: dummy
 
   #   - model_name: deepreinforce-ornith-35b-q4-128k-think-code
   #     litellm_params:
@@ -117,11 +117,11 @@ model_list:
       api_key: dummy
 
   # llama-swap - research (vanilla + DFlash)
-  - model_name: unsloth-gemma4-26b-ud-q4-dflash-128k-think
-    litellm_params:
-      model: openai/unsloth-gemma4-26b-ud-q4-dflash-128k-think
-      api_base: http://llama-swap:8080/v1
-      api_key: dummy
+  #   - model_name: unsloth-gemma4-26b-ud-q4-dflash-128k-think
+  #     litellm_params:
+  #       model: openai/unsloth-gemma4-26b-ud-q4-dflash-128k-think
+  #       api_base: http://llama-swap:8080/v1
+  #       api_key: dummy
 
   # llama-swap - subagent (vanilla + DFlash)
   - model_name: unsloth-gemma4-12b-q4-dflash-64k-think
