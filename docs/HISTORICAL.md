@@ -2,6 +2,24 @@
 
 Previous stack configurations for reference.
 
+## v11 — AEON vLLM + llama-swap (current)
+
+| Component | Model | Speed |
+|---|---|---|
+| **AEON vLLM** | Gemma4 26B NVFP4 + DFlash + FP8 KV | 309 tok/s 🚀 |
+| llama-swap | Code (27B UD-Q3 MTP / Q4 DFlash) | 31 / 20 tok/s |
+| llama-swap | Subagent (12B Q4 DFlash) | 76 tok/s |
+| llama-swap | Embed (nomic-embed-text) | — |
+| LiteLLM | Unified router on port 4000 | — |
+
+**Key changes from v10:**
+- vLLM hermes: spark build → AEON vLLM v0.25.1 (3-6× speedup)
+- DFlash replaces MTP on all AEON models
+- Research/Test groups removed
+- LibreChat stopped
+- Monitoring added (Prometheus + Grafana)
+- GPU cascade failure mitigation (UMA hardening, stall monitor)
+
 ## v10 — llama-swap only, multi-group stack
 
 Replaced the vLLM + llama-swap hybrid with a pure llama-swap setup.

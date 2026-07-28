@@ -62,18 +62,18 @@ docker compose -f /opt/atom/docker-compose.yml config > /dev/null && echo "✅"
 ### Restart services
 ```bash
 # Restart llama-swap (picks up config changes)
-docker compose -f /opt/atom/docker-compose.yml restart llama-swap
+docker compose restart llama-swap
 
-# Restart vLLM with new config
-docker compose -f /opt/atom/docker-compose.yml up -d vllm-gemma4 --force-recreate
+# Restart AEON vLLM (picks up config changes, ~6 min cold start)
+docker compose up -d aeon-gemma4-26b --force-recreate
 
 # Restart everything
-docker compose -f /opt/atom/docker-compose.yml restart
+docker compose restart
 ```
 
 ### Force-recreate a specific container
 ```bash
-docker compose -f /opt/atom/docker-compose.yml up -d <service> --force-recreate
+docker compose up -d <service> --force-recreate
 ```
 
 ### Check container status
@@ -82,8 +82,13 @@ docker compose -f /opt/atom/docker-compose.yml up -d <service> --force-recreate
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 # Filter by service
-docker ps --filter name=vllm --format "{{.Names}} {{.Status}}"
+docker ps --filter name=aeon --format "{{.Names}} {{.Status}}"
 docker ps --filter name=ls- --format "{{.Names}} {{.Status}}"
+```
+
+### Stop all llama-swap models (frees GPU memory)
+```bash
+docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f
 ```
 
 ### View logs
@@ -140,19 +145,30 @@ curl -s --max-time 180 -X POST http://127.0.0.1:8088/v1/chat/completions \
 
 ### List available models
 ```bash
-# llama-swap — just model IDs
+# LiteLLM (recommended) — all models
+curl -s http://127.0.0.1:4000/v1/models | jq -r '.data[].id'
+
+# llama-swap — llama.cpp models only
 curl -s http://127.0.0.1:8088/v1/models | jq -r '.data[].id'
 
-# vLLM — just model IDs
+# AEON vLLM — hermes model
 curl -s http://127.0.0.1:8000/v1/models | jq -r '.data[].id'
 ```
 
 ### Benchmark decode speed
 ```bash
+# llama-swap model (has timings field)
 curl -s -X POST http://127.0.0.1:8088/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{"model":"<model-id>","messages":[{"role":"user","content":"hi"}],"max_tokens":100}' \
   | jq -r '"\(.usage.completion_tokens) tok in \(.timings.predicted_ms/1000 | floor)s = \(.usage.completion_tokens / (.timings.predicted_ms/1000) | floor) tok/s"'
+
+# AEON vLLM model (no timings field, use time command)
+time curl -s -X POST http://127.0.0.1:4000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk-1234" \
+  -d '{"model":"aeon-gemma4-26b-nvfp4-dflash-131k-think","messages":[{"role":"user","content":"Count 1 to 100"}],"max_tokens":300}' \
+  | jq -r '.usage.completion_tokens'
 ```
 
 ### Test tool calling
