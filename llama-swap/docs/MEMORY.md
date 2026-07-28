@@ -89,24 +89,25 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 
 ### Memory Scenarios
 
-All scenarios include vLLM reservation (52 GB). llama-swap models load on demand.
-Hermes handles all vision+agent tasks. **Load only one llama.cpp model at a time** to avoid OOM.
+All scenarios include AEON vLLM reservation (78 GB at 0.60). llama-swap models load on demand.
+
+| Service | Model | Memory |
+|---|---|---|
+| **AEON vLLM** | Gemma4 26B NVFP4 + DFlash | **~78 GB** (40% reservation) |
+| **Remaining** | for llama-swap | **~52 GB** |
 
 | Scenario | vLLM | + models | **Total** | **Free** |
 |---|---|---|---|---|
-| **Hermes only** (most common) | 52 GB | — | **52 GB** | **79 GB** ✅ |
-| **+ embed** | 52 GB | 1 GB | **53 GB** | **78 GB** ✅ |
-| **+ subagent (DFlash)** | 52 GB | 11 GB | **63 GB** | **68 GB** ✅ |
-| **+ subagent (MTP)** | 52 GB | 14 GB | **66 GB** | **65 GB** ✅ |
-| **+ code (MTP/DFlash)** | 52 GB | 24-27.5 GB | **76-79.5 GB** | **51.5-55 GB** ✅ |
-| **+ research (MTP/DFlash)** | 52 GB | 33-33.25 GB | **85-85.25 GB** | **45.75-46 GB** ✅ |
-| **+ code + sub (DFlash)** | 52 GB | 38.5 GB | **90.5 GB** | **40.5 GB** ✅ |
-| **+ code + research (DFlash)** | 52 GB | 60.75 GB | **112.75 GB** | **18.25 GB** ✅ |
-| **+ research + sub (DFlash)** | 52 GB | 44.25 GB | **96.25 GB** | **34.75 GB** ✅ |
-| **+ all three (DFlash)** | 52 GB | 71.75 GB | **123.75 GB** | **7.25 GB** ✅ |
-| **+ all + compression (worst)** | 52 GB | 91.75 GB | **143.75 GB** | **-12.75 GB** ❌ |
+| **Hermes only** | 78 GB | — | **78 GB** | **53 GB** ✅ |
+| **+ embed** | 78 GB | 1 GB | **79 GB** | **52 GB** ✅ |
+| **+ subagent (DFlash)** | 78 GB | 11 GB | **89 GB** | **42 GB** ✅ |
+| **+ code (DFlash)** | 78 GB | 28 GB | **106 GB** | **25 GB** ✅ |
+| **+ code + subagent (DFlash)** | 78 GB | 39 GB | **117 GB** | **14 GB** ✅ |
+| **+ code + sub + embed** | 78 GB | 40 GB | **118 GB** | **13 GB** ✅ |
+| **+ all + test model** | 78 GB | 50-70 GB | **128-148 GB** | **-17 GB** ❌ |
 
-> All three DFlash models (71.75 GB) fit alongside vLLM in 131 GB (123.75 GB used).
+> Research model moved to AEON vLLM — no longer in llama-swap.
+> 2-3 llama-swap models fit alongside AEON. Test models may not fit simultaneously.
 
 ## Previous Configurations
 
