@@ -148,3 +148,10 @@ model_list:
   #     model: openai/aeon-qwen36-35b
   #     api_base: http://aeon-qwen36-35b:8000/v1
   #     api_key: dummy
+
+  # AEON vLLM - Gemma4 26B hermes
+  - model_name: aeon-gemma4-26b-nvfp4-dflash-131k-think
+    litellm_params:
+      model: openai/aeon-gemma4-26b-nvfp4-dflash-131k-think
+      api_base: http://aeon-gemma4-26b:8000/v1
+      api_key: dummy
