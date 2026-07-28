@@ -664,7 +664,7 @@ services:
         image: ghcr.io/berriai/litellm:main-latest
         container_name: litellm
         depends_on:
-            - vllm-qwen36-35b-a3b-nvfp4
+            - aeon-gemma4-26b
             - llama-swap
         ports:
             - "4000:4000"
