@@ -1,11 +1,11 @@
 model_list:
 
   # vLLM - hermes
-  - model_name: nvidia-qwen36-35b-a3b-nvfp4-256k
-    litellm_params:
-      model: openai/nvidia-qwen36-35b-a3b-nvfp4-256k
-      api_base: http://vllm-qwen36-35b-a3b-nvfp4:8000/v1
-      api_key: dummy
+  # - model_name: nvidia-qwen36-35b-a3b-nvfp4-256k
+  #   litellm_params:
+  #     model: openai/nvidia-qwen36-35b-a3b-nvfp4-256k
+  #     api_base: http://vllm-qwen36-35b-a3b-nvfp4:8000/v1
+  #     api_key: dummy
 
   # llama-swap - code
   - model_name: unsloth-qwen36-27b-mtp2-ud-q3-64k-think-code
@@ -15,11 +15,6 @@ model_list:
       api_key: dummy
 
   # llama-swap - research
-  - model_name: unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
-    litellm_params:
-      model: openai/unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
-      api_base: http://llama-swap:8080/v1
-      api_key: dummy
 
   # llama-swap - subagent
   - model_name: unsloth-gemma4-12b-qat-64k-mtp-np2
