@@ -66,7 +66,7 @@ docker compose restart llama-swap
 
 # Restart AEON vLLM (picks up config changes, ~6 min cold start)
 docker compose up -d aeon-gemma4-26b --force-recreate
-
+docker compose up -d aeon-qwen36-35b --force-recreate
 # Restart everything
 docker compose restart
 ```

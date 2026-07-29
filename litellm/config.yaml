@@ -137,26 +137,23 @@ model_list:
       api_base: http://llama-swap:8080/v1
       api_key: dummy
 
-  # AEON vLLM Ultimate (commented — not running)
-  # - model_name: aeon-qwen36-35b
+  # AEON vLLM Ultimate (main)
+  - model_name: aeon-qwen36-35b
+    litellm_params:
+      model: openai/aeon-qwen36-35b
+      api_base: http://aeon-qwen36-35b:8000/v1
+      api_key: dummy
+
+  # # AEON vLLM - Gemma4 26B hermes (not running)
+  # - model_name: aeon-gemma4-26b-nvfp4-dflash-131k-think
   #   litellm_params:
-  #     model: openai/aeon-qwen36-35b
+  #     model: openai/aeon-gemma4-26b-nvfp4-dflash-131k-think
   #     api_base: http://aeon-gemma4-26b:8000/v1
   #     api_key: dummy
-
-  # AEON vLLM - Gemma4 26B hermes
-  - model_name: aeon-gemma4-26b-nvfp4-dflash-131k-think
-    litellm_params:
-      model: openai/aeon-gemma4-26b-nvfp4-dflash-131k-think
-      api_base: http://aeon-gemma4-26b:8000/v1
-      api_key: dummy
 
   # llama-swap - compression (128k)
   - model_name: unsloth-gemma4-12b-qat-128k-mtp
     litellm_params:
       model: openai/unsloth-gemma4-12b-qat-128k-mtp
       api_base: http://llama-swap:8080/v1
-      api_key: dummy
-
-  # llama-swap - compression (128k)
       api_key: dummy
