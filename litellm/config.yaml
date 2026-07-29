@@ -123,7 +123,7 @@ model_list:
   - model_name: aeon-qwen36-35b-128k-think
     litellm_params:
       model: openai/aeon-qwen36-35b-128k-think
-      api_base: http://llama-swap:8000/v1
+      api_base: http://aeon-qwen36-35b:8000/v1
       api_key: dummy
 
   # # AEON vLLM - Gemma4 26B hermes (not running)
