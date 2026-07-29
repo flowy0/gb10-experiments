@@ -8,6 +8,12 @@
 - Restart llama-swap after config changes: `docker compose restart llama-swap`
 - Use `sed -i` for group member changes, not whole-file Python scripts
 - When adding entries near existing ones, use exact text match, not line numbers
+- **docker-compose.yml indent rules:**
+  - **Service key:** column **7** (6 spaces), e.g. `      aeon-qwen36-35b:`
+  - **`container_name:`:** column **9** (8 spaces), same as other properties
+  - **Properties:** 8 spaces indent (`image:`, `runtime:`, `ports:`, etc.)
+  - **Nested items:** 12 spaces indent (`- "8000:8000"`, `- /model`, etc.)
+  - **Comment marker `#`** takes column 1, then add the indent
 
 ### Git Workflow
 - Always commit and push after config changes: `git add -A && git commit -m "message" && git push`
