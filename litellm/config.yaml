@@ -15,6 +15,11 @@ model_list:
       api_key: dummy
 
   # llama-swap - research
+  - model_name: unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
+    litellm_params:
+      model: openai/unsloth-gemma4-26b-a4b-qat-mtp2-128k-think
+      api_base: http://llama-swap:8080/v1
+      api_key: dummy
 
   # llama-swap - subagent
   - model_name: unsloth-gemma4-12b-qat-64k-mtp-np2
@@ -85,29 +90,6 @@ model_list:
   #       api_base: http://llama-swap:8080/v1
   #       api_key: dummy
 
-  #   - model_name: yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
-  #     litellm_params:
-  #       model: openai/yuxinlu1-gemma4-12b-agentic-v2-q4-128k-think-code
-  #       api_base: http://llama-swap:8080/v1
-  #       api_key: dummy
-
-  #   - model_name: empero-ai-qwythos-9b-mtp-q4-64k-think-code
-  #     litellm_params:
-  #       model: openai/empero-ai-qwythos-9b-mtp-q4-64k-think-code
-  #       api_base: http://llama-swap:8080/v1
-  #       api_key: dummy
-
-  #   - model_name: jackrong-qwopus27b-v2-mtp-q4-64k-think-code
-  #     litellm_params:
-  #       model: openai/jackrong-qwopus27b-v2-mtp-q4-64k-think-code
-  #       api_base: http://llama-swap:8080/v1
-  #       api_key: dummy
-
-  #   - model_name: jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
-  #     litellm_params:
-  #       model: openai/jackrong-qwopus35b-a3b-coder-mtp-q4-64k-think-code
-  #       api_base: http://llama-swap:8080/v1
-  #       api_key: dummy
 
   # llama-swap - embed
   - model_name: nomic-embed-text-v1.5-q4-32k
@@ -138,10 +120,10 @@ model_list:
       api_key: dummy
 
   # AEON vLLM Ultimate (main)
-  - model_name: aeon-qwen36-35b
+  - model_name: aeon-qwen36-35b-128k-think
     litellm_params:
-      model: openai/aeon-qwen36-35b
-      api_base: http://aeon-qwen36-35b:8000/v1
+      model: openai/aeon-qwen36-35b-128k-think
+      api_base: http://llama-swap:8000/v1
       api_key: dummy
 
   # # AEON vLLM - Gemma4 26B hermes (not running)

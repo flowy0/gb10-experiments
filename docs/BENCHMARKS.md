@@ -56,7 +56,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 
 | Target Model | Engine | Draft Model | Acceptance | Speed |
 |---|---|---|---|---|
-| Qwen3.6-35B-A3B NVFP4 (hermes) | **AEON vLLM** | z-lab DFlash (737 MB) + FP8 KV | high | **222 tok/s** 🚀 |
+| Qwen3.6-35B-A3B NVFP4 (hermes) | **AEON vLLM** | z-lab DFlash (737 MB) + FP8 KV | high | **164-169 tok/s** 🚀 |
 | Qwen3.6-35B-A3B NVFP4 (hermes) | vLLM (spark) | z-lab DFlash (737 MB) | high | 73 tok/s |
 | Gemma4 26B NVFP4 (hermes) | **AEON vLLM** | z-lab DFlash (820 MB) + FP8 KV | high | **309 tok/s** 🚀 |
 | Gemma4 26B UD-Q4_K_M (research, deprecated) | llama.cpp | Alittlehammmer DFlash (254 MB) | 23% | **80 tok/s** |
