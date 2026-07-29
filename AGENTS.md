@@ -8,12 +8,37 @@
 - Restart llama-swap after config changes: `docker compose restart llama-swap`
 - Use `sed -i` for group member changes, not whole-file Python scripts
 - When adding entries near existing ones, use exact text match, not line numbers
-- **docker-compose.yml indent rules:**
-  - **Service key:** column **7** (6 spaces), e.g. `      aeon-qwen36-35b:`
-  - **`container_name:`:** column **9** (8 spaces), same as other properties
-  - **Properties:** 8 spaces indent (`image:`, `runtime:`, `ports:`, etc.)
-  - **Nested items:** 12 spaces indent (`- "8000:8000"`, `- /model`, etc.)
-  - **Comment marker `#`** takes column 1, then add the indent
+### YAML Indentation by File
+
+#### `docker-compose.yml`
+| Element | Indent | Column | Example |
+|---|---|---|---|
+| Service key | 6 spaces | **7** | `      aeon-qwen36-35b:` |
+| Properties (`image:`, `runtime:`, `ports:`, `container_name:`) | 8 spaces | **9** | `        container_name:` |
+| Nested items (`- "8000:8000"`, `- /model`) | 12 spaces | **13** | `            - "8000:8000"` |
+| `command:` entries | 12 spaces | **13** | `            - /model` |
+| `environment:` vars | 12 spaces | **13** | `            - VLLM_USE=0` |
+| Comment `#` + proper indent | 4+ spaces | varies | `    # commented service` |
+
+#### `llama-swap/config.yaml`
+| Element | Indent | Example |
+|---|---|---|
+| Top-level keys (`models:`, `groups:`) | 0 spaces | `models:` |
+| Model keys | 4 spaces | `    unsloth-qwen36-27b-mtp2:` |
+| Model properties (`name:`, `ttl:`, `cmd:`) | 8 spaces | `        name: "My Model"` |
+| Block scalar `cmd:` content | 12 spaces | `            docker run --rm \` |
+| Groups (`code:`, `research:`) | 4 spaces | `    code:` |
+| Group properties (`swap:`, `exclusive:`) | 8 spaces | `        swap: true` |
+| Group members | 12 spaces | `            - unsloth-qwen36-27b:` |
+
+#### `litellm/config.yaml`
+| Element | Indent | Example |
+|---|---|---|
+| `model_list:` | 0 spaces | `model_list:` |
+| Model entries (`- model_name:`) | 2 spaces | `  - model_name:` |
+| `litellm_params:` | 4 spaces | `    litellm_params:` |
+| Sub-properties (`model:`, `api_base:`) | 6 spaces | `      model: openai/...` |
+| `api_key:` | 6 spaces | `      api_key: dummy` |
 
 ### Git Workflow
 - Always commit and push after config changes: `git add -A && git commit -m "message" && git push`
