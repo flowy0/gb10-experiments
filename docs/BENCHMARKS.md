@@ -61,6 +61,7 @@ vLLM speeds use enforce-eager (CUDA graphs disabled on Blackwell SM121 for stand
 | Gemma4 26B NVFP4 (hermes) | **AEON vLLM** | z-lab DFlash (820 MB) + FP8 KV | high | **309 tok/s** 🚀 |
 | Gemma4 26B UD-Q4_K_M (research, deprecated) | llama.cpp | Alittlehammmer DFlash (254 MB) | 23% | **80 tok/s** |
 | Gemma4 12B Q4_K_M (subagent) | llama.cpp | williamliao DFlash (422 MB) | 60% | **76 tok/s** |
+| Qwen3.6-27B NVFP4 (code) | **AEON vLLM** | z-lab DFlash (3.3 GB) + FP8 KV | — | **43-51 tok/s** |
 | Qwen3.6-27B Q4_K_M (code) | llama.cpp | Alittlehammmer DFlash (986 MB) | TBD | TBD |
 
 > DFlash replaces MTP on all models where available. vLLM DFlash uses safetensors format;

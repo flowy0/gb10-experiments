@@ -546,6 +546,35 @@ models:
             --chat-template-file /models/tool_chat_template_gemma4.jinja \
             -ngl 99
 
+    unsloth-gemma4-12b-qat-128k-mtp:
+        name: "Gemma4 12B QAT + MTP (128k aux)"
+        ttl: 900
+        cmdStop: docker rm -f ls-unsloth-gemma4-12b-qat-128k-mtp
+        cmd: |
+            docker run --rm \
+            --name ls-unsloth-gemma4-12b-qat-128k-mtp \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:c96746387bd28a34c39b6163d467d183dd5ae9b06f9f7632a01b105ac0a304ab \
+            -m /models/unsloth-gemma-4-12b-it-qat-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL.gguf \
+            --mmproj /models/unsloth-gemma-4-12b-it-gguf/mmproj-F16.gguf \
+            --model-draft /models/unsloth-gemma-4-12b-it-qat-gguf/mtp-gemma-4-12B-it.gguf \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 131072 \
+            -kvu \
+            --parallel 2 \
+            --temp 0.7 \
+            --top-p 0.95 \
+            --top-k 64 \
+            --reasoning off \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            --chat-template-file /models/tool_chat_template_gemma4.jinja \
+            -ngl 99
+
     unsloth-qwen36-35b-a3b-mtp-ud-q3-64k-think-code:
         name: "Qwen3.6 35B-A3B MTP UD-Q3_K_XL think code (64k subagent)"
         ttl: 1800
@@ -773,6 +802,7 @@ groups:
         exclusive: false
         members:
             - unsloth-gemma4-12b-qat-256k-mtp
+            - unsloth-gemma4-12b-qat-128k-mtp
             - unsloth-gemma4-e4b-qat-tq-128k-compression
 
     embed:
