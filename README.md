@@ -54,7 +54,7 @@ docker compose up -d aeon-qwen36-35b llama-swap litellm open-webui prometheus gr
 - **llama-swap API (direct):** `http://localhost:8088/v1`
 - **AEON vLLM (hermes direct):** `http://localhost:8000/v1`
 - **Open WebUI:** `http://localhost:3000`
-- **Grafana:** `http://localhost:3001` (admin/admin)
+- **Grafana:** `http://localhost:3001`
 - **Prometheus:** `http://localhost:9090`
 
 ## Hermes Speed (AEON vLLM v0.25.1)
