@@ -60,9 +60,9 @@ services:
         restart: unless-stopped
 
     # --- Gemma4 26B NVFP4 + DFlash + FP8 KV (AEON, disabled) ---
-    # aeon-gemma4-26b:
+    # aeon-qwen36-35b:
     #     image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-16-v0.25.1
-    #     container_name: aeon-gemma4-26b
+    #     container_name: aeon-qwen36-35b
     #     runtime: nvidia
     #     shm_size: "32gb"
     #     ports:
@@ -79,7 +79,7 @@ services:
     #     command:
     #         - /model
     #         - --served-model-name
-    #         - aeon-gemma4-26b-nvfp4-dflash-131k-think
+    #         - aeon-qwen36-35b-nvfp4-dflash-131k-think
     #         - --host
     #         - "0.0.0.0"
     #         - --port
