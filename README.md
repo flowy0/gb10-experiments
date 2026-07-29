@@ -33,7 +33,7 @@ See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
 | Service | Role | Tech | Port |
 |---|---|---|---|
-| **AEON vLLM** | Hermes (Gemma4 26B NVFP4, DFlash, 131k) | v0.25.1 | 8000 |
+| **AEON vLLM** | Hermes (Qwen3.6-35B-A3B NVFP4, DFlash, 128k) | v0.25.1 | 8000 |
 | **llama-swap** | Code, Subagent, Embed, Compression | llama.cpp | 8088 |
 | **LiteLLM** | Unified router | proxy | 4000 |
 | **Open WebUI** | Chat UI | web | 3000 |
@@ -45,7 +45,7 @@ See `llama-swap/docs/MEMORY.md` for memory calculations and DFlash benchmarks.
 ### Quick Start
 
 ```bash
-docker compose up -d aeon-gemma4-26b llama-swap litellm open-webui prometheus grafana
+docker compose up -d aeon-qwen36-35b llama-swap litellm open-webui prometheus grafana
 ```
 
 ## Quick Reference
@@ -61,8 +61,8 @@ docker compose up -d aeon-gemma4-26b llama-swap litellm open-webui prometheus gr
 
 | Model | Speed | Speculation |
 |---|---|---|
-| **Gemma4 26B NVFP4** | **309 tok/s** 🚀 | DFlash γ=12 + FP8 KV |
-| Qwen3.6-35B-A3B (fallback) | 222 tok/s | DFlash γ=12 + FP8 KV |
+| **Qwen3.6-35B-A3B NVFP4** (hermes) | **164-169 tok/s** 🚀 | DFlash γ=12 + FP8 KV |
+| Gemma4 26B NVFP4 (fallback) | 309 tok/s | DFlash γ=12 + FP8 KV |
 
 ## Model Groups
 
