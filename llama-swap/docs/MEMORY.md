@@ -57,14 +57,14 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 | Gemma4 31B (dense) | UD-Q4_K_XL | 18 GB | 64k | ~25 GB | 2 GB | **~45 GB** ⚠️ |
 | Qwen3.6-35B MoE | IQ4_NL | 18 GB | 64k | 2.5 GB | 2 GB | **~23 GB** |
 
-## Current Active Stack (v11 — vLLM hermes)
+## Current Active Stack (v12 — AEON vLLM hermes)
 
 ### Services
 | Service | Role | Port | Memory |
 |---|---|---|---|
-| vLLM | hermes (Qwen3.6-35B-A3B NVFP4, 256k) | 8000 | **~52 GB** (40% reservation) |
-| llama-swap | code, research, subagent, aux, test | 8088 | models loaded on demand |
-| LiteLLM | unified router | 4000 | ~0.2 GB |
+| **AEON vLLM** | hermes (Qwen3.6-35B-A3B NVFP4, DFlash, 128k) | 8000 | **~78 GB** (60% at 0.60) |
+| **llama-swap** | code, subagent, compression, embed | 8088 | models loaded on demand |
+| **LiteLLM** | unified router | 4000 | ~0.2 GB |
 
 ### llama-swap models (loaded on demand)
 
@@ -72,42 +72,37 @@ Includes weights + KV cache + overhead. MTP adds ~0.2-0.5 GB for draft model.
 |---|---|---|---|---|---|---|
 | code (MTP) | Qwen3.6-27B UD-Q3 MTP γ=2 | 64k | 14 GB | 8.5 GB | 2 GB | **~24 GB** |
 | code (DFlash) | Qwen3.6-27B Q4_K_M + DFlash | 64k | 16+1 GB | 8.5 GB | 2 GB | **~27.5 GB** |
-| research (MTP) | Gemma4 26B QAT MTP γ=2 | 128k | 16 GB | 15 GB | 2 GB | **~33 GB** |
-| research (DFlash) | Gemma4 26B UD-Q4_K_M + DFlash | 128k | 16+0.25 GB | 15 GB | 2 GB | **~33.25 GB** |
 | subagent (MTP) | Gemma4 12B QAT MTP -np 2 | 64k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
 | subagent (DFlash) | Gemma4 12B Q4_K_M + DFlash | 64k | 6.7+0.4 GB | 2.8 GB | 1 GB | **~11 GB** |
-| embed | BGE-M3 Q4_K_M | 32k | 0.4 GB | — | 0.5 GB | **~1 GB** |
-| compression | Gemma4 12B QAT MTP (unused) | 256k | 6.5 GB | 11.2 GB | 2 GB | **~20 GB** |
+| embed | nomic-embed-text Q4_K_M | 32k | 0.08 GB | — | 0.5 GB | **~1 GB** |
+| compression | Gemma4 12B QAT MTP (vision) | 128k | 6.5 GB | 5.6 GB | 2 GB | **~14 GB** |
 
-### DFlash Speed Benchmarks
+### AEON vLLM Speed
 
-| Model | Target | Engine | Speculation | Acceptance | Speed |
-|---|---|---|---|---|---|
-| Qwen3.6-35B-A3B | NVFP4 | vLLM | DFlash γ=15 | high | **270 tok/s** 🚀 |
-| Gemma4 26B | UD-Q4_K_M | llama.cpp | DFlash γ=15 | 23% | **80 tok/s** |
-| Gemma4 12B | Q4_K_M | llama.cpp | DFlash γ=15 | 60% | **76 tok/s** |
+| Model | Engine | Speed | Speculation |
+|---|---|---|---|
+| **Qwen3.6-35B-A3B NVFP4** (hermes) | **AEON vLLM v0.25.1** | **164-169 tok/s** 🚀 | DFlash γ=12 + FP8 KV |
+| Gemma4 26B NVFP4 (fallback) | AEON vLLM | 309 tok/s | DFlash γ=12 + FP8 KV |
 
 ### Memory Scenarios
 
-All scenarios include AEON vLLM reservation (78 GB at 0.60). llama-swap models load on demand.
-
-| Service | Model | Memory |
-|---|---|---|
-| **AEON vLLM** | Gemma4 26B NVFP4 + DFlash | **~78 GB** (40% reservation) |
-| **Remaining** | for llama-swap | **~52 GB** |
+AEON vLLM reserves **78 GB** at 0.60 utilization. **52 GB** remains for llama-swap.
 
 | Scenario | vLLM | + models | **Total** | **Free** |
 |---|---|---|---|---|
 | **Hermes only** | 78 GB | — | **78 GB** | **53 GB** ✅ |
 | **+ embed** | 78 GB | 1 GB | **79 GB** | **52 GB** ✅ |
 | **+ subagent (DFlash)** | 78 GB | 11 GB | **89 GB** | **42 GB** ✅ |
-| **+ code (DFlash)** | 78 GB | 28 GB | **106 GB** | **25 GB** ✅ |
-| **+ code + subagent (DFlash)** | 78 GB | 39 GB | **117 GB** | **14 GB** ✅ |
-| **+ code + sub + embed** | 78 GB | 40 GB | **118 GB** | **13 GB** ✅ |
-| **+ all + test model** | 78 GB | 50-70 GB | **128-148 GB** | **-17 GB** ❌ |
+| **+ compression (128k)** | 78 GB | 14 GB | **92 GB** | **39 GB** ✅ |
+| **+ code (MTP)** | 78 GB | 24 GB | **102 GB** | **29 GB** ✅ |
+| **+ code (DFlash)** | 78 GB | 27.5 GB | **105.5 GB** | **25.5 GB** ✅ |
+| **+ sub + compression** | 78 GB | 25 GB | **103 GB** | **28 GB** ✅ |
+| **+ code + sub (DFlash)** | 78 GB | 38.5 GB | **116.5 GB** | **14.5 GB** ✅ |
+| **+ code + compression** | 78 GB | 41.5 GB | **119.5 GB** | **11.5 GB** ✅ |
+| **+ all three** | 78 GB | 52.5 GB | **130.5 GB** | **0.5 GB** ⚠️ |
+| **+ all + embed** | 78 GB | 53.5 GB | **131.5 GB** | **-0.5 GB** ❌ |
 
-> Research model moved to AEON vLLM — no longer in llama-swap.
-> 2-3 llama-swap models fit alongside AEON. Test models may not fit simultaneously.
+> Most common: hermes + 1-2 llama-swap models (89-106 GB). All three fit at 130.5 GB but leaves only 0.5 GB free — expect memory pressure.
 
 ## Previous Configurations
 
