@@ -45,7 +45,7 @@ services:
             - --max-num-batched-tokens
             - "16384"
             - --gpu-memory-utilization
-            - "0.60"
+            - "0.55"
             - --enable-chunked-prefill
             - --enable-prefix-caching
             - --reasoning-parser
