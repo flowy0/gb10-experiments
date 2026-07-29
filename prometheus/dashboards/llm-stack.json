@@ -2,31 +2,114 @@
   "title": "LLM Stack",
   "uid": "llm-stack",
   "schemaVersion": 38,
-  "version": 1,
+  "version": 3,
   "panels": [
     {
-      "title": "vLLM Request Rate",
-      "type": "graph",
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
-      "targets": [{"expr": "rate(vllm:request_count_total[5m])", "legendFormat": "requests/s"}]
-    },
-    {
-      "title": "vLLM GPU Memory",
+      "title": "System Memory",
       "type": "gauge",
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
-      "targets": [{"expr": "vllm:gpu_memory_used_bytes / vllm:gpu_memory_total_bytes * 100", "legendFormat": "GPU %"}]
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "llamaswap_memory_used_bytes / llamaswap_memory_total_bytes * 100",
+          "legendFormat": "Used %"
+        }
+      ]
     },
     {
-      "title": "llama-swap CPU Usage",
-      "type": "graph",
-      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
-      "targets": [{"expr": "llamaswap_cpu_util_percent", "legendFormat": "core {{core}}"}]
-    },
-    {
-      "title": "Active Models",
+      "title": "Active Requests",
       "type": "stat",
-      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
-      "targets": [{"expr": "count(llamaswap_model_loaded == 1)", "legendFormat": "models"}]
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "vllm:num_requests_running",
+          "legendFormat": "Running"
+        }
+      ]
+    },
+    {
+      "title": "DFlash Acceptance",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(vllm:spec_decode_num_accepted_tokens_total[5m]) / rate(vllm:spec_decode_num_draft_tokens_total[5m]) * 100",
+          "legendFormat": "Acceptance %"
+        }
+      ]
+    },
+    {
+      "title": "CPU Usage",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "llamaswap_cpu_util_percent",
+          "legendFormat": "core {{core}}"
+        }
+      ]
+    },
+    {
+      "title": "DFlash Tokens",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(vllm:spec_decode_num_draft_tokens_total[5m])",
+          "legendFormat": "Drafted"
+        },
+        {
+          "expr": "rate(vllm:spec_decode_num_accepted_tokens_total[5m])",
+          "legendFormat": "Accepted"
+        }
+      ]
+    },
+    {
+      "title": "Container Memory",
+      "type": "graph",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "container_memory_bytes / 1e9",
+          "legendFormat": "{{name}}"
+        }
+      ]
     }
-  ]
+  ],
+  "timezone": "browser"
 }

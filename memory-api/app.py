@@ -276,3 +276,31 @@ def memory_summary() -> dict[str, Any]:
         "pressure": classify_pressure(meminfo, psi, oom),
         "containers": containers,
     }
+
+
+@app.get("/metrics")
+def prometheus_metrics() -> str:
+    meminfo = read_meminfo()
+    containers = docker_stats(all_containers=True)
+    lines = []
+    lines.append("# HELP node_memory_available_bytes Memory available")
+    lines.append(f'node_memory_available_bytes {int(meminfo.get("mem_available_gb", 0) * 1e9)}')
+    lines.append("# HELP container_memory_bytes Container GPU memory usage")
+    lines.append("# TYPE container_memory_bytes gauge")
+    for c in containers:
+        name = c["name"]
+        usage_str = c.get("mem_usage", "0B / 0B").split(" / ")[0]
+        # Parse GiB/MiB/KiB
+        import re
+        m = re.match(r'([\d.]+)(\w+)', usage_str.replace(',', ''))
+        if m:
+            val = float(m.group(1))
+            unit = m.group(2)
+            if unit == 'GiB': val *= 1e9
+            elif unit == 'MiB': val *= 1e6
+            elif unit == 'KiB': val *= 1e3
+            else: val = 0
+            lines.append(f'container_memory_bytes{{name="{name}"}} {int(val)}')
+    lines.append(f'# HELP mem_available_gb Total available memory')
+    lines.append(f'mem_available_gb {meminfo.get("mem_available_gb", 0)}')
+    return "\n".join(lines) + "\n"
