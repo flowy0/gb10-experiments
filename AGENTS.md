@@ -103,6 +103,16 @@ GPU OOM doesn't just kill a container — it can **lock up the entire system.**
   ```
 - **GPU health monitor**: `/opt/atom/scripts/gpu-health.sh` checks for Xid errors
 
+### Monitoring
+- **Prometheus** (port 9090) — scrapes vLLM, llama-swap, self. No auth.
+- **Grafana** (port 3001) — login required. Service account key in `.env` as `GRAFANA_SA_KEY`.
+- **Dashboard management:** Use `POST /api/dashboards/db` with `"overwrite": true` to create/update.
+  To update an existing dashboard, first get its UID via `GET /api/search`, then `PUT /api/dashboards/uid/<uid>`.
+- **Available vLLM metrics:** `vllm:spec_decode_num_draft_tokens_total`, `vllm:spec_decode_num_accepted_tokens_total`,
+  `vllm:num_requests_running`, `vllm:num_requests_waiting`
+- **Available llama-swap metrics:** `llamaswap_memory_used_bytes`, `llamaswap_memory_free_bytes`,
+  `llamaswap_cpu_util_percent` (per core), `llamaswap_load_average`
+
 #### If Locked Out
 - Hard power cycle (hold power button)
 - After reboot, check `journalctl -k | grep NVRM` for Xid errors
