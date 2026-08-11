@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-11 (second fix)
+
+**DFlash removed from all llama.cpp models — MTP instead:**
+- **unsloth-gemma4-26b-a4b-qat-mtp2-128k-think** (research): DFlash draft → **MTP draft** (`mtp-gemma-4-26B-A4B-it.gguf`, arch `gemma4-assistant` same as proven-good 12B) with `--spec-draft-n-max 2` — matches the config's original "QAT MTP γ=2" design; keeps spec-decode speedup without DFlash deadlock risk. Cold start 10.9s, responds normally
+- **unsloth-qwen36-27b-q4-dflash-64k-code** (code): DFlash draft → **built-in MTP** (`--spec-type draft-mtp --spec-draft-n-max 2`, no draft file — GGUF includes MTP head, same as the mtp2-ud-q3 sibling)
+- **unsloth-gemma4-12b-q4-dflash-64k-think** (subagent): still DFlash — NOT changed (outside scope; MTP siblings already exist for it via `unsloth-gemma4-12b-qat-64k-mtp-np2` / `-128k-mtp`)
+- llama-swap restarted; both converted models verified loading and generating
+- GPU: 93.6 GB of 131 GB in use (vLLM 53 GB + 26B 20 GB + 27B 21 GB); RAM pressure high (~4.5 GB free) while all three loaded — 27B TTLs out in 1h
+
 ## 2026-08-11
 
 **vLLM DFlash deadlock — diagnosis & fix:**
