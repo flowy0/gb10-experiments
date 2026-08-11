@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-11 (third fix)
+
+**AEON vLLM upgraded to v0.26.0 (2026-07-27):**
+- Image: `ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-27-v0.26.0` (was v0.25.1) — vLLM 0.26.0 (429 commits): NVFP4_AWQ checkpoints, DFlash batch-cap unlock (128-way), `--prefix-match-unit`, drafter `kv_cache_dtype`, hybrid partial prefix-cache hits
+- **DFlash stays disabled** (deadlock root cause, upstream has no fix — open issue #5 still unresolved)
+- Retested without DFlash: 73 tok/s (parity with v0.25.1 baseline), `finish: stop` with content, no engine errors
+- Rollback tag documented in docker-compose.yml: `:2026-07-16-v0.25.1`
+- Memory: ~15 GiB available with all 3 engines loaded (26B + 27B llama.cpp + vLLM 53 GB) — 27B TTLs out in 1h
+- Repo intel: AEON vllm-ultimate-dgx-spark issue #9 (unified-memory pressure → host freezes) closed; fix = lower max-num-seqs + drop kv-cache-memory-bytes override; issue #5 (DFlash crash under load) still OPEN
+
 ## 2026-08-11 (second fix)
 
 **DFlash removed from all llama.cpp models — MTP instead:**

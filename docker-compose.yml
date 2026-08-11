@@ -4,9 +4,11 @@ services:
     # AEON vLLM Ultimate — Day 2 (commented, user pulls image)
     # =========================
 
-    # --- Qwen3.6-35B-A3B NVFP4 + DFlash + FP8 KV (AEON, port 8000) ---
+    # --- Qwen3.6-35B-A3B NVFP4 + FP8 KV (AEON, port 8000) ---
+    # v0.26.0 (2026-07-27): NVFP4_AWQ, batch-cap unlock, prefix-match-unit, drafter kv_cache_dtype
+    # rollback: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-16-v0.25.1
       aeon-qwen36-35b:
-        image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-16-v0.25.1
+        image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-27-v0.26.0
         container_name: aeon-qwen36-35b
         runtime: nvidia
         shm_size: "32gb"
