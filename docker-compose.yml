@@ -14,7 +14,8 @@ services:
             - "8000:8000"
         volumes:
             - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
-            - /opt/atom/models/z-lab-qwen36-35b-a3b-dflash:/dflash:ro
+            # DFlash draft model — disabled 2026-08-11 (DFlash deadlocked the engine, see CHANGELOG)
+            # - /opt/atom/models/z-lab-qwen36-35b-a3b-dflash:/dflash:ro
             - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
             - vllm-cache:/root/.cache/vllm
         ipc: host
@@ -55,8 +56,10 @@ services:
             - --enable-auto-tool-choice
             - --chat-template
             - /models/chat_template.jinja
-            - --speculative-config
-            - '{"method":"dflash","model":"/dflash","num_speculative_tokens":12,"attention_backend":"TRITON_ATTN"}'
+            # DFlash spec decode DISABLED 2026-08-11 — engine deadlocked (spun 100% CPU, 0 completions for 38h)
+            # Re-enable only after upstream AEON fixes the DFlash hang; baseline = no spec decode (~73 tok/s)
+            # - --speculative-config
+            # - '{"method":"dflash","model":"/dflash","num_speculative_tokens":12,"attention_backend":"TRITON_ATTN"}'
         restart: unless-stopped
 
     # --- Gemma4 26B NVFP4 + DFlash + FP8 KV (AEON, disabled) ---

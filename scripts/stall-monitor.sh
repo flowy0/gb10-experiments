@@ -58,10 +58,17 @@ if ! timeout 5 bash -c 'echo test | nc -w 3 127.0.0.1 22 2>/dev/null | grep -q S
     SIGNALS="$SIGNALS ssh_down"
 fi
 
-# 7. vLLM responsiveness
+# 7. vLLM responsiveness — TWO checks: API server reachable AND engine can actually generate
+# (2026-08-11: /v1/models alone missed a 38h engine deadlock — the API server kept answering 200)
 if ! curl -sf --max-time 10 http://127.0.0.1:8000/v1/models > /dev/null 2>&1; then
     SCORE=$((SCORE + 1))
     SIGNALS="$SIGNALS vllm_down"
+elif ! curl -sf --max-time 45 -X POST http://127.0.0.1:8000/v1/chat/completions \
+        -H "Content-Type: application/json" \
+        -d '{"model":"aeon-qwen36-35b-128k-think","messages":[{"role":"user","content":"hi"}],"max_tokens":1}' \
+        > /dev/null 2>&1; then
+    SCORE=$((SCORE + 3))
+    SIGNALS="$SIGNALS vllm_engine_stalled"
 fi
 
 # 7. Failed systemd services
@@ -75,7 +82,8 @@ if [ "$SCORE" -ge 5 ]; then
     log "STALL DETECTED (score=$SCORE):$SIGNALS"
     log "Killing llama-swap models + restarting vLLM"
     docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f 2>/dev/null || true
-    docker compose -f /opt/atom/docker-compose.yml restart vllm-qwen36-35b-a3b-nvfp4 2>/dev/null || true
+    # 2026-08-11: target was stale (vllm-qwen36-35b-a3b-nvfp4 is commented out) — now points at active AEON service
+    docker compose -f /opt/atom/docker-compose.yml restart aeon-qwen36-35b 2>/dev/null || true
 elif [ "$SCORE" -ge 3 ]; then
     log "WARNING (score=$SCORE):$SIGNALS"
 else

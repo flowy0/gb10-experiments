@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-08-11
+
+**vLLM DFlash deadlock — diagnosis & fix:**
+- **Incident**: AEON vLLM (aeon-qwen36-35b) engine deadlocked Sun Aug 9 ~20:54 +08 — spun at 100% CPU with 1 request stuck "running", **zero completions for ~38h** through Tue Aug 11
+- **Symptoms from Fri Aug 7**: spec-decode throughput collapsed to 0.2–4 tok/s; litellm logged **74 request timeouts** (all on `aeon-qwen36-35b-128k-think`), each waiting the full 6000s timeout; 17 on Fri, 11 Sat, 25 Sun, 19 Mon, 2 Tue
+- **Root cause**: DFlash speculative decoding (`num_speculative_tokens:12`) deadlocks the engine. Same DFlash draft path also stalled llama.cpp models (13–24 min requests, SIGKILL exit 137). NVRM `NV_ERR_NO_MEMORY` driver OOM at Aug 10 23:01 under system RAM pressure (12.3/16 GB swap used)
+- **Why it wasn't caught**: `/v1/models` is served by the API server process, not the engine — kept answering 200 in 1.4ms while the engine was hung; stall monitor only checked `/v1/models` and its restart target `vllm-qwen36-35b-a3b-nvfp4` was commented out
+- **Fix**: disabled DFlash on aeon-qwen36-35b (commented out `--speculative-config` + `/dflash` mount, baseline ~73 tok/s no spec decode); restarted with `docker compose up -d --force-recreate aeon-qwen36-35b`
+- **Stall monitor hardening**: now also sends a real `max_tokens:1` generation probe (45s timeout, score +3) in addition to `/v1/models`; restart target corrected to `aeon-qwen36-35b`
+- **Note**: model is `Qwen3_5MoeForConditionalGeneration` — no built-in MTP head, so no spec-decode alternative until AEON fixes DFlash or an MTP head is available
+
 ## 2026-07-28
 
 **AEON vLLM Ultimate tested — 3× speedup:**
