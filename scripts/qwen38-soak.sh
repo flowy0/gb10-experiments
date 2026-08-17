@@ -15,20 +15,20 @@ echo "soak start $(date -Is) — ${DURATION}min, model $MODEL" > "$LOG"
 
 req() { # req <label> <max_tokens> <thinking> <payload-json-file or prompt>
     local label="$1" mt="$2" think="$3" payload="$4"
-    local t0 elapse think_py
+    local t0 elapse code body
     [ "$think" = "true" ] && think_py=True || think_py=False
     t0=$(date +%s%N)
-    local body
     if [ -f "$payload" ]; then
-        body=$(cat "$payload")
+        # @file avoids inline-body limits on large base64 payloads
+        code=$(curl -sf --max-time 300 -o /dev/null -w "%{http_code}" -X POST "$BASE/chat/completions" \
+            -H "Content-Type: application/json" --data-binary @"$payload" 2>/dev/null)
     else
         body=$(python3 -c "
 import json,sys
-print(json.dumps({'model':'$MODEL','messages':[{'role':'user','content':'''$payload'''}],'max_tokens':$mt,'temperature':0,'chat_template_kwargs':{'enable_thinking':$think_py}}))")
+print(json.dumps({'model':'$MODEL','messages':[{'role':'user','content':'''$payload'''}],'max_tokens':$mt,'temperature':0,'chat_template_kwargs':{'enable_thinking':$think_py}}))") || { FAIL=$((FAIL+1)); echo "$(date +%H:%M:%S) FAIL $label body-build" >> "$LOG"; return; }
+        code=$(curl -sf --max-time 300 -o /dev/null -w "%{http_code}" -X POST "$BASE/chat/completions" \
+            -H "Content-Type: application/json" -d "$body" 2>/dev/null)
     fi
-    local code
-    code=$(curl -sf --max-time 300 -o /dev/null -w "%{http_code}" -X POST "$BASE/chat/completions" \
-        -H "Content-Type: application/json" -d "$body" 2>/dev/null)
     elapse=$(( ($(date +%s%N) - t0) / 1000000 ))
     if [ "$code" = "200" ]; then
         OK=$((OK+1))
