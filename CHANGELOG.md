@@ -2,6 +2,14 @@
 
 ## 2026-08-17
 
+**Qwen3.8-27B bench harness + Stage 0 prep (scripts/bench-qwen38.py):**
+- Wrote shared benchmark harness: solo decode (1024-out + 256-out prefill-drag control), MTP sweep, c1–c16 concurrency ladder, cold/warm prefix TTFT, prefill TTFT, thinking-on cost — OpenAI-compatible (llama.cpp/SGLang/vLLM), temp 0, thinking off by default, distinct prompts per level, JSON checkpoint after every sub-test, run-card output
+- Validated against a mock server; fixed: thread-local sessions (shared Session deadlocks under the ladder), transient-error retries (ConnectionReset kills a long run otherwise), per-sub-test error isolation + checkpointing (one failure no longer discards the session)
+- Stage 0 downloads complete: AtomicChat AD-Q5_K_M-Q4_K_M GGUF (18.5 GB) + mmproj-F16 (0.93 GB) → /opt/atom/models/atomicchat-qwen38; RadixArk Qwen3.8-27B-NVFP4 (3 shards) → /opt/atom/models/hf-cache (HF cache structure, ready for SGLang mount); images pulled: lmsysorg/sglang:qwen38-27b (digest febfb971…), ghcr.io/ggml-org/llama.cpp:server-cuda13 (digest 7ee22018… — pin-bump candidate)
+- Measured: this box pulls from HF at ~11.4 MB/s (~91 Mbps) — downloads were bandwidth-bound
+
+## 2026-08-17
+
 **Qwen3.8-27B test plan (docs/QWEN38_TESTPLAN.md):**
 - Full empirical plan to decide between candidates: A) llama.cpp + AtomicChat AD-Q5_K_M-Q4_K_M GGUF (arch `qwen35` = same as qwen3.6, runs on existing stack with bumped llama.cpp pin), B) SGLang + RadixArk NVFP4, C) optional vLLM FP8 reference
 - **Per-candidate sessions** (box can only host one engine at a time): each candidate booted once, then correctness gates G1–G9 → **full benchmark** (solo, MTP sweep, c1–c16 ladder, prefix, prefill) → NIAH @ 262K → recovery smoke → teardown; winner then gets 45-min soak + OOM probe + integration/rollback drills
