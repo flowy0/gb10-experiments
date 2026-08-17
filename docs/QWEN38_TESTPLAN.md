@@ -1,5 +1,7 @@
 # Qwen3.8-27B — Candidate Test Plan
 
+> **STATUS: COMPLETE (2026-08-17).** Winner: SGLang B2 (DSpark @ safe 0.50 config) — flipped as `radixark-qwen38-27b-nvfp4-dspark-262k-think`. vLLM disqualified on stability; llama.cpp strong runner-up. Final run cards: [qwen38-test-runs/FLIP-WINNER.md](qwen38-test-runs/FLIP-WINNER.md)
+
 > Purpose: empirically decide between the deployment options for making Qwen3.8-27B the sole main model on this DGX Spark.
 > Companion doc: [QWEN38_RESEARCH.md](./QWEN38_RESEARCH.md) (background, published numbers, methodology traps).
 
