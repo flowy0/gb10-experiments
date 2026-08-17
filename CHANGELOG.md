@@ -13,9 +13,17 @@
 
 **Session A complete:**
 - NIAH @ 262K **12/12 PASS** (needles @ 8K/32K/131K/247K × 3 in ~224K window, ~540s/probe)
-- Recovery: kill -9 → /health 5s (page-cache warm; cold boot ~25s) vs SGLang minutes
-- Teardown done; aeon restored (190s warm boot, generation verified)
+- Teardown done; aeon restored
 - Candidate A summary: 262K confirmed, tools/thinking/vision work (`<tool_response>` protocol for multi-turn), 20.8 solo / 126 c16 (4-slot cap @262K), 116× prefix caching, ~37 GB memory
+
+**Session B — SGLang + RadixArk NVFP4 (candidate B):**
+- Boot ~180s (pre-seeded HF cache, no download); compose service at mem-fraction 0.85 (105 GB reserved, 15 GB headroom)
+- Gates **10/10 PASS**; **native `role:tool` works** (qwen3_coder parser — drop-in OpenAI semantics, no `<tool_response>` workaround); vision exact; reasoning effort low<xhigh
+- Bench: solo **27.4** (+31% vs A), c16 aggregate **291.0** (+2.3× vs A), prefill 100K **77s** (2× faster), prefix 46.8×, thinking-on 22.8 tok/s
+- NIAH @ 262K **12/12 PASS** (~314s/probe, 1.7× faster prefill)
+- Stability: graceful restart (compose/stall-monitor path) recovers to full speed; **SIGKILL auto-restart BROKEN on this box** (exit 137, restart policy didn't fire, dead 10+ min until manual restart); post-heavy-load degradation to ~0.3 tok/s fixed by graceful restart; `/v1/models` not a reliable readiness signal
+- **Methodology correction:** `docker kill -9` is an invalid flag on this Docker build (`-s KILL` required) — Session A's original recovery smoke was invalid, re-tested properly (llama.cpp: health ~5-6s warm, generation OK); earlier "empty generations" were thinking-on artifacts (template defaults thinking ON — probes must set `enable_thinking:false` or give token headroom)
+- aeon restored; box back to production state
 
 ## 2026-08-17
 
