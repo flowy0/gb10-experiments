@@ -47,7 +47,10 @@
 - **Update `CHANGELOG.md`** for every change — new models, config changes, benchmarks, doc updates
 
 ### Model Management
+- **2026-08-17 migration:** MAIN MODEL is now `radixark-qwen38-27b-nvfp4-dspark-262k-think` — Qwen3.8-27B (RadixArk NVFP4) served by SGLang on port 8888 (mem-fraction 0.50 + 100g docker caps — the GB10-safe config per hasso5703; >0.50 risks hard freeze from untracked flashinfer/autotuner allocations). Exposed via litellm (4000). aeon-qwen36-35b retired; qwen3.6 llama-swap entries pending cleanup. See docs/QWEN38_RESEARCH.md + docs/QWEN38_TESTPLAN.md.
+- **SGLang operational rules:** /v1/models answers before engine ready — stall monitor uses a generation probe; graceful `docker compose restart` recovers, SIGKILL/manual `docker kill` does NOT auto-restart (docker semantics). DSpark (default) beats MTP on math/eval; MTP ~20% faster on fresh codegen (one-flag switch).
 - **Naming convention:** Use the HuggingFace repo owner as the model ID prefix.
+  - `radixark-` for RadixArk checkpoints (Qwen3.8 NVFP4 — current main)
   - `unsloth-` for Unsloth models (Gemma4, Qwen3.6)
   - `deepreinforce-` for DeepReinforce models (Ornith)
   - `s-batman-` for s-batman models
