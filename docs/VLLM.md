@@ -1,5 +1,11 @@
 # vLLM on DGX Spark (GB10) — AEON vLLM Ultimate
 
+> **RETIRED 2026-08-17** — the AEON vLLM service was replaced by SGLang + Qwen3.8-27B
+> (`radixark-qwen38-27b-nvfp4-dspark-262k-think`) as the main model. This doc is kept as
+> historical reference. Key reasons: stock/AEON vLLM on this box repeatedly OOM'd the NVIDIA
+> driver (NV_ERR_NO_MEMORY) at the recipe's gpu-memory-utilization; the AEON config is commented
+> out in docker-compose.yml (never deleted). See docs/QWEN38_RESEARCH.md for the full comparison.
+
 ## Current Status
 
 | Item | Value |

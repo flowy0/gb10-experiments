@@ -1,5 +1,7 @@
 # Qwen3.8-27B on DGX Spark — Implementation Research
 
+> **OUTCOME (2026-08-17):** The winner is **SGLang + RadixArk Qwen3.8-27B-NVFP4 + DSpark k7 at the safe GB10 config** (`--mem-fraction-static 0.50` + docker 100g caps) — now the main model as `radixark-qwen38-27b-nvfp4-dspark-262k-think`. vLLM was disqualified (2× driver OOM); llama.cpp was the strong runner-up. Full results: [qwen38-test-runs/FLIP-WINNER.md](qwen38-test-runs/FLIP-WINNER.md).
+
 > Research date: 2026-08-17. Source: [@0xBakeer tweet + X article](https://x.com/0xBakeer/status/2089090318905774558) (article id `2089076470865854466`), plus three GitHub repos compared below.
 > Context: evaluating replacing the current main model (Qwen3.6-35B-A3B, `aeon-qwen36-35b`) with Qwen3.8-27B (dense), single model on this box.
 

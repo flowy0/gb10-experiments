@@ -13,9 +13,9 @@
 #### `docker-compose.yml`
 | Element | Indent | Column | Example |
 |---|---|---|---|
-| Service key | 6 spaces | **7** | `      aeon-qwen36-35b:` |
+| Service key | 6 spaces | **7** | `      sglang-qwen38:` |
 | Properties (`image:`, `runtime:`, `ports:`, `container_name:`) | 8 spaces | **9** | `        container_name:` |
-| Nested items (`- "8000:8000"`, `- /model`) | 12 spaces | **13** | `            - "8000:8000"` |
+| Nested items (`- "8888:8888"`, `- /model`) | 12 spaces | **13** | `            - "8888:8888"` |
 | `command:` entries | 12 spaces | **13** | `            - /model` |
 | `environment:` vars | 12 spaces | **13** | `            - VLLM_USE=0` |
 | Comment `#` + proper indent | 4+ spaces | varies | `    # commented service` |
@@ -60,14 +60,14 @@
 
 | Group | Model | Context | TTL | Purpose |
 |---|---|---|---|---|
-| **hermes** | 26B QAT MTP γ=2 | 128k | 24h | Main agent |
+| **hermes** | (retired — main model now SGLang: radixark-qwen38-27b) | — | — | — |
 | **code** | Ornith-1.0-35B MoE Q4_K_M | 64k | 24h | Coding agent (100/100 tool-eval) |
-| **aux** | 12B QAT + TQ | 64k | 1h | Compression, web, titles, search, vision |
+| **aux** | 12B QAT + TQ | 64k | 1h | Compression, web, titles, search (vision now on main model) |
 | **subagent** | 35B IQ4 MTP | 64k | 30min | Quick sub-tasks |
-| **research** | 26B QAT MTP γ=2 | 64k | 1h | Fallback |
+| **research** | 26B QAT MTP γ=2 | 262k | 1h | Fallback — verified loads alongside SGLang main (~30 GB headroom) |
 
 - Models load on first request per group
-- Max simultaneous when all loaded: ~112 GB ✅ 19 GB free
+- Co-residency with SGLang main: **one** large llama.cpp model fits (91/121 GB used); a second would cross the ~110 GB danger line (NV_ERR pressure seen 2026-08-17)
 
 ### vLLM Naming Convention
 - Model ID format: `unsloth-{family}-{arch}-{quant}-mtp-{ctx}-{mode}`
@@ -76,8 +76,8 @@
 - Always set `--served-model-name` explicitly — never rely on defaults
 - When swapping models, comment out the old service, add the new one — never delete
 - Validate compose YAML after edits: `docker compose -f docker-compose.yml config`
-- Test the endpoint after changes: `curl http://localhost:8000/v1/models`
-- Ports: 8000 (primary), 8001 (DiffusionGemma test), 8002 (Qwen NVFP4 test)
+- Test the endpoint after changes: `curl http://localhost:8888/v1/models`
+- Ports: 8888 (SGLang main), 8088 (llama-swap), 4000 (litellm), 8000 (freed — AEON retired)
 
 ### Avoiding Crashes (OOM & Cascade Failure)
 

@@ -29,41 +29,45 @@ After upgrading Open WebUI, the UI may flash or appear broken.
 
 See [docs/HISTORICAL.md](docs/HISTORICAL.md) for previous stack configurations.
 
-## Current Active Stack — AEON vLLM + llama-swap
+## Current Active Stack — SGLang (Qwen3.8-27B) + llama-swap
 
 | Service | Role | Tech | Port |
 |---|---|---|---|
-| **AEON vLLM** | Hermes (Qwen3.6-35B-A3B NVFP4, DFlash, 128k) | v0.25.1 | 8000 |
-| **llama-swap** | Code, Subagent, Embed, Compression | llama.cpp | 8088 |
+| **SGLang** | **Main model — `radixark-qwen38-27b-nvfp4-dspark-262k-think` (Qwen3.8-27B NVFP4 + DSpark, 262K, vision, thinking)** | SGLang (safe 0.50 config) | 8888 |
+| **llama-swap** | Code, Research, Subagent, Embed, Compression | llama.cpp | 8088 |
 | **LiteLLM** | Unified router | proxy | 4000 |
 | **Open WebUI** | Chat UI | web | 3000 |
 | **Prometheus** | Metrics collection | — | 9090 |
 | **Grafana** | Dashboards | — | 3001 |
 
-See `llama-swap/docs/MEMORY.md` for memory calculations and DFlash benchmarks.
+> **2026-08-17:** Stack flipped from AEON vLLM (Qwen3.6-35B) to SGLang + Qwen3.8-27B.
+> Full decision history: [docs/QWEN38_RESEARCH.md](docs/QWEN38_RESEARCH.md) + [docs/QWEN38_TESTPLAN.md](docs/QWEN38_TESTPLAN.md) + [docs/qwen38-test-runs/FLIP-WINNER.md](docs/qwen38-test-runs/FLIP-WINNER.md).
+> The AEON service is retired (commented in docker-compose.yml, never deleted) — see [docs/HISTORICAL.md](docs/HISTORICAL.md).
 
 ### Quick Start
 
 ```bash
-docker compose up -d aeon-qwen36-35b llama-swap litellm open-webui prometheus grafana
+docker compose up -d sglang-qwen38 llama-swap litellm open-webui prometheus grafana
 ```
 
 ## Quick Reference
 
-- **LiteLLM API (recommended):** `http://localhost:4000/v1`
+- **LiteLLM API (recommended):** `http://localhost:4000/v1` — main model: `radixark-qwen38-27b-nvfp4-dspark-262k-think`
+- **SGLang API (direct):** `http://localhost:8888/v1` (also Anthropic-compatible at `/v1/messages`)
 - **llama-swap API (direct):** `http://localhost:8088/v1`
-- **AEON vLLM (hermes direct):** `http://localhost:8000/v1`
 - **Open WebUI:** `http://localhost:3000`
 - **Grafana:** `http://localhost:3001`
 - **Prometheus:** `http://localhost:9090`
 
-## Hermes Speed (AEON vLLM v0.25.1)
+## Main Model Speed (SGLang + Qwen3.8-27B — measured on this box)
 
-| Model | Speed | Speculation |
-|---|---|---|
-| **Qwen3.6-35B-A3B NVFP4** (hermes) | **164-169 tok/s** 🚀 | DFlash γ=12 + FP8 KV |
-| Gemma4 26B NVFP4 (fallback) | 309 tok/s | DFlash γ=12 + FP8 KV |
+| Config | Solo | c16 aggregate | Notes |
+|---|---|---|---|
+| DSpark k7 @ safe 0.50 (current) | ~20–27 tok/s | ~188–291 | fresh-codegen 20.3, math/eval 34–38 (hasso5703) |
+| MTP (one-flag alternative) | ~24.5 @0.50 | ~291 @0.85 | better on fresh codegen |
+
+Retired AEON (Qwen3.6-35B-A3B) reference: 164–169 tok/s with DFlash (MoE, 3B active — not comparable to dense 27B).
 
 ## Model Groups
 
-See `llama-swap/config.yaml` for groups. Models load on demand. AEON vLLM handles the hermes role.
+See `llama-swap/config.yaml` for groups. Models load on demand via llama-swap; the main model is always resident on SGLang (8888).
