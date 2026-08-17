@@ -119,17 +119,17 @@ model_list:
       api_base: http://llama-swap:8080/v1
       api_key: dummy
 
-  # AEON vLLM Ultimate (main)
-  - model_name: aeon-qwen36-35b-128k-think
-    litellm_params:
-      model: openai/aeon-qwen36-35b-128k-think
-      api_base: http://aeon-qwen36-35b:8000/v1
-      api_key: dummy
+  # AEON vLLM (RETIRED 2026-08-17 — replaced by radixark-qwen38-27b-nvfp4-dspark-262k-think)
+  # - model_name: aeon-qwen36-35b-128k-think
+  #   litellm_params:
+  #     model: openai/aeon-qwen36-35b-128k-think
+  #     api_base: http://aeon-qwen36-35b:8000/v1
+  #     api_key: dummy
 
-  # SGLang Qwen3.8-27B (candidate B) — active but inert: litellm logs errors until sglang-qwen38 is up
-  - model_name: qwen3.8-27b-sglang
+  # SGLang Qwen3.8-27B (MAIN MODEL) — naming per AGENTS.md (HF owner prefix radixark-)
+  - model_name: radixark-qwen38-27b-nvfp4-dspark-262k-think
     litellm_params:
-      model: openai/qwen3.8-27b-sglang
+      model: openai/radixark-qwen38-27b-nvfp4-dspark-262k-think
       api_base: http://sglang-qwen38:8888/v1
       api_key: dummy
 

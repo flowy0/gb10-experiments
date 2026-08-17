@@ -2,6 +2,18 @@
 
 ## 2026-08-17
 
+**🔴 FLIP — Qwen3.8-27B is now the main model (SGLang + DSpark, safe config):**
+- Winner: **SGLang (B2)** — RadixArk NVFP4 + DSpark k7 @ mem-fraction-static 0.50 + docker 100g caps (hasso5703 field-validated GB10-safe config; SGLang's accounting misses 25-40GB of transient flashinfer/autotuner allocations on unified memory — >0.50 risks a hard freeze)
+- Named per AGENTS.md convention: `radixark-qwen38-27b-nvfp4-dspark-262k-think` — exposed via litellm (port 4000) → sglang-qwen38:8888
+- aeon-qwen36-35b RETIRED (commented in compose, removed from litellm; port 8000 freed); litellm depends_on → sglang-qwen38; open-webui model list → new model
+- Stall monitor repointed to sglang (port 8888, generation-probe mandatory — SGLang /v1/models answers before engine ready); timer was pausing it during sessions — re-enable after soak
+- Retest data (Session B2/B2b): SGLang DSpark@0.50 solo 20.3 / c16 187.6 / prefix 51× / gates 10/10 / 262K spot-check FOUND; MTP@0.50 solo 24.5 (one-flag alternative); DSpark underperforms MTP on fresh codegen but is the community-validated config (hasso 34-38 tok/s on math/eval workloads)
+- vLLM (candidate C) DISQUALIFIED: 2× GPU driver OOM (NV_ERR_NO_MEMORY) at recipe gmu 0.85 — matches AGENTS.md "stock vLLM crashes on Blackwell"
+- OOM probe passed: nomic-embed coexists with main model (50 GB headroom)
+- 45-min soak in progress (scripts/qwen38-soak.sh)
+
+## 2026-08-17
+
 **Session A started — llama.cpp + AtomicChat GGUF (candidate A):**
 - Booted standalone on 8090 (bumped pin `server-cuda13@sha256:7ee22018…`, `-c 262144`, q8_0 KV, MTP n2, mmproj) — **cold boot ~25 s**
 - Correctness gates **10/10 PASS** (arith think on/off, BANANA, code, tool call, multi-turn, vision transcription, reasoning effort low<xhigh, sampling)
