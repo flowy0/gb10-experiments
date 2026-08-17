@@ -1,6 +1,13 @@
 # Changelog
 
-## 2026-08-11 (third fix)
+## 2026-08-17
+
+**Qwen3.8-27B implementation research (docs/QWEN38_RESEARCH.md):**
+- Assessed @0xBakeer tweet/article (75 tok/s solo, 256 tok/s @ 16 concurrent) against two repos: r0b0tlab vLLM NVFP4+MTP and MiaAI-Lab SGLang
+- Recovered full article text; headline numbers trace to 0xBakeer's own repos (FP8 + DSpark k=7/k=14 + `--enable-prefix-caching`, stock vLLM v0.27.1-aarch64 image — no custom wheel)
+- Key findings: quant is the smallest lever (1.6× solo, 0.2% @ c16); spec decode ≈ 6× and output-preserving; prefix caching silently OFF for hybrids in vLLM (14–22× on shared prefixes); DSpark drafter 3.3× cheaper per draft token than MTP; `VLLM_MARLIN_USE_ATOMIC_ADD=1` mandatory for 4-bit on SM121
+- Verdict: 0xBakeer FP8 recipe primary (output-preserving, 262K, 46.9 solo/256 c16), MiaAI SGLang as stable alternative, r0b0tlab only for ≤32K/thinking-off; speed regression vs MoE 35B-A3B flagged (dense 27B)
+- No config changes made — research only
 
 **AEON vLLM upgraded to v0.26.0 (2026-07-27):**
 - Image: `ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-27-v0.26.0` (was v0.25.1) — vLLM 0.26.0 (429 commits): NVFP4_AWQ checkpoints, DFlash batch-cap unlock (128-way), `--prefix-match-unit`, drafter `kv_cache_dtype`, hybrid partial prefix-cache hits
