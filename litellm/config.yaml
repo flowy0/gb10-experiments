@@ -126,6 +126,13 @@ model_list:
       api_base: http://aeon-qwen36-35b:8000/v1
       api_key: dummy
 
+  # SGLang Qwen3.8-27B (candidate B) — active but inert: litellm logs errors until sglang-qwen38 is up
+  - model_name: qwen3.8-27b-sglang
+    litellm_params:
+      model: openai/qwen3.8-27b-sglang
+      api_base: http://sglang-qwen38:8888/v1
+      api_key: dummy
+
   # # AEON vLLM - Gemma4 26B hermes (not running)
   # - model_name: aeon-gemma4-26b-nvfp4-dflash-131k-think
   #   litellm_params:

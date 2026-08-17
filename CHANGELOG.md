@@ -2,6 +2,17 @@
 
 ## 2026-08-17
 
+**Qwen3.8-27B stack wiring (flip-ready, nothing started):**
+- docker-compose.yml: added `sglang-qwen38` service (MiaAI-Lab recipe flags verbatim, `--mem-fraction-static 0.85`, port 8888, HF cache mounted from /opt/atom/models/hf-cache, Triton cache volume) — **profile-gated** (`profiles: [qwen38-test]`) so plain `docker compose up -d` never starts it; start explicitly with `docker compose up -d --force-recreate sglang-qwen38` after stopping aeon (0.85×128GB + aeon = OOM risk)
+- litellm/config.yaml: added `qwen3.8-27b-sglang` → `http://sglang-qwen38:8888/v1` (active; inert until sglang is up)
+- llama-swap/config.yaml: added `atomicchat-qwen38-27b-mtp-262k-think-code` (candidate A — bumped pin `server-cuda13@sha256:7ee22018…`, `--mmproj`, `-c 262144`, q8_0 KV, MTP, embedded template — NOT the qwen3.6 fixed template) + `qwen38-test` group
+- scripts/stall-monitor.sh: parameterized watch (MONITOR_PORT/MODEL/CONTAINER env, default aeon; e.g. `MONITOR_PORT=8888 MONITOR_MODEL=qwen3.8-27b-sglang MONITOR_CONTAINER=sglang-qwen38`)
+- prometheus/prometheus.yml: added `sglang` scrape job (no data until sglang up)
+- .gitignore: docs/qwen38-test-runs/ (bench output)
+- Nothing running, nothing restarted — production (aeon on 8000) untouched
+
+## 2026-08-17
+
 **Qwen3.8-27B bench harness + Stage 0 prep (scripts/bench-qwen38.py):**
 - Wrote shared benchmark harness: solo decode (1024-out + 256-out prefill-drag control), MTP sweep, c1–c16 concurrency ladder, cold/warm prefix TTFT, prefill TTFT, thinking-on cost — OpenAI-compatible (llama.cpp/SGLang/vLLM), temp 0, thinking off by default, distinct prompts per level, JSON checkpoint after every sub-test, run-card output
 - Validated against a mock server; fixed: thread-local sessions (shared Session deadlocks under the ladder), transient-error retries (ConnectionReset kills a long run otherwise), per-sub-test error isolation + checkpointing (one failure no longer discards the session)

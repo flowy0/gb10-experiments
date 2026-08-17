@@ -27,3 +27,6 @@ llama.cpp-build/
 llama.cpp-build.log
 build/*.log
 build/beellama.cpp
+
+# Qwen3.8 benchmark output (test plan run cards)
+docs/qwen38-test-runs/
