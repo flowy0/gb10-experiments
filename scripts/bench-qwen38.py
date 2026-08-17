@@ -498,7 +498,7 @@ def main():
     print(f"candidate: {args.tag or '?'} | date: {run_id} | base: {args.base_url} | model: {args.model} | spec: {args.spec_label or '?'} | ctx: (record) | kv: (record)")
     if "solo" in results:
         print(f"solo({args.solo_in}->{args.solo_out}): {results['solo']['median_tok_s']} tok/s | short({args.solo_in}->{args.short_out}): {results.get('short', {}).get('median_tok_s', 'n/a')} tok/s")
-    if "ladder" in results:
+    if "ladder" in results and isinstance(results["ladder"], dict) and "error" not in results["ladder"]:
         lv = results["ladder"]
         print("ladder aggregate: " + " | ".join(f"c{v['concurrency']}={v['aggregate_tok_s']}" for v in lv.values()))
     if "prefix" in results and results["prefix"].get("speedup"):
