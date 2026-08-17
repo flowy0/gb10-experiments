@@ -2,6 +2,15 @@
 
 ## 2026-08-17
 
+**Co-residency test — research model alongside main (issue noted):**
+- `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` (Gemma4 26B QAT MTP, 14.2 GB + MTP draft, `-c 262144`) loaded via llama-swap in ~20s alongside the SGLang main model — healthy, responding, SGLang unaffected
+- Memory with both: **91 GB used / 30 GB available / swap idle** — within envelope but close to the ~110 GB danger line; one more 26B would cross it
+- **⚠️ 4× `NV_ERR_NO_MEMORY` (20:30:34) during the co-load** — CUDA context buffer allocation (`kgrctxAllocMainCtxBuffer`) failed transiently then recovered; both models stayed healthy (sglang RestartCount=0, stall monitor no action). Same driver-pressure signature as AGENTS.md playbook
+- Lesson reinforced: load one big model at a time, let it fully cold-start; avoid stacking 3 models; the 0.50 SGLang config gives 30 GB headroom for exactly one large llama.cpp model
+- Stall monitor (20:39 run) will log WARNING (kernel alerts +3) — expected, not an action trigger (both models pass generation probes)
+
+## 2026-08-17
+
 **🔴 FLIP — Qwen3.8-27B is now the main model (SGLang + DSpark, safe config):**
 - Winner: **SGLang (B2)** — RadixArk NVFP4 + DSpark k7 @ mem-fraction-static 0.50 + docker 100g caps (hasso5703 field-validated GB10-safe config; SGLang's accounting misses 25-40GB of transient flashinfer/autotuner allocations on unified memory — >0.50 risks a hard freeze)
 - Named per AGENTS.md convention: `radixark-qwen38-27b-nvfp4-dspark-262k-think` — exposed via litellm (port 4000) → sglang-qwen38:8888
