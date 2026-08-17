@@ -2,6 +2,13 @@
 
 ## 2026-08-17
 
+**Qwen3.8-27B test plan (docs/QWEN38_TESTPLAN.md):**
+- Full empirical plan to decide between candidates: A) llama.cpp + AtomicChat AD-Q5_K_M-Q4_K_M GGUF (arch `qwen35` = same as qwen3.6, runs on existing stack with bumped llama.cpp pin), B) SGLang + RadixArk NVFP4, C) optional vLLM FP8 reference
+- 9 correctness gates (arith think on/off, tools, multi-turn, vision, reasoning effort), controlled-methodology performance stage (≥400-tok decode, thinking off, c1–c16 ladder, cold/warm prefix, prefill), NIAH @ 262K, memory/soak/fault-injection stability stage, integration + rollback drills
+- Key findings feeding the plan: AtomicChat GGUF header arch = `qwen35` (same family as running qwen3.6 → pinned llama.cpp build v9843 likely works but predates the model; pin bump + gates G8/G9 verify chat_template_kwargs support); SGLang mem-fraction 0.85 max (0.95 = cascade risk); decision rule = disqualify on core-gate fail, tie-break on stability
+
+## 2026-08-17
+
 **Qwen3.8-27B implementation research (docs/QWEN38_RESEARCH.md):**
 - Assessed @0xBakeer tweet/article (75 tok/s solo, 256 tok/s @ 16 concurrent) against two repos: r0b0tlab vLLM NVFP4+MTP and MiaAI-Lab SGLang
 - Recovered full article text; headline numbers trace to 0xBakeer's own repos (FP8 + DSpark k=7/k=14 + `--enable-prefix-caching`, stock vLLM v0.27.1-aarch64 image — no custom wheel)
