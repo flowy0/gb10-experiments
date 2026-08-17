@@ -4,8 +4,9 @@
 
 **Qwen3.8-27B test plan (docs/QWEN38_TESTPLAN.md):**
 - Full empirical plan to decide between candidates: A) llama.cpp + AtomicChat AD-Q5_K_M-Q4_K_M GGUF (arch `qwen35` = same as qwen3.6, runs on existing stack with bumped llama.cpp pin), B) SGLang + RadixArk NVFP4, C) optional vLLM FP8 reference
-- 9 correctness gates (arith think on/off, tools, multi-turn, vision, reasoning effort), controlled-methodology performance stage (≥400-tok decode, thinking off, c1–c16 ladder, cold/warm prefix, prefill), NIAH @ 262K, memory/soak/fault-injection stability stage, integration + rollback drills
-- Key findings feeding the plan: AtomicChat GGUF header arch = `qwen35` (same family as running qwen3.6 → pinned llama.cpp build v9843 likely works but predates the model; pin bump + gates G8/G9 verify chat_template_kwargs support); SGLang mem-fraction 0.85 max (0.95 = cascade risk); decision rule = disqualify on core-gate fail, tie-break on stability
+- **Per-candidate sessions** (box can only host one engine at a time): each candidate booted once, then correctness gates G1–G9 → **full benchmark** (solo, MTP sweep, c1–c16 ladder, prefix, prefill) → NIAH @ 262K → recovery smoke → teardown; winner then gets 45-min soak + OOM probe + integration/rollback drills
+- 9 correctness gates (arith think on/off, tools, multi-turn, vision, reasoning effort), controlled methodology (≥400-tok decode, thinking off, distinct prompts, cold/warm prefix)
+- Key findings feeding the plan: AtomicChat GGUF header arch = `qwen35` (same family as running qwen3.6 → pinned llama.cpp build v9843 likely works but predates the model; pin bump + gates G2/G8 verify chat_template_kwargs support); SGLang mem-fraction 0.85 max (0.95 = cascade risk); decision rule = disqualify on core-gate fail, tie-break on stability
 
 ## 2026-08-17
 
