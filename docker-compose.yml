@@ -64,6 +64,77 @@ services:
             # - '{"method":"dflash","model":"/dflash","num_speculative_tokens":12,"attention_backend":"TRITON_ATTN"}'
         restart: unless-stopped
 
+    # --- Qwen3.8-27B SGLang (candidate B) ---
+    # MiaAI-Lab recipe flags; profile-gated so plain `docker compose up -d` never starts it.
+    # Session B: docker compose up -d --force-recreate sglang-qwen38   (STOP aeon first — 0.85*128GB + aeon = OOM)
+    # MEMORY: --mem-fraction-static 0.85 (not recipe 0.95 — cascade risk with co-resident containers)
+    # Weights pre-seeded at /opt/atom/models/hf-cache (RadixArk snapshot, refs/main set) — no first-boot download
+      sglang-qwen38:
+        image: lmsysorg/sglang:qwen38-27b
+        container_name: sglang-qwen38
+        profiles: ["qwen38-test"]
+        runtime: nvidia
+        shm_size: "32gb"
+        ipc: host
+        ports:
+            - "8888:8888"
+        volumes:
+            - /opt/atom/models/hf-cache:/root/.cache/huggingface
+            - sglang-triton-cache:/root/.triton
+        environment:
+            - HF_HOME=/root/.cache/huggingface
+            - TRITON_CACHE_DIR=/root/.triton
+            - HF_TOKEN=${HF_TOKEN:-}
+        command:
+            - python3
+            - -m
+            - sglang.launch_server
+            - --model-path
+            - RadixArk/Qwen3.8-27B-NVFP4
+            - --served-model-name
+            - qwen3.8-27b-sglang
+            - --trust-remote-code
+            - --mem-fraction-static
+            - "0.85"
+            - --attention-backend
+            - flashinfer
+            - --chunked-prefill-size
+            - "8192"
+            - --disable-prefill-cuda-graph
+            - --kv-cache-dtype
+            - fp8_e4m3
+            - --mamba-ssm-dtype
+            - bfloat16
+            - --mamba-full-memory-ratio
+            - "4.21"
+            - --mamba-radix-cache-strategy
+            - extra_buffer_lazy
+            - --max-mamba-cache-size
+            - "80"
+            - --max-running-requests
+            - "10"
+            - --context-length
+            - "262144"
+            - --speculative-algorithm
+            - EAGLE
+            - --speculative-num-steps
+            - "3"
+            - --speculative-eagle-topk
+            - "1"
+            - --speculative-num-draft-tokens
+            - "4"
+            - --reasoning-parser
+            - qwen3
+            - --tool-call-parser
+            - qwen3_coder
+            - --sampling-defaults
+            - model
+            - --host
+            - "0.0.0.0"
+            - --port
+            - "8888"
+        restart: unless-stopped
+
     # --- Gemma4 26B NVFP4 + DFlash + FP8 KV (AEON, disabled) ---
     # aeon-qwen36-35b:
     #     image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-16-v0.25.1
@@ -302,3 +373,4 @@ volumes:
     prometheus-data:
     grafana-data:
     vllm-cache:
+    sglang-triton-cache:

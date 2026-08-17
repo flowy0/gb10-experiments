@@ -33,6 +33,42 @@ models:
             --chat-template-file /models/qwen-fixed-chat-template/chat_template.jinja \
             -ngl 99
 
+    # Qwen3.8-27B AtomicChat AD-Q5_K_M-Q4_K_M (candidate A, qwen38 test group)
+    # 2026-08-17: bumped llama.cpp pin (server-cuda13@sha256:7ee22018... = 2026-08-16 build; old pin c9674638 predates Qwen3.8)
+    # GGUF arch = qwen35 (same family as qwen3.6) — embedded chat template used (Qwen3.8 template is new;
+    # do NOT override with qwen-fixed-chat-template which is patched for Qwen3.6)
+    # Memory @262K + q8_0 KV: 18.5GB weights + ~32GB KV ≈ 51GB
+    atomicchat-qwen38-27b-mtp-262k-think-code:
+        name: "Qwen3.8 27B AD-Q5_K_M-Q4_K_M MTP 262k think-code"
+        ttl: 3600
+        cmdStop: docker rm -f ls-atomicchat-qwen38-27b-mtp-262k-think-code
+        cmd: |
+            docker run --rm \
+            --name ls-atomicchat-qwen38-27b-mtp-262k-think-code \
+            --runtime=nvidia \
+            --network container:llama-swap \
+            -v /opt/atom/models:/models:ro \
+            ghcr.io/ggml-org/llama.cpp:server-cuda13@sha256:7ee220180201b199ee1758353f3483a98ada48490e6873ec754e042a01363028 \
+            -m /models/atomicchat-qwen38/Qwen3.8-27B-AD-Q5_K_M-Q4_K_M.gguf \
+            --mmproj /models/atomicchat-qwen38/mmproj-Qwen3.8-27B-F16.gguf \
+            --host 0.0.0.0 \
+            --port \${PORT} \
+            -c 262144 \
+            --temp 0.6 \
+            --top-p 0.95 \
+            --top-k 20 \
+            --min-p 0.00 \
+            --repeat-penalty 1.08 \
+            --presence-penalty 0.0 \
+            --reasoning on \
+            --reasoning-budget 4096 \
+            --reasoning-budget-message "I have thought enough. Let me give my answer now." \
+            --spec-type draft-mtp --spec-draft-n-max 2 \
+            --repeat-last-n 4096 \
+            --cache-type-k q8_0 \
+            --cache-type-v q8_0 \
+            -ngl 99
+
     unsloth-qwen3-coder-next-ud-q3-64k-think-code:
         name: "Qwen3-Coder-Next UD-Q3_K_M (64k think-code)"
         ttl: 3600
@@ -692,6 +728,12 @@ models:
             -ngl 99
 
 groups:
+    qwen38-test:
+        swap: true
+        exclusive: false
+        members:
+            - atomicchat-qwen38-27b-mtp-262k-think-code
+
     code:
         swap: true
         exclusive: false

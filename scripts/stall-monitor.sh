@@ -58,17 +58,22 @@ if ! timeout 5 bash -c 'echo test | nc -w 3 127.0.0.1 22 2>/dev/null | grep -q S
     SIGNALS="$SIGNALS ssh_down"
 fi
 
-# 7. vLLM responsiveness — TWO checks: API server reachable AND engine can actually generate
+# 7. Model responsiveness — TWO checks: API server reachable AND engine can actually generate
 # (2026-08-11: /v1/models alone missed a 38h engine deadlock — the API server kept answering 200)
-if ! curl -sf --max-time 10 http://127.0.0.1:8000/v1/models > /dev/null 2>&1; then
+# 2026-08-17: parameterized for candidate sessions — defaults to aeon; override for sglang session:
+#   MONITOR_PORT=8888 MONITOR_MODEL=qwen3.8-27b-sglang MONITOR_CONTAINER=sglang-qwen38 ./stall-monitor.sh
+MONITOR_PORT="${MONITOR_PORT:-8000}"
+MONITOR_MODEL="${MONITOR_MODEL:-aeon-qwen36-35b-128k-think}"
+MONITOR_CONTAINER="${MONITOR_CONTAINER:-aeon-qwen36-35b}"
+if ! curl -sf --max-time 10 "http://127.0.0.1:${MONITOR_PORT}/v1/models" > /dev/null 2>&1; then
     SCORE=$((SCORE + 1))
-    SIGNALS="$SIGNALS vllm_down"
-elif ! curl -sf --max-time 45 -X POST http://127.0.0.1:8000/v1/chat/completions \
+    SIGNALS="$SIGNALS model_api_down"
+elif ! curl -sf --max-time 45 -X POST "http://127.0.0.1:${MONITOR_PORT}/v1/chat/completions" \
         -H "Content-Type: application/json" \
-        -d '{"model":"aeon-qwen36-35b-128k-think","messages":[{"role":"user","content":"hi"}],"max_tokens":1}' \
+        -d "{\"model\":\"${MONITOR_MODEL}\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":1}" \
         > /dev/null 2>&1; then
     SCORE=$((SCORE + 3))
-    SIGNALS="$SIGNALS vllm_engine_stalled"
+    SIGNALS="$SIGNALS model_engine_stalled"
 fi
 
 # 7. Failed systemd services
@@ -80,10 +85,11 @@ fi
 
 if [ "$SCORE" -ge 5 ]; then
     log "STALL DETECTED (score=$SCORE):$SIGNALS"
-    log "Killing llama-swap models + restarting vLLM"
+    log "Killing llama-swap models + restarting model engine"
     docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f 2>/dev/null || true
     # 2026-08-11: target was stale (vllm-qwen36-35b-a3b-nvfp4 is commented out) — now points at active AEON service
-    docker compose -f /opt/atom/docker-compose.yml restart aeon-qwen36-35b 2>/dev/null || true
+    # 2026-08-17: target follows MONITOR_CONTAINER (defaults to aeon-qwen36-35b)
+    docker compose -f /opt/atom/docker-compose.yml restart "${MONITOR_CONTAINER}" 2>/dev/null || true
 elif [ "$SCORE" -ge 3 ]; then
     log "WARNING (score=$SCORE):$SIGNALS"
 else

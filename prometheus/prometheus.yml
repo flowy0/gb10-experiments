@@ -7,6 +7,11 @@ scrape_configs:
     static_configs:
       - targets: ['172.18.0.1:8000']
 
+  # SGLang Qwen3.8-27B (candidate B) — no data until sglang-qwen38 is up
+  - job_name: 'sglang'
+    static_configs:
+      - targets: ['sglang-qwen38:8888']
+
   - job_name: 'llama-swap'
     static_configs:
       - targets: ['llama-swap:8080']
