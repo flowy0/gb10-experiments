@@ -25,6 +25,13 @@
 - **Methodology correction:** `docker kill -9` is an invalid flag on this Docker build (`-s KILL` required) — Session A's original recovery smoke was invalid, re-tested properly (llama.cpp: health ~5-6s warm, generation OK); earlier "empty generations" were thinking-on artifacts (template defaults thinking ON — probes must set `enable_thinking:false` or give token headroom)
 - aeon restored; box back to production state
 
+**Session C — vLLM stock + FP8 + DSpark k7 (ABORTED: GPU OOM):**
+- Boot ~721s (torch.compile); gates 10/10 effective (thinking in `message.reasoning` — vLLM convention; native role:tool works; effort low<xhigh); KV cache 624K tokens = matches 0xBakeer's published FP8 DSpark-k7 figure (config validated)
+- **CRASH: `NV_ERR_NO_MEMORY` from NVRM driver during c16 ladder at gmu 0.85** — same cascade signature as AGENTS.md playbook; 0.85 = 2.4× the box's documented 0.35 vLLM limit; stock vLLM memory spikes (torch.compile + cuda-graph capture) unlike SGLang's flat 0.85 reservation
+- Fresh-gen solo: **13.96 tok/s** — the article's 46.9/75 figures were edit-heavy workloads; on fresh generation (agent's actual workload) FP8+DSpark is slower than both A (20.8) and B (27.4)
+- Session stopped by decision; 4-bit repo leg (unsloth NVFP4, 22 GB downloaded) NOT tested; retry at gmu 0.70/enforce-eager/V2-off didn't complete boot
+- **Verdict: candidate C disqualified on stability** — consistent with AGENTS.md's standing "stock vLLM crashes on Blackwell" warning
+
 ## 2026-08-17
 
 **Qwen3.8-27B stack wiring (flip-ready, nothing started):**
