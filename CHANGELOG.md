@@ -2,6 +2,15 @@
 
 ## 2026-08-17
 
+**llama-swap OOM hardening — old large models commented out:**
+- Commented 12 large/legacy model entries: all qwen3.6 (27B/35B/35B-A3B), qwen3-coder-next, qwen3-coder-30b, deepreinforce-ornith-35b ×3, gemma4-31b — prevents accidental stacking alongside the SGLang main model (~76 GB) that could cross the ~110 GB danger line (NV_ERR pressure seen 2026-08-17)
+- Removed the **DFlash 26B** entry + research-group member (deadlock hazard per 2026-08-11 changelog; research group now serves only the verified QAT MTP 26B)
+- Empty `code` group commented; groups now: qwen38-test / research / compression / embed / subagent
+- 11 active models remain (all ≤26B; only large one = research 26B QAT MTP); llama-swap restarted, verified via /v1/models
+- 12B DFlash subagent entry left as-is (out of scope per 2026-08-11 changelog)
+
+## 2026-08-17
+
 **Co-residency test — research model alongside main (issue noted):**
 - `unsloth-gemma4-26b-a4b-qat-mtp2-128k-think` (Gemma4 26B QAT MTP, 14.2 GB + MTP draft, `-c 262144`) loaded via llama-swap in ~20s alongside the SGLang main model — healthy, responding, SGLang unaffected
 - Memory with both: **91 GB used / 30 GB available / swap idle** — within envelope but close to the ~110 GB danger line; one more 26B would cross it
