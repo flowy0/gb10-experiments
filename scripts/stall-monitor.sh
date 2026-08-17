@@ -60,11 +60,11 @@ fi
 
 # 7. Model responsiveness — TWO checks: API server reachable AND engine can actually generate
 # (2026-08-11: /v1/models alone missed a 38h engine deadlock — the API server kept answering 200)
-# 2026-08-17: parameterized for candidate sessions — defaults to aeon; override for sglang session:
-#   MONITOR_PORT=8888 MONITOR_MODEL=qwen3.8-27b-sglang MONITOR_CONTAINER=sglang-qwen38 ./stall-monitor.sh
-MONITOR_PORT="${MONITOR_PORT:-8000}"
-MONITOR_MODEL="${MONITOR_MODEL:-aeon-qwen36-35b-128k-think}"
-MONITOR_CONTAINER="${MONITOR_CONTAINER:-aeon-qwen36-35b}"
+# 2026-08-17: parameterized — NOW DEFAULTS TO THE MAIN MODEL sglang-qwen38 (aeon retired).
+#   NOTE: SGLang's /v1/models answers before the engine is ready — the generation probe is mandatory.
+MONITOR_PORT="${MONITOR_PORT:-8888}"
+MONITOR_MODEL="${MONITOR_MODEL:-radixark-qwen38-27b-nvfp4-dspark-262k-think}"
+MONITOR_CONTAINER="${MONITOR_CONTAINER:-sglang-qwen38}"
 if ! curl -sf --max-time 10 "http://127.0.0.1:${MONITOR_PORT}/v1/models" > /dev/null 2>&1; then
     SCORE=$((SCORE + 1))
     SIGNALS="$SIGNALS model_api_down"
@@ -87,8 +87,8 @@ if [ "$SCORE" -ge 5 ]; then
     log "STALL DETECTED (score=$SCORE):$SIGNALS"
     log "Killing llama-swap models + restarting model engine"
     docker ps --filter name=ls- --format '{{.Names}}' | xargs docker rm -f 2>/dev/null || true
-    # 2026-08-11: target was stale (vllm-qwen36-35b-a3b-nvfp4 is commented out) — now points at active AEON service
-    # 2026-08-17: target follows MONITOR_CONTAINER (defaults to aeon-qwen36-35b)
+    # restart target follows MONITOR_CONTAINER (default sglang-qwen38 since 2026-08-17)
+    # SGLang recovery: graceful compose restart works; SIGKILL/manual-kill does not auto-restart (docker semantics)
     docker compose -f /opt/atom/docker-compose.yml restart "${MONITOR_CONTAINER}" 2>/dev/null || true
 elif [ "$SCORE" -ge 3 ]; then
     log "WARNING (score=$SCORE):$SIGNALS"

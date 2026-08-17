@@ -7,75 +7,79 @@ services:
     # --- Qwen3.6-35B-A3B NVFP4 + FP8 KV (AEON, port 8000) ---
     # v0.26.0 (2026-07-27): NVFP4_AWQ, batch-cap unlock, prefix-match-unit, drafter kv_cache_dtype
     # rollback: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-16-v0.25.1
-      aeon-qwen36-35b:
-        image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-27-v0.26.0
-        container_name: aeon-qwen36-35b
-        runtime: nvidia
-        shm_size: "32gb"
-        ports:
-            - "8000:8000"
-        volumes:
-            - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
-            # DFlash draft model — disabled 2026-08-11 (DFlash deadlocked the engine, see CHANGELOG)
-            # - /opt/atom/models/z-lab-qwen36-35b-a3b-dflash:/dflash:ro
-            - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
-            - vllm-cache:/root/.cache/vllm
-        ipc: host
-        entrypoint: ["vllm", "serve"]
-        environment:
-            - VLLM_USE_V2_MODEL_RUNNER=0
-        command:
-            - /model
-            - --served-model-name
-            - aeon-qwen36-35b-128k-think
-            - --host
-            - "0.0.0.0"
-            - --port
-            - "8000"
-            - --trust-remote-code
-            - --dtype
-            - auto
-            - --quantization
-            - modelopt
-            - --kv-cache-dtype
-            - fp8_e4m3
-            - --attention-backend
-            - TRITON_ATTN
-            - --max-model-len
-            - "131072"
-            - --max-num-seqs
-            - "8"
-            - --max-num-batched-tokens
-            - "16384"
-            - --gpu-memory-utilization
-            - "0.45"
-            - --enable-chunked-prefill
-            - --enable-prefix-caching
-            - --reasoning-parser
-            - qwen3
-            - --tool-call-parser
-            - qwen3_coder
-            - --enable-auto-tool-choice
-            - --chat-template
-            - /models/chat_template.jinja
-            # DFlash spec decode DISABLED 2026-08-11 — engine deadlocked (spun 100% CPU, 0 completions for 38h)
-            # Re-enable only after upstream AEON fixes the DFlash hang; baseline = no spec decode (~73 tok/s)
-            # - --speculative-config
-            # - '{"method":"dflash","model":"/dflash","num_speculative_tokens":12,"attention_backend":"TRITON_ATTN"}'
-        restart: unless-stopped
-
-    # --- Qwen3.8-27B SGLang (candidate B) ---
-    # MiaAI-Lab recipe flags; profile-gated so plain `docker compose up -d` never starts it.
-    # Session B: docker compose up -d --force-recreate sglang-qwen38   (STOP aeon first — 0.85*128GB + aeon = OOM)
-    # MEMORY: --mem-fraction-static 0.85 (not recipe 0.95 — cascade risk with co-resident containers)
-    # Weights pre-seeded at /opt/atom/models/hf-cache (RadixArk snapshot, refs/main set) — no first-boot download
+#       aeon-qwen36-35b:
+#         image: ghcr.io/aeon-7/aeon-vllm-ultimate:2026-07-27-v0.26.0
+#         container_name: aeon-qwen36-35b
+#         runtime: nvidia
+#         shm_size: "32gb"
+#         ports:
+#             - "8000:8000"
+#         volumes:
+#             - /opt/atom/models/Qwen3.6-35B-A3B-NVFP4:/model:ro
+#             # DFlash draft model — disabled 2026-08-11 (DFlash deadlocked the engine, see CHANGELOG)
+#             # - /opt/atom/models/z-lab-qwen36-35b-a3b-dflash:/dflash:ro
+#             - /opt/atom/models/qwen-fixed-chat-template/chat_template.jinja:/models/chat_template.jinja:ro
+#             - vllm-cache:/root/.cache/vllm
+#         ipc: host
+#         entrypoint: ["vllm", "serve"]
+#         environment:
+#             - VLLM_USE_V2_MODEL_RUNNER=0
+#         command:
+#             - /model
+#             - --served-model-name
+#             - aeon-qwen36-35b-128k-think
+#             - --host
+#             - "0.0.0.0"
+#             - --port
+#             - "8000"
+#             - --trust-remote-code
+#             - --dtype
+#             - auto
+#             - --quantization
+#             - modelopt
+#             - --kv-cache-dtype
+#             - fp8_e4m3
+#             - --attention-backend
+#             - TRITON_ATTN
+#             - --max-model-len
+#             - "131072"
+#             - --max-num-seqs
+#             - "8"
+#             - --max-num-batched-tokens
+#             - "16384"
+#             - --gpu-memory-utilization
+#             - "0.45"
+#             - --enable-chunked-prefill
+#             - --enable-prefix-caching
+#             - --reasoning-parser
+#             - qwen3
+#             - --tool-call-parser
+#             - qwen3_coder
+#             - --enable-auto-tool-choice
+#             - --chat-template
+#             - /models/chat_template.jinja
+#             # DFlash spec decode DISABLED 2026-08-11 — engine deadlocked (spun 100% CPU, 0 completions for 38h)
+#             # Re-enable only after upstream AEON fixes the DFlash hang; baseline = no spec decode (~73 tok/s)
+#             # - --speculative-config
+#             # - '{"method":"dflash","model":"/dflash","num_speculative_tokens":12,"attention_backend":"TRITON_ATTN"}'
+#         restart: unless-stopped
+# 
+#     # --- Qwen3.8-27B SGLang (MAIN MODEL — 2026-08-17 flip) ---
+#     # Safe GB10 config per hasso5703 field validation (forum 380257): mem-fraction 0.50 +
+#     # docker memory caps — SGLang's accounting misses 25-40GB of transient allocations
+#     # (flashinfer autotuner, cuda-graph capture) on unified memory; >0.50 risks a hard freeze.
+#     # DSpark k7 drafter (RadixArk) — community-validated; MTP is a one-flag alternative
+#     # (--speculative-algorithm EAGLE --speculative-num-steps 3 --speculative-eagle-topk 1
+#     #  --speculative-num-draft-tokens 4) that measured ~20% faster on fresh codegen.
+#     # Weights pre-seeded at /opt/atom/models/hf-cache — no first-boot download.
       sglang-qwen38:
         image: lmsysorg/sglang:qwen38-27b
         container_name: sglang-qwen38
-        profiles: ["qwen38-test"]
         runtime: nvidia
         shm_size: "32gb"
         ipc: host
+        mem_limit: 100g
+        memswap_limit: 100g
         ports:
             - "8888:8888"
         volumes:
@@ -92,10 +96,10 @@ services:
             - --model-path
             - RadixArk/Qwen3.8-27B-NVFP4
             - --served-model-name
-            - qwen3.8-27b-sglang
+            - radixark-qwen38-27b-nvfp4-dspark-262k-think
             - --trust-remote-code
             - --mem-fraction-static
-            - "0.85"
+            - "0.50"
             - --attention-backend
             - flashinfer
             - --chunked-prefill-size
@@ -110,19 +114,19 @@ services:
             - --mamba-radix-cache-strategy
             - extra_buffer_lazy
             - --max-mamba-cache-size
-            - "80"
+            - "48"
             - --max-running-requests
-            - "10"
+            - "4"
             - --context-length
             - "262144"
             - --speculative-algorithm
-            - EAGLE
-            - --speculative-num-steps
-            - "3"
-            - --speculative-eagle-topk
-            - "1"
-            - --speculative-num-draft-tokens
-            - "4"
+            - DSPARK
+            - --speculative-draft-model-path
+            - RadixArk/Qwen3.8-27B-DSpark
+            - --speculative-dspark-block-size
+            - "7"
+            - --speculative-draft-model-quantization
+            - unquant
             - --reasoning-parser
             - qwen3
             - --tool-call-parser
@@ -268,7 +272,7 @@ services:
         image: ghcr.io/berriai/litellm:main-latest
         container_name: litellm
         depends_on:
-            - aeon-qwen36-35b
+            - sglang-qwen38
             - llama-swap
         ports:
             - "4000:4000"
@@ -296,7 +300,7 @@ services:
             OPENAI_API_BASE_URL: http://litellm:4000/v1
             OPENAI_API_KEY: not-needed
             ENABLE_OLLAMA_API: "false"
-            OPENAI_MODEL_LIST: '["unsloth-gemma4-26b-a4b-qat-128k-think"]'
+            OPENAI_MODEL_LIST: '["radixark-qwen38-27b-nvfp4-dspark-262k-think"]'
         restart: unless-stopped
 
       mongodb:
