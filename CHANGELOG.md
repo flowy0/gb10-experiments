@@ -11,6 +11,12 @@
 - NIAH @ 262K in progress (12 probes, ~80 min)
 - New scripts: scripts/qwen38-gates.sh (G1–G9, reusable per candidate), scripts/qwen38-niah.py (needle probes); run cards in docs/qwen38-test-runs/ (git-ignored)
 
+**Session A complete:**
+- NIAH @ 262K **12/12 PASS** (needles @ 8K/32K/131K/247K × 3 in ~224K window, ~540s/probe)
+- Recovery: kill -9 → /health 5s (page-cache warm; cold boot ~25s) vs SGLang minutes
+- Teardown done; aeon restored (190s warm boot, generation verified)
+- Candidate A summary: 262K confirmed, tools/thinking/vision work (`<tool_response>` protocol for multi-turn), 20.8 solo / 126 c16 (4-slot cap @262K), 116× prefix caching, ~37 GB memory
+
 ## 2026-08-17
 
 **Qwen3.8-27B stack wiring (flip-ready, nothing started):**
