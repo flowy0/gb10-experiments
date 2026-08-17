@@ -10,7 +10,9 @@
 - Retest data (Session B2/B2b): SGLang DSpark@0.50 solo 20.3 / c16 187.6 / prefix 51× / gates 10/10 / 262K spot-check FOUND; MTP@0.50 solo 24.5 (one-flag alternative); DSpark underperforms MTP on fresh codegen but is the community-validated config (hasso 34-38 tok/s on math/eval workloads)
 - vLLM (candidate C) DISQUALIFIED: 2× GPU driver OOM (NV_ERR_NO_MEMORY) at recipe gmu 0.85 — matches AGENTS.md "stock vLLM crashes on Blackwell"
 - OOM probe passed: nomic-embed coexists with main model (50 GB headroom)
-- 45-min soak in progress (scripts/qwen38-soak.sh)
+- **45-min soak PASSED**: 252/252 requests OK (0 hangs), RSS flat 5.79→5.793 GiB (no leak), 0 kernel errors; vision verified separately (live transcription via litellm, thinking on)
+- Integration verified: litellm:4000 → sglang:8888 full path answers correctly; vision+thinking proven live (enable_thinking + generous max_tokens)
+- Winner run card: docs/qwen38-test-runs/FLIP-WINNER.md
 
 ## 2026-08-17
 
