@@ -2,6 +2,17 @@
 
 ## 2026-08-17
 
+**Session A started — llama.cpp + AtomicChat GGUF (candidate A):**
+- Booted standalone on 8090 (bumped pin `server-cuda13@sha256:7ee22018…`, `-c 262144`, q8_0 KV, MTP n2, mmproj) — **cold boot ~25 s**
+- Correctness gates **10/10 PASS** (arith think on/off, BANANA, code, tool call, multi-turn, vision transcription, reasoning effort low<xhigh, sampling)
+- Findings: (1) llama.cpp does NOT translate OpenAI `role:tool` for the Qwen3.8 template — tool results must be sent as `role:user` `<tool_response>…</tool_response>` blocks (client/agent layer must format them); (2) valid `reasoning_effort` = xhigh|medium|low (`high` raises Jinja error)
+- Bench: solo **20.8 tok/s**; MTP sweep 11.1 → 20.8 (n2, 1.87×) → 21.1 (n5); ladder c1=22.7 c4=59.6 c8=93.1 c16=**126.0** aggregate, 0 errors; prefix 19K cold→warm **116.7×** (26s→0.22s); prefill TTFT 8K=11s 32K=44s 100K=159s; thinking-on ~20% hit (16.8 tok/s)
+- Operational: 4 slots @262K (concurrency beyond 4 queues); ~37 GB memory; aeon stopped for session (will restore at teardown)
+- NIAH @ 262K in progress (12 probes, ~80 min)
+- New scripts: scripts/qwen38-gates.sh (G1–G9, reusable per candidate), scripts/qwen38-niah.py (needle probes); run cards in docs/qwen38-test-runs/ (git-ignored)
+
+## 2026-08-17
+
 **Qwen3.8-27B stack wiring (flip-ready, nothing started):**
 - docker-compose.yml: added `sglang-qwen38` service (MiaAI-Lab recipe flags verbatim, `--mem-fraction-static 0.85`, port 8888, HF cache mounted from /opt/atom/models/hf-cache, Triton cache volume) — **profile-gated** (`profiles: [qwen38-test]`) so plain `docker compose up -d` never starts it; start explicitly with `docker compose up -d --force-recreate sglang-qwen38` after stopping aeon (0.85×128GB + aeon = OOM risk)
 - litellm/config.yaml: added `qwen3.8-27b-sglang` → `http://sglang-qwen38:8888/v1` (active; inert until sglang is up)
