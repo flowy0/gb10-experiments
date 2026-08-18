@@ -70,4 +70,5 @@ Retired AEON (Qwen3.6-35B-A3B) reference: 164–169 tok/s with DFlash (MoE, 3B a
 
 ## Model Groups
 
-See `llama-swap/config.yaml` for groups. Models load on demand via llama-swap; the main model is always resident on SGLang (8888).
+Active groups (llama-swap): `research` (26B QAT MTP), `compression`, `subagent`, `embed`, `qwen38-test` — all ≤26B.
+Old large models (Qwen3.6 27B/35B, Ornith-35B, Gemma4-31B, Qwen3-Coder, 26B DFlash) were commented out 2026-08-17 to prevent memory overload alongside the SGLang main model. See `llama-swap/config.yaml`. Models load on demand; the main model is always resident on SGLang (8888).
