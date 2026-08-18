@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-08-18
+
+**Pi agent config reference (docs/PI_AGENT_CONFIG.md):**
+- Documented the hermes pi-agent configuration for the remote machine (YAML): model block (radixark-qwen38-27b-nvfp4-dspark-262k-think via litellm :4000), defaultThinkingLevel medium, retry.provider.timeoutMs 1800000 (truncation fix for slow 20-27 tok/s generations), compaction reserveTokens 16384
+- Litellm pass-through fix: `allowed_openai_params: [reasoning_effort]` only — `chat_template_kwargs` / `max_reasoning_tokens` break the OpenAI-SDK path (500 AsyncCompletions.create() unexpected keyword argument); thinking stays ON via SGLang template default
+- Verified through litellm: reasoning_effort medium → thinking text present + correct answer
+
 ## 2026-08-17
 
 **llama-swap OOM hardening — old large models commented out:**
