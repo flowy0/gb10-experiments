@@ -3,34 +3,44 @@
 > Reference for the pi coding agent ("hermes") running on a remote machine, pointed at this box's litellm endpoint (port 4000).
 > Model: `radixark-qwen38-27b-nvfp4-dspark-262k-think` (SGLang + DSpark, safe 0.50 config, 262K, vision, thinking).
 
-## Full YAML config
+## Full JSON config (pi config file — config.json)
 
-```yaml
-defaultThinkingLevel: medium
-
-retry:
-  provider:
-    timeoutMs: 1800000
-
-compaction:
-  enabled: true
-  reserveTokens: 16384
-  keepRecentTokens: 20000
-
-providers:
-  flint-server:
-    baseUrl: http://flint.home.lan:4000/v1
-    api: openai-completions
-    apiKey: "none"
-    models:
-      - id: radixark-qwen38-27b-nvfp4-dspark-262k-think
-        reasoning: true
-        input: ["text", "image"]
-        contextWindow: 262144
-        maxTokens: 8192
-        samplingParams:
-          reasoning_effort: medium
+```json
+{
+  "defaultThinkingLevel": "medium",
+  "retry": {
+    "provider": {
+      "timeoutMs": 1800000
+    }
+  },
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 20000
+  },
+  "providers": {
+    "flint-server": {
+      "baseUrl": "http://flint.home.lan:4000/v1",
+      "api": "openai-completions",
+      "apiKey": "none",
+      "models": [
+        {
+          "id": "radixark-qwen38-27b-nvfp4-dspark-262k-think",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "samplingParams": {
+            "reasoning_effort": "medium"
+          }
+        }
+      ]
+    }
+  }
+}
 ```
+
+> Pi also accepts YAML (config.yaml) with the same structure — the field names are identical.
 
 ## Setting explanations
 
