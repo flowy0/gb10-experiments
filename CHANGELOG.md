@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-19
+
+**SGLang tuning — CPU pinning + corrected GDN pool (from updated MiaAI recipe):**
+- Adopted MiaAI 2026-08-18 tuning: `cpuset 5-9,15-19` (GB10 X5 cores; scheduler/tokenizer off the A725 efficiency cores, +2-7% decode) — verified engine affinity
+- Corrected mamba pool sizing: `--max-mamba-cache-size 16` = concurrency(4) × 4 state slots (MiaAI: spec verify window is a separate engine-side buffer; old ×12 sizing over-provisioned) — ssm_state pool dropped 3.45→1.20 GB
+- Kept mem-fraction-static 0.50 (hasso5703 freeze risk) and 4 concurrent — NOT adopting MiaAI's 0.90/10-concurrent
+- Restarted sglang-qwen38; verified: cpuset affinity 5-9,15-19, max_mamba_cache_size 16, engine startup OK, generation OK
+- AGENTS.md concurrency rule updated to corrected sizing
+
 ## 2026-08-18
 
 **Pi agent config reference (docs/PI_AGENT_CONFIG.md):**
