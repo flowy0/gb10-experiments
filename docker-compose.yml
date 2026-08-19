@@ -75,6 +75,7 @@ services:
       sglang-qwen38:
         image: lmsysorg/sglang:qwen38-27b
         container_name: sglang-qwen38
+        cpuset: "5-9,15-19"
         runtime: nvidia
         shm_size: "32gb"
         ipc: host
@@ -114,7 +115,7 @@ services:
             - --mamba-radix-cache-strategy
             - extra_buffer_lazy
             - --max-mamba-cache-size
-            - "48"
+            - "16"
             - --max-running-requests
             - "4"
             - --context-length
