@@ -2,6 +2,16 @@
 
 ## 2026-08-20
 
+**🔴 PROMOTED — DFlash2 is now the main model's draft method:**
+- **Soak PASSED (200/200 requests, 0 fails, memory flat, 0 kernel errors, 30 min)** — the DFlash-history gate is cleared
+- Promoted with the accurate name: `radixark-qwen38-27b-nvfp4-dflash2-262k-think` (renamed from ...-dspark-...)
+- Compose: image → `weschera/qwen38-27b-dflash2:2026-08-19` (Python-source overlay on the same stock base), `--speculative-algorithm DFLASH` + `z-lab/Qwen3.8-27B-DFlash2` draft, `--speculative-num-draft-tokens 8`, `--mamba-radix-cache-strategy extra_buffer`, `--max-prefill-tokens 16384`; kept mem 0.50, 4 concurrent, cpuset, pool 16
+- litellm entry, stall-monitor default, open-webui list, AGENTS.md, PI_AGENT_CONFIG.md all updated to the new name
+- Verified: engine up (DFLASH fused KV materialization + quantized-head draft), generation via litellm answers 437, 0 kernel errors
+- **Client action required:** update the pi model id on the remote machine to `radixark-qwen38-27b-nvfp4-dflash2-262k-think` (docs/PI_AGENT_CONFIG.md)
+
+## 2026-08-20
+
 **DFlash2 draft test (Weschera recipe) — strong result, not yet promoted:**
 - Built `weschera/qwen38-27b-dflash2:2026-08-19` (Python-source overlay on our same stock base image + SGLang source e5a3e4d3 with DFlash2/quantized-lm-head patch); downloaded `z-lab/Qwen3.8-27B-DFlash2` draft (1.9 GB)
 - Tested at the SAME safe config as production (mem-fraction 0.50, 4 concurrent, cpuset): gates **10/10**, solo **30.68 tok/s (+51% vs DSpark 20.26)**, c16 223.4 (+19%), thinking-on 31.7 (+30%), draft acceptance **3.6-3.9 vs 2.3-2.9**, prefill/prefix unchanged, 0 errors/hangs/kernel alerts
