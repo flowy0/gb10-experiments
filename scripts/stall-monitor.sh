@@ -63,7 +63,7 @@ fi
 # 2026-08-17: parameterized — NOW DEFAULTS TO THE MAIN MODEL sglang-qwen38 (aeon retired).
 #   NOTE: SGLang's /v1/models answers before the engine is ready — the generation probe is mandatory.
 MONITOR_PORT="${MONITOR_PORT:-8888}"
-MONITOR_MODEL="${MONITOR_MODEL:-radixark-qwen38-27b-nvfp4-dspark-262k-think}"
+MONITOR_MODEL="${MONITOR_MODEL:-radixark-qwen38-27b-nvfp4-dflash2-262k-think}"
 MONITOR_CONTAINER="${MONITOR_CONTAINER:-sglang-qwen38}"
 if ! curl -sf --max-time 10 "http://127.0.0.1:${MONITOR_PORT}/v1/models" > /dev/null 2>&1; then
     SCORE=$((SCORE + 1))

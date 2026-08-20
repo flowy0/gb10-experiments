@@ -4,8 +4,8 @@
 set -uo pipefail
 
 DURATION="${1:-45}"
-BASE="http://127.0.0.1:8888/v1"
-MODEL="radixark-qwen38-27b-nvfp4-dspark-262k-think"
+BASE="${BASE_URL:-http://127.0.0.1:8888/v1}"
+MODEL="${SOAK_MODEL:-radixark-qwen38-27b-nvfp4-dspark-262k-think}"
 LOG="/tmp/soak-qwen38.log"
 declare -i OK=0 FAIL=0
 T0=$(date +%s)

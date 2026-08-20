@@ -1,7 +1,7 @@
 # Pi Agent Configuration — Hermes (Qwen3.8-27B main model)
 
 > Reference for the pi coding agent ("hermes") running on a remote machine, pointed at this box's litellm endpoint (port 4000).
-> Model: `radixark-qwen38-27b-nvfp4-dspark-262k-think` (SGLang + DSpark, safe 0.50 config, 262K, vision, thinking).
+> Model: `radixark-qwen38-27b-nvfp4-dflash2-262k-think` (SGLang + DSpark, safe 0.50 config, 262K, vision, thinking).
 
 ## Full JSON config (pi config file — config.json)
 
@@ -25,7 +25,7 @@
       "apiKey": "none",
       "models": [
         {
-          "id": "radixark-qwen38-27b-nvfp4-dspark-262k-think",
+          "id": "radixark-qwen38-27b-nvfp4-dflash2-262k-think",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 262144,
@@ -72,5 +72,5 @@
 ## Related docs
 
 - Stack status / migration: [QWEN38_RESEARCH.md](./QWEN38_RESEARCH.md), [QWEN38_TESTPLAN.md](./QWEN38_TESTPLAN.md), [qwen38-test-runs/FLIP-WINNER.md](./qwen38-test-runs/FLIP-WINNER.md)
-- Litellm model entry: `litellm/config.yaml` (model `radixark-qwen38-27b-nvfp4-dspark-262k-think`, `allowed_openai_params: [reasoning_effort]`)
+- Litellm model entry: `litellm/config.yaml` (model `radixark-qwen38-27b-nvfp4-dflash2-262k-think`, `allowed_openai_params: [reasoning_effort]`)
 - Server-side concurrency/memory rules: [AGENTS.md](../AGENTS.md) (Main model request rules)

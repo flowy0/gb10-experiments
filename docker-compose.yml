@@ -68,12 +68,13 @@ services:
 #     # Safe GB10 config per hasso5703 field validation (forum 380257): mem-fraction 0.50 +
 #     # docker memory caps — SGLang's accounting misses 25-40GB of transient allocations
 #     # (flashinfer autotuner, cuda-graph capture) on unified memory; >0.50 risks a hard freeze.
-#     # DSpark k7 drafter (RadixArk) — community-validated; MTP is a one-flag alternative
+#     # DFlash2 drafter (z-lab) — promoted 2026-08-20 after soak PASS (200/200, +51% solo vs DSpark)
+#     # DSpark k7 was the previous draft (community-validated); MTP is a one-flag alternative
 #     # (--speculative-algorithm EAGLE --speculative-num-steps 3 --speculative-eagle-topk 1
 #     #  --speculative-num-draft-tokens 4) that measured ~20% faster on fresh codegen.
 #     # Weights pre-seeded at /opt/atom/models/hf-cache — no first-boot download.
       sglang-qwen38:
-        image: lmsysorg/sglang:qwen38-27b
+        image: weschera/qwen38-27b-dflash2:2026-08-19
         container_name: sglang-qwen38
         cpuset: "5-9,15-19"
         runtime: nvidia
@@ -97,7 +98,7 @@ services:
             - --model-path
             - RadixArk/Qwen3.8-27B-NVFP4
             - --served-model-name
-            - radixark-qwen38-27b-nvfp4-dspark-262k-think
+            - radixark-qwen38-27b-nvfp4-dflash2-262k-think
             - --trust-remote-code
             - --mem-fraction-static
             - "0.50"
@@ -113,21 +114,21 @@ services:
             - --mamba-full-memory-ratio
             - "4.21"
             - --mamba-radix-cache-strategy
-            - extra_buffer_lazy
+            - extra_buffer
             - --max-mamba-cache-size
             - "16"
             - --max-running-requests
             - "4"
+            - --max-prefill-tokens
+            - "16384"
             - --context-length
             - "262144"
             - --speculative-algorithm
-            - DSPARK
+            - DFLASH
             - --speculative-draft-model-path
-            - RadixArk/Qwen3.8-27B-DSpark
-            - --speculative-dspark-block-size
-            - "7"
-            - --speculative-draft-model-quantization
-            - unquant
+            - z-lab/Qwen3.8-27B-DFlash2
+            - --speculative-num-draft-tokens
+            - "8"
             - --reasoning-parser
             - qwen3
             - --tool-call-parser
@@ -301,7 +302,7 @@ services:
             OPENAI_API_BASE_URL: http://litellm:4000/v1
             OPENAI_API_KEY: not-needed
             ENABLE_OLLAMA_API: "false"
-            OPENAI_MODEL_LIST: '["radixark-qwen38-27b-nvfp4-dspark-262k-think"]'
+            OPENAI_MODEL_LIST: '["radixark-qwen38-27b-nvfp4-dflash2-262k-think"]'
         restart: unless-stopped
 
       mongodb:
