@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-08-20
+
+**DFlash2 draft test (Weschera recipe) — strong result, not yet promoted:**
+- Built `weschera/qwen38-27b-dflash2:2026-08-19` (Python-source overlay on our same stock base image + SGLang source e5a3e4d3 with DFlash2/quantized-lm-head patch); downloaded `z-lab/Qwen3.8-27B-DFlash2` draft (1.9 GB)
+- Tested at the SAME safe config as production (mem-fraction 0.50, 4 concurrent, cpuset): gates **10/10**, solo **30.68 tok/s (+51% vs DSpark 20.26)**, c16 223.4 (+19%), thinking-on 31.7 (+30%), draft acceptance **3.6-3.9 vs 2.3-2.9**, prefill/prefix unchanged, 0 errors/hangs/kernel alerts
+- DFlash2 is the fastest draft method measured on this box at the safe memory setting
+- **Gate before promotion: 30-min soak** (DFlash family deadlock history 2026-08-11; DFlash2 is a different implementation — clean bench so far). Run card: docs/qwen38-test-runs/DFLASH2-TEST.md
+- Production main still DSpark; test container on port 8889
+
 ## 2026-08-19
 
 **SGLang tuning — CPU pinning + corrected GDN pool (from updated MiaAI recipe):**
