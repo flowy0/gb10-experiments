@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-25
+
+**BF16-LMHead checkpoint evaluated — NOT adopted (speed cost > unverified accuracy gain):**
+- Tested `RadixArk/Qwen3.8-27B-NVFP4-BF16-LMHead` (23 GB, BF16 lm_head) at the safe 0.50 config with DFlash2: gates 10/10
+- Measured speed cost vs the current NVFP4 checkpoint: solo 25.8 vs 30.7 (-16%), short 27.1 vs 29.2 (-7%), thinking-on 22.2 vs 31.7 (-30%), c16 203 vs 223 (-9%)
+- The claimed accuracy gain was not re-measured on this box (quality-set run declined by owner)
+- **Decision: keep the current checkpoint** (radixark-qwen38-27b-nvfp4-dflash2-262k-think, standard NVFP4 + DFlash2). Main service restored and verified (437 via litellm)
+
 ## 2026-08-20
 
 **🔴 PROMOTED — DFlash2 is now the main model's draft method:**
