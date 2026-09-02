@@ -73,4 +73,4 @@
 
 - Stack status / migration: [QWEN38_RESEARCH.md](./QWEN38_RESEARCH.md), [QWEN38_TESTPLAN.md](./QWEN38_TESTPLAN.md), [qwen38-test-runs/FLIP-WINNER.md](./qwen38-test-runs/FLIP-WINNER.md)
 - Litellm model entry: `litellm/config.yaml` (model `radixark-qwen38-27b-nvfp4-dflash2-262k-think`, `allowed_openai_params: [reasoning_effort]`)
-- Server-side concurrency/memory rules: [AGENTS.md](../AGENTS.md) (Main model request rules)
+- Server-side concurrency/memory rules: [main-model.md](guides/main-model.md) and [crash-avoidance.md](guides/crash-avoidance.md)

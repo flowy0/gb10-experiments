@@ -65,4 +65,4 @@
 ## Related docs
 
 - [PI_AGENT_CONFIG.md](./PI_AGENT_CONFIG.md) — the pi agent variant (same model, same limits)
-- [AGENTS.md](../AGENTS.md) — main model request rules
+- [main-model.md](guides/main-model.md) — main model request rules
