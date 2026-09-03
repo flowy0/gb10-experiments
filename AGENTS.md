@@ -22,6 +22,7 @@ Docker-compose orchestration of a local AI inference stack on one NVIDIA DGX Spa
 | [monitoring.md](docs/guides/monitoring.md) | prometheus/grafana/stall monitor |
 | [benchmarking.md](docs/guides/benchmarking.md) | performance tests |
 | [vllm-reference.md](docs/guides/vllm-reference.md) | historical vLLM knowledge (not currently used) |
+| [reverse-proxy.md](docs/guides/reverse-proxy.md) | Caddy/HTTPS for Open Web UI (chat.testerlab.online) |
 
 ## Project map
 
