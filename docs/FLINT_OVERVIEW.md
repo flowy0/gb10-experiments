@@ -23,7 +23,7 @@ The main model can:
 
 **From any device on your home network:** open `https://chat.testerlab.online` in a browser. It shows the green lock, just like any trusted website — but the traffic never leaves your house. (A small program called Caddy points the address to Flint and keeps the connection secure.)
 
-**From this machine directly:** `http://<flint-lan-ip>:3000`
+**From this machine directly:** `http://localhost:3000`
 
 The page is private to your network. People on the internet cannot reach it.
 
