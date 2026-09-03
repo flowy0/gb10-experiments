@@ -307,17 +307,18 @@ services:
 
       # Cloudflare Tunnel — exposes Open Web UI as https://chat.testerlab.online
       # (cert/credentials/config in /home/g/.cloudflared, created 2026-09-03)
-      cloudflared:
-        image: cloudflare/cloudflared:latest
-        container_name: cloudflared
-        volumes:
-            - /home/g/.cloudflared:/etc/cloudflared:ro
-        command:
-            - tunnel
-            - --no-autoupdate
-            - run
-            - openwebui
-        restart: unless-stopped
+      # cloudflared:  (disabled 2026-09-03 — LAN-only lock; re-enable to expose chat.testerlab.online)
+#       cloudflared:
+#         image: cloudflare/cloudflared:latest
+#         container_name: cloudflared
+#         volumes:
+#             - /home/g/.cloudflared:/etc/cloudflared:ro
+#         command:
+#             - tunnel
+#             - --no-autoupdate
+#             - run
+#             - openwebui
+#         restart: unless-stopped
 
       mongodb:
         image: mongo:7
