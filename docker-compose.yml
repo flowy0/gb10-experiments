@@ -305,6 +305,20 @@ services:
             OPENAI_MODEL_LIST: '["radixark-qwen38-27b-nvfp4-dflash2-262k-think"]'
         restart: unless-stopped
 
+      # Cloudflare Tunnel — exposes Open Web UI as https://chat.testerlab.online
+      # (cert/credentials/config in /home/g/.cloudflared, created 2026-09-03)
+      cloudflared:
+        image: cloudflare/cloudflared:latest
+        container_name: cloudflared
+        volumes:
+            - /home/g/.cloudflared:/etc/cloudflared:ro
+        command:
+            - tunnel
+            - --no-autoupdate
+            - run
+            - openwebui
+        restart: unless-stopped
+
       mongodb:
         image: mongo:7
         container_name: librechat-mongodb
