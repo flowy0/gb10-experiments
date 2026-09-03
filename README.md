@@ -72,3 +72,41 @@ Retired AEON (Qwen3.6-35B-A3B) reference: 164–169 tok/s with DFlash (MoE, 3B a
 
 Active groups (llama-swap): `research` (26B QAT MTP), `compression`, `subagent`, `embed`, `qwen38-test` — all ≤26B.
 Old large models (Qwen3.6 27B/35B, Ornith-35B, Gemma4-31B, Qwen3-Coder, 26B DFlash) were commented out 2026-08-17 to prevent memory overload alongside the SGLang main model. See `llama-swap/config.yaml`. Models load on demand; the main model is always resident on SGLang (8888).
+
+## Documentation
+
+### Orientation
+| Doc | What it is |
+|---|---|
+| [docs/FLINT_OVERVIEW.md](docs/FLINT_OVERVIEW.md) | Plain-language summary of the box — what it hosts and how to use it |
+| [docs/QUICK_CMDS.md](docs/QUICK_CMDS.md) | Common commands: restarts, test curls, benchmarks |
+| [docs/HISTORICAL.md](docs/HISTORICAL.md) | Previous stack configurations |
+
+### Operation guides (read before the task)
+| Guide | When to read |
+|---|---|
+| [docs/guides/config-conventions.md](docs/guides/config-conventions.md) | editing any YAML config |
+| [docs/guides/git-workflow.md](docs/guides/git-workflow.md) | every change (commit + changelog) |
+| [docs/guides/main-model.md](docs/guides/main-model.md) | main model requests, SGLang operations |
+| [docs/guides/llama-swap-models.md](docs/guides/llama-swap-models.md) | llama-swap models and groups |
+| [docs/guides/crash-avoidance.md](docs/guides/crash-avoidance.md) | memory envelope, OOM risk |
+| [docs/guides/monitoring.md](docs/guides/monitoring.md) | prometheus, grafana, stall monitor |
+| [docs/guides/benchmarking.md](docs/guides/benchmarking.md) | performance tests and harness |
+| [docs/guides/reverse-proxy.md](docs/guides/reverse-proxy.md) | Caddy / HTTPS for Open Web UI |
+| [docs/guides/vllm-reference.md](docs/guides/vllm-reference.md) | historical vLLM knowledge (not used) |
+
+### Client configurations
+| Doc | What it is |
+|---|---|
+| [docs/PI_AGENT_CONFIG.md](docs/PI_AGENT_CONFIG.md) | pi (Hermes) agent config for the main model |
+| [docs/OPENCODE_CONFIG.md](docs/OPENCODE_CONFIG.md) | OpenCode agent config for the main model |
+
+### Model research and benchmarks
+| Doc | What it is |
+|---|---|
+| [docs/QWEN38_RESEARCH.md](docs/QWEN38_RESEARCH.md) | Qwen3.8 implementation research and comparison |
+| [docs/QWEN38_TESTPLAN.md](docs/QWEN38_TESTPLAN.md) | candidate test plan (per-session methodology) |
+| [docs/BENCHMARKS.md](docs/BENCHMARKS.md) | tok/s and tool-eval scores |
+| [docs/llama-cpp-turboquant.md](docs/llama-cpp-turboquant.md) | TurboQuant llama.cpp notes |
+| [docs/CUDA_GRAPHS.md](docs/CUDA_GRAPHS.md) | CUDA graphs explanation |
+| [docs/VLLM.md](docs/VLLM.md) | AEON vLLM history (retired — reference only) |
