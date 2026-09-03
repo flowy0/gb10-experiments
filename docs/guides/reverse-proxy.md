@@ -27,7 +27,7 @@ Open Web UI -> litellm:4000 -> SGLang main model
 | Compose service | `caddy` (env_file `.env`, ports 80 + 443, volumes `caddy-data`/`caddy-config`) |
 | API token | `CF_API_TOKEN` in `/opt/atom/.env` (owner-only perms; **not** committed) |
 | Token scope | Cloudflare API token, "Edit zone DNS" for `testerlab.online` only |
-| DNS (user-managed, Cloudflare) | `chat` → **A** `<flint-lan-ip>`, **DNS only** |
+| DNS (user-managed, Cloudflare) | `chat` → **A** `$FLINT_LAN_IP`, **DNS only** |
 
 ## The Caddyfile
 
@@ -69,6 +69,10 @@ api.testerlab.online {
     reverse_proxy litellm:4000
 }
 ```
+
+## The LAN address source
+
+The box's LAN address is defined once in `/opt/atom/.env` as `FLINT_LAN_IP` (untracked, owner-only). Source it from there whenever a config or script needs the address — do not hardcode it. The Cloudflare A record content should match `$FLINT_LAN_IP`.
 
 ## Notes & cautions
 
