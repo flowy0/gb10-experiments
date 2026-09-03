@@ -307,10 +307,16 @@ services:
 
       # LAN reverse proxy — chat.home.lan -> Open Web UI (Caddyfile in ./caddy)
       caddy:
-        image: caddy:latest
+        image: local/caddy-cloudflare
         container_name: caddy
+        env_file:
+            - /opt/atom/.env
+        environment:
+            - CF_API_TOKEN=${CF_API_TOKEN:-}
         ports:
             - "80:80"
+            - "443:443"
+            - "443:443/udp"
         volumes:
             - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
             - caddy-data:/data
