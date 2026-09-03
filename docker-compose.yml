@@ -290,7 +290,7 @@ services:
         restart: unless-stopped
 
       open-webui:
-        image: ghcr.io/open-webui/open-webui:v0.10.2
+        image: ghcr.io/open-webui/open-webui:v0.11.3
         container_name: open-webui
         depends_on:
             - llama-swap
