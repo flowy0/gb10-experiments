@@ -1,0 +1,13 @@
+# Caddy — LAN reverse proxy (chat.home.lan)
+# DNS: chat.home.lan -> <flint-lan-ip> must exist in UniFi (user-managed)
+# LAN-only: plain HTTP on port 80 (no public cert possible/needed for a LAN name).
+# For HTTPS later: change to "chat.home.lan { tls internal ... }" and trust Caddy's local CA.
+
+http://chat.home.lan {
+    reverse_proxy open-webui:8080
+}
+
+# Optional (uncomment when DNS for api.home.lan is added in UniFi):
+# http://api.home.lan {
+#     reverse_proxy litellm:4000
+# }

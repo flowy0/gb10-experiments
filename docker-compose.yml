@@ -305,6 +305,18 @@ services:
             OPENAI_MODEL_LIST: '["radixark-qwen38-27b-nvfp4-dflash2-262k-think"]'
         restart: unless-stopped
 
+      # LAN reverse proxy — chat.home.lan -> Open Web UI (Caddyfile in ./caddy)
+      caddy:
+        image: caddy:latest
+        container_name: caddy
+        ports:
+            - "80:80"
+        volumes:
+            - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+            - caddy-data:/data
+            - caddy-config:/config
+        restart: unless-stopped
+
       # Cloudflare Tunnel — exposes Open Web UI as https://chat.testerlab.online
       # (cert/credentials/config in /home/g/.cloudflared, created 2026-09-03)
       # cloudflared:  (disabled 2026-09-03 — LAN-only lock; re-enable to expose chat.testerlab.online)
@@ -386,6 +398,8 @@ services:
         restart: unless-stopped
 
 volumes:
+    caddy-data:
+    caddy-config:
     mongo-data:
     librechat-images:
     librechat-uploads:
