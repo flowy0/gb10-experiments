@@ -3,7 +3,7 @@
 ## Stack
 
 - **Prometheus** — port 9090. Scrapes SGLang, llama-swap, and itself. No auth. Fixed LAN address: `https://prometheus.testerlab.online` (Caddy + Let's Encrypt via Cloudflare DNS-01; LAN-only by topology — see reverse-proxy.md). Raw API stays at `http://127.0.0.1:9090` and `http://<lan-ip>:9090`.
-- **Grafana** — port 3001. Login required. Service-account key in `.env` as `GRAFANA_SA_KEY`.
+- **Grafana** — port 3001. Login required (service-account key in `.env` as `GRAFANA_SA_KEY`). Fixed LAN address: `https://grafana.testerlab.online` (same Caddy/Cloudflare pattern as Prometheus).
 - **Stall monitor** — user systemd timer (`stall-monitor.timer`), runs `/opt/atom/scripts/stall-monitor.sh` every ~30 min.
 
 ## Prometheus targets

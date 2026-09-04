@@ -2,6 +2,15 @@
 
 ## 2026-09-04
 
+**Fixed HTTPS address for Grafana (same pattern as Prometheus):**
+- Added `grafana.testerlab.online` site to `caddy/Caddyfile` → `reverse_proxy grafana:3000`; Let's Encrypt cert auto-issued via Cloudflare DNS-01 (valid to 2026-12-03)
+- Verified: login page + dashboard API reachable via `https://grafana.testerlab.online`; prometheus/chat sites unaffected
+- Action needed by owner (user-managed DNS): add Cloudflare A record `grafana` → `$FLINT_LAN_IP`, DNS only
+
+# Changelog
+
+## 2026-09-04
+
 **Fixed address for Prometheus over HTTPS (LAN-only, mirrors Open Web UI):**
 - Added `prometheus.testerlab.online` site to `caddy/Caddyfile` (same Cloudflare DNS-01 cert pattern as chat); cert issued by Let's Encrypt, valid to 2026-12-03
 - Verified: Prometheus UI + API reachable via `https://prometheus.testerlab.online` on the LAN; `chat.testerlab.online` unaffected

@@ -21,6 +21,15 @@ prometheus.testerlab.online {
 	reverse_proxy prometheus:9090
 }
 
+# Grafana — fixed hostname, same cert pattern.
+# LAN-only by topology (like chat/prometheus). Grafana HAS login (service-account key in .env).
+grafana.testerlab.online {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+	reverse_proxy grafana:3000
+}
+
 # Optional LAN-only name (no cert):
 # http://chat.home.lan {
 #     reverse_proxy open-webui:8080

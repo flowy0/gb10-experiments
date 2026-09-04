@@ -29,6 +29,7 @@ Open Web UI -> litellm:4000 -> SGLang main model
 | Token scope | Cloudflare API token, "Edit zone DNS" for `testerlab.online` only |
 | DNS (user-managed, Cloudflare) | `chat` → **A** `$FLINT_LAN_IP`, **DNS only** |
 | DNS (user-managed, Cloudflare) | `prometheus` → **A** `$FLINT_LAN_IP`, **DNS only** (added 2026-09-04; cert auto-issued via DNS-01) |
+| DNS (user-managed, Cloudflare) | `grafana` → **A** `$FLINT_LAN_IP`, **DNS only** (added 2026-09-04; cert auto-issued via DNS-01) |
 
 ## The Caddyfile
 
@@ -45,6 +46,13 @@ prometheus.testerlab.online {
         dns cloudflare {env.CF_API_TOKEN}
     }
     reverse_proxy prometheus:9090
+}
+
+grafana.testerlab.online {
+    tls {
+        dns cloudflare {env.CF_API_TOKEN}
+    }
+    reverse_proxy grafana:3000
 }
 
 # http://chat.home.lan {
