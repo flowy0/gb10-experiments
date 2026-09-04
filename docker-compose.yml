@@ -129,6 +129,7 @@ services:
             - z-lab/Qwen3.8-27B-DFlash2
             - --speculative-num-draft-tokens
             - "8"
+            - --enable-metrics
             - --reasoning-parser
             - qwen3
             - --tool-call-parser

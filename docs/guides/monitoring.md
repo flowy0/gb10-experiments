@@ -16,12 +16,13 @@ Defined in `prometheus/prometheus.yml`:
 
 ## Grafana dashboards
 
-- Create/update via `POST /api/dashboards/db` with `"overwrite": true`.
-- To update an existing dashboard: `GET /api/search` for its UID, then `PUT /api/dashboards/uid/<uid>`.
+- **LLM Stack** (uid `llm-stack`) is file-provisioned from `prometheus/dashboards/llm-stack.json` (source of truth; Grafana hot-reloads file changes ~30s). Panels: llama-swap System Memory, Running Requests, Queue Depth, Generation Throughput, Prefix Cache Hit Rate, DFlash Acceptance Rate, DFlash Accept Length, Memory Pool Usage, SGLang GPU Memory by Pool.
+- To update a provisioned dashboard: edit the JSON file (then Grafana picks it up) — the API refuses writes to provisioned dashboards.
 
 ## Metrics available
 
-- **SGLang:** engine logs carry per-batch decode throughput (`gen throughput (token/s)`), draft acceptance (`accept len`, `accept rate`), and queue depth. Continuous sampling: `scripts/monitor-sglang-toks.sh` writes `/tmp/sglang-toks.csv` every 10s.
+- **SGLang:** serves native Prometheus metrics at `:8888/metrics` (requires `--enable-metrics` in the launch args — added 2026-09-04). Key series (all carry `model_name`): `sglang:num_running_reqs`, `sglang:num_queue_reqs`, `sglang:gen_throughput` (windowed — only moves under load), `sglang:cache_hit_rate` (0–1), `sglang:spec_accept_rate` (0–1), `sglang:spec_accept_length`, `sglang:token_usage`/`sglang:mamba_usage` (0–1), `sglang:kv_cache_memory_usage_gb`, `sglang:graph_memory_usage_gb` (per phase). Engine logs additionally carry per-batch detail; `scripts/monitor-sglang-toks.sh` samples them to `/tmp/sglang-toks.csv` every 10s.
+- **Prometheus config reload:** the config file is bind-mounted but not watched — after editing `prometheus/prometheus.yml`, run `docker kill -s HUP prometheus`.
 - **llama-swap:** `llamaswap_memory_used_bytes`, `llamaswap_memory_free_bytes`, `llamaswap_cpu_util_percent` (per core), `llamaswap_load_average`.
 - Historical vLLM metrics (`vllm:spec_decode_*`, `vllm:num_requests_*`) live in vllm-reference.md — not scrapeable now.
 

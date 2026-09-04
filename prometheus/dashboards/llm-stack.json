@@ -1,19 +1,17 @@
 {
   "title": "LLM Stack",
   "uid": "llm-stack",
-  "schemaVersion": 38,
-  "version": 3,
+  "schemaVersion": 39,
+  "version": 4,
+  "timezone": "browser",
   "panels": [
     {
-      "title": "System Memory",
+      "id": 1,
+      "title": "System Memory (llama-swap)",
       "type": "gauge",
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 0
-      },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
       "datasource": "Prometheus",
+      "fieldConfig": { "defaults": { "unit": "percent", "max": 100 } },
       "targets": [
         {
           "expr": "llamaswap_memory_used_bytes / llamaswap_memory_total_bytes * 100",
@@ -22,94 +20,119 @@
       ]
     },
     {
-      "title": "Active Requests",
+      "id": 2,
+      "title": "Running Requests",
       "type": "stat",
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 6,
-        "y": 0
-      },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
       "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "vllm:num_requests_running",
-          "legendFormat": "Running"
+          "expr": "sglang:num_running_reqs",
+          "legendFormat": "Running (max 4)"
         }
       ]
     },
     {
-      "title": "DFlash Acceptance",
-      "type": "graph",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
+      "id": 3,
+      "title": "Queue Depth",
+      "type": "stat",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
       "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "rate(vllm:spec_decode_num_accepted_tokens_total[5m]) / rate(vllm:spec_decode_num_draft_tokens_total[5m]) * 100",
-          "legendFormat": "Acceptance %"
+          "expr": "sglang:num_queue_reqs",
+          "legendFormat": "Waiting"
         }
       ]
     },
     {
-      "title": "CPU Usage",
-      "type": "graph",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 8
-      },
+      "id": 4,
+      "title": "Generation Throughput",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 },
       "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "llamaswap_cpu_util_percent",
-          "legendFormat": "core {{core}}"
+          "expr": "sglang:gen_throughput",
+          "legendFormat": "token/s"
         }
       ]
     },
     {
-      "title": "DFlash Tokens",
-      "type": "graph",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 8
-      },
+      "id": 5,
+      "title": "Prefix Cache Hit Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 },
+      "datasource": "Prometheus",
+      "fieldConfig": { "defaults": { "unit": "percent", "max": 100 } },
+      "targets": [
+        {
+          "expr": "sglang:cache_hit_rate * 100",
+          "legendFormat": "hit %"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "DFlash Acceptance Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+      "datasource": "Prometheus",
+      "fieldConfig": { "defaults": { "unit": "percent", "max": 100 } },
+      "targets": [
+        {
+          "expr": "sglang:spec_accept_rate * 100",
+          "legendFormat": "accept %"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "DFlash Accept Length",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 16 },
       "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "rate(vllm:spec_decode_num_draft_tokens_total[5m])",
-          "legendFormat": "Drafted"
+          "expr": "sglang:spec_accept_length",
+          "legendFormat": "tokens/step"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Memory Pool Usage (engine view)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 16 },
+      "datasource": "Prometheus",
+      "fieldConfig": { "defaults": { "unit": "percent", "max": 100 } },
+      "targets": [
+        {
+          "expr": "sglang:token_usage * 100",
+          "legendFormat": "KV pool (incl. radix cache)"
         },
         {
-          "expr": "rate(vllm:spec_decode_num_accepted_tokens_total[5m])",
-          "legendFormat": "Accepted"
+          "expr": "sglang:mamba_usage * 100",
+          "legendFormat": "Mamba pool"
         }
       ]
     },
     {
-      "title": "Container Memory",
-      "type": "graph",
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 16
-      },
+      "id": 9,
+      "title": "SGLang GPU Memory by Pool (GB)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 16 },
       "datasource": "Prometheus",
       "targets": [
         {
-          "expr": "container_memory_bytes / 1e9",
-          "legendFormat": "{{name}}"
+          "expr": "sglang:kv_cache_memory_usage_gb",
+          "legendFormat": "KV cache"
+        },
+        {
+          "expr": "sglang:graph_memory_usage_gb",
+          "legendFormat": "{{phase}}"
         }
       ]
     }
-  ],
-  "timezone": "browser"
+  ]
 }

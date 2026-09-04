@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-04
+
+**SGLang monitoring wired into Prometheus/Grafana (was configured but never scraping):**
+- Added `--enable-metrics` to the sglang-qwen38 launch args (docker-compose.yml) — SGLang now serves native Prometheus metrics at `:8888/metrics` (was 404; `enable_metrics=False` before)
+- Reloaded Prometheus (`kill -HUP`) — the pre-existing `sglang` job now scrapes `sglang-qwen38:8888`, `up{job="sglang"}=1` (was absent from the running config since Prometheus never reloaded after the job was added in 65a87ab)
+- Rewrote the Grafana "LLM Stack" dashboard (uid `llm-stack`, v4) — replaced dead vLLM-era panels (`vllm:*`, cAdvisor `container_memory_bytes`) with live `sglang:*` panels: running reqs, queue depth, gen throughput, prefix cache hit rate, DFlash accept rate/length, memory pool usage, GPU memory by pool (per phase)
+- Verified end-to-end: all 11 panel queries return series; generation probe PASS (MONITOR-OK); llama-swap panels intact
+- Operational notes: SGLang container had to be renamed back to `sglang-qwen38` (compose temp-name leftover from an interrupted force-recreate); stall monitor paused during the maintenance window and resumed
+
+# Changelog
+
 ## 2026-08-25
 
 **BF16-LMHead checkpoint evaluated — NOT adopted (speed cost > unverified accuracy gain):**
