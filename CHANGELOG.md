@@ -2,6 +2,17 @@
 
 ## 2026-09-04
 
+**Fixed stall monitor false positives that killed a healthy engine mid-prefill (twice in production: 12:01 & 13:34 UTC+8, and once more during validation):**
+- Root cause: the generation probe timed out while queued behind giant prompts (100K+ token prefills are normal traffic here), and was scored as `model_engine_stalled`. The "blocked" loadavg signal also read the TOTAL task count from `/proc/loadavg` (~1400 on this box) as "blocked" — a permanent +2 that silently lowered the restart threshold to a single signal
+- `scripts/stall-monitor.sh` now probes SGLang prometheus metrics (`:8888/metrics`): busy engines (running/queued/pending > 0) are judged by PROGRESS over two 30s windows, never by a probe; idle engines still get the generation probe (keeps the 2026-08-11 idle-deadlock detection)
+- Progress = completed scheduler batch log lines (`docker logs ... grep 'Prefill batch|Decode batch'`, primary) OR monotonic token counters (`prompt/generation_tokens_total` summed over both `is_streaming` series, secondary) — giant cache-replay prefills can process tokens without ticking the counters, so batch lines are the authoritative signal
+- Removed the bogus loadavg "blocked" signal (kept real D-state count); a CONFIRMED engine stall (score 3 alone) now restarts directly instead of requiring co-signals to reach 5
+- Verified: idle run OK(0); busy-with-progress (2 concurrent giant requests) -> healthy, no restart; engine untouched
+
+# Changelog
+
+## 2026-09-04
+
 **Fixed HTTPS address for Grafana (same pattern as Prometheus):**
 - Added `grafana.testerlab.online` site to `caddy/Caddyfile` → `reverse_proxy grafana:3000`; Let's Encrypt cert auto-issued via Cloudflare DNS-01 (valid to 2026-12-03)
 - Verified: login page + dashboard API reachable via `https://grafana.testerlab.online`; prometheus/chat sites unaffected

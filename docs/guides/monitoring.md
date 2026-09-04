@@ -28,9 +28,10 @@ Defined in `prometheus/prometheus.yml`:
 
 ## Stall monitor behavior
 
-- Scores signals: D-state processes, blocked procs (loadavg), kernel alerts (`NVRM|Xid|NV_ERR|blocked for more|hung.task`), memory pressure, available-memory %, SSH reachability, and a **model generation probe**.
+- Scores signals: D-state processes, kernel alerts (`NVRM|Xid|NV_ERR|blocked for more|hung.task`), memory pressure, available-memory %, SSH reachability, and a **metrics-aware model engine check**.
+- Engine check (2026-09-04): queries SGLang prometheus metrics at `:8888/metrics`. If the engine is busy (running/queued/pending > 0) it is judged by **progress**, not by a probe — a generation probe queued behind a 100K+ token prefill times out and is NOT evidence of a deadlock (this killed a healthy engine twice on 2026-09-04). Progress = completed scheduler batch log lines (`Prefill batch`/`Decode batch` in the container log) or the summed `prompt_tokens_total`+`generation_tokens_total` counters, sampled over two 30s windows. If the engine is idle, the generation probe still runs (keeps the 2026-08-11 idle-deadlock detection), and a probe timeout is only scored as a stall if the engine demonstrably did no work meanwhile.
 - The generation probe is mandatory for SGLang — `/v1/models` answers before the engine is ready (see main-model.md).
-- Restart action: `docker compose restart <MONITOR_CONTAINER>` (graceful — the correct SGLang recovery path).
+- Restart action: `docker compose restart <MONITOR_CONTAINER>` (graceful — the correct SGLang recovery path). A confirmed engine stall restarts on its own; other signals restart at score ≥ 5.
 - Defaults (target the main model): `MONITOR_PORT=8888 MONITOR_MODEL=radixark-qwen38-27b-nvfp4-dflash2-262k-think MONITOR_CONTAINER=sglang-qwen38`.
 - Log: `/tmp/stall-monitor.log`. Pause during deliberate maintenance: `systemctl --user stop stall-monitor.timer`; resume with `start`.
 
