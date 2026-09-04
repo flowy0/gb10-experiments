@@ -2,6 +2,16 @@
 
 ## 2026-09-04
 
+**Fixed address for Prometheus over HTTPS (LAN-only, mirrors Open Web UI):**
+- Added `prometheus.testerlab.online` site to `caddy/Caddyfile` (same Cloudflare DNS-01 cert pattern as chat); cert issued by Let's Encrypt, valid to 2026-12-03
+- Verified: Prometheus UI + API reachable via `https://prometheus.testerlab.online` on the LAN; `chat.testerlab.online` unaffected
+- Note: per-client `client_ip` gating dropped — docker userland proxy hides real client IPs behind the bridge gateway (documented in reverse-proxy.md); LAN-only is enforced by topology (grey-cloud DNS, no public ports, cloudflared disabled) and Prometheus remains no-auth
+- Action needed by owner (user-managed DNS): add Cloudflare A record `prometheus` → `$FLINT_LAN_IP`, DNS only
+
+# Changelog
+
+## 2026-09-04
+
 **SGLang monitoring wired into Prometheus/Grafana (was configured but never scraping):**
 - Added `--enable-metrics` to the sglang-qwen38 launch args (docker-compose.yml) — SGLang now serves native Prometheus metrics at `:8888/metrics` (was 404; `enable_metrics=False` before)
 - Reloaded Prometheus (`kill -HUP`) — the pre-existing `sglang` job now scrapes `sglang-qwen38:8888`, `up{job="sglang"}=1` (was absent from the running config since Prometheus never reloaded after the job was added in 65a87ab)

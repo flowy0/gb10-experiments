@@ -28,6 +28,7 @@ Open Web UI -> litellm:4000 -> SGLang main model
 | API token | `CF_API_TOKEN` in `/opt/atom/.env` (owner-only perms; **not** committed) |
 | Token scope | Cloudflare API token, "Edit zone DNS" for `testerlab.online` only |
 | DNS (user-managed, Cloudflare) | `chat` → **A** `$FLINT_LAN_IP`, **DNS only** |
+| DNS (user-managed, Cloudflare) | `prometheus` → **A** `$FLINT_LAN_IP`, **DNS only** (added 2026-09-04; cert auto-issued via DNS-01) |
 
 ## The Caddyfile
 
@@ -37,6 +38,13 @@ chat.testerlab.online {
         dns cloudflare {env.CF_API_TOKEN}
     }
     reverse_proxy open-webui:8080
+}
+
+prometheus.testerlab.online {
+    tls {
+        dns cloudflare {env.CF_API_TOKEN}
+    }
+    reverse_proxy prometheus:9090
 }
 
 # http://chat.home.lan {
@@ -61,7 +69,7 @@ echo | openssl s_client -connect 127.0.0.1:443 -servername chat.testerlab.online
 
 ## Adding another service later
 
-Uncomment/add a site block in the Caddyfile and add the matching Cloudflare A record (DNS only):
+Used for **Prometheus** (`prometheus.testerlab.online`, 2026-09-04) and the template below for future ones:
 
 ```
 api.testerlab.online {
@@ -75,6 +83,9 @@ api.testerlab.online {
 The box's LAN address is defined once in `/opt/atom/.env` as `FLINT_LAN_IP` (untracked, owner-only). Source it from there whenever a config or script needs the address — do not hardcode it. The Cloudflare A record content should match `$FLINT_LAN_IP`.
 
 ## Notes & cautions
+
+- **Client-IP gating does not work through docker published ports** — the docker userland proxy rewrites the source address to the bridge gateway, so Caddy `client_ip` matchers see `172.18.x.x` for every client (tested 2026-09-04). Prometheus/Open Web UI are therefore LAN-only by topology, not by per-client matcher. If real per-client restrictions are ever required: run Caddy with `network_mode: host` (real source IPs, proxy to `127.0.0.1:<published port>`) or firewall on the host.
+- **The Prometheus UI has no auth** — anyone who can reach the box (LAN devices, Tailscale peers) can query it. The raw `http://<lan-ip>:9090` endpoint stays published for ops/tooling; both it and the hostname are LAN-only.
 
 - **Certificate renewal:** Caddy renews automatically (token needed only at issuance/renewal, ~60-day window). Check `docker logs caddy` if renewal stops working.
 - **Do not commit** `CF_API_TOKEN`. It lives only in `/opt/atom/.env` (git-ignored or owner-only).

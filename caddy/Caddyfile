@@ -4,10 +4,21 @@
 # No public ports are open; traffic stays on the LAN.
 
 chat.testerlab.online {
-    tls {
-        dns cloudflare {env.CF_API_TOKEN}
-    }
-    reverse_proxy open-webui:8080
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+	reverse_proxy open-webui:8080
+}
+
+# Prometheus UI — fixed hostname, same cert pattern.
+# LAN-only by topology (like chat): DNS record is grey-cloud DNS-only, no public ports,
+# cloudflared disabled. NOTE: the Prometheus UI has no auth.
+# (client_ip gating is NOT usable here — docker userland proxy hides real client IPs.)
+prometheus.testerlab.online {
+	tls {
+		dns cloudflare {env.CF_API_TOKEN}
+	}
+	reverse_proxy prometheus:9090
 }
 
 # Optional LAN-only name (no cert):
