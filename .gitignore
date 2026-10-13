@@ -28,6 +28,10 @@ llama.cpp-build.log
 build/*.log
 build/beellama.cpp
 
+# Large untracked working trees (2.7 GB combined) — keep `git add -A` safe
+build/spark-vllm-docker/
+llama-cpp-turboquant/
+
 # Qwen3.8 benchmark output (test plan run cards)
 docs/qwen38-test-runs/
 

@@ -1,0 +1,45 @@
+diff --git a/python/sglang/srt/models/dflash.py b/python/sglang/srt/models/dflash.py
+index 5264765..13c1d9a 100644
+--- a/python/sglang/srt/models/dflash.py
++++ b/python/sglang/srt/models/dflash.py
+@@ -962,12 +962,36 @@ class DFlash2DraftModel(DFlashDraftModel):
+         identical candidates at O(tp*K) instead of O(vocab) gather bandwidth."""
+         assert self.lm_head is not None, "draft_model.lm_head unset before capture"
+         k = self.candidate_selector.top_k
+-        # The worker screens the head before capture, but its eager fallback
+-        # (_propose_selector_block) attaches whatever the target has.
+         weight = getattr(self.lm_head, "weight", None)
+         if not is_dense_head_weight(weight):
+-            raise RuntimeError(
+-                "DFlash2 selector requires a dense FP16/BF16/FP32 target lm_head."
++            if get_parallel().tp_size != 1:
++                raise RuntimeError(
++                    "DFlash2 selector with a quantized target lm_head is only "
++                    "supported at tp=1."
++                )
++            quant_method = getattr(self.lm_head, "quant_method", None)
++            if not callable(getattr(quant_method, "apply", None)):
++                raise RuntimeError(
++                    "DFlash2 selector requires either a dense target lm_head or "
++                    "a quantized head with an apply kernel."
++                )
++            # Keep the quantized target head outside draft graph capture and
++            # bound its temporary logits allocation for larger selector batches.
++            num_tokens = int(hidden.shape[0])
++            org = int(getattr(self.lm_head, "org_vocab_size", 0)) or None
++            ids_parts, vals_parts = [], []
++            chunk = 256
++            for start in range(0, num_tokens, chunk):
++                end = min(num_tokens, start + chunk)
++                logits = quant_method.apply(self.lm_head, hidden[start:end], None)
++                if org is not None and logits.shape[-1] > org:
++                    logits = logits[:, :org]
++                vals, ids = _radix_topk(logits.float(), k)
++                ids_parts.append(ids)
++                vals_parts.append(vals)
++            return (
++                torch.cat(ids_parts, dim=0).long(),
++                self._transform_unary_logits(torch.cat(vals_parts, dim=0)),
+             )
+         hidden = hidden.to(weight.dtype)
+         if get_parallel().tp_size == 1:

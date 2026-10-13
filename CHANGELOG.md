@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-13
+
+**Committed the main model's image build recipe — it existed nowhere but prose (reproducibility gap closed):**
+- `weschera/qwen38-27b-dflash2:2026-08-19` was **built locally and never pushed** (`docker image inspect` → `RepoDigests=[]`), so a `docker image prune -a` or disk failure would have destroyed the main model with no way to rebuild it. No Dockerfile for it existed anywhere in the repo
+- Added `docker/qwen38-dflash2/` — `Dockerfile` (every ARG/COPY/RUN/LABEL recovered **verbatim** from `docker history --no-trunc`), `patches/quantized-lm-head.patch`, and a README with provenance + verification + upgrade notes
+- **Patch recovered byte-exact (2449 B vs the original COPY layer's 2450 B, 1-byte trailing-newline delta):** computed `git hash-object` over all 4488 non-`__pycache__` files of the container's `python/sglang` and compared against the recursive upstream git tree at `e5a3e4d3` — exactly **one** file differed, `srt/models/dflash.py` (the DFlash2 selector against a quantized `lm_head`: tp=1 only, `quant_method.apply`, run outside draft CUDA-graph capture, 256-row chunking, trimmed to `org_vocab_size`). A second apparent diff, `cpp_radix_tree/.clang-format`, is a base-image leftover (upstream has it as a symlink; `cp -a` leaves base-only paths) and is byte-identical to the base — excluded
+- `git apply --check` against a pristine `e5a3e4d3` checkout passes; `FROM` pinned by the base's manifest-list digest (`sha256:febfb971c7352570fc445c466ebd6ffc9d896024958e544a60f2137fd85856b1`, multi-arch)
+- **Resolved the version-string mystery:** the running `sglang 0.0.0.dev0+qwen38.27b.g561c8f3` hash `g561c8f3` is the **base image's** `SGLANG_VERSION` build stamp, **not** a `sgl-project/sglang` commit (GitHub API 404s on it). The editable install has no `.git`, so `setuptools_scm` fell back to the pretend-version. The true source commit is `e5a3e4d3` (2026-08-18, *"use get_parallel().tp_size in dflash2 selector"*)
+- `docs/guides/main-model.md`: new **Image provenance** section (image ID, base digest, source commit, patch, runtime version) + rebuild command + the version-string warning
+- No config or service change — the running container was only read from (`docker cp`, `docker exec`, `docker history`); zero downtime, serving process untouched. Research context: SGLang has had no release since v0.5.21 (2026-10-02); v0.5.22 is due ~2026-10-16. DFlash-family fixes merged on `main` after this build (candidates for a future rebuild, **not** applied): #43290 (hold back decode rows when a mixed step does not fit the KV pool), #41736 (grouped-conv taps confined per request — NaN/Inf cross-request leak), #41737, #42651, #41961, #43012. Open and *not* affecting this build: #39087 (quantized DFlash2 draft silently collapses to ~1.0 acceptance — measured here at 3.6-3.9 tokens/step)
+
 ## 2026-09-04
 
 **Fixed stall monitor false positives that killed a healthy engine mid-prefill (twice in production: 12:01 & 13:34 UTC+8, and once more during validation):**

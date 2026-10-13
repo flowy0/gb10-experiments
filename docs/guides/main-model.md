@@ -2,6 +2,26 @@
 
 Qwen3.8-27B (RadixArk NVFP4) served by SGLang on port 8888, exposed via litellm on port 4000. Draft: DFlash2 (`z-lab/Qwen3.8-27B-DFlash2`). Image: `weschera/qwen38-27b-dflash2:2026-08-19`.
 
+## Image provenance
+
+`weschera/qwen38-27b-dflash2:2026-08-19` is **locally built** and was never pushed to a registry (`docker image inspect` reports no `RepoDigests`). The build recipe is committed at [`docker/qwen38-dflash2/`](../../docker/qwen38-dflash2/README.md) — before 2026-10-13 it existed only as prose in the CHANGELOG.
+
+| | |
+|---|---|
+| Image ID | `sha256:5c188f73b0fd78a701706ba72013f6026fdc733982a0fd011f1bfd6435da052d` (38.7 GB, built 2026-08-20) |
+| Base | `lmsysorg/sglang@sha256:febfb971c7352570fc445c466ebd6ffc9d896024958e544a60f2137fd85856b1` (`:qwen38-27b`, unchanged since 2026-08-14) |
+| SGLang source | upstream `e5a3e4d3` (2026-08-18) — DFlash2, merged upstream as PR #35371 |
+| Overlay patch | `patches/quantized-lm-head.patch` (2449 B) — DFlash2 selector against a **quantized** `lm_head`, tp=1, chunked at 256 rows |
+| Runtime version | `sglang 0.0.0.dev0+qwen38.27b.g561c8f3` |
+
+**The version string does not identify the source.** `g561c8f3` is the *base image's* `SGLANG_VERSION` build stamp (editable install, no `.git` → `setuptools_scm` unresolved) and is **not** a commit in `sgl-project/sglang` (the GitHub API returns 404 for it). Use `e5a3e4d3`.
+
+Rebuild (a `docker image prune -a` would otherwise destroy the main model irrecoverably):
+
+```bash
+cd docker/qwen38-dflash2 && docker build -t weschera/qwen38-27b-dflash2:2026-08-19 .
+```
+
 ## Serving config (compose service `sglang-qwen38`)
 
 - `--mem-fraction-static 0.50` — **the GB10-safe value.** SGLang's memory accounting misses 25–40 GB of transient allocations (flashinfer autotuner, cuda-graph capture) on unified memory; values above 0.50 risk a hard freeze (hasso5703 field report). Docker `--memory 100g --memory-swap 100g` caps the container as a safety net.
